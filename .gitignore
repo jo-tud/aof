@@ -1,0 +1,12 @@
+*.pyc
+*.git
+~*
+*kate-swp
+bin/*
+build/*
+dist/*
+include/*
+lib/*
+.*
+!.gitignore
+!.gitmodules 
