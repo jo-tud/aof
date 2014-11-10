@@ -11,31 +11,27 @@ config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'
 
 app_ensemble_location = config.Paths.app_ensemble_location
 
-@view_config(route_name='home', renderer='templates/dash.pt')
+@view_config(route_name='home', renderer='templates/dash.mako')
 def my_view(request):
     return {'project': 'AOF'}
 
-@view_config(route_name='ap_tools', match_param="tool=show", renderer='templates/ap_show.pt')
+@view_config(route_name='app-pool', match_param="tool=show", renderer='templates/ap_show.pt')
 def ap_show(request):
     json = listAP()
     print(json)
     return {'project': 'App-Pool: show', 'json': json}
-  
-@view_config(route_name='ap_tools', renderer='templates/ap_all.pt')
-def ap_all(request):
-    return {'project': 'App-Pool: catch all'}
 
-@view_config(route_name='o_tools', renderer='templates/orchestration.pt')
+@view_config(route_name='orchestrate', renderer='templates/orchestration.mako')
 def o(request):
     return Response('Here the orchestration tools will go. Tool called: %(tool)s!' % request.matchdict)
 
-@view_config(route_name='dp_tools', renderer='templates/dp_1.pt')
+@view_config(route_name='demo', renderer='templates/dp_1.pt')
 def dp_1(request):
     device = deploy.Device()
     has = device.getStatus()
     return {'hasDevice': has}
 
-@view_config(route_name='dp_tools', match_param="tool=deploy_2", renderer='templates/dp_2.pt')
+@view_config(route_name='demo', match_param="tool=deploy_2", renderer='templates/dp_2.pt')
 def dp_2(request):
     return {'project': 'Deploy'}
 
