@@ -1,6 +1,5 @@
 from rdflib import Graph, ConjunctiveGraph, URIRef, Namespace, RDF, RDFS, BNode, Literal
 from rdflib.plugins.memory import IOMemory
-from rdflib.plugins.sparql.algebra import triples
 from pyramid.path import AssetResolver
 
 import os # os abstraction (e.g. listdir)
@@ -56,7 +55,7 @@ class LocalAppPool:
     
     ''' Static code
     '''
-    DATA_FOLDER = getAbsPath('app_pool/data/')
+    DATA_FOLDER = getAbsPath('static/data/')
 
 
 # Will only be called when executed from shell
