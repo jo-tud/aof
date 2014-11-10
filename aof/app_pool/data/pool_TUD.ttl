@@ -1,0 +1,137 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix ap: <http://eatld.et.tu-dresden.de/ap/> .
+@prefix plt-jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/> .
+
+# Generate random String for App URIs
+# < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-12};echo;
+
+ap:SkeletonApp_G0M8iQlfoOQQ	
+	a			ap:App;
+	rdfs:label 		"TUD Skeleton App"; 
+	ap:availableAt		plt-jenkins:IAFSkeletonApp-release.apk;
+	ap:descriptionFilename	"IAFSkeletonApp.ttl".
+
+ap:OIFileManager_uNSUZ7-rb3mm
+	a			ap:App;
+	rdfs:label		"OI File Manager";
+	ap:filename		"OIFileManager-2.0.2.apk";
+	ap:descriptionFilename	"OIFileManager-2.0.2.ttl".
+
+ap:IAFManagementComponent_ZIRiErVxZHc-
+	a			ap:App;
+	rdfs:label		"IAF Management Component";
+	ap:filename		"IAFManagementComponent-release.apk";
+	ap:descriptionFilename	"IAFManagementComponent.ttl".
+
+ap:IAFLogin_Zvy4kvB-fH9T
+	a			ap:App;
+	rdfs:label 		"IAF Login App";
+	ap:filename		"IAFLogin-release.apk";
+	ap:descriptionFilename	"IAFLogin.ttl".
+
+ap:TUDSimpleList_NryuJDGzjNXl
+	a			ap:App;
+	rdfs:label 		"TUD Simple List App";
+	ap:filename		"TUDSimpleList-release.apk";
+	ap:descriptionFilename	"TUDSimpleList.ttl".
+
+ap:TUDSimpleMessage_MBrh2UmSe3AP
+	a			ap:App;
+	rdfs:label 		"TUD Simple Message App";
+	ap:filename		"TUDSimpleMessage-release.apk";
+	ap:descriptionFilename	"TUDSimpleMessage.ttl".
+
+ap:BaracodaManager-9sfLOr
+	a			ap:App;
+	rdfs:label 		"Baracoda Manager";
+	ap:filename		"BaracodaManager-2.0.0.apk";
+	ap:descriptionFilename	"BaracodaManager-2.0.0.ttl".
+
+ap:TUDDeviceExplorer_2L0qAoIPyBI9
+	a			ap:App;
+	rdfs:label 		"TUD Device Explorer";
+	ap:filename		"TUDDeviceExplorer-release.apk";
+	ap:descriptionFilename	"TUDDeviceExplorer.ttl".
+
+ap:TUDLogService_O59iHmmOB0vv
+	a			ap:App;
+	rdfs:label 		"TUD Log Service";
+	ap:filename		"TUDLogService-release.apk";
+	ap:descriptionFilename	"TUDLogService.ttl".
+
+ap:TUDSensorSelection_bYVMOi4UGBde
+	a			ap:App;
+	rdfs:label 		"TUD Sensor Selection";
+	ap:filename		"TUDSensorSelection-release.apk";
+	ap:descriptionFilename	"TUDSensorSelection.ttl".
+
+ap:TUDSparqlTest_Vo398bbvljR0
+	a			ap:App;
+	rdfs:label 		"TUD SPARQL Test";
+	ap:filename		"TUDSparqlTest-release.apk";
+	ap:descriptionFilename	"TUDSparqlTest.ttl".
+
+ap:TUDMultipleSensorSelector-638dd3
+	a			ap:App;
+	rdfs:label 		"TUD Multiple Sensor Selector";
+	ap:filename		"TUDMultipleSensorSelector-release.apk";
+	ap:descriptionFilename	"TUDMultipleSensorSelector.ttl".
+
+ap:TUDTimeSeries-d97jdo
+	a			ap:App;
+	rdfs:label 		"TUD Time Series App";
+	ap:filename		"TUDTimeSeries-release.apk";
+	ap:descriptionFilename	"TUDTimeSeries.ttl".
+
+ap:TUDLiveDataViewer-55lckd
+	a			ap:App;
+	rdfs:label 		"TUD Live Data Viewer";
+	ap:filename		"TUDLiveDataViewer-release.apk";
+	ap:descriptionFilename	"TUDLiveDataViewer.ttl".
+
+ap:TUDPlantSelector-MuyHcC
+	a			ap:App;
+	rdfs:label 		"TUD Plant Selector";
+	ap:filename		"TUDPlantSelector-release.apk";
+	ap:descriptionFilename	"TUDPlantSelector.ttl".
+
+ap:TUDTaskReport-KuoLzZ
+	a			ap:App;
+	rdfs:label 		"TUD Task Report";
+	ap:filename		"TUDTaskReport-release.apk";
+	ap:descriptionFilename	"TUDTaskReport.ttl".
+
+ap:WP6TimeSeriesViewer-sdCD5f
+	a			ap:App;
+	rdfs:label 		"WP6 Time Series Viewer";
+	ap:filename		"WP6TimeSeriesViewer.apk";
+	ap:descriptionFilename	"WP6TimeSeriesViewer.ttl".
+
+ap:WP6TimeSeriesAnalyzer-Hh1q8N
+	a			ap:App;
+	rdfs:label 		"WP6 Time Series Analyzer";
+	ap:filename		"WP6TimeSeriesAnalyzer.apk";
+	ap:descriptionFilename	"WP6TimeSeriesAnalyzer.ttl".
+
+ap:TUDBaracodaTagReader_O0IrefiXKpdX
+	a			ap:App;
+	rdfs:label 		"TUD Baracoda Tag Reader";
+	ap:filename		"TUDBaracodaTagReader-release.apk";
+	ap:descriptionFilename	"TUDBaracodaTagReader.ttl".
+
+ap:TUDNeighbourhoodBrowser_vLrNh8IcwZcy
+	a			ap:App;
+	rdfs:label 		"TUD Semantic Neighbourhood Browser";
+	ap:filename		"TUDNeighbourhoodBrowser-release.apk";
+	ap:descriptionFilename	"TUDNeighbourhoodBrowser.ttl".
+
+ap:TUDNeighbourhoodBrowser2_vLrNh8IcwZcy2
+	a			ap:App;
+	rdfs:label 		"TUD Semantic Neighbourhood Browser 2";
+	ap:filename		"TUDNeighbourhoodBrowser2-release.apk";
+	ap:descriptionFilename	"TUDNeighbourhoodBrowser2.ttl".

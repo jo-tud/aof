@@ -1,0 +1,16 @@
+0.2 (02.11.2014)
+---
+
+- Add module deploy.py 
+- Add aof.conf
+
+0.1 (23.10.2014)
+---
+
+- Import User Interface from Johannes
+- Add config file for views.py
+
+0.0
+---
+
+-  Initial version

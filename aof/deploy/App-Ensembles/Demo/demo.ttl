@@ -1,0 +1,261 @@
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+o:IAFLogin_Zvy4kvB-fH9T o:hasIntent [ o:intentPurpose "Login" ;
+            o:intentString "eu.comvantage.iaf.LOGIN" ],
+        [ o:intentPurpose "Logout" ;
+            o:intentString "eu.comvantage.iaf.LOGOUT" ] ;
+    o:requiresApp o:OIFileManager_uNSUZ7-rb3mm .
+
+o:IAFManagementComponent_ZIRiErVxZHc- a o:ManagementApp ;
+    o:hasIntent [ o:intentPurpose "StartWorkflow" ;
+            o:intentString "eu.comvantage.iaf.START_WORKFLOW" ] ;
+    o:requiresApp o:OIFilEManager_uNSUZ7-rb3mm .
+
+o:PlantSelection_Nov_06 o:hasIntent [ o:intentPurpose "PlantSelection" ;
+            o:intentString "eu.comvantage.kua.launch.PLANTSELECTION" ] .
+
+o:TUDBaracodaTagReader_O0IrefiXKpdX o:hasIntent [ o:intentPurpose "Read an RFID tag" ;
+            o:intentString "eu.comvantage.iaf.READ_TAG" ] ;
+    o:requiresApp o:BaracodaManager-9sfLOr .
+
+o:TUDLiveDataViewer-55lckd o:hasIntent [ o:intentPurpose "ViewLiveData" ;
+            o:intentString "eu.comvantage.iaf.VIEW_LIVE_DATA" ] ;
+    adl:hasInput [ a adl:Input ;
+            adl:hasSignature [ a adl:Signature ;
+                    adl:hasIOparameter [ a adl:IOparameter ;
+                            adl:hasParameterName [ a adl:ParameterName ;
+                                    rdfs:label "sensorProperties" ] ;
+                            adl:hasParameterType xsd:IDREFS ] ] ] ;
+    adl:hasOutput [ a adl:Output ;
+            adl:hasSignature [ a adl:Signature ;
+                    adl:hasIOparameter [ a adl:IOparameter ;
+                            adl:hasParameterName [ a adl:ParameterName ;
+                                    rdfs:label "sensorProperties" ] ;
+                            adl:hasParameterType xsd:IDREFS ] ] ] ;
+    adl:hasSparqlTemplate [ a adl:SparqlTemplate ;
+            adl:hasPlaceholder [ a adl:TemplatePlaceholder ;
+                    rdfs:label "sensorURI" ] ;
+            adl:queryIndex 0 ;
+            adl:queryKey "sensorQuery" ;
+            adl:queryString """
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+  PREFIX msem: <http://www.comvantage.eu/ontologies/mma/msem/> 
+  PREFIX nasa: <http://data.nasa.gov/qudt/owl/qudt#> 
+
+  SELECT ?uri 
+  WHERE 
+  { 
+	  %%%sensorURI%%%  msem:transientDataQueryUri ?uri .
+  }
+  """ ],
+        [ a adl:SparqlTemplate ;
+            adl:queryIndex 1 ;
+            adl:queryKey "dataQuery" ;
+            adl:queryString """
+  PREFIX voc: <http://www.comvantage.eu/ontologies/pec/voc/> 
+
+  SELECT ?time ?value
+  WHERE 
+  {
+	  ?x voc:refTime ?time. ?x voc:value ?value. 
+  }
+  """ ] .
+
+o:TUDMultipleSensorSelector-638dd3 o:hasIntent [ o:intentPurpose "SelectSensors" ;
+            o:intentString "eu.comvantage.iaf.SELECT_MULTIPLE_SENSORS" ] ;
+    adl:hasInput [ a adl:Input ;
+            adl:hasSignature [ a adl:Signature ;
+                    adl:hasIOparameter [ a adl:IOparameter ;
+                            adl:hasParameterName [ a adl:ParameterName ;
+                                    rdfs:label "plantURI" ] ;
+                            adl:hasParameterType xsd:string ] ] ] ;
+    adl:hasOutput [ a adl:Output ;
+            adl:hasSignature [ a adl:Signature ;
+                    adl:hasIOparameter [ a adl:IOparameter ;
+                            adl:hasParameterName [ a adl:ParameterName ;
+                                    rdfs:label "sensorProperties" ] ;
+                            adl:hasParameterType xsd:IDREFS ] ] ] ;
+    adl:hasSparqlTemplate [ a adl:SparqlTemplate ;
+            adl:hasPlaceholder [ a adl:TemplatePlaceholder ;
+                    rdfs:label "plantURI" ;
+                    adl:isDeliveredBy [ ] ] ;
+            adl:queryIndex 0 ;
+            adl:queryKey "getSensors" ;
+            adl:queryString """
+  PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX  msem: <http://www.comvantage.eu/ontologies/mma/msem/>
+  PREFIX  nasa: <http://data.nasa.gov/qudt/owl/qudt#>
+  PREFIX  mso:  <http://eatld.et.tu-dresden.de/mso/>
+  PREFIX  sce:  <http://eatld.et.tu-dresden.de/sce/>
+  PREFIX  sensor:  <http://eatld.et.tu-dresden.de/sensor/>
+
+  SELECT DISTINCT  ?pv ?kennzeichen ?kennzeichen_txt ?label ?continous ?unit
+  WHERE
+    {   { %%%plantURI%%% mso:plantID ?kennzeichen
+	    { ?equipment mso:hasEquipment %%%plantURI%%% }
+	  UNION
+	    { ?device sce:hasEquipment %%%plantURI%%% }
+	}
+      UNION
+	{ ?device mso:plantID ?kennzeichen }
+      ?device mso:plantID ?kennzeichen .
+      ?device msem:hasSimulatedSensor ?pv .
+      ?device rdfs:comment ?kennzeichen_txt
+      FILTER ( ( lang(?kennzeichen) = "de" ) && ( lang(?kennzeichen_txt) = "de" ) )
+      ?pv rdfs:label ?label .
+      ?pv sensor:continousValues ?continous
+      OPTIONAL
+	{ ?pv msem:hasPhysicalUnit ?u .
+	  ?u nasa:abbreviation ?unit
+	}
+      OPTIONAL
+	{ ?device mso:plantID ?kennzeichen }
+      OPTIONAL
+	{ ?device rdfs:comment ?kennzeichen_txt }
+    }
+  ORDER BY DESC(?kennzeichen_txt)
+  """ ] .
+
+o:TUDPlantSelector-MuyHcC o:hasIntent [ o:intentPurpose "SelectPlant" ;
+            o:intentString "eu.comvantage.iaf.SELECT_PLANT" ] ;
+    adl:hasOutput [ a adl:Output ;
+            adl:hasSignature [ a adl:Signature ;
+                    adl:hasIOparameter [ a adl:IOparameter ;
+                            adl:hasParameterName [ a adl:ParameterName ;
+                                    rdfs:label "plantURI" ] ;
+                            adl:hasParameterType xsd:string ] ] ] .
+
+o:TUDSimpleList_NryuJDGzjNXl o:hasIntent [ o:intentPurpose "ShowSimpleList" ;
+            o:intentString "eu.comvantage.iaf.SIMPLE_LIST" ],
+        [ o:intentPurpose "ShowDecision" ;
+            o:intentString "eu.comvantage.iaf.DECISION" ] .
+
+o:TUDSimpleMessage_MBrh2UmSe3AP o:hasIntent [ o:intentPurpose "ShowSimpleMessage" ;
+            o:intentString "eu.comvantage.iaf.SIMPLE_MESSAGE" ] .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477214-Choose_Sensors> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "Sensor selector" ;
+    o:DisplayName "Choose Sensors" ;
+    o:Name "Choose Sensors" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data>,
+        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> ;
+    o:instanceOf o:TUDMultipleSensorSelector-638dd3 .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477223-Write_historical_data_report> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "Report sender" ;
+    o:DisplayName "Write historical data report" ;
+    o:Name "Write historical data report" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> ;
+    o:instanceOf o:TUDTaskReport-KuoLzZ .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477226-Write_live_data_report> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "Report sender" ;
+    o:DisplayName "Write live data report" ;
+    o:Name "Write live data report" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> ;
+    o:instanceOf o:TUDTaskReport-KuoLzZ .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477229-Choose_Sensors_with_NBB> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "NBB" ;
+    o:DisplayName "Choose Sensors with NBB" ;
+    o:Name "Choose Sensors with NBB" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data>,
+        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> ;
+    o:instanceOf o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477232-Browse_Neighbourhood> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "NBB" ;
+    o:DisplayName "Browse Neighbourhood" ;
+    o:Name "Browse Neighbourhood" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data> ;
+    o:instanceOf o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy .
+
+o:OIFileManager_uNSUZ7-rb3mm a o:ExternalApp ;
+    o:hasIntent [ o:intentPurpose "OpenFile" ;
+            o:intentString "eu.comvantage.iaf.START_WORKFLOW" ] .
+
+o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy o:hasIntent [ o:intentPurpose "Browse neighbourhood of POI" ;
+            o:intentString "eu.comvantage.iaf.NEW_TAG" ],
+        [ o:intentPurpose "Browse neighbourhood of POI" ;
+            o:intentString "eu.comvantage.iaf.NEW_TAG" ] ;
+    o:requiresApp o:TUDBaracodaTagReader_O0IrefiXKpdX .
+
+o:TUDTaskReport-KuoLzZ o:hasIntent [ o:intentPurpose "Send task report" ;
+            o:intentString "eu.comvantage.iaf.SEND_REPORT" ],
+        [ o:intentPurpose "Send task report" ;
+            o:intentString "eu.comvantage.iaf.SEND_REPORT" ] .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "Historical data viewer" ;
+    o:DisplayName "View historical data" ;
+    o:Name "View historical data" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant>,
+        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477223-Write_historical_data_report> ;
+    o:instanceOf o:PlantSelection_Nov_06 .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "Live data viewer" ;
+    o:DisplayName "View live data" ;
+    o:Name "View live data" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant>,
+        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477226-Write_live_data_report>,
+        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477232-Browse_Neighbourhood> ;
+    o:instanceOf o:TUDLiveDataViewer-55lckd .
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> a o:App,
+        o:AppRequest,
+        o:SelectedApp,
+        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
+    o:AppRequestName "Plant Browser" ;
+    o:DisplayName "Choose Plant" ;
+    o:Name "Choose Plant" ;
+    o:hasSuccessionType o:OR ;
+    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477214-Choose_Sensors>,
+        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477229-Choose_Sensors_with_NBB> ;
+    o:instanceOf o:TUDPlantSelector-MuyHcC .
+
+[] a o:Orchestration ;
+    o:hasAppEnsemble [ a o:AppEnsemble ;
+            o:Name "TUD-Example_2014-10-30_14h55m23s" ;
+            o:hasDefaultIntent "eu.comvantage.iaf.SIMPLE_MESSAGE" ;
+            o:hasEntryPoint <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> ;
+            o:requiresApp o:IAFLogin_Zvy4kvB-fH9T,
+                o:IAFManagementComponent_ZIRiErVxZHc-,
+                o:OIFileManager_uNSUZ7-rb3mm,
+                o:TUDSimpleList_NryuJDGzjNXl,
+                o:TUDSimpleMessage_MBrh2UmSe3AP ] .
+
