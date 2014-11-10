@@ -1,10 +1,12 @@
+import os
+
 from pyramid.view import view_config
 from pyramid.response import Response
-from aof.app_pool import app_pool
-from aof.deploy import deploy
-import os
-import sys
 from simpleconfigparser import simpleconfigparser
+
+from aof.app_pool import app_pool
+from aof.tools import deploy
+
 
 config = simpleconfigparser()
 config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'/aof.conf')
