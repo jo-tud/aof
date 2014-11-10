@@ -10,4 +10,6 @@ lib/*
 env*
 .*
 !.gitignore
-!.gitmodules 
+!.gitmodules
+
+aof.conf

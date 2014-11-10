@@ -45,6 +45,10 @@ import sys # e.g. for exit()
 
 import time # local time for App Ensemble name
 import shutil # for filesystem operations
+from simpleconfigparser import simpleconfigparser
+
+config = simpleconfigparser()
+config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir,os.pardir)+'/aof.conf')
 
 # Simulate?
 SIMULATE = False
@@ -52,7 +56,7 @@ SIMULATE = False
 # Target Platform
 PLATFORM = "Android"
 
-sdkdir = ""
+sdkdir = path.normpath(config.Paths.adb_location)
 
 remoteIafFolder = "/sdcard/ComVantage-IAF/"
 
@@ -76,8 +80,9 @@ def execadbshell(cmd):
 
 class Device:
     def __init__(self):
-        f = os.popen('adb devices -l')
+        f = os.popen(path.join(sdkdir,'adb devices -l'))
         result = f.read()
+        print(result)
         content = result.split('attached')
         back = content[1].find('device')
         if back > 1:

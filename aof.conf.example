@@ -24,4 +24,4 @@ python34_location = /home/taochen/Dokumente/Projekte/AOF-neu/env34/bin/python3.4
 
 
 # Specify the location of the folder with the adb executable on your system
-adb_location = /home/jo/Eclipse_for_Android/android-sdk-linux_x86/platform-tools
+adb_location = /usr/bin
