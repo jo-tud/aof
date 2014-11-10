@@ -7,7 +7,6 @@ from simpleconfigparser import simpleconfigparser
 from aof.tools import app_pool
 from aof.tools import deploy
 
-
 from aof.static.data.static_data import META
 from aof.static.data.static_data import SITE_MENU
 
@@ -29,25 +28,25 @@ def ap_show(request):
     return {'project': 'App-Pool: show', 'json': json}
 
 @view_config(route_name='orchestrate', renderer='templates/orchestration.mako')
-def o(request):
+def o_view(request):
     return Response('Here the orchestration tools will go.')
 
-@view_config(route_name='deploy', renderer='templates/orchestration.mako')
-def o(request):
+@view_config(route_name='deploy', renderer='templates/deploy.mako')
+def deploy_view(request):
     return Response('Here the deploy tools will go.')
 
 @view_config(route_name='demo', renderer='templates/dp_1.pt')
-def dp_1(request):
+def dp_1_view(request):
     device = deploy.Device()
     has = device.getStatus()
     return {'hasDevice': has}
 
-@view_config(route_name='demo', match_param="tool=deploy_2", renderer='templates/dp_2.pt')
-def dp_2(request):
+@view_config(route_name='demo_tool', match_param="tool=deploy_2", renderer='templates/dp_2.pt')
+def dp_2_view(request):
     return {'project': 'Deploy'}
 
 @view_config(route_name='dp_json', renderer='json')
-def dp_json(request):
+def dp_json_view(request):
     dp = deploy.Deploy(app_ensemble_location)
     dp_json = dp.getJSON()
     return {'result':dp_json}
@@ -67,6 +66,6 @@ def listAP():
     } 
     LIMIT 100
     """
-    ap = app_pool.LocalAppPool(query)
-    json = ap.queryAP()
+    ap = app_pool.LocalAppPool()
+    json = ap.queryAP(query)
     return json

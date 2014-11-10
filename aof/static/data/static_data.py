@@ -6,8 +6,8 @@ META = {
 
 SITE_MENU = [
         {'href': '', 'title': 'Home'},
-        {'href': 'orchestrate', 'title': 'Orchestrate'},
-        {'href': 'deploy', 'title': 'Deploy'},
-        {'href': 'app-pool', 'title': 'App Pool'},
-        {'href': 'demo', 'title': 'DEMO'}
+        {'href': 'orchestrate.html', 'title': 'Orchestrate'},
+        {'href': 'deploy.html', 'title': 'Deploy'},
+        {'href': 'app-pool.html', 'title': 'App Pool'},
+        {'href': 'demo.html', 'title': 'DEMO'}
 ]
