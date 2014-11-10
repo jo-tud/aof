@@ -5,4 +5,4 @@ pyramid_debugtoolbar
 waitress
 rdflib
 nose
-SimpleConfigParser
+simpleconfigparser
