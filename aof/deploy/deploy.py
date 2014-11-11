@@ -166,24 +166,21 @@ class Deploy:
                             ERRORS = True
                             print(" ... " + message[message.find("[")+1:message.find("]")])
                 print()
-                result = dict()
                 for app in apps:
-                    key = ""
-                    value = ""
                     print(str("Installing " + os.path.split(app)[1] + " ... "), end="", flush=True)
-                    key = os.path.split(app)[1]
+                    name = os.path.split(app)[1]
+                    status = ""
                     if not SIMULATE:
                         message = Popen(sdkdir+'adb install -r "'+app+'"', shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=0).stdout.read().decode().rstrip('\n')
                         if ("Success" in message):
                             print("Success")
-                            value = "Success"
+                            status = "Success"
                         else:
                             ERRORS = True
                             print(message[message.find("[")+1:message.find("]")])
-                            value = message[message.find("[")+1:message.find("]")]
-                    result[key] = value
-                print()
-            self.json = buildJson(result)
+                            status = message[message.find("[")+1:message.find("]")]
+
+                    self.json = buildJson(name,status)
 
     def getJSON(self):
         return self.json
@@ -219,26 +216,7 @@ if __name__ == "__main__":
         remoteIafFolder = args.remoteIafFolder
     Deploy(ae)
 
-def buildJson(result):
-    jsonString = '{devices:['
-    lenth = len(result.items())
-    keys = result.keys()
-    keys_list = list(keys)
-    for i in range(0,lenth-2):
-        name = keys_list[i]
-        status = result.get(name)
-        jsonString = jsonString + add(name,status)
-
-    name_last = keys_list[lenth-1]
-    status_last = result.get(name_last)
-    jsonString = jsonString + lastadd(name_last,status_last)
+def buildJson(name, status):
+    jsonString = '{devices:[{name:' + "'" + name + "'" + ',' + 'status:' + "'" + status + "'" + '}]}'
     return jsonString
-
-def add(name,status):
-        item = '{name:' + "'" + name + "'" + ',' + 'status:' + "'" + status + "'" + '},'
-        return item
-
-def lastadd(name,status):
-        item = '{name:' + "'" + name + "'" + ',' + 'status:' + "'" + status + "'" + '}]}'
-        return item
 

@@ -126,6 +126,7 @@
 	function ini(){
 	      change('deploy');
 	      setInterval("progress()",1000);
+          $('.Progress').hide();
 	}
 	
 	function ini(){
@@ -135,9 +136,9 @@
 	}
 	
 	function getData(){
-	    $.getJSON('${request.route_url('dp_json')}', function(data){
-	         var json_data=data['result']
-                 var dataObj=eval("("+json_data+")");
+	    $.getJSON('/dp_json.json', function(data){
+	            var json_data=data['result']
+                var dataObj=eval("("+json_data+")");
 		 $.each(dataObj.devices,function(idx,item){
 	             if(item.status=="Success"){
 		         $myli = $("<div style='background-color:#307ADD;' id= " + item.name + ">" + item.name + ":" + item.status + "</div>");
@@ -149,7 +150,7 @@
 		 }); 
 		 $firstli = $("<div style='background-color:#307AFF;'>Results:</div>");
 		 $('.Progress').after($firstli);
-		 $('.Progress').hide();
+         $('.Progress').hide();
 		 draw();
 		 
 	    });

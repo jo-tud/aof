@@ -39,7 +39,7 @@ def dp_1(request):
 def dp_2(request):
     return {'project': 'Deploy'}
 
-@view_config(route_name='dp_json', renderer='json')
+@view_config(name='dp_json.json', renderer='json')
 def dp_json(request):
     dp = deploy.Deploy(app_ensemble_location)
     dp_json = dp.getJSON()

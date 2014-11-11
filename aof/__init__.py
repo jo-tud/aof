@@ -17,8 +17,8 @@ def main(global_config, **settings):
     config.add_route('o_tools', '/o/{tool}')
     
     config.add_route('dp_tools', '/dp/{tool}')
-    
-    config.add_route('dp_json', '/json/dp')
+
+#    config.add_route('dp_json', '/json/dp')
 
     config.scan()
     return config.make_wsgi_app()
