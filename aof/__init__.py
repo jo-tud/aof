@@ -26,8 +26,6 @@ def main(global_config, **settings):
     config.add_route('demo', '/demo.html')
     config.add_route('demo_tool', '/demo/{tool}*')
 
-    config.add_route('dp_json', '/json/dp')
-
     config.scan()
 
     settings['mako.directories'] = os.path.join(here, 'templates')

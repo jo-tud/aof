@@ -35,17 +35,18 @@ def o_view(request):
 def deploy_view(request):
     return Response('Here the deploy tools will go.')
 
-@view_config(route_name='demo', renderer='templates/dp_1.pt')
+@view_config(route_name='demo', renderer='templates/demo_1.mako')
 def dp_1_view(request):
     device = deploy.Device()
     has = device.getStatus()
-    return {'hasDevice': has}
+    print(has)
+    return Response('demo')
 
-@view_config(route_name='demo_tool', match_param="tool=deploy_2", renderer='templates/dp_2.pt')
+@view_config(route_name='demo_tool', match_param="tool=demo_2", renderer='templates/demo_2.mako')
 def dp_2_view(request):
     return {'project': 'Deploy'}
 
-@view_config(route_name='dp_json', renderer='json')
+@view_config(name='demo_json.json', renderer='json')
 def dp_json_view(request):
     dp = deploy.Deploy(app_ensemble_location)
     dp_json = dp.getJSON()

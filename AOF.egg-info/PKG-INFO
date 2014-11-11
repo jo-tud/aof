@@ -9,6 +9,12 @@ License: UNKNOWN
 Description: AOF README
         
         
+        0.2 (02.11.2014)
+        ---
+        
+        - Add module deploy.py 
+        - Add aof.conf
+        
         0.1 (23.10.2014)
         ---
         

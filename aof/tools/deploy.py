@@ -85,10 +85,10 @@ class Device:
         print(result)
         content = result.split('attached')
         back = content[1].find('device')
-        if back > 1:
+        if back > 0:
             self.has = 1
         if back == -1:
-            self.has = 0
+           self.has = 0
 
     def getStatus(self):
         return self.has

@@ -80,8 +80,8 @@
               <p class="lead">Deploy the App Ensemble to your Device.</p>
               <p>Please connect your device via USB and press the button</p>
               <input onclick="deploy()" id="deploy"
-			onmouseover="this.style.borderWidth='3px'"
-			onmouseout="this.style.borderWidth='2px'" type="button"
+			    onmouseover="this.style.borderWidth='3px'"
+			    onmouseout="this.style.borderWidth='2px'" type="button"
 			class="mybtn" value="Deploy now!"/>
             </div>
             <div id="div2">
