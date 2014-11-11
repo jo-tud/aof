@@ -7,19 +7,19 @@
 ## 
 
 # Specify the location of "o.py"
-o_py_location = /home/taochen/Dokumente/Projekte/AOF-neu/aof/orchestration/o.py
+o_py_location = /home/Projekte/AOF-neu/aof/orchestration/o.py
 
 # Specify the location of "deploy.py"
-deploy_py_location = /home/taochen/Dokumente/Projekte/AOF-neu/aof/orchestration/deploy.py
+deploy_py_location = /home/Projekte/AOF-neu/aof/orchestration/deploy.py
 
 # Specify the location of App Ensemble
-app_ensemble_location = /home/taochen/Dokumente/Projekte/AOF/aof/deploy/App-Ensembles/Demo/demo.ttl
+app_ensemble_location = /home/Projekte/AOF/aof/deploy/App-Ensembles/Demo/demo.ttl
 
 # Specify the location of the "tud-example.conf", this file contains the information of configure of "o.py"
-tud_example_conf_location = /home/taochen/Dokumente/Projekte/AOF-neu/aof/orchestration/tud-example.conf
+tud_example_conf_location = /home/AOF/aof/orchestration/tud-example.conf
                             
 # Specify the location of python3.4
-python34_location = /home/taochen/Dokumente/Projekte/AOF-neu/env34/bin/python3.4
+python34_location = /home/Projekte/AOF-neu/env34/bin/python3.4
 
-
-
+# Specify the location of the directory with the adb executable on your system
+adb_location = /usr/bin

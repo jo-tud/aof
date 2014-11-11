@@ -1,0 +1,15 @@
+*.pyc
+*.git
+~*
+*kate-swp
+bin/*
+build/*
+dist/*
+include/*
+lib/*
+env*
+.*
+!.gitignore
+!.gitmodules
+
+aof.conf
