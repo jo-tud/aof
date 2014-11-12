@@ -21,21 +21,33 @@ project = META['appname']
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
 
-    return {'menu': menu, 'project': project}
+    return {'menu': menu,
+            'project': project,
+            'page_title': 'Home'}
 
 @view_config(route_name='app-pool', renderer='templates/ap_show.pt')
-def ap_show(request):
+def ap_show_view(request):
     json = listAP()
     print(json)
-    return {'project': 'App-Pool: show', 'json': json}
+    return {'menu': menu,
+            'project': project,
+            'page_title': 'App-Pool',
+            'json': json
+    }
 
 @view_config(route_name='orchestrate', renderer='templates/orchestration.mako')
 def o_view(request):
-    return Response('Here the orchestration tools will go.')
+    return {'menu': menu,
+            'project': project,
+            'page_title': 'Orchestrate'
+    }
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):
-    return Response('Here the deploy tools will go.')
+    return {'menu': menu,
+            'project': project,
+            'page_title': 'Deploy'
+    }
 
 @view_config(route_name='demo', renderer='templates/demo.mako')
 def dp_1_view(request):
