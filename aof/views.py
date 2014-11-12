@@ -15,37 +15,34 @@ config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'
 
 app_ensemble_location = config.Paths.app_ensemble_location
 
-menu = SITE_MENU
-project = META['appname']
-
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
 
-    return {'menu': menu,
-            'project': project,
+    return {'menu': SITE_MENU,
+            'meta': META,
             'page_title': 'Home'}
 
-@view_config(route_name='app-pool', renderer='templates/ap_show.pt')
+@view_config(route_name='app-pool', renderer='templates/app-pool.mako')
 def ap_show_view(request):
     json = listAP()
     print(json)
-    return {'menu': menu,
-            'project': project,
+    return {'menu': SITE_MENU,
+            'meta': META,
             'page_title': 'App-Pool',
             'json': json
     }
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
 def o_view(request):
-    return {'menu': menu,
-            'project': project,
+    return {'menu': SITE_MENU,
+            'meta': META,
             'page_title': 'Orchestrate'
     }
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):
-    return {'menu': menu,
-            'project': project,
+    return {'menu': SITE_MENU,
+            'meta': META,
             'page_title': 'Deploy'
     }
 
