@@ -76,7 +76,7 @@ class CLIError(Exception):
 
 def execadbshell(cmd):
     ''' executes the command trough adb shell and uses a trick to extract the return code '''
-    return int(os.popen(sdkdir + 'adb shell \"' + cmd + ' > /dev/null 2>&1; echo $? \"').read().strip())
+    return int(os.popen(path.join(sdkdir, 'adb shell \"' + cmd + ' > /dev/null 2>&1; echo $? \"')).read().strip())
 
 class Device:
     def __init__(self):
@@ -117,7 +117,7 @@ class Deploy:
 
         if PLATFORM == "Android":
             # Check if a device is present
-            if (str.split(os.popen(sdkdir + 'adb devices').read(),'\n')[1] == ""):
+            if (str.split(os.popen(path.join(sdkdir, 'adb devices')).read(),'\n')[1] == ""):
                 print("No device seems to be attached")
 
              # Does the selected App Ensemble file exist?
@@ -129,7 +129,7 @@ class Deploy:
                 print("There must be a description file in your App Ensemble that has the same name as the App Ensemble folder and the file extension '.ttl'. \n")
 
             # Do the necessary directories exist on the device (Android)
-            if not os.popen(sdkdir + 'adb shell \"test -d /sdcard && echo 1\"').read():
+            if not os.popen(path.join(sdkdir, 'adb shell \"test -d /sdcard && echo 1\"')).read():
                 print("The folder /sdcard/ was not found on the device.")
 
             # Does the folder ComVantage-IAF exist on the device? If not, create it.
@@ -164,7 +164,8 @@ class Deploy:
                 for fileName in files:
                     print("Pushing " + os.path.split(fileName)[1])
                     if not SIMULATE:
-                        message = os.popen(sdkdir+'adb push "'+fileName+'" '+remoteIafFolder+os.path.split(fileName)[1]).read()
+                        push = path.join(sdkdir, 'adb push "'+fileName+'" ')
+                        message = os.popen(push+remoteIafFolder+os.path.split(fileName)[1]).read()
                         # Debug:
                         # print(sdkdir+'adb push "'+fileName+'" '+remoteIafFolder+os.path.split(fileName)[1])
                         if ("failed" in message):
@@ -176,7 +177,8 @@ class Deploy:
                     name = os.path.split(app)[1]
                     status = ""
                     if not SIMULATE:
-                        message = Popen(sdkdir+'adb install -r "'+app+'"', shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=0).stdout.read().decode().rstrip('\n')
+                        install = path.join(sdkdir, 'install -r "'+app+'"')
+                        message = Popen(install, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=0).stdout.read().decode().rstrip('\n')
                         if ("Success" in message):
                             print("Success")
                             status = "Success"
