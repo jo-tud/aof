@@ -35,7 +35,7 @@ def ap_show_view(request):
             'json': json
     }
 
-@view_config(route_name='orchestrate', renderer='templates/orchestration.mako')
+@view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
 def o_view(request):
     return {'menu': menu,
             'project': project,
