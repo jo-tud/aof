@@ -15,10 +15,12 @@ config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'
 
 app_ensemble_location = config.Paths.app_ensemble_location
 
+menu = SITE_MENU
+project = META['appname']
+
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
-    menu = SITE_MENU
-    project = META['appname']
+
     return {'menu': menu, 'project': project}
 
 @view_config(route_name='app-pool', renderer='templates/ap_show.pt')
@@ -39,7 +41,7 @@ def deploy_view(request):
 def dp_1_view(request):
     device = deploy.Device()
     has = device.getStatus()
-    return {'hasDevice': has}
+    return {'hasDevice': has, 'menu': menu, 'project': project}
 
 @view_config(route_name='demo_tool', match_param="tool=demo_tool", renderer='templates/demo_tool.mako')
 def dp_2_view(request):
