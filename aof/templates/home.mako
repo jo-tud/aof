@@ -1,28 +1,28 @@
-# -*- coding: utf-8 -*-
 <!DOCTYPE html>
 <html lang="${request.locale_name}">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AOF web application">
+    <meta name="description" content="${meta['appname']}:${page_title}">
     <meta name="author" content="Johannes Pfeffer">
+
     <link rel="shortcut icon" href="${request.static_url('aof:static/favicon.png')}">
 
-    <title>AOF:Dash</title>
+    <title>${meta['appname']}:${page_title}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this scaffold -->
+    <!-- Main AOF style sheet -->
     <link href="${request.static_url('aof:static/theme.css')}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 <body>
     % if request.session.peek_flash():
     <div id="flash">
@@ -33,15 +33,15 @@
     </div>
     % endif
 
-  <div class="starter-template" id="dash">
+  <div class="main" id="home">
       <div class="container">
         <div class="row">
           <div class="col-md-2">
-            <img class="logo img-responsive" src="${request.static_url('aof:static/logo_aof.png')}" alt="Application Orchestration Framework logo">
+            <a href="/"><img class="logo img-responsive" src="${request.static_url('aof:static/logo_aof.png')}" alt="Application Orchestration Framework logo"></a>
           </div>
           <div class="col-md-10">
             <div class="content">
-              <h1><span class="font-semi-bold">AOF</span> <span class="smaller">${project}</span></h1>
+              <h1> <span class="smaller">${meta['appname']}</span></h1>
               <p class="lead">Dashboard. </p>
             </div>
           </div>
@@ -67,11 +67,6 @@
             <ul>
               <li class="plt-logo"><a href="http://www.et.tu-dresden.de/ifa/index.php?id=plt"><img class="logo img-responsive" src="${request.static_url('aof:static/logo_plt.png')}" alt="Chair for Distributed Control Systems Engineering"></a></li>
             </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="copyright">
-            Copyright &copy; Johannes Pfeffer
           </div>
         </div>
       </div>
