@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-<!DOCTYPE html>
 <html lang="${request.locale_name}">
   <head>
     <meta charset="utf-8">
@@ -9,12 +8,12 @@
     <meta name="author" content="Johannes Pfeffer">
     <link rel="shortcut icon" href="${request.static_url('aof:static/favicon.png')}">
 
-    <title>AOF:Dash</title>
+    <title>${page_title}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this scaffold -->
+    <!-- Main AOF style sheet -->
     <link href="${request.static_url('aof:static/theme.css')}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -22,6 +21,7 @@
       <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
   </head>
 <body>
     % if request.session.peek_flash():
@@ -33,7 +33,7 @@
     </div>
     % endif
 
-  <div class="starter-template" id="dash">
+  <div class="main" id="dash">
       <div class="container">
         <div class="row">
           <div class="col-md-2">

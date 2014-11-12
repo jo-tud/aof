@@ -26,75 +26,75 @@ p {
 .font-bold {
   font-weight: 700;
 }
-.starter-template {
+.main {
   margin-top: 50px;
 }
-#dash.starter-template {
+#dash.main {
   margin-top: 250px;
 }
-.starter-template .content {
+.main .content {
   margin-left: 10px;
 }
-.starter-template .content h1 {
+.main .content h1 {
   margin-top: 10px;
   font-size: 60px;
 }
-.starter-template .content h1 .smaller {
+.main .content h1 .smaller {
   font-size: 40px;
   color: #80CAF1;
 }
-.starter-template .content .lead {
+.main .content .lead {
   font-size: 25px;
   color: #80CAF1;
 }
-.starter-template .content .lead .font-normal {
+.main .content .lead .font-normal {
   color: #ffffff;
 }
 
-.starter-template .menu a {
+.main .menu a {
   font-size: 35px;
   color: #ffffff;
 }
 
-.starter-template .links {
+.main .links {
   float: right;
   right: 0;
   margin-top: 125px;
 }
-.starter-template .links ul {
+.main .links ul {
   display: block;
   padding: 0;
   margin: 0;
 }
-.starter-template .links ul li {
+.main .links ul li {
   list-style: none;
   display: inline;
   margin: 0 10px;
 }
-.starter-template .links ul li:first-child {
+.main .links ul li:first-child {
   margin-left: 0;
 }
-.starter-template .links ul li:last-child {
+.main .links ul li:last-child {
   margin-right: 0;
 }
-.starter-template .links ul li.current-version {
+.main .links ul li.current-version {
   color: #80CAF1;
   font-weight: 400;
 }
-.starter-template .links ul li a {
+.main .links ul li a {
   color: #ffffff;
 }
-.starter-template .links ul li a:hover {
+.main .links ul li a:hover {
   text-decoration: underline;
 }
-.starter-template .links ul li .icon-muted {
+.main .links ul li .icon-muted {
   color: #eb8b95;
   margin-right: 5px;
 }
-.starter-template .links ul li:hover .icon-muted {
+.main .links ul li:hover .icon-muted {
   color: #ffffff;
 }
-.starter-template .copyright {
+.main .copyright {
   margin-top: 10px;
   font-size: 0.9em;
   color: #80CAF1;
@@ -103,59 +103,59 @@ p {
   right: 0;
 }
 @media (max-width: 1199px) {
-  .starter-template .content h1 {
+  .main .content h1 {
     font-size: 45px;
   }
-  .starter-template .content h1 .smaller {
+  .main .content h1 .smaller {
     font-size: 30px;
   }
-  .starter-template .content .lead {
+  .main .content .lead {
     font-size: 20px;
   }
 }
 @media (max-width: 991px) {
-  .starter-template {
+  .main {
     margin-top: 0;
   }
-  .starter-template .logo {
+  .main .logo {
     margin: 40px auto;
   }
-  .starter-template .content {
+  .main .content {
     margin-left: 0;
     text-align: center;
   }
-  .starter-template .content h1 {
+  .main .content h1 {
     margin-bottom: 20px;
   }
-  .starter-template .links {
+  .main .links {
     float: none;
     text-align: center;
     margin-top: 60px;
   }
-  .starter-template .copyright {
+  .main .copyright {
     float: none;
     text-align: center;
   }
 }
 @media (max-width: 767px) {
-  .starter-template .content h1 .smaller {
+  .main .content h1 .smaller {
     font-size: 25px;
     display: block;
   }
-  .starter-template .content .lead {
+  .main .content .lead {
     font-size: 16px;
   }
-  .starter-template .links {
+  .main .links {
     margin-top: 40px;
   }
-  .starter-template .links ul li {
+  .main .links ul li {
     display: block;
     margin: 0;
   }
-  .starter-template .links ul li .icon-muted {
+  .main .links ul li .icon-muted {
     display: none;
   }
-  .starter-template .copyright {
+  .main .copyright {
     margin-top: 20px;
   }
 }
