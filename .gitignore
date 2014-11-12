@@ -12,4 +12,6 @@ env*
 !.gitignore
 !.gitmodules
 
+*.egg*
+
 aof.conf
