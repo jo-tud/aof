@@ -14,4 +14,10 @@ class ViewTests(unittest.TestCase):
         from .views import home_view
         request = testing.DummyRequest()
         info = home_view(request)
-        self.assertEqual(info['project'], 'Application Orchestration Framework')
+        self.assertEqual(info['page_title'], 'Home')
+
+    def test_demo_apps_view(self):
+        from .views import demo_apps_view
+        request = testing.DummyRequest()
+        info = demo_apps_view(request)
+        self.assertTrue(type(info['apps']) == list)
