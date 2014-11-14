@@ -10,8 +10,6 @@
 
     <title>AOF:App-Pool:Show</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     
     <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
 
