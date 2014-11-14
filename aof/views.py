@@ -50,18 +50,24 @@ def deploy_view(request):
 def dp_1_view(request):
     device = deploy.Device()
     has = device.getStatus()
-    return {'hasDevice': has, 'menu': menu, 'project': project}
+    return {'hasDevice': has, 'menu': SITE_MENU, 'meta': META, 'page_title': 'Demo'}
 
 @view_config(route_name='demo_tool', match_param="tool=demo_tool", renderer='templates/demo_tool.mako')
 def dp_2_view(request):
-    return {'project': 'Deploy'}
+    return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Demo_tool'}
 
-@view_config(name='demo_json.json', renderer='json')
-def dp_json_view(request):
-    print(app_ensemble_location)
-    dp = deploy.Deploy(app_ensemble_location)
-#    dp_json = dp.getJSON()
-#    return {'result':dp_json}
+@view_config(name='demo_apps.json', renderer='json')
+def demo_apps_view(request):
+    demo = deploy.Deploy(app_ensemble_location)
+    apps = demo.getapps()
+    return {'apps':apps}
+
+@view_config(name='demo_install.json', renderer='json')
+def demo_install_view(request):
+    name = request.params.get('data')
+    install = deploy.Install(name)
+    result = install.getStatus()
+    return {'result':result}
 
 def listAP():
     query = """
