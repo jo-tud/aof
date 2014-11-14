@@ -171,27 +171,41 @@ class Deploy:
                         if ("failed" in message):
                             ERRORS = True
                             print(" ... " + message[message.find("[")+1:message.find("]")])
-                print()
-                for app in apps:
-                    print(str("Installing " + os.path.split(app)[1] + " ... "), end="", flush=True)
-                    name = os.path.split(app)[1]
-                    status = ""
-                    if not SIMULATE:
-                        install = path.join(sdkdir, 'install -r "'+app+'"')
-                        message = Popen(install, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=0).stdout.read().decode().rstrip('\n')
-                        if ("Success" in message):
-                            print("Success")
-                            status = "Success"
-                        else:
-                            ERRORS = True
-                            print(message[message.find("[")+1:message.find("]")])
-                            status = message[message.find("[")+1:message.find("]")]
-
-                    self.json = buildJson(name,status)
+        self.apps = list(apps)
 
     def getJSON(self):
         return self.json
-      
+
+    def getapps(self):
+        list = self.apps
+        jsonString = '{devices:['
+        for i in range(0, len(list)-2):
+            jsonString =  jsonString + add(list[i])
+        jsonString = jsonString + endadd(list[len(list)-1]) + ']}'
+        print(jsonString)
+        return jsonString
+
+
+
+class Install:
+    def __init__(self, app):
+        self.status = " "
+        self.name = os.path.split(app)[1]
+        if not SIMULATE:
+            install = path.join(sdkdir, 'adb install -r "'+app+'"')
+            message = Popen(install, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=0).stdout.read().decode().rstrip('\n')
+            if ("Success" in message):
+                print("Success")
+                self.status = "Success"
+            else:
+                ERRORS = True
+                print(message[message.find("[")+1:message.find("]")])
+                self.status = message[message.find("[")+1:message.find("]")]
+
+    def getStatus(self):
+        jsonString = '{devices:[{name:' + "'" + self.name + "'" + ',' + 'status:' + "'" + self.status + "'" + '}]}'
+        return jsonString
+
 if __name__ == "__main__":
 
     from argparse import ArgumentParser # for command line arguments
@@ -223,7 +237,12 @@ if __name__ == "__main__":
         remoteIafFolder = args.remoteIafFolder
     Deploy(ae)
 
-def buildJson(name, status):
-    jsonString = '{devices:[{name:' + "'" + name + "'" + ',' + 'status:' + "'" + status + "'" + '}]}'
-    return jsonString
+def add(name):
+    item = '{name:' + "'" + name + "'"  + '},'
+    return item
+
+def endadd(name):
+    item = '{name:' + "'" + name + "'"  + '}'
+    return item
+
 
