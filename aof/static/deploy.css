@@ -26,18 +26,18 @@ width: 100%;
   margin: 0px;
   padding:0px;
   width: 100%;
-  height: 36px;
+  height: 35.5px;
   background-color:#CDCDCD;
 }
 
 .navi ul{
-  height: 36px;
+  height: 35.5px;
   padding:0px;
   margin:0px;
 }
 
 .navi li{
-  height: 36px;
+  height: 35.5px;
   font-size:26px;
   list-style-type :none;
   display:inline;
@@ -64,17 +64,17 @@ width: 100%;
 .deploy ul{
   padding-left:0px;
   margin-top:0px;
-  margin-left:50px;
-  padding-top:50px;
+  margin-left:40px;
+  padding-top:30px;
 }
 
 .deploy li{
-  font-size:40px;
+  font-size:26px;
   color:#307AFF;
   list-style-type :none;
   display:inline;
   width:30px;
-  margin-left:100px;
+  margin-left:50px;
   text-align:center;
   padding-left:10px;
   padding-right:10px;
