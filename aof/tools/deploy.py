@@ -182,7 +182,6 @@ class Deploy:
         for i in range(0, len(list)-2):
             jsonString =  jsonString + add(list[i])
         jsonString = jsonString + endadd(list[len(list)-1]) + ']}'
-        print(jsonString)
         return jsonString
 
 
@@ -195,7 +194,6 @@ class Install:
             install = path.join(sdkdir, 'adb install -r "'+app+'"')
             message = Popen(install, shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE, bufsize=0).stdout.read().decode().rstrip('\n')
             if ("Success" in message):
-                print("Success")
                 self.status = "Success"
             else:
                 ERRORS = True
