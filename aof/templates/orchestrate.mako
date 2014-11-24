@@ -23,9 +23,9 @@
     <body onload="init()">
       <div class="content">
         <p class="lead">App Orchestration.</p>
-        <p id="p1">Please select the configure file for orchestration.</p>
+        <p id="p1">Please select the Model you want to orchestrate</p>
         <select>
-          <option id="option"></option>
+          <option id="option">------------ Model   Name ------------</option>
         </select>
         <input onclick="deploy()" id="deploy"
           onmouseover="this.style.borderWidth='3px'"

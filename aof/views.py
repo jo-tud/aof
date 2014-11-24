@@ -14,6 +14,7 @@ config = simpleconfigparser()
 config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'/aof.conf')
 
 app_ensemble_location = config.Paths.app_ensemble_location
+app_models = config.Paths.app_models
 
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
@@ -42,7 +43,10 @@ def o_view(request):
 @view_config(name='o_select.json', renderer='json')
 def o_select_view(request):
     configfiles = "{select:[{name:'configfile_1'},{name:'configfile_2'}]}"
-    return {'select':configfiles}
+    select = deploy.FolderName(app_models)
+    folderNames = select.getFolderNames()
+    print(folderNames)
+    return {'select':folderNames}
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):

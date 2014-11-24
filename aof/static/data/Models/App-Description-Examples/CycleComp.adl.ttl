@@ -1,0 +1,171 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://www.comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# blank nodes
+_:ParameterName1 a adl:ParameterName;
+	rdfs:label "machineURI".
+_:ParameterName2 a adl:ParameterName;
+	rdfs:label "sequenceURI1".
+_:ParameterName3 a adl:ParameterName;
+	rdfs:label "sequenceURI2".
+
+_:IOparameter1 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName1;
+	adl:hasParameterType xsd:string.
+_:IOparameter2 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName2;
+	adl:hasParameterType xsd:string.
+_:IOparameter3 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName3;
+	adl:hasParameterType xsd:string.
+	
+_:DisplayProperties1 a adl:DisplayProperties;
+	adl:screenSizeInch 7;
+	adl:resolutionX 1024;
+	adl:resolutionY 600;
+	adl:aspectRatio "16:9".
+	
+	
+# App description
+## App instanciation
+o:CycleComp_42
+### appUri <http://eatld.et.tu-dresden.de/ADL#CycleComp_42>
+
+a adl:App;
+
+## App information
+adl:appName "Cycle Comp";
+rdfs:label "CycleComp";
+adl:appVersionString 1.0;
+adl:appVersion 345;
+adl:textualDescription
+  "This app enables the user to compare two recorded or synthetic data sets and view their differences.";
+
+## SPARQL Template
+adl:hasSparqlTemplate [
+  a adl:SparqlTemplate;
+  adl:queryString 
+  """
+  PREFIX objectOntology: %%%objectOntology%%%
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  
+  SELECT ?machine ?sequence1 ?sequence1 FROM %%%endpointURI%%%
+      WHERE {
+          ?machine a objectOntology:%%%machineURI%%%;
+          objectOntology:%%%sequenceURI1%%% ?sequence1;
+		  objectOntology:%%%sequenceURI2%%% ?sequence2.
+      }
+  """;
+  adl:queryKey "templateA";
+  adl:hasPlaceholder [
+    a adl:TemplatePlaceholder;
+	rdfs:label "machineURI";
+	adl:isDeliveredBy _:IOparameter1
+	], [
+    a adl:TemplatePlaceholder;
+	rdfs:label "sequenceURI1";
+	adl:isDeliveredBy _:IOparameter2
+	], [
+    a adl:TemplatePlaceholder;
+	rdfs:label "sequenceURI2";
+	adl:isDeliveredBy _:IOparameter3
+	]
+];
+
+## Abilities
+adl:providesAbility [
+  a adl:Ability;
+  adl:textualDescription "Compare Structured Data and Timelines";
+  adl:consistsOfAction [
+	a adl:CompareAction;
+	a adl:MultipleTargetAction;
+	adl:actsOnTarget [a adl:StructuredData];
+	adl:actsOnTarget [a adl:Timeline]
+  ];
+  adl:needsComponent [a adl:NetworkConnection]
+];
+adl:providesAbility [
+  a adl:Ability;
+  adl:textualDescription "View Differences";
+  adl:consistsOfAction [
+	a adl:ViewAction;
+	a adl:SingleTargetAction;
+	adl:actsOnTarget [
+		a adl:ArbitraryTarget;
+		adl:targetString "Differences"
+		]
+  ];
+  adl:needsComponent [a adl:NetworkConnection]
+];
+
+## Inputs
+adl:hasInput [
+	a adl:Input;
+	adl:hasSignature [
+		a adl:Signature;
+		adl:hasIOparameter _:IOparameter1;
+		adl:hasIOparameter _:IOparameter2;
+		adl:hasIOparameter _:IOparameter3
+	]
+];
+
+### EntryPoints
+adl:hasEntryPoint [
+  a adl:EntryPoint;
+  adl:hasIntent [
+	a adl:Intent;
+	adl:action "eu.comvantage.iaf.INVARIANT";
+	adl:category "eu.comvantage.iaf.category.WORKFLOW";
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName1
+	  ];
+	  adl:hasExtraType xsd:string
+	];
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName2
+	  ];
+	  adl:hasExtraType xsd:string
+	];
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName3
+	  ];
+	  adl:hasExtraType xsd:string
+	]
+  ]
+];
+
+## Platforms
+adl:isAvailableForPlatform [
+  a adl:Android;
+  adl:requiresApiLevel [
+    a adl:ApiLevel;
+	adl:minValue 15
+  ]
+];
+
+## Input modes
+adl:supportsInputMode [
+  a adl:InputMode;
+  rdfs:label "Touch"
+];
+
+## DisplayProperties
+adl:supportsDisplayProperties _:DisplayProperties1;
+adl:hasPreferredDisplayProperties _:DisplayProperties1
+
+# End of description
+. 

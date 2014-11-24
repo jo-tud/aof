@@ -204,6 +204,20 @@ class Install:
         jsonString = '{devices:[{name:' + "'" + self.name + "'" + ',' + 'status:' + "'" + self.status + "'" + '}]}'
         return jsonString
 
+class FolderName:
+    def __init__(self, folder_path):
+        list = os.listdir(folder_path)
+        jsonString = '{select:['
+        for i in range(0, len(list)-1):
+            if list[i] != 'README':
+                jsonString =  jsonString + add(list[i])
+        jsonString = jsonString + endadd(list[len(list)-1]) + ']}'
+        self.jsonString = jsonString
+
+    def getFolderNames(self):
+        return self.jsonString
+
+
 if __name__ == "__main__":
 
     from argparse import ArgumentParser # for command line arguments
