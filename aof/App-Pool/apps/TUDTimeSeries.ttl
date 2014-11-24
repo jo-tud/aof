@@ -1,0 +1,250 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# blank nodes
+
+_:ParameterName1 a adl:ParameterName;
+	rdfs:label "endpoint".
+	
+_:IOparameter1 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName1;
+	adl:hasParameterType xsd:string.
+	
+_:ParameterName2 a adl:ParameterName;
+	rdfs:label "sensorProperties".
+	
+_:IOparameter2 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName2;
+	adl:hasParameterType xsd:string.
+	
+_:ParameterName3 a adl:ParameterName;
+	rdfs:label "screenshotURI".
+	
+_:IOparameter3 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName3;
+	adl:hasParameterType xsd:string.
+	
+_:ParameterName4 a adl:ParameterName;
+	rdfs:label "sensorProperties".
+	
+_:IOparameter4 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName4;
+	adl:hasParameterType xsd:string.
+	
+_:DisplayProperties1 a adl:DisplayProperties;
+	adl:screenSizeInch 7;
+	adl:resolutionX 1024;
+	adl:resolutionY 600;
+	adl:aspectRatio "16:9".
+
+
+o:TUDTimeSeries-d97jdo o:hasIntent	[
+  o:intentPurpose	"ViewHistoricalData";
+  o:intentString	"eu.comvantage.iaf.VIEW_CYCLE_TIMES"] .
+
+
+# App description
+## App instanciation
+o:TUDTimeSeries-d97jdo a adl:App.
+
+## App information
+o:TUDTimeSeries-d97jdo adl:appName "TUD Time Series App";
+	rdfs:label  "TUD Time Series App";
+	adl:appVersionString 	2.0;
+	adl:appVersion 			1178;
+	adl:textualDescription 
+		"""This activity obtains the addresses of the sensors or the addresses of the
+ 		equipment or device. With help of the SPARQL-queries, the activity gets the
+		details (label, unit, name, continuity) of the sensors, and the historical
+		data of the sensors, the historical data includes the values in concrete
+		time, which show the tendency of the values of the sensors. All the
+		information are showed in a diagram and in a table. Users can compare 2
+		sensors and make screenshot an transmit the address of the image of the
+		screenshot and the details of the selected sensors to next application.""" .
+
+## SPARQL Template
+o:TUDTimeSeries-d97jdo adl:hasSparqlTemplate [
+    a adl:SparqlTemplate ;
+    adl:hasPlaceholder [ 
+		a adl:TemplatePlaceholder ;
+        rdfs:label "sensorURI" 
+	] ;
+	adl:queryIndex 0 ;
+    adl:queryKey "sensorQuery" ;
+    adl:queryString """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+        PREFIX msem: <http://www.comvantage.eu/ontologies/mma/msem/> 
+        PREFIX nasa: <http://data.nasa.gov/qudt/owl/qudt#> 
+        PREFIX sensor: <http://eatld.et.tu-dresden.de/sensor/>
+
+        SELECT ?histUri 
+        WHERE 
+        { 
+	        %%%sensorURI%%% sensor:historicalData ?histUri .
+        } """
+],
+[
+	a adl:SparqlTemplate ;
+	adl:hasPlaceholder [ 
+		a adl:TemplatePlaceholder ;
+        rdfs:label "sensorData"
+	] ;
+	adl:queryIndex 1 ;
+    adl:queryKey "sensorQuery" ;
+	adl:queryString """
+		DEFINE get:soft "replacing"
+
+		prefix voc:     <http://www.comvantage.eu/ontologies/pec/voc/>
+
+		select ?time ?value
+		from NAMED
+		%%%HISTURI%%%
+		where {
+			graph ?g {
+				[] voc:value ?value;
+				voc:refTime ?time.
+			}
+		} """ 
+], 
+[
+	a adl:SparqlTemplate ;
+	adl:hasPlaceholder [ 
+		a adl:TemplatePlaceholder ;
+        rdfs:label "sensorAttribute"
+	] ;
+	adl:queryIndex 2 ;
+    adl:queryKey "sensorAttributeQuery" ;
+	adl:queryString """ 
+		PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+		PREFIX sensor: <http://eatld.et.tu-dresden.de/sensor/> 
+		PREFIX mso:<http://eatld.et.tu-dresden.de/mso/>  
+		PREFIX msem: <http://www.comvantage.eu/ontologies/mma/msem/> 
+		PREFIX sensoruri:%%%SENSORURI%%% 
+		SELECT ?label ?isContinous ?name ?unitString ?unit 
+		WHERE { 
+			OPTIONAL{ 
+				sensoruri: rdfs:label ?label
+			} 
+			OPTIONAL{ 
+				sensoruri: sensor:continousValues ?isContinous
+			} 
+			OPTIONAL{ 
+				sensoruri: sensor:relatedDeviceName ?name
+			} 
+			OPTIONAL{ 
+				sensoruri: msem:hasPhysicalUnit ?physical_unit
+			} 
+			OPTIONAL{
+				?physical_unit rdfs:label ?unitString
+			} 
+			BIND(STR(?unitString) AS ?unit)
+		}"""
+].
+
+## Abilities
+o:TUDTimeSeries-d97jdo adl:providesAbility [
+	a adl:Ability;
+	adl:textualDescription "TUDTimeSeriesMainActivity";
+	adl:consistsOfAction [
+	    a adl:CompareAction;
+	    a adl:MultipleTargetAction;
+		adl:actsOnTarget [a adl:StructuredData];
+		adl:actsOnTarget [a adl:Timeline]
+	];
+	adl:needsComponent [a adl:NetworkConnection]
+] .
+
+## Inputs
+o:TUDTimeSeries-d97jdo adl:hasInput [
+	a adl:Input;
+	adl:hasSignature [
+		a adl:Signature;
+		adl:hasIOparameter _:IOparameter1;
+		adl:hasIOparameter _:IOparameter2;
+	]
+] .
+
+## Outputs
+o:TUDTimeSeries-d97jdo adl:hasInput [
+	a adl:Input;
+	adl:hasSignature [
+		a adl:Signature;
+		adl:hasIOparameter _:IOparameter3;
+		adl:hasIOparameter _:IOparameter4;
+	]
+] .
+
+### EntryPoints
+o:TUDTimeSeries-d97jdo adl:hasEntryPoint [
+	  a adl:EntryPoint;
+	    adl:hasIntent [
+		  a adl:Intent;
+		    adl:intentAction "eu.comvantage.iaf.VIEW_CYCLE_TIMES";
+		    adl:intentCategory "eu.comvantage.iaf.category.WORKFLOW";
+		    adl:hasExtra [
+				  a adl:Extra;
+				    adl:hasExtraKey [
+					  a adl:extraKey;
+					    adl:isValueOf _:ParameterName1 #endpoint
+		            ];
+	                adl:hasExtraType xsd:string
+	        ];
+			adl:hasExtra [
+				  a adl:Extra;
+				    adl:hasExtraKey [
+					  a adl:extraKey;
+					    adl:isValueOf _:ParameterName2
+		            ];
+	                adl:hasExtraType xsd:string
+	        ];
+		]
+].
+
+## Korrigieren!
+## ExitPoints
+o:TUDTimeSeries-d97jdo adl:hasExitPoint [
+	  a adl:ExitPoint;
+	    adl:hasIntent [
+		  a adl:Intent;
+		    adl:intentAction "eu.comvantage.iaf.OUTVARIANT";
+		    o:intentString "eu.comvantage.iaf.OUTVARIANT";
+		    adl:intentCategory "eu.comvantage.iaf.category.WORKFLOW";
+		    adl:hasExtra [
+				  a adl:Extra;
+				    adl:hasExtraKey [
+					  a adl:extraKey;
+					    adl:isValueOf _:ParameterName3 #screenshotURI
+		            ];
+	                adl:hasExtraType xsd:string
+	        ];
+			adl:hasExtra [
+				  a adl:Extra;
+				    adl:hasExtraKey [
+					  a adl:extraKey;
+					    adl:isValueOf _:ParameterName4
+		            ];
+	                adl:hasExtraType xsd:string
+	        ];
+		]
+].
+
+## Platforms
+o:TUDTimeSeries-d97jdo adl:isAvailableForPlatform [
+  a adl:Android;
+    adl:requiresApiLevel [
+     a adl:ApiLevel;
+	   adl:minValue 15
+	]
+].
+
+## DisplayProperties
+o:TUDTimeSeries-d97jdo adl:supportsDisplayProperties _:DisplayProperties1 ;
+	adl:hasPreferredDisplayProperties _:DisplayProperties1 .
+
+# End of description
+

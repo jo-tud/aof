@@ -6,6 +6,7 @@ from simpleconfigparser import simpleconfigparser
 
 from aof.tools import app_pool
 from aof.tools import deploy
+from aof.tools import o
 
 from aof.static.data.static_data import META
 from aof.static.data.static_data import SITE_MENU
@@ -14,7 +15,7 @@ config = simpleconfigparser()
 config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'/aof.conf')
 
 app_ensemble_location = config.Paths.app_ensemble_location
-app_models = config.Paths.app_models
+models_path = config.Paths.models_path
 
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
@@ -43,10 +44,17 @@ def o_view(request):
 @view_config(name='o_select.json', renderer='json')
 def o_select_view(request):
     configfiles = "{select:[{name:'configfile_1'},{name:'configfile_2'}]}"
-    select = deploy.FolderName(app_models)
+    select = o.FolderName(models_path)
     folderNames = select.getFolderNames()
     print(folderNames)
     return {'select':folderNames}
+
+@view_config(name='o_get_apps.json', renderer='json')
+def o_get_apps_view(request):
+    modelName = request.params.get('data')
+    apps = o.Apps(modelName, models_path)
+    result = "{result:[{name:'configfile_1'}]}"
+    return {'result': result}
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):

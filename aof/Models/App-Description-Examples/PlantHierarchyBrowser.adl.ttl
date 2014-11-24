@@ -1,0 +1,148 @@
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+@prefix msem: <http://comvantage.eu/Ontologies/MachineSemantics#> .
+@prefix ctxt: <http://comvantage.eu/Ontologies/Context#> .
+
+# App description
+o:PlantHierarchyBrowser_42 a adl:App;
+
+## App information
+adl:appName "Plant Hierarchy Browser";
+adl:appVersionString 1.0;
+adl:textualDescription
+  "This app enables the user to browse a list or 
+   tree of machines and select one.";
+
+## Abilities
+adl:providesAbility [
+  a adl:Ability;
+  adl:textualDescription "Browse tree or list";
+  adl:consistsOfAction [
+	a adl:BrowseAction;
+	a adl:SingleTargetAction;
+	adl:actsOnTarget [a adl:List];
+	adl:actsOnTarget [
+		a adl:SimpleTree
+		]
+	];
+  adl:needsComponent [a adl:NetworkConnection]
+];
+adl:providesAbility [
+  a adl:Ability;
+  adl:textualDescription "Select machine";
+  adl:consistsOfAction [
+	a adl:SelectAction;
+	a adl:SingleTargetAction;
+	adl:actsOnTarget [
+		a msem:Machine
+		]
+	];
+  adl:needsComponent [a adl:NetworkConnection]
+];
+
+## Input modes
+adl:supportsInputMode [
+  a adl:InputMode;
+  rdfs:label "Touch"
+];
+adl:supportsInputMode [
+  a adl:InputMode;
+  rdfs:label "Voice"
+];
+## Context Adaption
+adl:supportsContextAdaptionFeature [
+  a adl:ContextAdaptionFeature
+  rdfs:label "Night Mode"
+  adl:contextBinding ctxt:lowLight
+  ]
+
+adl:supportsContextAdaptionFeature [
+  a adl:ContextAdaptionFeature
+  rdfs:label "Voice Control"
+  adl:contextBinding ctxt:handsFreeInteraction
+  ]
+
+adl:supportsContextAdaptionFeature [
+  a adl:ContextAdaptionFeature
+  rdfs:label "Touch Control"
+  adl:contextBinding ctxt:highNoise
+  ]
+
+## Inputs
+adl:hasInput [
+	a adl:Input;
+	adl:hasSignature [
+		a adl:Signature;
+		adl:hasIOparameter _:IOparameter1
+	]
+];
+
+### EntryPoints
+adl:hasEntryPoint [
+  a adl:EntryPoint;
+  adl:hasIntent [
+	a adl:Intent;
+	adl:action "eu.comvantage.iaf.INVARIANT";
+	adl:category "eu.comvantage.iaf.category.WORKFLOW";
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName1
+	  ];
+	  adl:hasExtraType xsd:string
+	]
+  ]
+];
+
+## Outputs
+adl:hasOutput [
+	a adl:Output;
+	adl:hasSignature [
+		a adl:Signature;
+		adl:hasIOparameter _:IOparameter2
+	]
+];
+
+### ExitPoints
+adl:hasExitPoint [
+  a adl:ExitPoint;
+  adl:hasIntent [
+	a adl:Intent;
+	adl:action "eu.comvantage.iaf.INVARIANT";
+	adl:category "eu.comvantage.iaf.category.WORKFLOW";
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName2
+	  ];
+	  adl:hasExtraType xsd:string
+	]
+  ]
+];
+
+## DisplayProperties
+adl:supportsDisplayProperties _:DisplayProperties1;
+adl:hasPreferredDisplayProperties _:DisplayProperties1
+
+# blank nodes
+_:ParameterName1 a adl:ParameterName;
+	rdfs:label "siteURI".
+_:ParameterName2 a adl:ParameterName;
+	rdfs:label "machineURI".
+
+_:IOparameter1 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName1;
+	adl:hasParameterType xsd:string.
+_:IOparameter2 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName2;
+	adl:hasParameterType xsd:string.
+	
+_:DisplayProperties1 a adl:DisplayProperties;
+	adl:screenSizeInch 7;
+	adl:resolutionX 1024;
+	adl:resolutionY 600;
+	adl:aspectRatio "16:9".
+
+# End of description
+. 

@@ -1,0 +1,147 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Generate random String for GenericApp URIs
+# < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-12};echo;
+
+o:webView_lpVEAYtJIlkb
+	a			o:GenericApp;
+	rdfs:label 		"TUD WebView App"; 
+	o:filename		"TUDWebView-release.apk";
+	o:descriptionFilename	"TUDWebView.ttl".
+
+o:TUDRoutingApp_flsfmIovckLV
+	a			o:GenericApp;
+	rdfs:label 		"TUD Routing App"; 
+	o:filename		"TUDRoutingApp-release.apk";
+	o:descriptionFilename	"TUDRoutingApp.ttl".
+
+o:SkeletonApp_G0M8iQlfoOQQ	
+	a			o:GenericApp;
+	rdfs:label 		"TUD Skeleton App"; 
+	o:filename		"IAFSkeletonApp-release.apk";
+	o:descriptionFilename	"IAFSkeletonApp.ttl".
+
+o:OIFileManager_uNSUZ7-rb3mm
+	a			o:GenericApp;
+	rdfs:label		"OI File Manager";
+	o:filename		"OIFileManager-2.0.2.apk";
+	o:descriptionFilename	"OIFileManager-2.0.2.ttl".
+
+o:IAFManagementComponent_ZIRiErVxZHc-
+	a			o:GenericApp;
+	rdfs:label		"IAF Management Component";
+	o:filename		"IAFManagementComponent-release.apk";
+	o:descriptionFilename	"IAFManagementComponent.ttl".
+
+o:IAFLogin_Zvy4kvB-fH9T
+	a			o:GenericApp;
+	rdfs:label 		"IAF Login App";
+	o:filename		"IAFLogin-release.apk";
+	o:descriptionFilename	"IAFLogin.ttl".
+
+o:TUDSimpleList_NryuJDGzjNXl
+	a			o:GenericApp;
+	rdfs:label 		"TUD Simple List App";
+	o:filename		"TUDSimpleList-release.apk";
+	o:descriptionFilename	"TUDSimpleList.ttl".
+
+o:TUDSimpleMessage_MBrh2UmSe3AP
+	a			o:GenericApp;
+	rdfs:label 		"TUD Simple Message App";
+	o:filename		"TUDSimpleMessage-release.apk";
+	o:descriptionFilename	"TUDSimpleMessage.ttl".
+
+o:BaracodaManager-9sfLOr
+	a			o:GenericApp;
+	rdfs:label 		"Baracoda Manager";
+	o:filename		"BaracodaManager-2.0.0.apk";
+	o:descriptionFilename	"BaracodaManager-2.0.0.ttl".
+
+o:TUDDeviceExplorer_2L0qAoIPyBI9
+	a			o:GenericApp;
+	rdfs:label 		"TUD Device Explorer";
+	o:filename		"TUDDeviceExplorer-release.apk";
+	o:descriptionFilename	"TUDDeviceExplorer.ttl".
+
+o:TUDLogService_O59iHmmOB0vv
+	a			o:GenericApp;
+	rdfs:label 		"TUD Log Service";
+	o:filename		"TUDLogService-release.apk";
+	o:descriptionFilename	"TUDLogService.ttl".
+
+o:TUDSensorSelection_bYVMOi4UGBde
+	a			o:GenericApp;
+	rdfs:label 		"TUD Sensor Selection";
+	o:filename		"TUDSensorSelection-release.apk";
+	o:descriptionFilename	"TUDSensorSelection.ttl".
+
+o:TUDSparqlTest_Vo398bbvljR0
+	a			o:GenericApp;
+	rdfs:label 		"TUD SPARQL Test";
+	o:filename		"TUDSparqlTest-release.apk";
+	o:descriptionFilename	"TUDSparqlTest.ttl".
+
+o:TUDMultipleSensorSelector-638dd3
+	a			o:GenericApp;
+	rdfs:label 		"TUD Multiple Sensor Selector";
+	o:filename		"TUDMultipleSensorSelector-release.apk";
+	o:descriptionFilename	"TUDMultipleSensorSelector.ttl".
+
+o:TUDTimeSeries-d97jdo
+	a			o:GenericApp;
+	rdfs:label 		"TUD Time Series App";
+	o:filename		"TUDTimeSeries-release.apk";
+	o:descriptionFilename	"TUDTimeSeries.ttl".
+
+o:TUDLiveDataViewer-55lckd
+	a			o:GenericApp;
+	rdfs:label 		"TUD Live Data Viewer";
+	o:filename		"TUDLiveDataViewer-release.apk";
+	o:descriptionFilename	"TUDLiveDataViewer.ttl".
+
+o:TUDPlantSelector-MuyHcC
+	a			o:GenericApp;
+	rdfs:label 		"TUD Plant Selector";
+	o:filename		"TUDPlantSelector-release.apk";
+	o:descriptionFilename	"TUDPlantSelector.ttl".
+
+o:TUDTaskReport-KuoLzZ
+	a			o:GenericApp;
+	rdfs:label 		"TUD Task Report";
+	o:filename		"TUDTaskReport-release.apk";
+	o:descriptionFilename	"TUDTaskReport.ttl".
+
+o:WP6TimeSeriesViewer-sdCD5f
+	a			o:GenericApp;
+	rdfs:label 		"WP6 Time Series Viewer";
+	o:filename		"WP6TimeSeriesViewer.apk";
+	o:descriptionFilename	"WP6TimeSeriesViewer.ttl".
+
+o:WP6TimeSeriesAnalyzer-Hh1q8N
+	a			o:GenericApp;
+	rdfs:label 		"WP6 Time Series Analyzer";
+	o:filename		"WP6TimeSeriesAnalyzer.apk";
+	o:descriptionFilename	"WP6TimeSeriesAnalyzer.ttl".
+
+o:TUDBaracodaTagReader_O0IrefiXKpdX
+	a			o:GenericApp;
+	rdfs:label 		"TUD Baracoda Tag Reader";
+	o:filename		"TUDBaracodaTagReader-release.apk";
+	o:descriptionFilename	"TUDBaracodaTagReader.ttl".
+
+o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy
+	a			o:GenericApp;
+	rdfs:label 		"TUD Semantic Neighbourhood Browser";
+	o:filename		"TUDNeighbourhoodBrowser-release.apk";
+	o:descriptionFilename	"TUDNeighbourhoodBrowser.ttl".
+
+o:TUDNeighbourhoodBrowser2_vLrNh8IcwZcy2
+	a			o:GenericApp;
+	rdfs:label 		"TUD Semantic Neighbourhood Browser 2";
+	o:filename		"TUDNeighbourhoodBrowser2-release.apk";
+	o:descriptionFilename	"TUDNeighbourhoodBrowser2.ttl".

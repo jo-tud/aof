@@ -1,0 +1,24 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+## URI of the Generic App that is described
+o:IAFManagementComponent_ZIRiErVxZHc-
+
+## Add Intents
+o:hasIntent	[
+  o:intentPurpose	"StartWorkflow";
+  o:intentString	"eu.comvantage.iaf.START_WORKFLOW"];
+
+## This is a ManagementComponent
+a	o:ManagementApp;
+
+## Required apps (other apps from the pool that this app depends on)
+
+o:requiresApp 	o:OIFilEManager_uNSUZ7-rb3mm
+
+## End of description
+. 

@@ -1,0 +1,40 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+
+## Define Input and Output blank nodes
+# Inputs
+# None
+
+# Outputs
+_:Oparameter1 a adl:IOparameter ;
+	adl:hasParameterName _:OParameterName1 ;
+	adl:hasParameterType xsd:string .
+
+_:OParameterName1 a adl:ParameterName ;
+	rdfs:label "plantURI" .
+
+## URI of the Generic App that is described
+o:TUDPlantSelector-MuyHcC
+
+## Add Intents
+o:hasIntent	[
+  o:intentPurpose	"SelectPlant";
+  o:intentString	"eu.comvantage.iaf.SELECT_PLANT"] ;
+
+## Add Inputs and Outputs to the app
+
+adl:hasOutput [
+	a adl:Output ;
+	adl:hasSignature [
+		a adl:Signature ;
+		adl:hasIOparameter _:Oparameter1 ;
+	]
+] 
+
+## End of description
+. 

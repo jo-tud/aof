@@ -1,6 +1,0 @@
-{
- "Template" : 1, 
- "Client" : 1, 
- "Params" : [{"name":"ticket", "value":"ex:Ticket122819273420swd"},  
-	     {"name":"person", "value":"ex:nn273824"}]
-}

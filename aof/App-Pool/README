@@ -1,0 +1,8 @@
+This folder contains the App Pool.
+
+MANIFEST
+
+*.ttl
+      All *.ttl files define the content of the app pool.
+apps/
+      Contains the apps itself and a description file for each.

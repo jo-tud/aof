@@ -1,0 +1,152 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://www.comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# blank nodes
+_:ParameterName1 a adl:ParameterName;
+	rdfs:label "machineURI".
+_:ParameterName2 a adl:ParameterName;
+	rdfs:label "configURI".
+
+_:IOparameter1 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName1;
+	adl:hasParameterType xsd:string.
+_:IOparameter2 a adl:IOparameter;
+	adl:hasParameterName _:ParameterName2;
+	adl:hasParameterType xsd:string.
+	
+_:DisplayProperties1 a adl:DisplayProperties;
+	adl:screenSizeInch 7;
+	adl:resolutionX 1024;
+	adl:resolutionY 600;
+	adl:aspectRatio "16:9".
+	
+	
+# App description
+## App instanciation
+o:LogConfig_42
+### appUri <http://eatld.et.tu-dresden.de/ADL#LogConfig_42>
+
+a adl:App;
+
+## App information
+adl:appName "Log Config";
+rdfs:label "LogConfig";
+adl:appVersionString 1.0;
+adl:appVersion 345;
+adl:textualDescription
+  "This app enables the user to select a predefined set of Logger Configurations from the Linked Enterprise Data.";
+
+## SPARQL Template
+adl:hasSparqlTemplate [
+  a adl:SparqlTemplate;
+  adl:queryString 
+  """
+  PREFIX objectOntology: %%%objectOntology%%%
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  
+  SELECT ?machine ?config FROM %%%endpointURI%%%
+      WHERE {
+          ?machine a objectOntology:%%%machineURI%%%.
+          ?config a objectOntology:%%%configURI%%%.
+      }
+  """;
+  adl:queryKey "templateA";
+  adl:hasPlaceholder [
+    a adl:TemplatePlaceholder;
+	rdfs:label "machineURI";
+	adl:isDeliveredBy _:IOparameter1
+	], [
+    a adl:TemplatePlaceholder;
+	rdfs:label "configURI";
+	adl:isDeliveredBy _:IOparameter2
+	]
+	
+];
+
+## Abilities
+adl:providesAbility [
+  a adl:Ability;
+  adl:textualDescription "Configure Logger";
+  adl:consistsOfAction [
+	a adl:ConfigureAction;
+	a adl:SingleTargetAction;
+	adl:actsOnTarget [a adl:Logger]
+  ];
+  adl:needsComponent [a adl:NetworkConnection]
+];
+adl:providesAbility [
+  a adl:Ability;
+  adl:textualDescription "Select Configuration";
+  adl:consistsOfAction [
+	a adl:SelectAction;
+	a adl:SingleTargetAction;
+	adl:actsOnTarget [
+		a adl:ArbitraryTarget;
+		adl:targetString "Configuration"
+		]
+	];
+  adl:needsComponent [a adl:NetworkConnection]
+];
+
+## Inputs
+adl:hasInput [
+	a adl:Input;
+	adl:hasSignature [
+		a adl:Signature;
+		adl:hasIOparameter _:IOparameter1;
+		adl:hasIOparameter _:IOparameter2
+	]
+];
+
+### EntryPoints
+adl:hasEntryPoint [
+  a adl:EntryPoint;
+  adl:hasIntent [
+	a adl:Intent;
+	adl:action "eu.comvantage.iaf.INVARIANT";
+	adl:category "eu.comvantage.iaf.category.WORKFLOW";
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName1
+	  ];
+	  adl:hasExtraType xsd:string
+	];
+	adl:hasExtra [
+	  a adl:Extra;
+	  adl:hasExtraKey [
+		a adl:extraKey;
+		adl:isValueOf _:ParameterName2
+	  ];
+	  adl:hasExtraType xsd:string
+	]
+  ]
+];
+
+## Platforms
+adl:isAvailableForPlatform [
+  a adl:Android;
+  adl:requiresApiLevel [
+    a adl:ApiLevel;
+	adl:minValue 15
+  ]
+];
+
+## Input modes
+adl:supportsInputMode [
+  a adl:InputMode;
+  rdfs:label "Touch"
+];
+
+## DisplayProperties
+adl:supportsDisplayProperties _:DisplayProperties1;
+adl:hasPreferredDisplayProperties _:DisplayProperties1
+
+# End of description
+. 

@@ -1,0 +1,32 @@
+#################################################
+#
+# This file provides some additional context for the BPM
+#
+#################################################
+
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+# Connect apps in the orchestration model with real apps
+# For each of the "Mobile_IT_support_feature-G" nodes that are found in your model you can manually
+# assign an app from the app pool here. 
+# Scheme http://#CHOSEN-BASE#/Mobile_IT_support_feature_G-##ID##-#App-Name-from-resource-pool#-#instance-number#
+#
+# You can copy this file and add your own entries.
+# Later this mechanism will be replaced by a semi-automated app selection.
+
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477214-Choose_Sensors> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDMultipleSensorSelector-638dd3> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDCycleTimes-d97jdo> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDLiveDataViewer-55lckd> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDPlantSelector-MuyHcC> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477223-Write_historical_data_report> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDTaskReport-KuoLzZ> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477226-Write_live_data_report> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDTaskReport-KuoLzZ> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477229-Choose_Sensors_with_NBB> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDNeighbourhoodBrowser_vLrNh8IcwZcy> .
+<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477232-Browse_Neighbourhood> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#instanceOf> <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#TUDNeighbourhoodBrowser_vLrNh8IcwZcy> .
+

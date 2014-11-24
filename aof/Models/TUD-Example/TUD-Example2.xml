@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ADOXML SYSTEM "adoxml31.dtd">
+<ADOXML version="3.1" date="23.05.2014" time="08:03" database="comvan02" username="6e2beb89d8fefc4594f48fdc01796429" adoversion="Version 1.0"><MODELS><MODEL id="mod.499876" name="Sensor verification " version="0.4" modeltype="Orchestration model" libtype="bp" applib="ComVantage on ADOxx 1.3 Dynamic Library v0_6"><MODELATTRIBUTES><ATTRIBUTE name="Version number" type="STRING">0.4</ATTRIBUTE>
+<ATTRIBUTE name="Author" type="STRING">jpfeffer;omidom</ATTRIBUTE>
+<ATTRIBUTE name="Creation date" type="STRING">23.05.2014, 08:02</ATTRIBUTE>
+<ATTRIBUTE name="Date last changed" type="STRING">23.05.2014, 08:02:01</ATTRIBUTE>
+<ATTRIBUTE name="Last user" type="STRING">jpfeffer;omidom</ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Comment" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Model type" type="ENUMERATION">Current model</ATTRIBUTE>
+<ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
+<ATTRIBUTE name="Reviewed on" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Reviewed by" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Number of objects and relations" type="INTEGER">28</ATTRIBUTE>
+<ATTRIBUTE name="World area" type="STRING">w:31.51cm h:29.6cm minw:5cm minh:5cm</ATTRIBUTE>
+<ATTRIBUTE name="Grid" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Zoom" type="INTEGER">0</ATTRIBUTE>
+<ATTRIBUTE name="Viewable area" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Current mode" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Base name" type="STRING">Sensor verification </ATTRIBUTE>
+<ATTRIBUTE name="Access state" type="ENUMERATION">write</ATTRIBUTE>
+<ATTRIBUTE name="Current page layout" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Connector marks" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Type" type="STRING">Orchestration model</ATTRIBUTE>
+<ATTRIBUTE name="Change counter" type="INTEGER">258</ATTRIBUTE>
+<ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
+<ATTRIBUTE name="Context of version" type="STRING">0.4</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Model state" type="ENUMERATION">AS-IS</ATTRIBUTE>
+<ATTRIBUTE name="Show" type="ENUMERATION">Apps</ATTRIBUTE>
+</MODELATTRIBUTES>
+<INSTANCE id="obj.499878" class="Mobile IT support feature (G)" name="Choose a plant"><ATTRIBUTE name="Position" type="STRING">NODE x:6cm y:5.5cm w:1cm h:2cm index:19</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="Plant Browser"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499881" class="Suspension point" name="Suspension point"><ATTRIBUTE name="Position" type="STRING">NODE x:2cm y:5.5cm w:1.4cm h:1.5cm index:20</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR val:499881</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Type" type="ENUMERATION">Entry</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<INTERREF name="Depends on"></INTERREF>
+<INTERREF name="Triggered by"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">3</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499885" class="Mobile IT support feature (G)" name="Choose Sensors from List"><ATTRIBUTE name="Position" type="STRING">NODE x:11cm y:5.5cm w:1cm h:2cm index:21</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="Sensor selector"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499888" class="Mobile IT support feature (G)" name="View live data"><ATTRIBUTE name="Position" type="STRING">NODE x:23cm y:5.5cm w:1cm h:2cm index:22</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="Live data viewer"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499891" class="Mobile IT support feature (G)" name="View sensor history"><ATTRIBUTE name="Position" type="STRING">NODE x:17.5cm y:12cm w:1cm h:2cm index:23</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="Historical data viewer"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499894" class="Mobile IT support feature (G)" name="Send report of historical data analysis"><ATTRIBUTE name="Position" type="STRING">NODE x:31cm y:12cm w:1cm h:2cm index:24</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="Report sender"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499897" class="Mobile IT support feature (G)" name="Send report of live data analysis"><ATTRIBUTE name="Position" type="STRING">NODE x:31cm y:5.5cm w:1cm h:2cm index:25</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="Report sender"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499900" class="Mobile IT support feature (G)" name="Choose Sensors with from Linked Data Neighbourhood"><ATTRIBUTE name="Position" type="STRING">NODE x:11cm y:8cm w:1cm h:2cm index:26</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="NBB"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499903" class="Mobile IT support feature (G)" name="Choose another sensor to view"><ATTRIBUTE name="Position" type="STRING">NODE x:23cm y:8cm w:1cm h:2cm index:27</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="NBB"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.499906" class="Mobile IT support feature (G)" name="Choose Sensors with new Neighbourhood Browser"><ATTRIBUTE name="Position" type="STRING">NODE x:11cm y:11.5cm w:1cm h:2cm index:28</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Selection" type="EXPRESSION">EXPR val:error:"[acoexhan-01]\nNo expression!"</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<INTERREF name="Represents"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Mobile IT support feature" tobjname="NBB 2"></IREF>
+</INTERREF>
+<RECORD name="Notifications"></RECORD>
+<ATTRIBUTE name="Control flow pattern" type="ENUMERATION">Unspecified</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="show" type="EXPRESSION">EXPR val:"Apps"</ATTRIBUTE>
+</INSTANCE>
+<CONNECTOR id="con.499884" class="Followed by"><FROM instance="Suspension point" class="Suspension point"></FROM>
+<TO instance="Choose a plant" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:1</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499909" class="Followed by"><FROM instance="Choose a plant" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose Sensors from List" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:2</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499910" class="Followed by"><FROM instance="Choose a plant" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose Sensors with from Linked Data Neighbourhood" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:3</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499911" class="Followed by"><FROM instance="Choose a plant" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose Sensors with new Neighbourhood Browser" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:4</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499912" class="Followed by"><FROM instance="Choose Sensors from List" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View live data" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:5</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499913" class="Followed by"><FROM instance="Choose Sensors from List" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View sensor history" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:6</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499914" class="Followed by"><FROM instance="View live data" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Send report of live data analysis" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:7</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499915" class="Followed by"><FROM instance="View live data" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose a plant" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:8</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499916" class="Followed by"><FROM instance="View live data" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose another sensor to view" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:9</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499917" class="Followed by"><FROM instance="View sensor history" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Send report of historical data analysis" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:10</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499918" class="Followed by"><FROM instance="View sensor history" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose a plant" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:11</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499919" class="Followed by"><FROM instance="Send report of historical data analysis" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose a plant" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:12</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499920" class="Followed by"><FROM instance="Send report of live data analysis" class="Mobile IT support feature (G)"></FROM>
+<TO instance="Choose a plant" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:13</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499921" class="Followed by"><FROM instance="Choose Sensors with from Linked Data Neighbourhood" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View live data" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:14</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499922" class="Followed by"><FROM instance="Choose Sensors with from Linked Data Neighbourhood" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View sensor history" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:15</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499923" class="Followed by"><FROM instance="Choose another sensor to view" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View live data" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:16</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499924" class="Followed by"><FROM instance="Choose Sensors with new Neighbourhood Browser" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View live data" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:17</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.499925" class="Followed by"><FROM instance="Choose Sensors with new Neighbourhood Browser" class="Mobile IT support feature (G)"></FROM>
+<TO instance="View sensor history" class="Mobile IT support feature (G)"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:18</ATTRIBUTE>
+<ATTRIBUTE name="Transition condition" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2.5</ATTRIBUTE>
+</CONNECTOR>
+</MODEL>
+<MODEL id="mod.426912" name="TUD Example resource pool _private" version="" modeltype="Resource pool" libtype="we" applib="ComVantage on ADOxx 1.3 Static Library v0_6"><MODELATTRIBUTES><ATTRIBUTE name="Version number" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Author" type="STRING">jpfeffer;omidom</ATTRIBUTE>
+<ATTRIBUTE name="Creation date" type="STRING">24.09.2013, 14:06</ATTRIBUTE>
+<ATTRIBUTE name="Date last changed" type="STRING">23.05.2014, 08:01:15</ATTRIBUTE>
+<ATTRIBUTE name="Last user" type="STRING">jpfeffer;omidom</ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Comment" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Model type" type="ENUMERATION">Current model</ATTRIBUTE>
+<ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
+<ATTRIBUTE name="Reviewed on" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Reviewed by" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Number of objects and relations" type="INTEGER">14</ATTRIBUTE>
+<ATTRIBUTE name="World area" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Grid" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Zoom" type="INTEGER">100</ATTRIBUTE>
+<ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
+GRAPHIC x:-16 y:-16 w:1538 h:988 scale:1
+TABLE
+</ATTRIBUTE>
+<ATTRIBUTE name="Current mode" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Base name" type="STRING">TUD Example resource pool _private</ATTRIBUTE>
+<ATTRIBUTE name="Access state" type="ENUMERATION">write</ATTRIBUTE>
+<ATTRIBUTE name="Current page layout" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Connector marks" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Type" type="STRING">Resource pool</ATTRIBUTE>
+<ATTRIBUTE name="Change counter" type="INTEGER">2237</ATTRIBUTE>
+<ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
+<ATTRIBUTE name="Context of version" type="STRING"></ATTRIBUTE>
+</MODELATTRIBUTES>
+<INSTANCE id="obj.426913" class="Mobile IT support feature" name="Sensor selector"><ATTRIBUTE name="Position" type="STRING">NODE x:3cm y:2cm w:1cm h:2cm index:1</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Data</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<INSTANCE id="obj.426916" class="Mobile IT support feature" name="Live data viewer"><ATTRIBUTE name="Position" type="STRING">NODE x:5cm y:2cm w:1cm h:2cm index:2</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Data</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<INSTANCE id="obj.426919" class="Mobile IT support feature" name="Historical data viewer"><ATTRIBUTE name="Position" type="STRING">NODE x:8cm y:2cm w:1cm h:2cm index:3</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Data</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<INSTANCE id="obj.426922" class="Mobile IT support feature" name="Report sender"><ATTRIBUTE name="Position" type="STRING">NODE x:11cm y:2cm w:1cm h:2cm index:4</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Data</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<INSTANCE id="obj.426925" class="Mobile IT support feature" name="Plant Browser"><ATTRIBUTE name="Position" type="STRING">NODE x:1cm y:2cm w:1cm h:2cm index:5</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "&lt;automatically&gt;" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Hierarchy</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"><IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Capability" tobjname="Browse plant"></IREF>
+<IREF type="objectreference" tmodeltype="Resource pool" tmodelname="TUD Example resource pool _private" tmodelver="" tclassname="Capability" tobjname="Chemical plant"></IREF>
+</INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<INSTANCE id="obj.426928" class="Role" name="MEng"><ATTRIBUTE name="Position" type="STRING">NODE x:1.5cm y:6cm w:1.4cm h:1.4cm index:6</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR val:426928</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING">Maintenance Engineer</ATTRIBUTE>
+<ATTRIBUTE name="Type" type="ENUMERATION">Function</ATTRIBUTE>
+<ATTRIBUTE name="Belongs to organization" type="STRING"></ATTRIBUTE>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">2</ATTRIBUTE>
+<RECORD name="Skills/Knowledge"></RECORD>
+<INTERREF name="owns"></INTERREF>
+<ATTRIBUTE name="Preferred occupation" type="TIME">00:000:00:00:00</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.426931" class="Capability" name="Chemical plant"><ATTRIBUTE name="Position" type="STRING">NODE x:2.5cm y:10.5cm w:2.28cm h:2.15cm index:7</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING">Context</ATTRIBUTE>
+<ATTRIBUTE name="URI" type="STRING">http://comvantage.eu/ontologies/tud/context/chemicalPlant</ATTRIBUTE>
+<ATTRIBUTE name="Type" type="ENUMERATION">Other</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<INTERREF name="Component"></INTERREF>
+<INTERREF name="Action"></INTERREF>
+<INTERREF name="Target"></INTERREF>
+</INSTANCE>
+<INSTANCE id="obj.426934" class="Capability" name="Browse plant"><ATTRIBUTE name="Position" type="STRING">NODE x:8cm y:10.5cm w:2.28cm h:2.15cm index:8</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING">Ability</ATTRIBUTE>
+<ATTRIBUTE name="URI" type="STRING">http://comvantage.eu/ontologies/adl/browse_plant</ATTRIBUTE>
+<ATTRIBUTE name="Type" type="ENUMERATION">Functionality</ATTRIBUTE>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<INTERREF name="Component"></INTERREF>
+<INTERREF name="Action"></INTERREF>
+<INTERREF name="Target"></INTERREF>
+</INSTANCE>
+<INSTANCE id="obj.426937" class="Organization" name="Contexts"><ATTRIBUTE name="Position" type="STRING">NODE x:.5cm y:8cm w:4.5cm h:10.5cm index:9</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.426940" class="Organization" name="Capabilites"><ATTRIBUTE name="Position" type="STRING">NODE x:6cm y:8cm w:4.5cm h:10.5cm index:10</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.426943" class="Mobile IT support feature" name="NBB"><ATTRIBUTE name="Position" type="STRING">NODE x:13.5cm y:2cm w:1cm h:2cm index:11</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Data</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<INSTANCE id="obj.499872" class="Mobile IT support feature" name="NBB 2"><ATTRIBUTE name="Position" type="STRING">NODE x:15.5cm y:2cm w:1cm h:2cm index:12</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Hourly wages" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="object-id" type="EXPRESSION">EXPR expr:(0) val:0</ATTRIBUTE>
+<ATTRIBUTE name="sameAs link" type="STRING"></ATTRIBUTE>
+<RECORD name="Property collector"></RECORD>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Link or App" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
+<INTERREF name="Referenced mobile IT support model"></INTERREF>
+<INTERREF name="Input resources"></INTERREF>
+<INTERREF name="Output resources"></INTERREF>
+<INTERREF name="Is orchestration"></INTERREF>
+<RECORD name="Access control requirements"></RECORD>
+<ATTRIBUTE name="Input type" type="ENUMERATION">Data</ATTRIBUTE>
+<ATTRIBUTE name="Output type" type="ENUMERATION">Data</ATTRIBUTE>
+<INTERREF name="has Capability"></INTERREF>
+<ATTRIBUTE name="Word wrap" type="DOUBLE">0</ATTRIBUTE>
+<ATTRIBUTE name="App name" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="App version" type="STRING"></ATTRIBUTE>
+<RECORD name="Platform"></RECORD>
+<RECORD name="Display properties"></RECORD>
+<ATTRIBUTE name="Modality" type="ENUMERATIONLIST"></ATTRIBUTE>
+<RECORD name="Input parameters"></RECORD>
+<RECORD name="Output parameters"></RECORD>
+</INSTANCE>
+<CONNECTOR id="con.426946" class="Is inside"><FROM instance="Chemical plant" class="Capability"></FROM>
+<TO instance="Contexts" class="Organization"></TO>
+<ATTRIBUTE name="AutoConnect" type="STRING"></ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.426947" class="Is inside"><FROM instance="Browse plant" class="Capability"></FROM>
+<TO instance="Capabilites" class="Organization"></TO>
+<ATTRIBUTE name="AutoConnect" type="STRING"></ATTRIBUTE>
+</CONNECTOR>
+</MODEL>
+</MODELS>
+</ADOXML>

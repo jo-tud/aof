@@ -15,8 +15,24 @@
         }
 
         function deploy(){
-            alert("OK");
+            var foderName=$("#select").find("option:selected").text();
+            if (foderName == "------------ Model   Name ------------"){
+                $("#p1").text("No Model selected, please select a model");
+            }else{
+                orchestrate(foderName)
+            }
         }
+
+        function orchestrate(data){
+        $.getJSON('/o_get_apps.json', {data: data}, function(data){
+            var json_data=data['result']
+            var dataObj=eval("("+json_data+")")
+                $.each(dataObj.result,function(idx,item){
+                    alert(item.name)
+	        });
+        });
+	}
+
     </script>
 
 
@@ -24,7 +40,7 @@
       <div class="content">
         <p class="lead">App Orchestration.</p>
         <p id="p1">Please select the Model you want to orchestrate</p>
-        <select>
+        <select id="select">
           <option id="option">------------ Model   Name ------------</option>
         </select>
         <input onclick="deploy()" id="deploy"

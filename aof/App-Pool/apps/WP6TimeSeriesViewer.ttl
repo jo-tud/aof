@@ -1,0 +1,22 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+
+## Define Input and Output blank nodes
+# Inputs
+# None
+
+## URI of the Generic App that is described
+o:WP6TimeSeriesViewer-sdCD5f
+
+## Add Intents
+o:hasIntent	[
+  o:intentPurpose	"View Time Series";
+  o:intentString	"eu.comvantage.wp6.TIMESERIESVIEWER"] ;
+
+## End of description
+. 
