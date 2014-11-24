@@ -30,7 +30,7 @@ The deploy script will use a target's SDK tools to deploy an App Ensemble to a d
 
 @author:     Johannes Pfeffer
 
-@version:    0.5
+@version:    0.6
 
 @release:    elephant
 '''

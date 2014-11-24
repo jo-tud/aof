@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 <%inherit file="layout.mako"/>
 <!DOCTYPE html>
-    <title>AOF:App-Pool:Show</title>
 
     <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
 
     <script type="text/javascript" src="${request.static_url('aof:static/js/workflow.js')}"></script>
-
-    <!--Require aof.tools Js-->
-    <script type="text/javascript" src="${request.static_url('aof:static/js/aof.tools.js')}"></script>
-
 
     <script Language="javascript">
 	function change(page) {
@@ -100,7 +95,7 @@
             var json_data=data['result']
             var dataObj=eval("("+json_data+")")
                 $.each(dataObj.devices,function(idx,item){
-                    $myli = $("<div style='background-color:#0077FF;' id= " + item.name + ">" + item.name + ":" + item.status + "</div>");
+                    $myli = $("<div style='background-color:#0077FF;' id= " + item.name + ">" + item.name + ":  " + item.status + "</div>");
 		            $('.Progress').after($myli);
 	        });
         });

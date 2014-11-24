@@ -39,6 +39,11 @@ def o_view(request):
             'page_title': 'Orchestrate'
     }
 
+@view_config(name='o_select.json', renderer='json')
+def o_select_view(request):
+    configfiles = "{select:[{name:'configfile_1'},{name:'configfile_2'}]}"
+    return {'select':configfiles}
+
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):
     return {'menu': SITE_MENU,
