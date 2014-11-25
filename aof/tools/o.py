@@ -39,15 +39,8 @@ class FolderName:
         self.jsonString = jsonString
 
     def getFolderNames(self):
+#        print(self.jsonString)
         return self.jsonString
-
-def add(name):
-    item = '{name:' + "'" + name + "'"  + '},'
-    return item
-
-def endadd(name):
-    item = '{name:' + "'" + name + "'"  + '}'
-    return item
 
 # Definition of general namespaces
 NS_XML = Namespace("http://www.w3.org/XML/1998/namespace")
@@ -149,10 +142,14 @@ class Apps:
                 appRequestTriples.append(( req, NS_O.instanceOf, preselection))
             appRequests.append(req)
 
-        getRequestApps(appRequestTriples, g)
-        getAvariableApps(ap, g)
+        self.requestApps = getRequestApps(appRequestTriples, g)
+        self.availableApps = getAvailableApps(ap, g)
 
+    def getRequestApps(self):
+        return self.requestApps
 
+    def getAvailableApps(self):
+        return self.availableApps
 
 def timestring():
     timestring = time.strftime("%Y-%m-%d_%Hh%Mm%Ss",time.localtime())
@@ -210,36 +207,28 @@ def getRequestApps(appRequestTriples, g):
     appRequests = list()
     for (s,p,o) in appRequestTriples:
         appRequests.append(getAppName(s, g).toPython())
-    print(appRequests)
+    jsonString = '{request_apps:['
+    for i in range(0, len(appRequests)-1):
+        jsonString =  jsonString + add(appRequests[i])
+    jsonString = jsonString + endadd(appRequests[len(appRequests)-1]) + ']}'
+#    print(jsonString)
+    return jsonString
 
-def getAvariableApps(ap, g):
+def getAvailableApps(ap, g):
     available_apps = list()
     for app in ap.subjects(RDF.type,NS_O.GenericApp):
         available_apps.append(getAppLabel(app, g).toPython())
-    print(available_apps)
+    jsonString = '{available_apps:['
+    for i in range(0, len(available_apps)-1):
+        jsonString =  jsonString + add(available_apps[i])
+    jsonString = jsonString + endadd(available_apps[len(available_apps)-1]) + ']}'
+#    print(jsonString)
+    return jsonString
 
-def apps(appRequestTriples, g, ap):
+def add(name):
+    item = '{name:' + "'" + name + "'"  + '},'
+    return item
 
-    appRequestsStr = list()
-    appRequests = list()
-
-    appRequestTriples.sort()
-
-    for (s,p,o) in appRequestTriples:
-        appRequests.append(s)
-
-    # get the available apps from the pool
-    available_apps = list()
-    r=0
-
-    for app in ap.subjects(RDF.type,NS_O.GenericApp):
-        available_apps.append(getAppLabel(app, g).toPython())
-        r+=1
-
-    for req in appRequests:
-        requestStr = getAppName(req, g).toPython()
-        appRequestsStr.append(requestStr)
-
-    print(available_apps)
-    print(appRequestsStr)
-    print("test")
+def endadd(name):
+    item = '{name:' + "'" + name + "'"  + '}'
+    return item

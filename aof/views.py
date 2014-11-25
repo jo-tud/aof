@@ -46,15 +46,18 @@ def o_select_view(request):
     configfiles = "{select:[{name:'configfile_1'},{name:'configfile_2'}]}"
     select = o.FolderName(models_path)
     folderNames = select.getFolderNames()
-    print(folderNames)
+#    print(folderNames)
     return {'select':folderNames}
 
 @view_config(name='o_get_apps.json', renderer='json')
 def o_get_apps_view(request):
     modelName = request.params.get('data')
     apps = o.Apps(modelName, models_path)
-    result = "{result:[{name:'configfile_1'}]}"
-    return {'result': result}
+    requestApps = apps.getRequestApps()
+    availableApps = apps.getAvailableApps()
+    print(requestApps)
+    print(availableApps)
+    return {'requestApps': requestApps, 'availableApps': availableApps}
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):

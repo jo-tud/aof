@@ -25,11 +25,26 @@
 
         function orchestrate(data){
         $.getJSON('/o_get_apps.json', {data: data}, function(data){
-            var json_data=data['result']
+            $title = $("<p id='p2'>Pleaseselect the Application and submit</p>")
+            $('#deploy').after($title);
+            var json_data=data['requestApps']
             var dataObj=eval("("+json_data+")")
-                $.each(dataObj.result,function(idx,item){
-                    alert(item.name)
-	        });
+            var app_id = 1
+                $.each(dataObj.request_apps,function(idx,item){
+                    $myli = $("<div style='background-color:#0077FF' id= " + item.name + ">" + item.name
+                              + "<select id='select'><option id=" + "app_" + app_id + ">" +
+                              "------------- App   Name -------------"
+                              + "</option></select>"+ "</div>");
+                    $('#p2').after($myli);
+                var json_data=data['availableApps']
+                var dataObj=eval("("+json_data+")")
+                    $.each(dataObj.available_apps,function(idx,item){
+                        $myli = $("<option>" + item.name + "</option>");
+                        $myli.insertAfter('#app_' + app_id);
+	            });
+            });
+
+
         });
 	}
 
@@ -47,5 +62,6 @@
           onmouseover="this.style.borderWidth='3px'"
           onmouseout="this.style.borderWidth='2px'" type="button"
           class="mybtn" value="Submit"/>
+
       </div>
     </body>

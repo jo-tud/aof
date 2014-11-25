@@ -179,7 +179,7 @@ class Deploy:
     def getapps(self):
         list = self.apps
         jsonString = '{devices:['
-        for i in range(0, len(list)-2):
+        for i in range(0, len(list)-1):
             jsonString =  jsonString + add(list[i])
         jsonString = jsonString + endadd(list[len(list)-1]) + ']}'
         return jsonString
