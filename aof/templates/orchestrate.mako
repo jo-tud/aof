@@ -31,8 +31,9 @@
             var dataObj=eval("("+json_data+")")
             var app_id = 1
                 $.each(dataObj.request_apps,function(idx,item){
-                    $myli = $("<div style='background-color:#0077FF' id= " + item.name + ">" + item.name
-                              + "<select id='select'><option id=" + "app_" + app_id + ">" +
+                    $myli = $("<div style='background-color:#0077FF' id= 'app_id_" + app_id + "'>"
+                              + "<label for='app_id_"+app_id+"' style:'float:left'>"+item.name+"</label>"
+                              + "<select id='app_id_"+app_id+"'><option id='app_id_" + app_id + "_options_first'>" +
                               "------------- App   Name -------------"
                               + "</option></select>"+ "</div>");
                     $('#p2').after($myli);
@@ -40,8 +41,9 @@
                 var dataObj=eval("("+json_data+")")
                     $.each(dataObj.available_apps,function(idx,item){
                         $myli = $("<option>" + item.name + "</option>");
-                        $myli.insertAfter('#app_' + app_id);
+                        $myli.insertAfter('#app_id_' + app_id + "_options_first");
 	            });
+                app_id++;
             });
 
 
