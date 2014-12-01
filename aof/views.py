@@ -55,9 +55,12 @@ def o_get_apps_view(request):
     apps = o.Orchestration(modelName, models_path)
     requestApps = apps.getRequestApps()
     availableApps = apps.getAvailableApps()
-    print(requestApps)
-    print(availableApps)
     return {'requestApps': requestApps, 'availableApps': availableApps}
+
+@view_config(name='o_orchestration.json', renderer='json')
+def o_orchestration_view(request):
+    dict = request.params.get('data')
+    print(dict)
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):
