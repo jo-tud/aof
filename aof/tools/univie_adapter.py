@@ -85,6 +85,7 @@ class CV_BPM:
         if self.SILENT:
             
             meta = temp.get_context(self.NS_MM.graphmetadata)
+            # d.h. meta = http://www.comvantage.eu/mm#graphmetadata
             if not (None,RDF.type, self.NS_MM.Orchestration_model) in meta:
                 print("There seems to be no Diagrammatic Orchestration Model")
                 exit(1)

@@ -52,7 +52,7 @@ def o_select_view(request):
 @view_config(name='o_get_apps.json', renderer='json')
 def o_get_apps_view(request):
     modelName = request.params.get('data')
-    apps = o.Apps(modelName, models_path)
+    apps = o.Orchestration(modelName, models_path)
     requestApps = apps.getRequestApps()
     availableApps = apps.getAvailableApps()
     print(requestApps)
