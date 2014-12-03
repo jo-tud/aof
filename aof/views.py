@@ -52,15 +52,18 @@ def o_select_view(request):
 @view_config(name='o_get_apps.json', renderer='json')
 def o_get_apps_view(request):
     modelName = request.params.get('data')
-    apps = o.Orchestration(modelName, models_path)
-    requestApps = apps.getRequestApps()
-    availableApps = apps.getAvailableApps()
+    orchestration = o.Orchestration(modelName, models_path)
+    requestApps = orchestration.getRequestApps()
+    availableApps = orchestration.getAvailableApps()
+#    g = orchestration.getConjunctiveGraph()'Ask Johannes, how to transmit this g to the other view (o_orchestraion_view)'
     return {'requestApps': requestApps, 'availableApps': availableApps}
 
 @view_config(name='o_orchestration.json', renderer='json')
 def o_orchestration_view(request):
-    dict = request.params.get('data')
-    print(dict)
+    selected_apps = request.params.get('data')
+    modelName = request.params.get('modelName')
+    orchestration = o.Orchestration(modelName, models_path, selected_apps)
+    print(orchestration.selected_apps)
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):

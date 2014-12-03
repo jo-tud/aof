@@ -58,8 +58,10 @@ ns=dict(xml=NS_XML,rdf=NS_RDF,rdfs=NS_RDFS,o=NS_O)
 SILENT = True
 
 class Orchestration:
-    def __init__(self, modelName, models_path):
+    def __init__(self, modelName, models_path, selected_apps=None):
         # reade the file of configure
+        if selected_apps != None:
+            self.selected_apps = selected_apps
         config_file = models_path + modelName + '/' + modelName.lower() + '.conf'
         print("Reading configuration from file " + config_file + "\n")
         config = simpleconfigparser()

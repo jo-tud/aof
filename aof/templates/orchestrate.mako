@@ -5,6 +5,7 @@
     <script Language="javascript">
 
         var app_id = 0;
+        var foderName = "";
 
         function init(){
             $.getJSON('/o_select.json',function(data){
@@ -18,7 +19,7 @@
         }
 
         function deploy(){
-            var foderName=$("#select").find("option:selected").text();
+            foderName=$("#select").find("option:selected").text();
             if (foderName == "------Please select a model------"){
                 $("#p1").text("No Model selected, please select a model");
             }else{
@@ -38,7 +39,7 @@
                 }
 
             }
-            $.getJSON('/o_orchestration.json', {data: selected_apps.toString()}, function(data){
+            $.getJSON('/o_orchestration.json', {data: selected_apps.toString(),modelName: foderName}, function(data){
 
             });
         }
