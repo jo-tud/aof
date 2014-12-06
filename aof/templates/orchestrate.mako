@@ -3,9 +3,11 @@
     <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
 
     <script Language="javascript">
-
+        // only one time click not yet realised!!!
         var app_id = 0;
         var foderName = "";
+        var requestApps = [];
+        var availableApps = [];
 
         function init(){
             $.getJSON('/o_select.json',function(data){
@@ -31,26 +33,34 @@
             var selected_apps = [];
             for (i = 0; i < app_id; i++){
                 app_id_ = "#app_id_" + i;
-//                app_id_label_ = "app_id_label_" + i;
+                app_id_label_ = "app_id_label_" + i;
                 app_selected = $(app_id_).find("option:selected").text();
-//                app_request = document.getElementById(app_id_label_).textContent;
+                app_request = document.getElementById(app_id_label_).textContent;
                 if (app_selected != '-------------Please select an app-------------'){
-                    selected_apps[selected_apps.length] = app_selected;
+                    selected_apps[selected_apps.length] = app_request + "§§" + app_selected;
                 }
 
             }
-            $.getJSON('/o_orchestration.json', {data: selected_apps.toString(),modelName: foderName}, function(data){
-
+            $.getJSON('/o_orchestration.json', {request_selected_apps: selected_apps.toString(),
+                available_apps: availableApps.toString(), modelName: foderName}, function(data){
             });
         }
 
         function getApps(data){
             $.getJSON('/o_get_apps.json', {data: data}, function(data){
+
+                var json_data=data['availableApps'];
+                    var dataObj=eval("("+json_data+")");
+                        $.each(dataObj.available_apps,function(idx,item){
+                            availableApps[availableApps.length] = item.name;
+                    });
+
                 $title = $("<p id='p2'>Pleaseselect the Application and submit</p>")
                 $('.model_select').after($title);
                 var json_data=data['requestApps'];
                 var dataObj=eval("("+json_data+")");
                     $.each(dataObj.request_apps,function(idx,item){
+                        requestApps[requestApps.length] = item.name;
                         $myli = $("<label id='app_id_label_"+app_id+"' style ='float: left;'>"+item.name+"</label>"
                                   + "<select id='app_id_"+app_id+"'style ='float: right;'>" +
                                   "<option id='app_id_" + app_id + "_options_first'>" +

@@ -60,10 +60,11 @@ def o_get_apps_view(request):
 
 @view_config(name='o_orchestration.json', renderer='json')
 def o_orchestration_view(request):
-    selected_apps = request.params.get('data')
+    request_selected_apps = request.params.get('request_selected_apps')
+    availabel_apps = request.params.get('available_apps')
     modelName = request.params.get('modelName')
-    orchestration = o.Orchestration(modelName, models_path, selected_apps)
-    print(orchestration.selected_apps)
+    orchestration = o.Orchestration(modelName, models_path, request_selected_apps, availabel_apps)
+    orchestration.createAppEnsemble()
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):

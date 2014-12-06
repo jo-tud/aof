@@ -58,10 +58,15 @@ ns=dict(xml=NS_XML,rdf=NS_RDF,rdfs=NS_RDFS,o=NS_O)
 SILENT = True
 
 class Orchestration:
-    def __init__(self, modelName, models_path, selected_apps=None):
+    def __init__(self, modelName, models_path,request_selected_apps=None, available_apps=None):
         # reade the file of configure
-        if selected_apps != None:
-            self.selected_apps = selected_apps
+
+        if request_selected_apps != None:
+            self.request_selected_apps = request_selected_apps
+
+        if available_apps != None:
+            self.available_apps = available_apps
+
         config_file = models_path + modelName + '/' + modelName.lower() + '.conf'
         print("Reading configuration from file " + config_file + "\n")
         config = simpleconfigparser()
@@ -115,6 +120,7 @@ class Orchestration:
             supplements.parse(supplements_file,format="turtle")
             o += supplements
 
+        self.o = o
         self.app_pool = APP_POOL(o, store, ap_folder)
 
     def getRequestApps(self):
@@ -123,6 +129,20 @@ class Orchestration:
     def getAvailableApps(self):
         return self.app_pool.availableApps
 
+    def createAppEnsemble(self):
+        create(self.o, self.app_pool.ap, self.request_selected_apps, self.available_apps)
+
+def create(o, ap, request_selected_apps, available_apps):
+    request_selected_apps_list = request_selected_apps.split(',')
+    available_apps_list = available_apps.split(',')
+    results = list()
+    for i in range(0, len(request_selected_apps_list)):
+        request = request_selected_apps_list[i].split('§§')[0]
+        selected = request_selected_apps_list[i].split('§§')[1]
+        test1 = o.value(None, NS_O.Name, Literal(request))
+        test2 = ap.value(None, RDFS.label, Literal(selected))
+        print(test1)
+        print(test2)
 
 class APP_POOL:
     def __init__(self, o, store, ap_folder):
@@ -158,102 +178,7 @@ class APP_POOL:
             appRequests.append(req)
         self.requestApps = getRequestApps(appRequestTriples, o, ap)
         self.availableApps = getAvailableApps(ap)
-
-
-class Apps:
-    def __init__(self, modelName, models_path):
-        # reade the file of configure
-        config_file = models_path + modelName + '/' + modelName.lower() + '.conf'
-        print("Reading configuration from file " + config_file + "\n")
-        config = simpleconfigparser()
-        config.read([config_file])
-
-        if config.General.ae_name :
-            ae_name = config.General.ae_name
-            ae_name = ae_name.replace(" ", "_")
-        if config.Paths.ap_folder :
-            ap_folder = config.Paths.ap_folder
-        if config.Paths.output_folder:
-            output_folder = config.Paths.output_folder
-        if (config.Paths.supplements_file):
-            supplements_file = config.Paths.supplements_file
-        if config.univie_adapter.univie_model_file:
-            univie_model_file = config.univie_adapter.univie_model_file
-
-        ###########################################
-        # Preparations
-        ###########################################
-
-        # Graph for the combined model
-        store = IOMemory()
-        g = ConjunctiveGraph(store=store)
-
-        for prefix in ns:
-            g.bind(prefix,ns.get(prefix))
-
-        # Create an empty model for the App Ensemble
-        o_id = ae_name+"_"+timestring()
-        o = Graph(store=store, identifier=o_id)
-
-        # Prepare the orchestration model
-        prepareModel(g,o_id)
-
-        # use configuration if available
-        if config.univie_adapter.univie_model_file:
-            cvbpm = CV_BPM(model_file=univie_model_file, SILENT=SILENT)
-        else:
-            cvbpm = CV_BPM(SILENT=SILENT)
-
-        # Add apps
-        o += cvbpm.getApps().graph
-
-        # Add entry point
-        addEntryPoint(g,o_id,o_id,cvbpm.getEntryPoint())
-
-        # Add supplemented triples
-        if (supplements_file is not None):
-            supplements = Graph(store=store,identifier="supplements")
-            supplements.parse(supplements_file,format="turtle")
-            o += supplements
-
-        ###########################################
-        # Select
-        ###########################################
-
-        '''
-        Since there is no real selection yet, we load a supplement model that connects the Apps to Generic Apps from the App Pool
-        '''
-
-        # Load the App Pool descriptions
-        ap = Graph(store=store,identifier="ap")
-        for appPoolDescrFile in os.listdir(ap_folder):
-            if appPoolDescrFile.endswith(".ttl"):
-                # print(appPoolDescrFile)
-                ap.parse(os.path.join(ap_folder,appPoolDescrFile), format = "turtle")
-
-        # Load app descriptions
-        for appDescrFile in ap.objects(None,NS_O.descriptionFilename):
-            if appDescrFile.endswith(".ttl"):
-                ap.parse(ap_folder + "apps/"+appDescrFile, format = "turtle")
-
-        # Honor existing selections
-        appRequests = list()
-        appRequestTriples = list()
-        for req in o.subjects(RDF.type, NS_O.AppRequest):
-            preselection = o.value(req, NS_O.instanceOf, None)
-            if (preselection is None):
-                appRequestTriples.append(( req, NS_O.instanceOf, PLACEHOLDER_APP))
-            else:
-                appRequestTriples.append(( req, NS_O.instanceOf, preselection))
-            appRequests.append(req)
-        self.requestApps = getRequestApps(appRequestTriples, g)
-        self.availableApps = getAvailableApps(ap)
-
-    def getRequestApps(self):
-        return self.requestApps
-
-    def getAvailableApps(self):
-        return self.availableApps
+        self.ap = ap
 
 def timestring():
     timestring = time.strftime("%Y-%m-%d_%Hh%Mm%Ss",time.localtime())
@@ -301,11 +226,11 @@ def addEntryPoint(graph,ctx_id,ae,entrypoint):
 
     graph.update(qstr, initNs=ns)
 
-def getAppLabel(app, graph_o):
-    return graph_o.value(app, RDFS.label, None)
+def getAppLabel(app, graph):
+    return graph.value(app, RDFS.label, None)
 
-def getAppName(app, graph_ap):
-    return graph_ap.value(app, NS_O.Name, None)
+def getAppName(app, graph):
+    return graph.value(app, NS_O.Name, None)
 
 def getRequestApps(appRequestTriples, graph_o, graph_ap):
     appRequsts = list()
