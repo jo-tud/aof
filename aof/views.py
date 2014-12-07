@@ -64,7 +64,9 @@ def o_orchestration_view(request):
     availabel_apps = request.params.get('available_apps')
     modelName = request.params.get('modelName')
     orchestration = o.Orchestration(modelName, models_path, request_selected_apps, availabel_apps)
-    orchestration.createAppEnsemble()
+    result = orchestration.createAppEnsemble()
+    print(result)
+    return {'appEnsemble': result}
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):

@@ -23,11 +23,16 @@ from aof.tools.univie_adapter import CV_BPM
 
 from rdflib import Literal
 
+from aof.tools.o_errors import CardinalityError, CLIError
+
+import shutil
+
 ###########################################
 # Globals
 ###########################################
 
 CONFIG_FILE = 0
+CREATE_SUPPLEMENTFILE = 0
 PLACEHOLDER_APP = URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#SkeletonApp_G0M8iQlfoOQQ")
 
 class FolderName:
@@ -121,7 +126,12 @@ class Orchestration:
             o += supplements
 
         self.o = o
+        self.ap_folder = ap_folder
         self.app_pool = APP_POOL(o, store, ap_folder)
+        self.cvbpm = cvbpm
+        self.output_folder = output_folder
+        self.o_id = o_id
+
 
     def getRequestApps(self):
         return self.app_pool.requestApps
@@ -130,9 +140,10 @@ class Orchestration:
         return self.app_pool.availableApps
 
     def createAppEnsemble(self):
-        create(self.o, self.app_pool.ap, self.request_selected_apps, self.available_apps)
+        return create(self.o, self.app_pool.ap, self.request_selected_apps, self.available_apps, self.ap_folder, self.cvbpm,
+               self.output_folder, self.o_id)
 
-def create(o, ap, request_selected_apps, available_apps):
+def create(o, ap, request_selected_apps, available_apps, ap_folder, cvbpm, output_folder, o_id):
     request_selected_apps_list = request_selected_apps.split(',')
     available_apps_list = available_apps.split(',')
     results = list()
@@ -145,7 +156,97 @@ def create(o, ap, request_selected_apps, available_apps):
         else:
             triple = (URIRef(o.value(None, NS_O.Name, Literal(request))), NS_O.instanceOf, PLACEHOLDER_APP)
             results.append(triple)
-    print(results)
+#    print(results)
+
+    # clean old selections (they are added again in next step)
+    for old in o.triples((None,NS_O.instanceOf,None)):
+        o.remove(old)
+
+    # add selection
+    for app in results:
+        o.add(app)
+        o.add((app[0], RDF.type, NS_O.SelectedApp))
+
+    # Final sanity checks
+    # Note: max cardinality of NS_O:instanceOf is 1
+    for req in o.subjects(RDF.type, NS_O.AppRequest):
+        cardinality = len(list(o.objects(req,NS_O.instanceOf)))
+        #print(cardinality)
+        if (cardinality != 1):
+            raise CardinalityError(1,cardinality,"Exactly one app must be selected for each app request "+req)
+
+    # print selection result
+    indent = max([len(getAppName(row[0], o)) for row in results])
+    for sub,pre,obj in o.triples((None,NS_O.instanceOf,None)):
+        print(getAppName(sub, o).rjust(indent)+" -> "+getAppLabel(obj, ap));
+
+    ## Make set of Apps to copy
+    appsToCopy = set()
+
+    # Add app descriptions for selected apps to orchestration model
+    #ToDo: Find a more elegant way to do this. It should be possible to add a transitive subgraph from ap
+    for selectedApp in o.objects(None,NS_O.instanceOf):
+        appDescrFile = ap.value(selectedApp, NS_O.descriptionFilename, None, "", False)
+        filename = ap.value(selectedApp, NS_O.filename, None, "", False)
+        if appDescrFile != "" :
+            o.parse(ap_folder + "apps/"+appDescrFile, format = "turtle")
+        if filename != "":
+            appsToCopy.add(str(filename))
+
+    # Add app descriptions for required apps to orchestration model
+    for requiredApp in o.objects(None,NS_O.requiresApp):
+        appDescrFile = ap.value(requiredApp, NS_O.descriptionFilename, None, "", False)
+        filename = ap.value(requiredApp, NS_O.filename, None, "", False)
+        if appDescrFile != "" :
+            o.parse(ap_folder + "apps/"+appDescrFile, format = "turtle")
+        if filename != "" :
+                appsToCopy.add(str(filename))
+
+#    print(appsToCopy)
+    ###########################################
+    # Adapt
+    ###########################################
+
+    # Currently do nothing
+
+    ###########################################
+    # Manage
+    ###########################################
+
+    # Add succession types (XOR, OR, AND)
+    for app in o.subjects(RDF.type, NS_O.App):
+        sucType = cvbpm.getSuccessionType(app)
+        o.add( (app, NS_O.hasSuccessionType, sucType))
+
+    ###########################################
+    # Write the App-Ensemble to filesystem
+    ###########################################
+
+    # Set App Ensemble Folder
+    ae_folder = os.path.join(output_folder,o_id)
+
+    # Create directories
+    os.mkdir(ae_folder)
+    os.mkdir(os.path.join(ae_folder,"apps",""))
+
+    if CREATE_SUPPLEMENTFILE == 1:
+        createSupplementsFile(results,ae_folder)
+
+    # Copy apps from pool
+    for filename in appsToCopy:
+        shutil.copyfile(os.path.join(ap_folder,"apps",filename), os.path.join(ae_folder,"apps",filename))
+
+    # Serialize orchestration model
+    aeFile = open(os.path.join(ae_folder,o_id+".ttl"),'wb')
+    aeFile.write(o.serialize(format="turtle"))
+    aeFile.close()
+
+    finish = "\nApp Ensemble was created in " + ae_folder
+    return finish
+
+
+
+
 
 class APP_POOL:
     def __init__(self, o, store, ap_folder):
@@ -285,3 +386,14 @@ def add2(reqeust,preselection):
 def lastadd2(request,preselection):
         item = '{name:' + "'" + request + "'" + ',' + 'preselection:' + "'" + preselection + "'" + '}'
         return item
+
+def createSupplementsFile(selectedApps, ae_folder):
+    # Serialize supplements file
+    supp = ""
+    for app in selectedApps:
+        supp += app[0].n3() + " " +app[1].n3()+ " " +app[2].n3()+ " .\n"
+    # print(supp)
+    suppFile = open(os.path.join(ae_folder,"supplements.ttl"),'w')
+    suppFile.write(supp)
+    suppFile.close()
+    print("\nCreated supplements.ttl file")
