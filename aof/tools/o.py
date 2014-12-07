@@ -139,10 +139,13 @@ def create(o, ap, request_selected_apps, available_apps):
     for i in range(0, len(request_selected_apps_list)):
         request = request_selected_apps_list[i].split('§§')[0]
         selected = request_selected_apps_list[i].split('§§')[1]
-        test1 = o.value(None, NS_O.Name, Literal(request))
-        test2 = ap.value(None, RDFS.label, Literal(selected))
-        print(test1)
-        print(test2)
+        if any(selected in s for s in available_apps_list):
+            triple = (URIRef(o.value(None, NS_O.Name, Literal(request))), NS_O.instanceOf, ap.value(None, RDFS.label, Literal(selected)))
+            results.append(triple)
+        else:
+            triple = (URIRef(o.value(None, NS_O.Name, Literal(request))), NS_O.instanceOf, PLACEHOLDER_APP)
+            results.append(triple)
+    print(results)
 
 class APP_POOL:
     def __init__(self, o, store, ap_folder):

@@ -3,7 +3,8 @@
     <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
 
     <script Language="javascript">
-        // only one time click not yet realised!!!
+        // to do 1 : only one time click not yet realised!!!
+        // to do 2 : no app select
         var app_id = 0;
         var foderName = "";
         var requestApps = [];
