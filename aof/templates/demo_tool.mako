@@ -81,7 +81,7 @@
 	}
 
 	function getApps(){
-        $.getJSON('/demo_apps.json', function(data){
+        $.getJSON('/demo_apps.json', {demo: "demo"},function(data){
             var json_data=data['apps']
             var dataObj=eval("("+json_data+")")
             $.each(dataObj.devices,function(idx,item){

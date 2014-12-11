@@ -184,7 +184,6 @@ def create(o, ap, request_selected_apps, available_apps, ap_folder, cvbpm, outpu
     appsToCopy = set()
 
     # Add app descriptions for selected apps to orchestration model
-    #ToDo: Find a more elegant way to do this. It should be possible to add a transitive subgraph from ap
     for selectedApp in o.objects(None,NS_O.instanceOf):
         appDescrFile = ap.value(selectedApp, NS_O.descriptionFilename, None, "", False)
         filename = ap.value(selectedApp, NS_O.filename, None, "", False)

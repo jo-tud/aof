@@ -16,6 +16,7 @@ config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'
 
 app_ensemble_location = config.Paths.app_ensemble_location
 models_path = config.Paths.models_path
+app_ensemble_deploy_location = config.Paths.app_ensemble_deploy_location
 
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
@@ -42,24 +43,24 @@ def o_view(request):
     }
 
 @view_config(name='o_select.json', renderer='json')
-def o_select_view(request):
-    configfiles = "{select:[{name:'configfile_1'},{name:'configfile_2'}]}"
+def o_select_view_json(request):
     select = o.FolderName(models_path)
     folderNames = select.getFolderNames()
 #    print(folderNames)
     return {'select':folderNames}
 
 @view_config(name='o_get_apps.json', renderer='json')
-def o_get_apps_view(request):
+def o_get_apps_view_json(request):
     modelName = request.params.get('data')
+    global orchestration
     orchestration = o.Orchestration(modelName, models_path)
     requestApps = orchestration.getRequestApps()
     availableApps = orchestration.getAvailableApps()
-#    g = orchestration.getConjunctiveGraph()'Ask Johannes, how to transmit this g to the other view (o_orchestraion_view)'
+# use global to the orchestration
     return {'requestApps': requestApps, 'availableApps': availableApps}
 
 @view_config(name='o_orchestration.json', renderer='json')
-def o_orchestration_view(request):
+def o_orchestration_view_json(request):
     request_selected_apps = request.params.get('request_selected_apps')
     availabel_apps = request.params.get('available_apps')
     modelName = request.params.get('modelName')
@@ -70,10 +71,26 @@ def o_orchestration_view(request):
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):
-    return {'menu': SITE_MENU,
-            'meta': META,
-            'page_title': 'Deploy'
-    }
+    device = deploy.Device()
+    has = device.getStatus()
+    return {'hasDevice': has, 'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy'}
+
+@view_config(route_name='deploy_select', match_param="tool=deploy_select",renderer='templates/deploy_select.mako')
+def deploy_select_view(request):
+    return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy_select'}
+
+@view_config(name='deploy_select.json', renderer='json')
+def deploy_select_view_json(request):
+    select = o.FolderName(app_ensemble_deploy_location)
+    folderNames = select.getFolderNames()
+#    print(folderNames)
+    return {'select':folderNames}
+
+@view_config(name='deploy_set.json', renderer='json')
+def deploy_set_view_json(request):
+    global ae_lo
+    ae_lo = request.params.get('ae_location')
+    print(ae_lo)
 
 @view_config(route_name='demo', renderer='templates/demo.mako')
 def dp_1_view(request):
@@ -86,13 +103,18 @@ def dp_2_view(request):
     return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Demo_tool'}
 
 @view_config(name='demo_apps.json', renderer='json')
-def demo_apps_view(request):
-    demo = deploy.Deploy(app_ensemble_location)
-    apps = demo.getapps()
-    return {'apps':apps}
+def demo_apps_view_json(request):
+    situation = request.params.get('ae_location')
+    if situation == None:
+        print(ae_lo)
+    else:
+        demo = deploy.Deploy(app_ensemble_location)
+        apps = demo.getapps()
+        return {'apps':apps}
+
 
 @view_config(name='demo_install.json', renderer='json')
-def demo_install_view(request):
+def demo_install_view_json(request):
     name = request.params.get('data')
     install = deploy.Install(name)
     result = install.getStatus()

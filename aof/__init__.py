@@ -21,6 +21,8 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('orchestrate', '/orchestrate.html')
     config.add_route('deploy', '/deploy.html')
+    config.add_route('deploy_select', '/deploy/{tool}*')
+
     config.add_route('app-pool', '/app-pool.html')
 
     config.add_route('demo', '/demo.html')

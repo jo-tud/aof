@@ -7,9 +7,9 @@
 
 	function deploy() {
         var device = ${hasDevice};
-	     if(device=="1"){
+	     if(device=="0"){
 	         window.location.href = "/demo/demo_tool";
-	     }else if(device=="0"){
+	     }else if(device=="1"){
 	         $("#p1").text("No device connected, please connect your device and refresh");
 	     }
     }
