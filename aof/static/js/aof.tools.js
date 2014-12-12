@@ -1,11 +1,11 @@
 function getGridData(jsonObj) {
 	dataArray = [];
 	headerArray = [];
-	
+
 	for(var i = 0; i <  jsonObj.head.vars.length; i++) {
 		headerArray[i] =  {headerText: jsonObj.head.vars[i]};
 	}
-	
+
 	for(var i = 0; i < jsonObj.results.bindings.length; i++) {
 		dataArray[i] = [];
 		for (var v in jsonObj.head.vars) {
@@ -19,11 +19,11 @@ function getGridData(jsonObj) {
 		      dataArray[i].push("");
 		    }
 		}
-	} 
-	
+	}
+
 	for(var i = 0; i <  jsonObj.head.vars.length; i++) {
 		headerArray[i] =  {headerText: jsonObj.head.vars[i]};
 	}
-	
+
 	return [headerArray, dataArray]
 } 

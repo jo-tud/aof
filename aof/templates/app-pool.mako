@@ -23,17 +23,35 @@
 		    "knockout": "knockout-3.1.0" //Needed if you use Knockout.
 		}
 	});
-</script>
+    </script>
+    <!--Require aof.tools Js-->
+    <script type="text/javascript" src="${request.static_url('aof:static/js/aof.tools.js')}"></script>
 
-<script id="scriptInit" type="text/javascript">
-	require(["wijmo.wijgrid"], function () {
-	    $(document).ready(function () {
-		    $.getJSON('/app-pool.json',function(data){
-                alert('haha');
+    <script id="scriptInit" type="text/javascript">
+        require(["wijmo.wijgrid"], function () {
+            $(document).ready(function () {
+                $.getJSON('/app-pool.json',function(data){
+                    var json_data=data['json'];
+                    var dataObj=eval("("+json_data+")");
+                    var gridData = getGridData(dataObj);
+
+                    $("#wijgrid").wijgrid({
+                        cellClicked: function (e, args) {
+                        // alert(args.cell.value());
+                        },
+                        allowSorting: true,
+                        allowPaging: false,
+                        pageSize: 10,
+                        allowVirtualScrolling: true,
+                        showFilter: true,
+                        columns: gridData[0],
+                        data: gridData[1]
+		             });
+
+                });
             });
-	    });
-	});
-</script>
+        });
+    </script>
 <body>
     <div class="container">
         <table id="wijgrid">

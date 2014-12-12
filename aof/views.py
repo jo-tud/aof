@@ -35,7 +35,6 @@ def ap_show_view(request):
 @view_config(name='app-pool.json', renderer='json')
 def ap_show_view_json(request):
     json = listAP().decode("utf-8")
-    print(json)
     return {'json': json}
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
