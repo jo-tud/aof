@@ -252,7 +252,7 @@ def create(o, ap, request_selected_apps, available_apps, ap_folder, cvbpm, outpu
         shutil.copyfile(os.path.join(ap_folder,"apps",filename), os.path.join(ae_folder,"apps",filename))
 
     # Serialize orchestration model
-    aeFile = open(os.path.join(ae_folder,o_id+".ttl"),'wb')
+    aeFile = open(os.path.join(ae_folder,o_id.lower()+".ttl"),'wb')
     aeFile.write(o.serialize(format="turtle"))
     aeFile.close()
 

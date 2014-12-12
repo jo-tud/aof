@@ -88,8 +88,8 @@ def deploy_select_view_json(request):
 
 @view_config(name='deploy_set.json', renderer='json')
 def deploy_set_view_json(request):
-    global ae_lo
-    ae_lo = request.params.get('ae_location')
+    global folderNameDeploy
+    folderNameDeploy = request.params.get('ae_location')
 
 @view_config(route_name='demo', renderer='templates/demo.mako')
 def dp_1_view(request):
@@ -109,10 +109,12 @@ def dp_3_view(request):
 def demo_apps_view_json(request):
     situation = request.params.get('demo')
     if situation == None:
-        print(ae_lo)
-#        dp = deploy.Deploy(ae_lo)
-#        apps = dp.getapps()
-#        return {'apps':apps}
+        ae_location = folderNameDeploy + '/' + folderNameDeploy.lower() + '.ttl'
+        ae_location_full = os.path.join(app_ensemble_deploy_location, ae_location)
+
+        dp = deploy.Deploy(ae_location_full)
+        apps = dp.getapps()
+        return {'apps':apps}
     else:
         demo = deploy.Deploy(app_ensemble_location)
         apps = demo.getapps()
