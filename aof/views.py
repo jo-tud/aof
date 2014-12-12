@@ -27,13 +27,16 @@ def home_view(request):
 
 @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
 def ap_show_view(request):
-    json = listAP()
-    print(json)
     return {'menu': SITE_MENU,
             'meta': META,
-            'page_title': 'App-Pool',
-            'json': json
+            'page_title': 'App-Pool'
     }
+
+@view_config(name='app-pool.json', renderer='json')
+def ap_show_view_json(request):
+    json = listAP().decode("utf-8")
+    print(json)
+    return {'json': json}
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
 def o_view(request):

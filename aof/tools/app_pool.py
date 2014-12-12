@@ -29,7 +29,6 @@ class LocalAppPool:
         res = self.ap.query(qstr)
         # print("Result: \n\n",res.serialize(format = 'txt').decode())
         return res.serialize(format = 'json')
-        return 'hahaha'
 
     def printAppList(self):
         query = """

@@ -52,6 +52,7 @@
     <script id="scriptInit" type="text/javascript">
 	require(["wijmo.wijgrid"], function () {
 	    $(document).ready(function () {
+
 		var jsonObj = jQuery.parseJSON( '${json}');
 		
 		// Use the getGridData(jsonObj) function to turn a sparql result json-string into data suitable for a wijmo grid
