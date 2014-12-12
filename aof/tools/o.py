@@ -35,14 +35,30 @@ CONFIG_FILE = 0
 CREATE_SUPPLEMENTFILE = 0
 PLACEHOLDER_APP = URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#SkeletonApp_G0M8iQlfoOQQ")
 
+def check(folderName):
+    good = True
+    if folderName == '__pycache__':
+        good = False
+    if folderName == 'README':
+        good = False
+    if folderName == '__init__.py':
+        good = False
+    return good
+
 class FolderName:
     def __init__(self, folder_path):
         list = os.listdir(folder_path)
+        checked = []
+
+        for i in range(0, len(list)):
+            if check(list[i]):
+                checked.append(list[i])
+
+        print(checked)
         jsonString = '{select:['
-        for i in range(0, len(list)-1):
-            if list[i] != 'README':
-                jsonString =  jsonString + add(list[i])
-        jsonString = jsonString + endadd(list[len(list)-1]) + ']}'
+        for i in range(0, len(checked)-1):
+            jsonString =  jsonString + add(checked[i])
+        jsonString = jsonString + endadd(list[len(checked)]) + ']}'
         self.jsonString = jsonString
 
     def getFolderNames(self):

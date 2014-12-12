@@ -15,10 +15,10 @@
         }
 
         function deploy1(){
-            parameter = "haha";
+            parameter=$("#select").find("option:selected").text();
             $.getJSON('/deploy_set.json', {ae_location:parameter}, function(data){
             });
-            window.location.href = "/demo/demo_tool";
+            window.location.href = "/deploy/tool/deploy_tool";
         }
 
     </script>

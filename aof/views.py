@@ -90,7 +90,6 @@ def deploy_select_view_json(request):
 def deploy_set_view_json(request):
     global ae_lo
     ae_lo = request.params.get('ae_location')
-    print(ae_lo)
 
 @view_config(route_name='demo', renderer='templates/demo.mako')
 def dp_1_view(request):
@@ -102,11 +101,18 @@ def dp_1_view(request):
 def dp_2_view(request):
     return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Demo_tool'}
 
+@view_config(route_name='deploy_tool', match_param="tool=deploy_tool", renderer='templates/deploy_tool.mako')
+def dp_3_view(request):
+    return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy_tool'}
+
 @view_config(name='demo_apps.json', renderer='json')
 def demo_apps_view_json(request):
-    situation = request.params.get('ae_location')
+    situation = request.params.get('demo')
     if situation == None:
         print(ae_lo)
+#        dp = deploy.Deploy(ae_lo)
+#        apps = dp.getapps()
+#        return {'apps':apps}
     else:
         demo = deploy.Deploy(app_ensemble_location)
         apps = demo.getapps()
