@@ -111,9 +111,14 @@ def dp_3_view(request):
 def demo_apps_view_json(request):
     situation = request.params.get('demo')
     if situation == None:
-        ae_location = folderNameDeploy + '/' + folderNameDeploy.lower() + '.ttl'
-        ae_location_full = os.path.join(app_ensemble_deploy_location, ae_location)
-
+        ae_location_full = ''
+        print(folderNameDeploy)
+        if folderNameDeploy.endswith('.ttl'):
+            ae_location = folderNameDeploy.replace('.ttl','').title() + '/' + folderNameDeploy
+            ae_location_full = os.path.join(app_ensemble_deploy_location, ae_location)
+        else:
+            ae_location = folderNameDeploy + '/' + folderNameDeploy.lower() + '.ttl'
+            ae_location_full = os.path.join(app_ensemble_deploy_location, ae_location)
         dp = deploy.Deploy(ae_location_full)
         apps = dp.getapps()
         return {'apps':apps}

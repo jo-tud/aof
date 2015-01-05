@@ -55,18 +55,19 @@
                         $.each(dataObj.available_apps,function(idx,item){
                             availableApps[availableApps.length] = item.name;
                     });
-
+                $( ".functions" ).remove();
+                $( "#p2" ).remove();
                 $title = $("<p id='p2'>Pleaseselect the Application and submit</p>")
                 $('.model_select').after($title);
                 var json_data=data['requestApps'];
                 var dataObj=eval("("+json_data+")");
                     $.each(dataObj.request_apps,function(idx,item){
                         requestApps[requestApps.length] = item.name;
-                        $myli = $("<label id='app_id_label_"+app_id+"' style ='float: left;'>"+item.name+"</label>"
+                        $myli = $("<div class='functions'>" + "<label id='app_id_label_"+app_id+"' style ='float: left;'>"+item.name+"</label>"
                                   + "<select id='app_id_"+app_id+"'style ='float: right;'>" +
                                   "<option id='app_id_" + app_id + "_options_first'>" +
                                   "-------------Please select an app-------------"
-                                  + "</option></select>" + "<div style='clear: both;'></div>");
+                                  + "</option></select>" + "<div style='clear: both;'></div>" + "</div>");
                         $('#p2').after($myli);
                     var selected = item.preselection;
                     var json_data=data['availableApps'];

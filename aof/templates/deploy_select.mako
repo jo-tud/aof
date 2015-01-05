@@ -21,6 +21,16 @@
             window.location.href = "/deploy/tool/deploy_tool";
         }
 
+        function deploy2(){
+            var file = $('#file')[0].files[0];
+                if(file){
+                    parameter = file.name;
+                    $.getJSON('/deploy_set.json', {ae_location:parameter}, function(data){
+                });
+                window.location.href = "/deploy/tool/deploy_tool";
+                }
+        }
+
     </script>
 
 
@@ -32,14 +42,15 @@
           <select id="select" style="position:absolute;margin-left:4px;margin-top:4px;width:260px">
             <option id="option">------Please select app-ensemble------</option>
           </select>
-          <input style="position:absolute;margin-left:275px;margin-top:-2px" onclick="deploy1()" id="deploy_1"
+          <input style="position:absolute;margin-left:4px;margin-top:45px" onclick="deploy1()" id="deploy_1"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the app ensemble"/>
-          <input style="position:absolute;margin-left:615px;margin-top:-2px" onclick="deploy2()" id="deploy_2"
+          <input id="file" style="font-size:23px;position:absolute;margin-left:628px;margin-top:5px" type="file"/>
+          <input style="position:absolute;margin-left:628px;margin-top:45px" onclick="deploy2()" id="deploy_2"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
-            class="mybtn" value="Load from file"/>
+            class="mybtn" value="Use the app ensemble"/>
         </div>
       </div>
     </body>
