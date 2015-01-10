@@ -58,11 +58,11 @@ class FolderName:
         jsonString = '{select:['
         for i in range(0, len(checked)-1):
             jsonString =  jsonString + add(checked[i])
-        jsonString = jsonString + endadd(list[len(checked)]) + ']}'
+        jsonString = jsonString + endadd(checked[len(checked) - 1]) + ']}'
         self.jsonString = jsonString
 
     def getFolderNames(self):
-#        print(self.jsonString)
+        print(self.jsonString)
         return self.jsonString
 
 # Definition of general namespaces
