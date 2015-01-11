@@ -44,6 +44,14 @@
             }
             $.getJSON('/o_orchestration.json', {request_selected_apps: selected_apps.toString(),
                 available_apps: availableApps.toString(), modelName: foderName}, function(data){
+
+                    var json_data=data['ae_result'];
+                    var dataObj=eval("("+json_data+")");
+                        $.each(dataObj.ae_result,function(idx,item){
+                        $myli = $("<option style='margin-top: 10px; margin-left: 10px'>" + item.name + "</option>");
+                        $myli.insertAfter('#content_o');
+	                });
+
             });
         }
 
@@ -90,7 +98,7 @@
 
 
     <body onload="init()">
-      <div class="content">
+      <div class="content" id="content_o">
         <p class="lead">App Orchestration.</p>
         <p id="p1">Please select the Model you want to orchestrate</p>
         <div class="model_select" style="height:50px">

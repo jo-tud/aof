@@ -256,7 +256,7 @@ def create(o, ap, request_selected_apps, available_apps, ap_folder, cvbpm, outpu
     aeFile.write(o.serialize(format="turtle"))
     aeFile.close()
 
-    finish = "\nApp Ensemble was created in " + ae_folder
+    finish = "App Ensemble was created in " + ae_folder
     return finish
 
 

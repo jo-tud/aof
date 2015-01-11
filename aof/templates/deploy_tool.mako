@@ -95,8 +95,14 @@
             var json_data=data['result']
             var dataObj=eval("("+json_data+")")
                 $.each(dataObj.devices,function(idx,item){
-                    $myli = $("<div style='background-color:#0077FF;' id= " + item.name + ">" + item.name + ":  " + item.status + "</div>");
-		            $('.Progress').after($myli);
+                    if(item.status == "Success"){
+                        $myli = $("<div style='background-color:#0077FF;' id= " + item.name + ">" + item.name + ":  " + item.status + "</div>");
+		                $('.Progress').after($myli);
+                    }else{
+                        $myli = $("<div style='background-color:#00AAFF;' id= " + item.name + ">" + item.name + ":  " + item.status + "</div>");
+		                $('.Progress').after($myli);
+                    }
+
 	        });
         });
 	}

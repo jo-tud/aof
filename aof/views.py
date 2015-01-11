@@ -69,7 +69,12 @@ def o_orchestration_view_json(request):
     orchestration = o.Orchestration(modelName, models_path, request_selected_apps, availabel_apps)
     result = orchestration.createAppEnsemble()
     print(result)
-    return {'appEnsemble': result}
+    test = "{ae_result:[{name:'" + result + "'}]}"
+    result_1 = "haha";
+    test_1 = "{ae_result:[{name:'" + result_1 + "'}]}"
+    print(test)
+    print(test_1)
+    return {'ae_result': test}
 
 @view_config(route_name='deploy', renderer='templates/deploy.mako')
 def deploy_view(request):
