@@ -46,7 +46,7 @@
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the app ensemble"/>
-          <input id="file" style="font-size:23px;position:absolute;margin-left:628px;margin-top:5px" type="file"/>
+          <input id="file" style="font-size:23px;position:absolute;margin-left:628px;margin-top:5px;" type="file"/>
           <input style="position:absolute;margin-left:628px;margin-top:45px" onclick="deploy2()" id="deploy_2"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"

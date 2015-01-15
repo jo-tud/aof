@@ -86,3 +86,21 @@ select{
   height:36px;
 }
 
+div.fileinput {
+	position: relative;
+
+}
+.faux {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+input.file {
+	position: relative;
+	-moz-opacity:0 ;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+}
+

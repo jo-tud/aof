@@ -3,7 +3,6 @@
     <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
 
     <script Language="javascript">
-        // to do 1 : only one time click not yet realised!!!
         // to do 2 : no app select
         var app_id = 0;
         var foderName = "";
@@ -39,6 +38,8 @@
                 app_request = document.getElementById(app_id_label_).textContent;
                 if (app_selected != '-------------Please select an app-------------'){
                     selected_apps[selected_apps.length] = app_request + "§§" + app_selected;
+                } else {
+                    selected_apps[selected_apps.length] = app_request + "§§" + "no_select";
                 }
 
             }
