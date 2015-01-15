@@ -12,6 +12,14 @@
                     $myli.insertAfter('#option');
 	            });
             });
+            $("#file").change(function () {
+                if ($("#file").val() == "") {
+                return;
+            }
+                var content = $("#file").val()
+                document.getElementById("selected_file_name").textContent = content;
+                $("#file").val("");
+            });
         }
 
         function deploy1(){
@@ -31,6 +39,7 @@
                 }
         }
 
+
     </script>
 
 
@@ -42,15 +51,21 @@
           <select id="select" style="position:absolute;margin-left:4px;margin-top:4px;width:260px">
             <option id="option">------Please select app-ensemble------</option>
           </select>
-          <input style="position:absolute;margin-left:4px;margin-top:45px" onclick="deploy1()" id="deploy_1"
+          <input style="position:absolute;margin-left:4px;margin-top:55px" onclick="deploy1()" id="deploy_1"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the app ensemble"/>
-          <input id="file" style="font-size:23px;position:absolute;margin-left:628px;margin-top:5px;" type="file"/>
-          <input style="position:absolute;margin-left:628px;margin-top:45px" onclick="deploy2()" id="deploy_2"
+          <input onmouseover="durchsuchen.style.borderWidth='3px'" onmouseout="durchsuchen.style.borderWidth='2px'"
+                 id="file" style="cursor: pointer; opacity: 0; z-index: 2;font-size:23px;position:absolute;margin-left:628px;margin-top:4px;height:44px" type="file"/>
+          <input style="position:absolute;margin-left:628px;margin-top:55px" onclick="deploy2()" id="deploy_2"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the app ensemble"/>
+          <input id="durchsuchen" style="position:absolute; z-index: 1;margin-left:628px;margin-top:5px"
+            onmouseover="this.style.borderWidth='3px'"
+            onmouseout="this.style.borderWidth='2px'" type="button"
+            class="mybtn" value="Durchsuchen"/>
+          <span style="width:290px; padding-top:7px;height:42px; position:absolute; z-index: 3;margin-left:797px;margin-top:6px" id="selected_file_name">No file selected</span>
         </div>
       </div>
     </body>
