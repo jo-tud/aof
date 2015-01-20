@@ -16,11 +16,11 @@
 
     </script>
 
-    <div class="content">
+    <div class="content" id="content_dp">
       <p class="lead">Deploy the App Ensemble to your Device.</p>
       <p id="p1">Please connect your device via USB and press the button</p>
       <div style="height:50px">
-        <input onclick="deploy()" id="deploy" style="position:absolute;margin-left: 10px;margin-top: -2px"
+        <input onclick="deploy()" id="deploy"
           onmouseover="this.style.borderWidth='3px'"
           onmouseout="this.style.borderWidth='2px'" type="button"
           class="mybtn" value="Deploy now!"/>

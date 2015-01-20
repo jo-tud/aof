@@ -102,15 +102,15 @@
       <div class="content" id="content_o">
         <p class="lead">App Orchestration.</p>
         <p id="p1">Please select the Model you want to orchestrate</p>
-        <div class="model_select" style="height:50px">
-          <select id="select" style="position:absolute;margin-left:4px;margin-top:4px;width:240px">
+        <div class="model_select">
+          <select id="select">
             <option id="option">------Please select a model------</option>
           </select>
-          <input style="position:absolute;margin-left:275px;margin-top:-2px" onclick="deploy()" id="deploy"
+          <input onclick="deploy()" id="deploy"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the model"/>
-          <input style="position:absolute;margin-left:615px;margin-top:-2px" onclick="submit()" id="submit"
+          <input onclick="submit()" id="submit"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Submit the selections of apps"/>
