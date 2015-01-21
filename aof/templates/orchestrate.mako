@@ -66,7 +66,7 @@
                     });
                 $( ".functions" ).remove();
                 $( "#p2" ).remove();
-                $title = $("<p id='p2'>Pleaseselect the Application and submit</p>")
+                $title = $("<p id='p2' style='margin-top: 50px'>Pleaseselect the Application and submit</p>")
                 $('.model_select').after($title);
                 var json_data=data['requestApps'];
                 var dataObj=eval("("+json_data+")");

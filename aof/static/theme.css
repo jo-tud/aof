@@ -111,6 +111,9 @@ main .content h1 .smaller {
   color: #ffffff;
 }
 
+#content_o .model_select {
+  margin-top:40px;
+}
 #content_o .model_select #select {
   position:absolute;
   margin-left:4px;
@@ -156,6 +159,9 @@ main .content h1 .smaller {
   }
 }
 @media (max-width: 991px) {
+   #content_o .model_select {
+    margin-top:10px;
+   }
    #content_o .model_select #select{
     margin-left:-210px;
    }
@@ -169,6 +175,9 @@ main .content h1 .smaller {
    #content_o .model_select #title{
     positon:relative;
     margin-left:-110px;
+    margin-top:160px;
+   }
+   #content_o .model_select #p2{
     margin-top:160px;
    }
    #content_dp #deploy{
