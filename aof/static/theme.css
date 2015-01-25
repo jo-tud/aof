@@ -147,6 +147,53 @@ main .content h1 .smaller {
   margin-top: -2px;
 }
 
+#content_dp_select .model_select #select {
+  position:absolute;
+  margin-left:4px;
+  margin-top:4px;
+  width:260px
+}
+
+#content_dp_select .model_select #deploy_1{
+  position:absolute;
+  margin-left:4px;
+  margin-top:55px;
+}
+
+#content_dp_select .model_select #deploy_2{
+  position:absolute;
+  margin-left:628px;
+  margin-top:55px;
+}
+
+#content_dp_select .model_select #durchsuchen{
+  position:absolute;
+  z-index: 1;
+  margin-left:628px;
+  margin-top:5px;
+}
+
+#content_dp_select .model_select #selected_file_name{
+  width:290px;
+  padding-top:7px;
+  height:42px;
+  position:absolute;
+  z-index: 3;
+  margin-left:797px;
+  margin-top:6px;
+}
+
+#content_dp_select .model_select #file{
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  font-size:23px;
+  position:absolute;
+  margin-left:628px;
+  margin-top:4px;
+  height:44px;
+}
+
 @media (max-width: 1199px) {
   .main .content h1 {
     font-size: 45px;
@@ -159,6 +206,25 @@ main .content h1 .smaller {
   }
 }
 @media (max-width: 991px) {
+   #content_dp_select .model_select #select {
+    margin-left:-270px;
+   }
+   #content_dp_select .model_select #deploy_1{
+    margin-left:-262px;
+   }
+   #content_dp_select .model_select #deploy_2{
+    margin-left:20px;
+   }
+   #content_dp_select .model_select #durchsuchen{
+    margin-left:20px;
+   }
+   #content_dp_select .model_select #file{
+    margin-left:380px;
+   }
+   #content_dp_select .model_select #selected_file_name{
+    margin-left:186px;
+    text-align:left;
+   }
    #content_o .model_select {
     margin-top:10px;
    }
@@ -207,7 +273,17 @@ main .content h1 .smaller {
   }
 }
 @media (max-width: 767px) {
-  .main .content h1 .smaller {
+   #content_dp_select .model_select #select {
+    margin-left:-250px;
+   }
+   #content_dp_select .model_select #deploy_1{
+    margin-left:-171px;
+   }
+   #content_dp_select .model_select #selected_file_name{
+    margin-left:150px;
+    text-align:left;
+   }
+   .main .content h1 .smaller {
     font-size: 25px;
     display: block;
   }

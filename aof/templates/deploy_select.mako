@@ -44,28 +44,28 @@
 
 
     <body onload="init()">
-      <div class="content">
+      <div class="content" id="content_dp_select">
         <p class="lead">Deploy the App Ensemble to your Device.</p>
         <p id="p1">Please select the app-ensemble you want to deploy</p>
         <div class="model_select" style="height:50px">
-          <select id="select" style="position:absolute;margin-left:4px;margin-top:4px;width:260px">
+          <select id="select">
             <option id="option">------Please select app-ensemble------</option>
           </select>
-          <input style="position:absolute;margin-left:4px;margin-top:55px" onclick="deploy1()" id="deploy_1"
+          <input onclick="deploy1()" id="deploy_1"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the app ensemble"/>
           <input onmouseover="durchsuchen.style.borderWidth='3px'" onmouseout="durchsuchen.style.borderWidth='2px'"
-                 id="file" style="cursor: pointer; opacity: 0; z-index: 2;font-size:23px;position:absolute;margin-left:628px;margin-top:4px;height:44px" type="file"/>
-          <input style="position:absolute;margin-left:628px;margin-top:55px" onclick="deploy2()" id="deploy_2"
+                 id="file" type="file"/>
+          <input onclick="deploy2()" id="deploy_2"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Use the app ensemble"/>
-          <input id="durchsuchen" style="position:absolute; z-index: 1;margin-left:628px;margin-top:5px"
+          <input id="durchsuchen"
             onmouseover="this.style.borderWidth='3px'"
             onmouseout="this.style.borderWidth='2px'" type="button"
             class="mybtn" value="Durchsuchen"/>
-          <span style="width:290px; padding-top:7px;height:42px; position:absolute; z-index: 3;margin-left:797px;margin-top:6px" id="selected_file_name">No file selected</span>
+          <span id="selected_file_name">No file selected</span>
         </div>
       </div>
     </body>

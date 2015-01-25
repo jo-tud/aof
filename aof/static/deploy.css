@@ -103,4 +103,9 @@ input.file {
 	opacity: 0;
 	z-index: 2;
 }
+@media (max-width: 767px){
+  .mybtn {
+    font-size:1.0em;
+  }
+}
 

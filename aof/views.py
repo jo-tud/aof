@@ -80,7 +80,7 @@ def o_orchestration_view_json(request):
 def deploy_view(request):
     device = deploy.Device()
     has = device.getStatus()
-    return {'hasDevice': has, 'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy'}
+    return {'hasDevice': 1, 'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy'}
 
 @view_config(route_name='deploy_select', match_param="tool=deploy_select",renderer='templates/deploy_select.mako')
 def deploy_select_view(request):
