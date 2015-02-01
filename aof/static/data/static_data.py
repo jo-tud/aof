@@ -9,5 +9,6 @@ SITE_MENU = [
         {'href': '/orchestrate.html', 'title': 'Orchestrate'},
         {'href': '/deploy.html', 'title': 'Deploy'},
         {'href': '/app-pool.html', 'title': 'App Pool'},
-        {'href': '/demo.html', 'title': 'DEMO'}
+        {'href': '/demo.html', 'title': 'DEMO'},
+        {'href': '/info.html', 'title': 'Info'}
 ]

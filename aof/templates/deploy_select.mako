@@ -24,9 +24,14 @@
 
         function deploy1(){
             parameter=$("#select").find("option:selected").text();
-            $.getJSON('/deploy_set.json', {ae_location:parameter}, function(data){
-            });
-            window.location.href = "/deploy/tool/deploy_tool";
+            if (parameter == "------Please select app-ensemble------"){
+                $("#p1").text("No app-ensemble selected, please select a model");
+            }else{
+                $.getJSON('/deploy_set.json', {ae_location:parameter}, function(data){
+                });
+                window.location.href = "/deploy/tool/deploy_tool";
+            }
+
         }
 
         function deploy2(){
