@@ -4,7 +4,7 @@ from pyramid.view import view_config
 from pyramid.response import Response
 from simpleconfigparser import simpleconfigparser
 
-from aof.tools import app_pool
+from aof.tools import AppPool
 from aof.tools import deploy
 from aof.tools import o
 
@@ -14,9 +14,7 @@ from aof.static.data.static_data import SITE_MENU
 config = simpleconfigparser()
 config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'/aof.conf')
 
-app_ensemble_location = config.Paths.app_ensemble_location
-models_path = config.Paths.models_path
-app_ensemble_deploy_location = config.Paths.app_ensemble_deploy_location
+app_pool = config.Paths.app_ensemble_location
 
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):

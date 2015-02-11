@@ -1,0 +1,20 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@base <http://eatld.et.tu-dresden.de/aof/> .
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+@prefix adl: <http://eatld.et.tu-dresden.de/aof/adl/> .
+
+## URI of the Generic App that is described
+<apps/TUDSimpleMessage_MBrh2UmSe3AP> 
+
+## Add Intents
+adl:hasIntent	[
+  adl:intentPurpose	"ShowSimpleMessage";
+  adl:intentString	"eu.comvantage.iaf.SIMPLE_MESSAGE"]
+
+## End of description
+. 
