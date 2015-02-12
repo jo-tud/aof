@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="sticky">
-            <nav class="top-bar" data-topbar role="navigation">
+            <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
                 <ul class="title-area">
                     <li class="name">
                         <h1><a href="/">AOF</a></h1>
@@ -25,17 +25,25 @@
                         <li><a href="deploy.html">Deploy</a></li>
                         <li><a href="info.html">Info</a></li>
                     </ul>
+                    <ul class="right">
+                        <%block name="top_bar_actions" />
+                    </ul>
                 </section>
             </nav>
         </div>
         ${next.body()}
-
+        <%block name="global_js">
         <script src="static/bower_components/foundation/js/vendor/jquery.js"></script>
         <script src="static/bower_components/foundation/js/vendor/fastclick.js"></script>
         <script src="static/bower_components/foundation/js/foundation.min.js"></script>
         <script src="static/bower_components/jsonld/js/jsonld.js"></script>
-
         <script src="static/js/app.js"></script>
+        </%block>
+        <%block name="local_js" />
+
+
+
+
 
     </body>
 </html>

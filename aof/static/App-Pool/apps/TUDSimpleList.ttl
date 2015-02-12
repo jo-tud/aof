@@ -5,11 +5,14 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 @base <http://eatld.et.tu-dresden.de/aof/> .
-@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 @prefix adl: <http://eatld.et.tu-dresden.de/aof/adl/> .
 
 ## URI of the Generic App that is described
 <apps/TUDSimpleList_NryuJDGzjNXl>
+
+
+rdfs:label "TUD Simple List App" ;
+adl:currentBinary <http://localhost:8081/static/App-Pool/apps/TUDSimpleList-release.apk> ;
 
 ## Add Intents
 adl:hasIntent	[

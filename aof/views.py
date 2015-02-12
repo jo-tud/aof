@@ -41,7 +41,26 @@ class AppPoolViews():
     @view_config(name='app-pool.json', renderer='json')
     def ap_show_view_json(self):
         ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
-        json = ap.serialize(format="json-ld").decode()
+        # json = ap.serialize(format="json-ld").decode()
+        query = """
+        PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
+        SELECT DISTINCT *
+        WHERE {
+        ?uri rdfs:label ?name ;
+            adl:currentBinary ?binary .
+
+        OPTIONAL {
+        ?uri adl:hasIntent [
+            adl:intentString ?intent_string ;
+            adl:intentPurpose ?intent_purpose
+            ] .
+        }
+
+        }
+        """
+        res = ap.query(query)
+        json = res.serialize(format="json").decode()
+
         return {'json': json}
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
