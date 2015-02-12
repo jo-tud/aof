@@ -71,4 +71,4 @@ class AppPool(Graph):
 if __name__ == "__main__":
     ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
     print("This graph is a singleton and currently contains %i triples" %(ap.__len__() ) )
-    print("\nThe Graph:\n\n",ap.serialize(format="turtle").decode())
+    print("\nThe Graph:\n\n",ap.serialize(format="json-ld", indent=1).decode())

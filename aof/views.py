@@ -1,10 +1,11 @@
 import os
+import logging
 
 from pyramid.view import view_config
 from pyramid.response import Response
 from simpleconfigparser import simpleconfigparser
 
-from aof.tools import AppPool
+from aof.tools.AppPool import AppPool
 from aof.tools import deploy
 from aof.tools import o
 
@@ -16,6 +17,8 @@ config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir)+'
 
 app_pool = config.Paths.app_ensemble_location
 
+log = logging.getLogger(__name__)
+
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
 
@@ -23,17 +26,23 @@ def home_view(request):
             'meta': META,
             'page_title': 'Home'}
 
-@view_config(route_name='app-pool', renderer='templates/app-pool.mako')
-def ap_show_view(request):
-    return {'menu': SITE_MENU,
-            'meta': META,
-            'page_title': 'App-Pool'
-    }
+class AppPoolViews():
 
-@view_config(name='app-pool.json', renderer='json')
-def ap_show_view_json(request):
-    json = listAP().decode("utf-8")
-    return {'json': json}
+    def __init__(self, request):
+        self.request = request
+
+    @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
+    def ap_show_view(self):
+        return {'menu': SITE_MENU,
+                'meta': META,
+                'page_title': 'App-Pool',
+        }
+
+    @view_config(name='app-pool.json', renderer='json')
+    def ap_show_view_json(self):
+        ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
+        json = ap.serialize(format="json-ld").decode()
+        return {'json': json}
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
 def o_view(request):
@@ -142,22 +151,3 @@ def info_view(request):
     return {'menu': SITE_MENU,
             'meta': META,
             'page_title': 'Info'}
-
-def listAP():
-    query = """
-    PREFIX ap: <http://eatld.et.tu-dresden.de/ap/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-    SELECT ?app_uri ?label ?apk_uri
-    WHERE {
-	?app_uri a ap:App .
-	?app_uri rdfs:label ?label .
-	OPTIONAL {
-		?app_uri ap:availableAt ?apk_uri .
-	}
-    } 
-    LIMIT 100
-    """
-    ap = app_pool.LocalAppPool()
-    json = ap.queryAP(query)
-    return json
