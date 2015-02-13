@@ -1,10 +1,5 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-@base <http://eatld.et.tu-dresden.de/aof/> .
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
-
-# Generate random String for GenericApp URIs
-# < /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-12};echo;
 
 []
 	aof:hasAppDescription <http://localhost:8081/static/App-Pool/apps/TUDSimpleList.ttl> ;

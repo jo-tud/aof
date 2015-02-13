@@ -6,7 +6,6 @@ from aof.tools.Singleton import Singleton
 import os # os abstraction (e.g. listdir)
 import logging
 
-
 @Singleton
 class AppPool(Graph):
     def __init__(self, init_data_URI=None):
