@@ -1,8 +1,9 @@
 import os
 import logging
+from pyramid.httpexceptions import HTTPNotFound
 
 from pyramid.view import view_config
-from pyramid.response import Response
+from pyramid.response import Response, FileResponse
 from simpleconfigparser import simpleconfigparser
 
 from aof.tools.AppPool import AppPool
@@ -77,7 +78,7 @@ class AppEnsembleViews():
                 'page_title': 'Deploy'}
 
     @view_config(route_name='api', match_param='tool=get_ae_info', renderer='json')
-    def ae_get_ae_info_json(self):
+    def ae_get_ae_info_json_view(self):
         ae_info = dict()
         for key, ae in self.ae_dict.items():
             apps = ae_tools.getRequiredApps(ae).serialize(format='json').decode()
@@ -86,6 +87,21 @@ class AppEnsembleViews():
             ae_info[key] = {'id': id, 'path': path, 'apps': apps}
 
         return {'json': ae_info}
+
+    @view_config(route_name='api', match_param='tool=get_ae_pkg')
+    def ae_get_ae_pkg_view(self):
+        param = self.request.params.getone('ae_id')
+        if param in self.ae_dict:
+            ae = self.ae_dict.get(param)
+            response = FileResponse(
+                ae.ae_pkg_path,
+                request=self.request,
+                content_type='application/vnd.aof.package-archive'
+                )
+            response.content_disposition = 'attachement; filename="'+param+".ae"
+        else:
+            response = HTTPNotFound('There is no such resource')
+        return response
 
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
