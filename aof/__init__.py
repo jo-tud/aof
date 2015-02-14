@@ -20,16 +20,16 @@ def main(global_config, **settings):
     # Routes
     config.add_route('home', '/')
     config.add_route('orchestrate', '/orchestrate.html')
-    config.add_route('deploy', '/deploy.html')
-    config.add_route('deploy_select', '/deploy/{tool}*')
-    config.add_route('deploy_tool', '/deploy/tool/{tool}*')
 
+    config.add_route('deploy', '/deploy.html')
     config.add_route('app-pool', '/app-pool.html')
 
     config.add_route('demo', '/demo.html')
     config.add_route('demo_tool', '/demo/{tool}*')
 
     config.add_route('info', '/info.html')
+
+    config.add_route('api', '/api/{tool}*')
 
     config.scan()
 

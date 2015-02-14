@@ -31,12 +31,13 @@
                 </section>
             </nav>
         </div>
+        <div class="row" id="alerts"></div>
+
         ${next.body()}
         <%block name="global_js">
         <script src="static/bower_components/foundation/js/vendor/jquery.js"></script>
         <script src="static/bower_components/foundation/js/vendor/fastclick.js"></script>
         <script src="static/bower_components/foundation/js/foundation.min.js"></script>
-        <script src="static/bower_components/jsonld/js/jsonld.js"></script>
         <script src="static/js/app.js"></script>
         </%block>
         <%block name="local_js" />

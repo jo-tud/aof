@@ -2,16 +2,20 @@
  * Created by jo on 12.02.15.
  */
 $(function() {
+    var liveFilter = $('#app_tables').liveFilter('#livefilter-input', 'div.columns', {
+        filterChildSelector: 'li.title'
+        }
+    );
     get_updates();
 
     function get_updates () {
-        $.getJSON('/app-pool.json', function(data) {
+        $.getJSON('/api/get_app_pool', function(data) {
             var target = $('div#app_tables');
             target.empty();
 
-            console.log(data.json);
+            //console.log(data.json);
             obj = JSON.parse(data.json);
-            console.log(obj);
+            //console.log(obj);
             $.each(obj.results.bindings, function (key, val) {
                 target.append(
                     '<div class="small-12 large-4 columns">' +
@@ -26,6 +30,7 @@ $(function() {
                     '</div>'
                 )
             });
+            liveFilter.refresh();
         });
     }
 

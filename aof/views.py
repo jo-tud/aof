@@ -6,8 +6,7 @@ from pyramid.response import Response
 from simpleconfigparser import simpleconfigparser
 
 from aof.tools.AppPool import AppPool
-from aof.tools import deploy
-from aof.tools import o
+from aof.tools import deploy, o, ae_tools
 
 from aof.static.data.static_data import META
 from aof.static.data.static_data import SITE_MENU
@@ -38,10 +37,9 @@ class AppPoolViews():
                 'page_title': 'App-Pool',
         }
 
-    @view_config(name='app-pool.json', renderer='json')
-    def ap_show_view_json(self):
+    @view_config(route_name='api', match_param='tool=get_app_pool', renderer='json')
+    def ap_get_app_pool_json(self):
         ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
-        # json = ap.serialize(format="json-ld").decode()
         query = """
         PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
         SELECT DISTINCT *
@@ -61,7 +59,34 @@ class AppPoolViews():
         res = ap.query(query)
         json = res.serialize(format="json").decode()
 
+        log.info(json)
         return {'json': json}
+
+class AppEnsembleViews():
+    ae_dict = None
+
+    def __init__(self, request):
+        self.request = request
+        if not type(self).ae_dict:
+            type(self).ae_dict = ae_tools.getExistingAE()
+
+    @view_config(route_name='deploy', renderer='templates/deploy.mako')
+    def deploy_view(request):
+        return {'menu': SITE_MENU,
+                'meta': META,
+                'page_title': 'Deploy'}
+
+    @view_config(route_name='api', match_param='tool=get_ae_info', renderer='json')
+    def ae_get_ae_info_json(self):
+        ae_info = dict()
+        for key, ae in self.ae_dict.items():
+            apps = ae_tools.getRequiredApps(ae).serialize(format='json').decode()
+            id = key
+            path = ae.ae_pkg_path
+            ae_info[key] = {'id': id, 'path': path, 'apps': apps}
+
+        return {'json': ae_info}
+
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
 def o_view(request):
@@ -102,28 +127,6 @@ def o_orchestration_view_json(request):
     print(test_1)
     return {'ae_result': test}
 
-@view_config(route_name='deploy', renderer='templates/deploy.mako')
-def deploy_view(request):
-    device = deploy.Device()
-    has = device.getStatus()
-    return {'hasDevice': has, 'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy'}
-
-@view_config(route_name='deploy_select', match_param="tool=deploy_select",renderer='templates/deploy_select.mako')
-def deploy_select_view(request):
-    return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy_select'}
-
-@view_config(name='deploy_select.json', renderer='json')
-def deploy_select_view_json(request):
-    select = o.FolderName(app_ensemble_deploy_location)
-    folderNames = select.getFolderNames()
-#    print(folderNames)
-    return {'select':folderNames}
-
-@view_config(name='deploy_set.json', renderer='json')
-def deploy_set_view_json(request):
-    global folderNameDeploy
-    folderNameDeploy = request.params.get('ae_location')
-
 @view_config(route_name='demo', renderer='templates/demo.mako')
 def dp_1_view(request):
     device = deploy.Device()
@@ -133,10 +136,6 @@ def dp_1_view(request):
 @view_config(route_name='demo_tool', match_param="tool=demo_tool", renderer='templates/demo_tool.mako')
 def dp_2_view(request):
     return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Demo_tool'}
-
-@view_config(route_name='deploy_tool', match_param="tool=deploy_tool", renderer='templates/deploy_tool.mako')
-def dp_3_view(request):
-    return {'menu': SITE_MENU, 'meta': META, 'page_title': 'Deploy_tool'}
 
 @view_config(name='demo_apps.json', renderer='json')
 def demo_apps_view_json(request):

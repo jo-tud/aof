@@ -2,44 +2,42 @@ from rdflib import Graph, util
 from pyramid.path import AssetResolver
 from aof.tools.AOFGraph import AOFGraph, AOF
 from aof.tools.Singleton import Singleton
+import zipfile
+import fnmatch
 
 import os # os abstraction (e.g. listdir)
 import logging
 # This class should accept a turtle file or a zip file
 class AppEnsemble(Graph):
     counter = 0
-    def __init__(self, ae_desc):
+    def __init__(self,identifier=None):
         type(self).counter += 1
         g = AOFGraph.Instance()
-        self.id = "http://eatld.et.tu-dresden.de/aof/" + str(1)
         self.log = logging.getLogger(__name__)
-        self.ae_desc = ae_desc
+        self.a = AssetResolver()
 
-        Graph.__init__(self, store=g.store)
+        # If an identifier is given it is used as a graph identifier
+        # If a file IDENTIFIER.ae is found in the standard path it is read and used
+        if identifier:
+            assert isinstance(identifier, str)
+            id = identifier
+            Graph.__init__(self, store=g.store, identifier=id)
+            self.ae_pkg_path = self.a.resolve('aof:static/App-Ensembles/' + identifier + '.ae').abspath()
 
-        a = AssetResolver()
-        ae_path = a.resolve('aof:static/App-Ensembles/').abspath() + self.identifier + ".ae"
-        self.ae_file = open(ae_path, 'w')
+            if os.path.isfile(self.ae_pkg_path):
+                with zipfile.ZipFile(self.ae_pkg_path, "r") as ae_pkg:
+                    for name in ae_pkg.namelist():
+                        if fnmatch.fnmatch(name, 'ae.*'):
+                            ae_model = ae_pkg.read('ae.ttl').decode()
+                            self.parse(data=ae_model, format=util.guess_format(name))
 
-        def loadAEDescription(self):
-            try:
-                self.parse(self.ae_desc, format=util.guess_format(self.ae_desc)) #TODO: Catch parsing errors
-            except:
-                self.log.error("There was a problem parsing" %self.ae)
-
-        loadAEDescription(self)
-
-    @classmethod
-    def from_zip(cls):
-        return cls(random(100))
-
-    @classmethod
-    def from_ttl(cls):
-        return cls(random(33))
+        else:
+            Graph.__init__(self, store=g.store)
+            self.ae_pkg_path = self.a.resolve('aof:static/App-Ensembles/').abspath() + self.identifier + ".ae"
+            zipfile.ZipFile(self.ae_pkg_path, 'a')
 
     def __del__(self):
         type(self).counter -= 1
-        self.ae_file.close()
         #os.remove(self.ae_file.name)
 
 
@@ -47,8 +45,11 @@ class AppEnsemble(Graph):
         for app in apps:
             pass
 
+    # Wrapper for self.parse
+    def loadAEModel(self,source):
+        self.parse(source)
+
     def remove_AppEnsemble(self):
-        self.ae_file.close()
         os.remove(self.ae_file.name)
         del(self)
 

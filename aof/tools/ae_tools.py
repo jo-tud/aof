@@ -1,24 +1,43 @@
 from aof.tools.AppEnsemble import AppEnsemble
 from pyramid.path import AssetResolver
-from os import path
-import zipfile
-#
-a = AssetResolver()
-a_path = a.resolve('aof:static/App-Ensembles/Demo/ae.ttl').abspath()
-#
-print("File = %s" % a_path)
-# print("Is Zipfile = %s" % zipfile.is_zipfile(a_path))
-#
-# ae = AppEnsemble(a_path)
-# ae2 = AppEnsemble(a_path)
-#
-# ae3 = AppEnsemble(a_path)
-# print("Number of instances: %i" % ae.counter)
-# print(ae.namelist())
-# ae.extract("ae.ttl")
+import os
 
-ae = AppEnsemble(a_path)
+def getExistingAE():
+    app_ensembles = dict()
+    a = AssetResolver()
+    ae_dir = a.resolve('aof:static/App-Ensembles/').abspath()
 
-print("ae_file = %s" %ae.ae_file)
-a = set()
-a.add(ae)
+    for i in os.listdir(ae_dir):
+        if i.endswith(".ae"):
+            i = i[:-3]
+            ae = AppEnsemble(i)
+            app_ensembles[i] = ae
+
+    return app_ensembles
+
+def getRequiredApps(ae):
+    #TODO: Adapt to new ontology
+    res = ae.query("""
+        PREFIX o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#>
+        SELECT DISTINCT ?uri ?name
+        WHERE {
+            [] o:instanceOf ?app;
+               o:Name ?name .
+        }
+    """)
+    return res
+
+
+# Will only be called when executed from shell
+if __name__ == "__main__":
+    a = getExistingAE()
+    #print(a)
+    #a.add(AppEnsemble())
+    #print(a)
+    for id, ae in a.items():
+        #print(ae.serialize().decode()[:200])
+        #print(id, ae.identifier)
+        pass
+
+    res = getRequiredApps(a.get('Demo'))
+    print(res.serialize(format="json").decode())
