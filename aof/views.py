@@ -27,9 +27,11 @@ def home_view(request):
             'page_title': 'Home'}
 
 class AppPoolViews():
+    ap = None
 
     def __init__(self, request):
         self.request = request
+        type(self).ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
 
     @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
     def ap_show_view(self):
@@ -40,7 +42,6 @@ class AppPoolViews():
 
     @view_config(route_name='api', match_param='tool=get_app_pool', renderer='json')
     def ap_get_app_pool_json(self):
-        ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
         query = """
         PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
         SELECT DISTINCT *
@@ -57,7 +58,7 @@ class AppPoolViews():
 
         }
         """
-        res = ap.query(query)
+        res = type(self).ap.query(query)
         json = res.serialize(format="json").decode()
 
         log.info(json)

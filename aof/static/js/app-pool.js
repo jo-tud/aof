@@ -30,6 +30,7 @@ $(function() {
                     '</div>'
                 )
             });
+            target.children().last().attr('class','small-12 large-4 columns end')
             liveFilter.refresh();
         });
     }
