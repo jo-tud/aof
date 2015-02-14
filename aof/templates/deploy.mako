@@ -3,7 +3,7 @@
 <%block name="top_bar_actions">
     <li class="has-form">
         <div class="row collapse">
-                <input id="livefilter-input" type="text" placeholder="Filter">
+                <input class="livefilter-input" type="text" placeholder="Filter">
         </div>
     </li>
     <li class="divider"></li>
@@ -11,9 +11,13 @@
 </%block>
 
 
+<li class="has-form show-for-small-only">
+    <div class="row collapse">
+            <input class="livefilter-input" type="text" placeholder="Filter">
+    </div>
+</li>
 
-
-<div class="row" id="ae_tables">
+<div class="row full-width" id="ae_tables" data-equalizer>
 </div>
 
 <%block name="local_js">

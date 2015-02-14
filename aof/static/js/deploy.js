@@ -2,7 +2,7 @@
  * Created by jo on 12.02.15.
  */
 $(function() {
-    var liveFilter = $('#ae_tables').liveFilter('#livefilter-input', 'div.columns', {
+    var liveFilter = $('#ae_tables').liveFilter('.livefilter-input', 'div.columns', {
         filterChildSelector: 'li.title'
         }
     );
@@ -11,25 +11,35 @@ $(function() {
     function get_updates () {
         $.getJSON('/api/get_ae_info', function(data) {
             var target = $('div#ae_tables');
-            //target.empty();
+            target.empty();
             console.log(data.json);
             $.each(data.json, function (key, ae) {
-                target.append('<div class="small-12 large-4 columns"></div>');
+                target.append('<div class="small-12 medium-4 large-3 columns"></div>');
                 main_div = target.children().last();
                 main_div.attr('id',ae.id);
                 main_div.append('<ul class="pricing-table"></ul>');
                 var pricing_table = main_div.find('ul.pricing-table');
-
-                pricing_table.append('<li class="title">'+ ae.id + '</li>');
-                pricing_table.append('<li class="description">'+ ae.path + '</li>');
+                pricing_table.append('<div class="eq" data-equalizer-watch></div>')
+                var eq_div=pricing_table.find('.eq')
+                eq_div.append('<li class="title">'+ ae.id + '</li>');
+                $('<li class="bullet-item" id="app-path"></li>').appendTo(eq_div);
+                $('<span data-tooltip aria-haspopup="true" class="has-tip">Path<span>').attr('title',ae.path).appendTo($(eq_div.find('#app-path')))
                 var apps = JSON.parse(ae.apps).results.bindings;
-                pricing_table.append('<li class="bullet-item"><b>Apps:</b></li>')
+                //pricing_table.append('')
+                var app_list = "";
                 $.each(apps, function (key, app) {
-                    pricing_table.append('<li class="bullet-item">'+app.name.value+'</li>')
+                    app_list = app_list.concat(", "+app.name.value);
+                    //.pricing_table.append('<li class="bullet-item">'+app.name.value+'</li>')
                 });
-            $('<li class="cta-button deploy"><a class="button" href="#">Install</a></li>').attr('id',ae.id).appendTo(pricing_table);
-            });
+                if (app_list != ""){
+                    $('<li class="bullet-item" id="app-list"></li>').appendTo(eq_div);
+                    $('<span data-tooltip aria-haspopup="true" class="has-tip">Apps<span>').attr('title',app_list.slice(2)).appendTo($(pricing_table.find('#app-list')))
+                }
+                $('<li class="cta-button deploy"><a class="button floor" href="#">Install</a></li>').attr('id',ae.id).appendTo(pricing_table);
 
+            });
+            target.children().last().attr('class','small-12 medium-4 large-3 columns end')
+            $(document).foundation('reflow');
             liveFilter.refresh();
         });
     }

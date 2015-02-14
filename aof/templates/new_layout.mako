@@ -3,13 +3,13 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Foundation</title>
+        <title>${page_title}</title>
         <link rel="stylesheet" href="static/stylesheets/app.css" />
         <script src="static/bower_components/modernizr/modernizr.js"></script>
     </head>
     <body>
         <div class="sticky">
-            <nav class="top-bar" data-topbar role="navigation" data-options="is_hover: false">
+            <nav class="top-bar" data-topbar role="navigation">
                 <ul class="title-area">
                     <li class="name">
                         <h1><a href="/">AOF</a></h1>
