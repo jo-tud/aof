@@ -2,7 +2,7 @@
  * Created by jo on 12.02.15.
  */
 $(function() {
-    var liveFilter = $('#app_tables').liveFilter('#livefilter-input', 'div.columns', {
+    var liveFilter = $('#app_tables').liveFilter('.livefilter-input', 'div.columns', {
         filterChildSelector: 'li.title'
         }
     );
@@ -18,7 +18,7 @@ $(function() {
             //console.log(obj);
             $.each(obj.results.bindings, function (key, val) {
                 target.append(
-                    '<div class="small-12 large-4 columns">' +
+                    '<div class="ssmall-12 medium-4 large-3 columns">' +
                     '<ul class="pricing-table">' +
                     '<li class="title">'+ val.name.value + '</li>' +
                     '<li class="bullet-item"><a href="'+ val.uri.value + '">URI</a></li>' +
@@ -30,7 +30,7 @@ $(function() {
                     '</div>'
                 )
             });
-            target.children().last().attr('class','small-12 large-4 columns end')
+            target.children().last().attr('class','small-12 medium-4 large-3 columns end')
             liveFilter.refresh();
         });
     }

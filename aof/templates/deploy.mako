@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 <%inherit file="new_layout.mako"/>
 <%block name="top_bar_actions">
-    <li class="has-form">
+    <li class="has-form show-for-medium-up">
         <div class="row collapse">
                 <input class="livefilter-input" type="text" placeholder="Filter">
         </div>
