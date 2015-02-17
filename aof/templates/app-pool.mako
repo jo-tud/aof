@@ -16,7 +16,7 @@
     </div>
 </li>
 
-<div class="row full-width" id="app_tables"></div>
+<div class="row full-width" id="app_tables" data-equalizer></div>
 
 <%block name="local_js">
 <script src="static/js/jquery.liveFilter.js"></script>

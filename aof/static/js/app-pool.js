@@ -36,10 +36,9 @@ $(function() {
                     '<ul class="pricing-table">' +
                     '<li class="title">'+ val.name.value + '</li>' +
                     '<li class="bullet-item"><a href="'+ val.uri.value + '">URI</a></li>' +
-                    '<li class="bullet-item"><a href="'+ val.binary.value + '">Binary</a></li>' +
                     '<li class="bullet-item">Purpose: '+ val.intent_purpose.value + '</li>' +
-                    '<li class="bullet-item">Intent string: '+ val.intent_string.value + '</li>' +
-                    '<li class="cta-button"><a class="button" href="' + val.uri.value + '">Dereference</a></li>' +
+                    '<li class="description" style="word-wrap: break-word">'+ val.intent_string.value + '</li>' +
+                    '<li class="cta-button"><a class="button" href="' + val.binary.value + '">Download</a></li>' +
                     '</ul>' +
                     '</div>'
                 )
