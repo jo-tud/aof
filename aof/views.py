@@ -45,7 +45,7 @@ class AppPoolViews():
 
     @view_config(route_name='api', match_param='tool=get_app_pool', renderer='json')
     def ap_get_app_pool_json(self):
-        log.debug("called view: ap_get_app_pool_json()")
+        #log.debug("called view: ap_get_app_pool_json()")
         query = """
         PREFIX aof: <%s>
         PREFIX adl: <%s>
