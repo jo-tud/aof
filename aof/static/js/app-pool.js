@@ -1,6 +1,7 @@
 /**
  * Created by jo on 12.02.15.
  */
+
 $(function() {
     var liveFilter = $('#app_tables').liveFilter('.livefilter-input', 'div.columns', {
         filterChildSelector: 'li.title'

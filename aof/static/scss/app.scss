@@ -1,6 +1,27 @@
 @import "settings";
 @import "foundation";
 
+#loading-overlay{
+  margin: 0px;
+  padding: 0px;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(102, 102, 102);
+  z-index: 30001;
+  opacity: 0.8;
+}
+#loading-overlay-content{
+  position: absolute;
+  color: White;
+  top: 30%;
+  left: 42%;
+  text-align: center;
+}
+
+
 // Or selectively include components
 // @import
 //   "foundation/components/accordion",

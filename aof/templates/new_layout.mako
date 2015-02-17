@@ -31,7 +31,8 @@
                 </section>
             </nav>
         </div>
-        <div class="row" id="alerts"></div>
+        <%block name="alerts"><div class="row" id="alerts"></div></%block>
+        <%block name="overlays"/>
 
         ${next.body()}
         <%block name="global_js">

@@ -61,7 +61,7 @@ class AppPoolViews():
         res = type(self).ap.query(query)
         json = res.serialize(format="json").decode()
 
-        log.info(json)
+        # log.debug(json)
         return {'json': json}
 
 class AppEnsembleViews():

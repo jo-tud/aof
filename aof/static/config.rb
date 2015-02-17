@@ -5,7 +5,7 @@ add_import_path "bower_components/foundation/scss"
 http_path = "/"
 css_dir = "stylesheets"
 sass_dir = "scss"
-images_dir = "images"
+images_dir = "img"
 javascripts_dir = "js"
 
 # You can select your preferred output style here (can be overridden via the command line):
@@ -15,7 +15,7 @@ javascripts_dir = "js"
 relative_assets = true
 
 # To disable debugging comments that display the original location of your selectors. Uncomment:
-# line_comments = false
+line_comments = false
 
 # If you prefer the indented syntax, you might want to regenerate this
 # project again passing --syntax sass, or you can uncomment this:
