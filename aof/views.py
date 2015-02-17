@@ -7,6 +7,8 @@ from pyramid.response import Response, FileResponse
 from simpleconfigparser import simpleconfigparser
 
 from aof.tools.AppPool import AppPool
+from aof.tools.AOFGraph import AOF, ADL
+
 from aof.tools import deploy, o, ae_tools
 
 from aof.static.data.static_data import META
@@ -26,15 +28,16 @@ def home_view(request):
             'meta': META,
             'page_title': 'Home'}
 
+
 class AppPoolViews():
-    ap = None
 
     def __init__(self, request):
         self.request = request
-        type(self).ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
+        log.debug("Called __init__() of class AppPoolViews()")
 
     @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
     def ap_show_view(self):
+        log.debug("Called view: ap_show_view()")
         return {'menu': SITE_MENU,
                 'meta': META,
                 'page_title': 'App-Pool',
@@ -42,8 +45,10 @@ class AppPoolViews():
 
     @view_config(route_name='api', match_param='tool=get_app_pool', renderer='json')
     def ap_get_app_pool_json(self):
+        log.debug("called view: ap_get_app_pool_json()")
         query = """
-        PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
+        PREFIX aof: <%s>
+        PREFIX adl: <%s>
         SELECT DISTINCT *
         WHERE {
         ?uri rdfs:label ?name ;
@@ -57,8 +62,9 @@ class AppPoolViews():
         }
 
         }
-        """
-        res = type(self).ap.query(query)
+        """ % (str(AOF), str(ADL) )
+        ap = AppPool.Instance()
+        res = ap.query(query)
         json = res.serialize(format="json").decode()
 
         # log.debug(json)

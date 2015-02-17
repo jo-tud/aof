@@ -34,7 +34,7 @@ class AppEnsemble(Graph):
         else:
             Graph.__init__(self, store=g.store)
             self.ae_pkg_path = self.a.resolve('aof:static/App-Ensembles/').abspath() + self.identifier + ".ae"
-            zipfile.ZipFile(self.ae_pkg_path, 'a')
+            zipfile.ZipFile(self.ae_pkg_path, 'w')
 
     def __del__(self):
         type(self).counter -= 1

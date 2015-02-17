@@ -5,6 +5,7 @@ from aof.tools.Singleton import Singleton
 
 # Namespaces
 AOF = Namespace("http://eatld.et.tu-dresden.de/aof/")
+ADL = Namespace("http://eatld.et.tu-dresden.de/aof/adl/")
 
 '''
 This class extends Dataset which in turn extends ConjunctiveGraph, initializes a store and makes it a Singleton
