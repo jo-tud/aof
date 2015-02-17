@@ -50,5 +50,12 @@ $(function() {
 
     $('#action_update').click(function () {
         get_updates();
+        alert = $(
+                '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
+                'App-Pool updated' +
+                '</div>'
+        ).hide().fadeToggle().delay(2000).slideToggle();
+
+        $('#alerts').append(alert);
     });
 });

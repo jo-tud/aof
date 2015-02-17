@@ -14,6 +14,7 @@ $(document).ajaxComplete(function () {
     $.loader('close');
 
 });
+
 $(function() {
     var liveFilter = $('#ae_tables').liveFilter('.livefilter-input', 'div.columns', {
         filterChildSelector: 'li.title'
@@ -60,13 +61,12 @@ $(function() {
     $('#action_update').click(function () {
         get_updates();
         alert = $(
-                '<div data-alert class="alert-box info radius">' +
+                '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
                 'App-Ensembles updated' +
-                '<a href="#" class="close">&times;</a>' +
                 '</div>'
-        ).hide().slideDown().delay(2000).slideUp();
+        ).hide().fadeToggle().delay(2000).slideToggle();
 
-        $('#alerts').append(alert.fadeOut(500));
+        $('#alerts').append(alert);
     });
 
     $('div#ae_tables').on('click','.cta-button.deploy',(function (e) {

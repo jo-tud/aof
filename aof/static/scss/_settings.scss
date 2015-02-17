@@ -142,7 +142,7 @@ $row-width: rem-calc(1000);
 // $last-child-float: $opposite-direction;
 
 // We use these to make sure border radius matches unless we want it different.
-// $global-radius: 3px;
+$global-radius: 6px;
 // $global-rounded: 1000px;
 
 // We use these to control inset shadow shiny edges and depressions.
@@ -1386,7 +1386,7 @@ $row-width: rem-calc(1000);
 
 // Height and margin
 // $topbar-height: rem-calc(45);
-// $topbar-margin-bottom: 0;
+$topbar-margin-bottom: rem-calc(5);
 
 // Controlling the styles for the title in the top bar
 // $topbar-title-weight: $font-weight-normal;
