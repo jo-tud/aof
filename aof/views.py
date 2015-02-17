@@ -33,11 +33,11 @@ class AppPoolViews():
 
     def __init__(self, request):
         self.request = request
-        log.debug("Called __init__() of class AppPoolViews()")
+        #log.debug("Called __init__() of class AppPoolViews()")
 
     @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
     def ap_show_view(self):
-        log.debug("Called view: ap_show_view()")
+        #log.debug("Called view: ap_show_view()")
         return {'menu': SITE_MENU,
                 'meta': META,
                 'page_title': 'App-Pool',

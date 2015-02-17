@@ -5,14 +5,3 @@ $(document).foundation({
         equalize_on_stack: true
     }
 });
-
-$(document).ajaxStart(function () {
-    $("#loading-overlay").show();
-    //console.log("ajaxStart")
-});
-
-$(document).ajaxComplete(function () {
-    $("#loading-overlay").hide();
-    //console.log("ajaxComplete")
-
-});

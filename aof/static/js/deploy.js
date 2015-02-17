@@ -1,6 +1,19 @@
 /**
  * Created by jo on 12.02.15.
  */
+$(document).ajaxStart(function () {
+    //console.log("ajaxStart")
+    $.loader({
+        className:"bar-with-text",
+        content:"<div>Loading App-Ensembles ...</div>"
+    });
+});
+
+$(document).ajaxComplete(function () {
+    //console.log("ajaxComplete")
+    $.loader('close');
+
+});
 $(function() {
     var liveFilter = $('#ae_tables').liveFilter('.livefilter-input', 'div.columns', {
         filterChildSelector: 'li.title'
@@ -12,7 +25,7 @@ $(function() {
         $.getJSON('/api/get_ae_info', function(data) {
             var target = $('div#ae_tables');
             target.empty();
-            console.log(data.json);
+            // console.log(data.json);
             $.each(data.json, function (key, ae) {
                 target.append('<div class="small-12 medium-4 large-3 columns"></div>');
                 main_div = target.children().last();
