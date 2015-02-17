@@ -8,7 +8,7 @@
     <meta name="description" content="${meta['appname']}:${page_title}">
     <meta name="author" content="Johannes Pfeffer">
 
-    <link rel="shortcut icon" href="${request.static_url('aof:static/favicon.png')}">
+    <link rel="shortcut icon" href="${request.static_url('aof:static/img/favicon.png')}">
     <!--Theme-->
     <link href="http://cdn.wijmo.com/themes/sterling/jquery-wijmo.css" rel="stylesheet" type="text/css" />
 
@@ -18,7 +18,7 @@
     <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Main AOF style sheet -->
-    <link href="${request.static_url('aof:static/theme.css')}" rel="stylesheet">
+    <link href="${request.static_url('aof:static/stylesheets/theme.css')}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -67,7 +67,7 @@
         <div class="row">
           <div class="links">
             <ul>
-              <li class="plt-logo"><a href="http://www.et.tu-dresden.de/ifa/index.php?id=plt"><img class="logo img-responsive" src="${request.static_url('aof:static/logo_plt.png')}" alt="Chair for Distributed Control Systems Engineering"></a></li>
+              <li class="plt-logo"><a href="http://www.et.tu-dresden.de/ifa/index.php?id=plt"><img class="logo img-responsive" src="${request.static_url('aof:static/img/logo_plt.png')}" alt="Chair for Distributed Control Systems Engineering"></a></li>
             </ul>
           </div>
         </div>

@@ -7,7 +7,7 @@
     <meta name="description" content="${meta['appname']}:${page_title}">
     <meta name="author" content="Johannes Pfeffer">
 
-    <link rel="shortcut icon" href="${request.static_url('aof:static/favicon.png')}">
+    <link rel="shortcut icon" href="${request.static_url('aof:static/img/favicon.png')}">
 
     <title>${meta['appname']}:${page_title}</title>
 
@@ -37,7 +37,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2">
-            <a href="/"><img class="logo img-responsive" src="${request.static_url('aof:static/logo_aof.png')}" alt="Application Orchestration Framework logo"></a>
+            <a href="/"><img class="logo img-responsive" src="${request.static_url('aof:static/img/logo_aof.png')}" alt="Application Orchestration Framework logo"></a>
           </div>
           <div class="col-md-10">
             <div class="content">
@@ -65,7 +65,7 @@
         <div class="row">
           <div class="links">
             <ul>
-              <li class="plt-logo"><a href="http://www.et.tu-dresden.de/ifa/index.php?id=plt"><img class="logo img-responsive" src="${request.static_url('aof:static/logo_plt.png')}" alt="Chair for Distributed Control Systems Engineering"></a></li>
+              <li class="plt-logo"><a href="http://www.et.tu-dresden.de/ifa/index.php?id=plt"><img class="logo img-responsive" src="${request.static_url('aof:static/img/logo_plt.png')}" alt="Chair for Distributed Control Systems Engineering"></a></li>
             </ul>
           </div>
         </div>

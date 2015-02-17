@@ -242,7 +242,7 @@ main .content h1 .smaller {
 	width: 50px;
 	float: left;
 	display: inline-block;
-	background: url("Stern_leer.png");
+	background: url("img/Stern_leer.png");
 }
 
 #content_info .star_hell {
@@ -251,7 +251,7 @@ main .content h1 .smaller {
 	width: 50px;
 	margin:0;
 	display: inline-block;
-	background: url("Stern_voll.png");
+	background: url("img/Stern_voll.png");
 }
 
 #content_info .bewerten_frage_comment {

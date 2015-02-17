@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 <%inherit file="layout.mako"/>
 
-    <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
+    <link href="${request.static_url('aof:static/stylesheets/deploy.css')}" rel="stylesheet">
 
     <script Language="javascript">
 

@@ -2,7 +2,7 @@
 <%inherit file="layout.mako"/>
 <!DOCTYPE html>
 
-    <link href="${request.static_url('aof:static/deploy.css')}" rel="stylesheet">
+    <link href="${request.static_url('aof:static/stylesheets/deploy.css')}" rel="stylesheet">
 
     <script type="text/javascript" src="${request.static_url('aof:static/js/workflow.js')}"></script>
 
