@@ -63,6 +63,7 @@ class AppPoolViews():
         }
 
         }
+        ORDER BY ?name
         """ % (str(AOF), str(ADL) )
         ap = AppPool.Instance()
         res = ap.query(query)
