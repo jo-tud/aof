@@ -97,7 +97,7 @@ $row-width: rem-calc(1000);
 // $font-weight-normal: normal;
 // $font-weight-bold: bold;
 
-// $white       : #FFFFFF;
+$white       : #FFFFFF;
 // $ghost       : #FAFAFA;
 // $snow        : #F9F9F9;
 // $vapor       : #F6F6F6;
@@ -110,10 +110,10 @@ $row-width: rem-calc(1000);
 // $aluminum    : #999999;
 // $jumbo       : #888888;
 // $monsoon     : #777777;
-// $steel       : #666666;
-// $charcoal    : #555555;
+$steel       : #666666;
+$charcoal    : #555555;
 // $tuatara     : #444444;
-// $oil         : #333333;
+$oil         : #333333;
 // $jet         : #222222;
 // $black       : #000000;
 
@@ -1386,7 +1386,7 @@ $global-radius: 6px;
 
 // Height and margin
 // $topbar-height: rem-calc(45);
-$topbar-margin-bottom: rem-calc(5);
+$topbar-margin-bottom: rem-calc(10);
 
 // Controlling the styles for the title in the top bar
 // $topbar-title-weight: $font-weight-normal;
@@ -1401,8 +1401,8 @@ $topbar-margin-bottom: rem-calc(5);
 // $topbar-link-font-size: rem-calc(13);
 // $topbar-link-hover-lightness: -10%; // Darken by 10%
 // $topbar-link-bg: $topbar-bg;
-// $topbar-link-bg-hover: $oil;
-// $topbar-link-bg-color-hover: $charcoal;
+$topbar-link-bg-hover: $steel;
+//$topbar-link-bg-color-hover: $charcoal;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
 // $topbar-link-font-family: $body-font-family;
