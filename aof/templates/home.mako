@@ -15,7 +15,7 @@
     <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Main AOF style sheet -->
-    <link href="${request.static_url('aof:static/theme.css')}" rel="stylesheet">
+    <link href="${request.static_url('aof:static/stylesheets/theme.css')}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
