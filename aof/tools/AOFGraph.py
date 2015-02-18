@@ -15,7 +15,7 @@ class AOFGraph(Dataset):
 
     def __init__(self):
         store = IOMemory() # TODO: Change the storage mechanism to a persistent one and implement caching
-        Dataset.__init__(self, store=store)
+        Dataset.__init__(self, store=store,default_union=True)
 
 # Will only be called when executed from shell
 if __name__ == "__main__":
