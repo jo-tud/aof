@@ -2,7 +2,7 @@
  * Created by jo on 12.02.15.
  */
 $(document).ajaxStart(function () {
-    //console.log("ajaxStart")
+    console.log("ajaxStart")
     $.loader({
         className:"bar-with-text",
         content:"<div>Loading App-Pool ...</div>"
@@ -10,7 +10,7 @@ $(document).ajaxStart(function () {
 });
 
 $(document).ajaxComplete(function () {
-    //console.log("ajaxComplete")
+    console.log("ajaxComplete")
     $.loader('close');
 
 });
@@ -20,9 +20,9 @@ $(function() {
         filterChildSelector: 'li.title'
         }
     );
-    get_updates();
+    loadAP();
 
-    function get_updates () {
+    function loadAP () {
         $.getJSON('/api/get_app_pool', function(data) {
             var target = $('div#app_tables');
             target.empty();
@@ -31,31 +31,43 @@ $(function() {
             obj = JSON.parse(data.json);
             //console.log(obj);
             $.each(obj.results.bindings, function (key, val) {
+                var name, uri, binary, intent_string, intent_purpose;
+
+                if (! val.name) { uri = "http://#"; } else {name = val.name.value; }
+                if (! val.uri) { uri = "http://#"; } else {uri = val.uri.value; }
+                if (! val.binary) { binary = "http://#"; } else {binary = val.binary.value; }
+                if (! val.intent_string) { intent_string = "Not defined"; } else {intent_string = val.intent_string.value; }
+                if (! val.intent_purpose) { intent_purpose = "Not defined"; } else {intent_purpose = val.intent_purpose.value}
+
                 target.append(
-                    '<div class="ssmall-12 medium-4 large-3 columns">' +
-                    '<ul class="pricing-table">' +
-                    '<li class="title">'+ val.name.value + '</li>' +
-                    '<li class="bullet-item"><a href="'+ val.uri.value + '">URI</a></li>' +
-                    '<li class="bullet-item">Purpose: '+ val.intent_purpose.value + '</li>' +
-                    '<li class="description" style="word-wrap: break-word">'+ val.intent_string.value + '</li>' +
-                    '<li class="cta-button"><a class="button" href="' + val.binary.value + '">Download</a></li>' +
+                    '<div class="small-12 medium-4 large-3 columns">' +
+                    '<ul class="pricing-table" data-equalizer-watch>' +
+                    '<li class="title">'+ name + '</li>' +
+                    '<li class="bullet-item"><a href="'+ uri + '">URI</a></li>' +
+                    '<li class="cta-button"><a class="button" href="' + binary + '">Download</a></li>' +
                     '</ul>' +
                     '</div>'
                 )
             });
-            target.children().last().attr('class','small-12 medium-4 large-3 columns end')
+            target.children().last().attr('class','small-12 medium-4 large-3 columns end');
+            $(document).foundation('reflow');
             liveFilter.refresh();
         });
     }
 
-    $('#action_update').click(function () {
-        get_updates();
-        alert = $(
-                '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
-                'App-Pool updated' +
-                '</div>'
-        ).hide().fadeToggle().delay(2000).slideToggle();
+    function updateAP () {
+        $.get('/api/update_app_pool', function(data) {
+            loadAP();
+            var alertHTML = $(
+                    '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
+                    'App-Pool updated. Number of apps: ' + data.toString() +
+                    '</div>'
+                    ).hide().fadeToggle().delay(2000).slideToggle();
+            $('#alerts').append(alertHTML);
+            });
+    }
 
-        $('#alerts').append(alert);
+    $('#action_update').click(function () {
+        updateAP();
     });
 });

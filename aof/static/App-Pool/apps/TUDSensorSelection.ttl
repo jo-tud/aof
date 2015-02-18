@@ -8,19 +8,15 @@
 @prefix adl: <http://eatld.et.tu-dresden.de/aof/adl/> .
 
 ## URI of the Generic App that is described
-<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/>
+<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/>
 
-rdfs:label "TUD Simple List App" ;
-adl:currentBinary <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/bin/TUDSimpleList-release.apk> ;
+rdfs:label 		"TUD Sensor Selection";
+adl:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/lastSuccessfulBuild/artifact/bin/TUDSensorSelection-release.apk>
 
 ## Add Intents
-adl:hasIntent	[
-  adl:intentPurpose	"ShowSimpleList";
-  adl:intentString	"eu.comvantage.iaf.SIMPLE_LIST"];
-
 # adl:hasIntent	[
- # adl:intentPurpose	"ShowDecision";
- # adl:intentString	"eu.comvantage.iaf.DECISION"]
+#  adl:intentPurpose	"ShowSimpleMessage";
+#  adl:intentString	"eu.comvantage.iaf.SIMPLE_MESSAGE"]
 
 ## End of description
 . 

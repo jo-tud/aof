@@ -30,7 +30,7 @@ class AppPool(Graph):
                 try:
                     self.parse(source=source, format=format)
                     self.log.info("Initialized App-Pool from %s. This should happen only once." % self.init_source)
-                except AssertionError:
+                except:
                     self.log.error(Exception)
                     self.log.error("There was a problem with initializing the App-Pool from %s" % self.init_source)
         else:
@@ -47,37 +47,15 @@ class AppPool(Graph):
     
     ''' Returns the result of a query as JSON
     '''
-    def queryAP(self, qstr):
-        # print("Query: ",qstr)
-        res = self.ap.query(qstr)
-        # print("Result: \n\n",res.serialize(format = 'txt').decode())
-        return res.serialize(format = 'json')
+    def update_app_pool(self, source=None, format=None):
+        self.init_source = None
+        self._clear_app_pool()
+        AppPool.Instance().__init__(source, format)
 
-    def printAppList(self):
-        query = """
-        PREFIX ap: <http://eatld.et.tu-dresden.de/ap/>
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        
-        SELECT * 
-        WHERE { 
-            ?app_uri a ap:App .
-            ?app_uri rdfs:label ?label .
-        } 
-        LIMIT 10
-        """
-        res = self.query(query)
-        print(res.serialize(format = 'txt').decode())
-        
-    ''' turns a relative path (below the aof directory) into an absolute path
+    ''' Clear the App-Pool
     '''
-    def getAbsPath(relative_path):
-      a = AssetResolver('aof')
-      resolver = a.resolve(relative_path)
-      return resolver.abspath()
-    
-    ''' Static code
-    '''
-    DATA_FOLDER = getAbsPath('static/data/')
+    def _clear_app_pool(self):
+        self.remove((None, None, None))
 
 
 # Will only be called when executed from shell

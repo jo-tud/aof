@@ -1,6 +1,7 @@
 import os
 import logging
 from pyramid.httpexceptions import HTTPNotFound
+from pyramid.path import AssetResolver
 
 from pyramid.view import view_config
 from pyramid.response import Response, FileResponse
@@ -69,6 +70,16 @@ class AppPoolViews():
 
         # log.debug(json)
         return {'json': json}
+
+    @view_config(route_name='api', match_param='tool=update_app_pool')
+    def ap_update_app_pool(self):
+        a = AssetResolver()
+        path = a.resolve('aof:static/App-Pool/pool.ttl').abspath()
+        ap = AppPool.Instance()
+        ap.update_app_pool(path, format="turtle")
+        res = AppPool.Instance().triples((None, AOF.hasAppDescription, None))
+        resp = str(len(list(res)))
+        return Response(resp)
 
 class AppEnsembleViews():
     ae_dict = None
