@@ -1,12 +1,16 @@
 from rdflib import Graph, util
 from pyramid.path import AssetResolver
-from aof.tools.AOFGraph import AOFGraph, AOF
+from aof.tools import AOFGraph, AOF
 from aof.tools.Singleton import Singleton
 import zipfile
 import fnmatch
 
 import os # os abstraction (e.g. listdir)
 import logging
+
+__all__ = [
+    'AppEnsemble'
+]
 # This class should accept a turtle file or a zip file
 class AppEnsemble(Graph):
     counter = 0

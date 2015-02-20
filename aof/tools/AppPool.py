@@ -1,25 +1,25 @@
-from rdflib import Graph, util
+from rdflib import ConjunctiveGraph, util
 from pyramid.path import AssetResolver
-from aof.tools.AOFGraph import AOFGraph, AOF
+from aof.tools.AOFGraph import AOFGraph
+from aof.tools.namespaces import AOF
 from aof.tools.Singleton import Singleton
 
 import logging
 
+__all__ = [
+    'AppPool'
+]
+
 @Singleton
-class AppPool(Graph):
+class AppPool(ConjunctiveGraph):
     init_source = None
     def __init__(self, source=None, format=None):
         """
-            :Parameters:
-
-        - `source`: An InputSource, file-like object, or string. In the case
-        of a string the string is the location of the source.
-        - `format`: Used if format can not be determined from source.
-        Defaults to rdf/xml. Format support can be extended with plugins,
-        but 'xml', 'n3', 'nt', 'trix', 'rdfa' are built in.
+        @param string source: An InputSource, file-like object, or string. In the case of a string the string is the location of the source.
+        @param string format: Must be given if format can not be determined from source, 'xml', 'n3', 'nt', 'trix', and 'rdfa' are built in.
         """
         g = AOFGraph.Instance()
-        Graph.__init__(self, store=g.store, identifier=AOF.AppPool)
+        ConjunctiveGraph.__init__(self, store=g.store, identifier=AOF.AppPool)
 
         self.log = logging.getLogger(__name__)
         if source:

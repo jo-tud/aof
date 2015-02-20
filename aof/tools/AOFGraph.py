@@ -2,10 +2,9 @@ from rdflib import Dataset, Namespace
 from rdflib.plugins.memory import IOMemory
 from aof.tools.Singleton import Singleton
 
-
-# Namespaces
-AOF = Namespace("http://eatld.et.tu-dresden.de/aof/")
-ADL = Namespace("http://eatld.et.tu-dresden.de/aof/adl/")
+__all__ = [
+    'AOFGraph'
+]
 
 '''
 This class extends Dataset which in turn extends ConjunctiveGraph, initializes a store and makes it a Singleton

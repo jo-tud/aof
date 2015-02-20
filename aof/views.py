@@ -2,13 +2,11 @@ import os
 import logging
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver
-
 from pyramid.view import view_config
 from pyramid.response import Response, FileResponse
 from simpleconfigparser import simpleconfigparser
-
 from aof.tools.AppPool import AppPool
-from aof.tools.AOFGraph import AOF, ADL
+from aof.tools.namespaces import AOF, ADL
 
 from aof.tools import deploy, o, ae_tools
 
@@ -64,7 +62,7 @@ class AppPoolViews():
 
         }
         ORDER BY ?name
-        """ % (str(AOF), str(ADL) )
+        """ % (str(AOF), str(ADL))
         ap = AppPool.Instance()
         res = ap.query(query)
         json = res.serialize(format="json").decode()

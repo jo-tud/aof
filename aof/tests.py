@@ -1,5 +1,6 @@
 import unittest
-from aof.tools.AOFGraph import AOFGraph, AOF
+from aof.tools.AOFGraph import AOFGraph
+from aof.tools.namespaces import AOF
 from aof.tools.AppPool import AppPool
 from rdflib import Dataset, Graph, URIRef
 from rdflib.plugins.memory import IOMemory
