@@ -1,6 +1,7 @@
 from rdflib import Graph, util
 from pyramid.path import AssetResolver
-from aof.tools import AOFGraph, AOF
+from aof.tools.AOFGraph import AOFGraph
+from aof.tools.namespaces import AOF
 from aof.tools.Singleton import Singleton
 import zipfile
 import fnmatch
