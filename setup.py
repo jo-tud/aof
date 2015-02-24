@@ -15,7 +15,6 @@ requires = [
     'pyramid_debugtoolbar',
     'waitress',
     'rdflib',
-    'rdflib-jsonld',
     'nose',
     'simpleconfigparser'
     ]
