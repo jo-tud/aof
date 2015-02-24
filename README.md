@@ -24,4 +24,4 @@ Or
    
 Now the AOF web app will be reachable locally on
 
-    [http://localhost:8081]
+    http://localhost:8081
