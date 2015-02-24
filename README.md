@@ -14,4 +14,14 @@ Currently the most interesting branch is *distributed*. You can check it out lik
 
     git checkout -b distributed origin/distributed
 
+To start the AOF webserver execute
 
+    pserve development.ini
+   
+Or 
+    
+    $VENV/bin/pserve development.ini
+   
+Now the AOF web app will be reachable locally on
+
+    [http://localhost:8081]
