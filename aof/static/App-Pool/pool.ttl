@@ -2,6 +2,7 @@
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 
 []
+	aof:hasAppDescription "/home/jo/Dokumente/Orchestration/AOF/aof/static/App-Pool/apps/AppEnsembleInstaller.ttl" ;
 	aof:hasAppDescription "/home/jo/Dokumente/Orchestration/AOF/aof/static/App-Pool/apps/IAFLogin.ttl" ;
 	aof:hasAppDescription "/home/jo/Dokumente/Orchestration/AOF/aof/static/App-Pool/apps/IAFManagementComponent.ttl" ;
 	aof:hasAppDescription "/home/jo/Dokumente/Orchestration/AOF/aof/static/App-Pool/apps/IAFSkeletonApp.ttl" ;

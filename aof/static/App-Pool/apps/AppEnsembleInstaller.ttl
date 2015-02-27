@@ -10,7 +10,7 @@
 ## URI of the Generic App that is described
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/>
 
-rdfs:label 		"ComVantage IAF Login App";
+rdfs:label 		"App Ensemble Installer";
 adl:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk>
 
 ## Add Intents
