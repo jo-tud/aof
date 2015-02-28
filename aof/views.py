@@ -165,6 +165,12 @@ class AppEnsembleViews():
             response = HTTPNotFound('There is no such resource')
         return response
 
+    @view_config(route_name='api', match_param='tool=update_app_ensembles')
+    def ap_update_app_ensembles(self):
+        type(self).ae_dict = ae_tools.getExistingAE()
+        resp = str(len(self.ae_dict))
+        return Response(resp)
+
 
 @view_config(route_name='orchestrate', renderer='templates/orchestrate.mako')
 def o_view(request):

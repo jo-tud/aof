@@ -59,15 +59,20 @@ $(function() {
         });
     }
 
-    $('#action_update').click(function () {
-        get_updates();
-        alert = $(
-                '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
-                'App-Ensembles updated' +
-                '</div>'
-        ).hide().fadeToggle().delay(2000).slideToggle();
+        function updateAppEnsembles () {
+        $.get('/api/update_app_ensembles', function(data) {
+            get_updates();
+            var alertHTML = $(
+                    '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
+                    'App-Ensembles updated. Number of App-Ensembles: ' + data.toString() +
+                    '</div>'
+                    ).hide().fadeToggle().delay(2000).slideToggle();
+            $('#alerts').append(alertHTML);
+            });
+    }
 
-        $('#alerts').append(alert);
+    $('#action_update').click(function () {
+        updateAppEnsembles()
     });
 
     $('div#ae_tables').on('click','.cta-button.deploy',(function (e) {
