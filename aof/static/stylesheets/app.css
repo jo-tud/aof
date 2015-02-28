@@ -7710,3 +7710,7 @@ th.hide-for-touch {
   background-position: center center;
   background-repeat: no-repeat;
 }
+
+.row.full-width {
+  width: 100%;
+}

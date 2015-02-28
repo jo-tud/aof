@@ -5,7 +5,7 @@ This file should contain any event listeners for pyramid
 
 from pyramid.events import ApplicationCreated
 from pyramid.events import subscriber
-from aof.tools.AppPool import AppPool
+from aof.orchestration.AppPool import AppPool
 from pyramid.path import AssetResolver
 
 @subscriber(ApplicationCreated)

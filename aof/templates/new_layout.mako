@@ -5,8 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>${page_title}</title>
         <link rel="shortcut icon" href="${request.static_url('aof:static/img/favicon.png')}">
-        <link rel="stylesheet" href="static/stylesheets/app.css" />
-        <script src="static/bower_components/modernizr/modernizr.js"></script>
+        <link rel="stylesheet" href="/static/stylesheets/app.css" />
+        <script src="/static/bower_components/modernizr/modernizr.js"></script>
+        <%block name="header"/>
     </head>
     <body>
         <div class="sticky">
@@ -22,9 +23,9 @@
                 </ul>
                 <section class="top-bar-section"> <!-- Right Nav Section -->
                     <ul class="left">
-                        <li><a href="app-pool.html">App-Pool</a></li>
-                        <li><a href="deploy.html">Deploy</a></li>
-                        <li><a href="info.html">Info</a></li>
+                        <li><a href="/app-pool.html">App-Pool</a></li>
+                        <li><a href="/app-ensembles.html">App-Ensembles</a></li>
+                        <li><a href="/info.html">Info</a></li>
                     </ul>
                     <ul class="right">
                         <%block name="top_bar_actions" />
@@ -37,10 +38,10 @@
 
         ${next.body()}
         <%block name="global_js">
-        <script src="static/bower_components/foundation/js/vendor/jquery.js"></script>
-        <script src="static/bower_components/foundation/js/vendor/fastclick.js"></script>
-        <script src="static/bower_components/foundation/js/foundation.min.js"></script>
-        <script src="static/js/app.js"></script>
+        <script src="/static/bower_components/foundation/js/vendor/jquery.js"></script>
+        <script src="/static/bower_components/foundation/js/vendor/fastclick.js"></script>
+        <script src="/static/bower_components/foundation/js/foundation.min.js"></script>
+        <script src="/static/js/app.js"></script>
         </%block>
         <%block name="local_js" />
 

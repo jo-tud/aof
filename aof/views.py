@@ -5,10 +5,10 @@ from pyramid.path import AssetResolver
 from pyramid.view import view_config
 from pyramid.response import Response, FileResponse
 from simpleconfigparser import simpleconfigparser
-from aof.tools.AppPool import AppPool
-from aof.tools.namespaces import AOF, ADL
+from aof.orchestration.AppPool import AppPool
+from aof.orchestration.namespaces import AOF, ADL
 
-from aof.tools import deploy, o, ae_tools
+from aof.orchestration import deploy, o, ae_tools
 
 from aof.static.data.static_data import META
 from aof.static.data.static_data import SITE_MENU
@@ -88,17 +88,62 @@ class AppEnsembleViews():
         if not type(self).ae_dict:
             type(self).ae_dict = ae_tools.getExistingAE()
 
-    @view_config(route_name='deploy', renderer='templates/deploy.mako')
-    def deploy_view(request):
+    @view_config(route_name='app-ensembles', renderer='templates/ae.mako')
+    def app_ensembles_view(request):
         return {'menu': SITE_MENU,
                 'meta': META,
-                'page_title': 'Deploy'}
+                'page_title': 'App-Ensembles'}
+
+    @view_config(route_name='ae-details', renderer='templates/ae_details.mako')
+    def ae_details_view(self):
+        ae_id = self.request.matchdict['ae_id']
+        if ae_id in self.ae_dict:
+            ae = self.ae_dict[ae_id]
+            ae_apps = ae.getRequiredApps().bindings
+            return {
+                'ae_path': ae.ae_pkg_path,
+                'ae_id': ae_id,
+                'ae_has_bpmn': ae.has_bpmn(),
+                'ae_apps': ae_apps,
+                'menu': SITE_MENU,
+                'meta': META,
+                'page_title': 'App-Ensemble Details'
+            }
+        else:
+            Response('Details for the App-Ensemble %s cannot be displayed.' % ae_id)
+
+    @view_config(route_name='ae-bpmn')
+    def ae_get_bpmn_view(self):
+        ae_id = self.request.matchdict['ae_id']
+        ae = self.ae_dict[ae_id]
+        bpmn = ae.get_bpmn()
+        response = Response(
+            body=bpmn,
+            request=self.request,
+            content_type='txt/xml'
+        )
+        response.content_disposition = 'attachement; filename="'+ae_id+".bpmn"
+        return response
+
+    @view_config(route_name='ae-bpmn-js', renderer='templates/ae_bpmn-js.mako')
+    def ae_visualize_bpmn_view(self):
+        ae_id = self.request.matchdict['ae_id']
+        ae = self.ae_dict[ae_id]
+
+        return {
+            'ae_path': ae.ae_pkg_path,
+            'ae_id': ae_id,
+            'ae_has_bpmn': ae.has_bpmn(),
+            'menu': SITE_MENU,
+            'meta': META,
+            'page_title': 'App-Ensemble Details'
+        }
 
     @view_config(route_name='api', match_param='tool=get_ae_info', renderer='json')
     def ae_get_ae_info_json_view(self):
         ae_info = dict()
         for key, ae in self.ae_dict.items():
-            apps = ae_tools.getRequiredApps(ae).serialize(format='json').decode()
+            apps = ae.getRequiredApps().serialize(format='json').decode()
             id = key
             path = ae.ae_pkg_path
             ae_info[key] = {'id': id, 'path': path, 'apps': apps}

@@ -21,7 +21,11 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('orchestrate', '/orchestrate.html')
 
-    config.add_route('deploy', '/deploy.html')
+    config.add_route('app-ensembles', '/app-ensembles.html')
+    config.add_route('ae-details', '/app-ensembles/{ae_id}.html')
+    config.add_route('ae-bpmn', '/app-ensembles/{ae_id}.bpmn')
+    config.add_route('ae-bpmn-js', '/app-ensembles/bpmn-js/{ae_id}')
+
     config.add_route('app-pool', '/app-pool.html')
 
     config.add_route('demo', '/demo.html')
