@@ -142,11 +142,13 @@ class AppEnsembleViews():
     @view_config(route_name='api', match_param='tool=get_ae_info', renderer='json')
     def ae_get_ae_info_json_view(self):
         ae_info = dict()
-        for key, ae in self.ae_dict.items():
-            apps = ae.getRequiredApps().serialize(format='json').decode()
-            id = key
-            path = ae.ae_pkg_path
-            ae_info[key] = {'id': id, 'path': path, 'apps': apps}
+        try:
+            for key, ae in self.ae_dict.items():
+                path = ae.ae_pkg_path
+                apps = ae.getRequiredApps().serialize(format='json').decode()
+                ae_info[key] = {'id': key, 'path': path, 'apps': apps}
+        except AttributeError:
+            ae_info[key] = {'id': key, 'path': path, 'apps': {}}
 
         return {'json': ae_info}
 
