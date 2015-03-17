@@ -2,8 +2,8 @@
 <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_ZFGaYL54EeSr2IWNjyjOMg" exporter="camunda modeler" exporterVersion="2.6.1" targetNamespace="http://activiti.org/bpmn">
   <bpmn2:collaboration id="_Collaboration_3">
     <bpmn2:participant id="_Participant_2" name="Workflow" processRef="Process_1"/>
-    <bpmn2:participant id="AE_Participant_5G_Example_v2" name="App-Ensemble" processRef="AE_5G_Example_v2"/>
-    <bpmn2:messageFlow id="MessageFlow_2" name="URI of Plant" sourceRef="PlantBrowser_1" targetRef="Task_1"/>
+    <bpmn2:participant id="Participant_2" name="App-Ensemble" processRef="Process_2"/>
+    <bpmn2:messageFlow id="MessageFlow_2" name="URI of Plant" sourceRef="ServiceTask_7" targetRef="Task_1"/>
     <bpmn2:messageFlow id="MessageFlow_4" name="URI of Sensor" sourceRef="IntermediateThrowEvent_2" targetRef="ServiceTask_1"/>
   </bpmn2:collaboration>
   <bpmn2:process id="Process_1" isExecutable="false">
@@ -105,31 +105,41 @@
     <bpmn2:sequenceFlow id="SequenceFlow_53" name="" sourceRef="IntermediateThrowEvent_7" targetRef="Task_3"/>
     <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="Task_1" targetRef="ServiceTask_1"/>
   </bpmn2:process>
-  <bpmn2:process id="AE_5G_Example_v2" name="5G-Example v2" isExecutable="true">
-    <bpmn2:startEvent id="AE_Signal_1" name="AE Signal 1">
+  <bpmn2:process id="Process_2" isExecutable="false">
+    <bpmn2:startEvent id="StartEvent_2">
       <bpmn2:outgoing>SequenceFlow_24</bpmn2:outgoing>
       <bpmn2:signalEventDefinition id="_MessageEventDefinition_10"/>
     </bpmn2:startEvent>
     <bpmn2:serviceTask id="ScriptTask_2" name="Neighbourhood Browser 1">
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_32</bpmn2:outgoing>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_2">
+        <bpmn2:targetRef>_DataStoreReference_2</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:serviceTask>
     <bpmn2:serviceTask id="ServiceTask_5" name="Neigbourhood Browser 2">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_33</bpmn2:outgoing>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_3">
+        <bpmn2:targetRef>_DataStoreReference_2</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:serviceTask>
     <bpmn2:serviceTask id="ServiceTask_6" name="Sensor Selector">
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_34</bpmn2:outgoing>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_4">
+        <bpmn2:targetRef>_DataStoreReference_2</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:serviceTask>
-    <bpmn2:serviceTask id="PlantBrowser_1" camunda:class="http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPlantSelector/" camunda:resultVariable="PlantBrowser_1" name="Plant Browser">
-      <bpmn2:extensionElements>
-        <camunda:executionListener class="TestClassForListener" delegateExpression="DelegateExpression" event="start" expression="ExpressionItself"/>
-      </bpmn2:extensionElements>
+    <bpmn2:serviceTask id="ServiceTask_7" name="Plant Browser">
       <bpmn2:incoming>SequenceFlow_24</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:dataOutputAssociation id="DataOutputAssociation_1">
+        <bpmn2:targetRef>_DataStoreReference_2</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_24" name="" sourceRef="AE_Signal_1" targetRef="PlantBrowser_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_24" name="" sourceRef="StartEvent_2" targetRef="ServiceTask_7"/>
+    <bpmn2:dataStoreReference id="_DataStoreReference_2" name="App Ensemble Data Store" dataStoreRef="DataStore_1"/>
     <bpmn2:intermediateThrowEvent id="IntermediateThrowEvent_2">
       <bpmn2:incoming>SequenceFlow_32</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_33</bpmn2:incoming>
@@ -142,13 +152,14 @@
     <bpmn2:sequenceFlow id="SequenceFlow_33" name="" sourceRef="ServiceTask_5" targetRef="IntermediateThrowEvent_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_34" name="" sourceRef="ServiceTask_6" targetRef="IntermediateThrowEvent_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_51" name="" sourceRef="IntermediateThrowEvent_2" targetRef="IntermediateThrowEvent_2"/>
+    <bpmn2:callActivity id="CallActivity_1" name="asdf"/>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_1">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="PlantBrowser_1" targetRef="ExclusiveGateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="ServiceTask_7" targetRef="ExclusiveGateway_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_5"/>
     <bpmn2:sequenceFlow id="SequenceFlow_8" name="" sourceRef="ExclusiveGateway_1" targetRef="ServiceTask_6"/>
@@ -217,7 +228,7 @@
           <dc:Bounds height="6.0" width="6.0" x="1369.0" y="460.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_Participant_6" bpmnElement="AE_Participant_5G_Example_v2" isHorizontal="true">
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_6" bpmnElement="Participant_2" isHorizontal="true">
         <dc:Bounds height="529.0" width="2103.0" x="190.0" y="792.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_3" bpmnElement="StartEvent_1">
@@ -236,7 +247,7 @@
           <dc:Bounds height="6.0" width="6.0" x="1597.0" y="460.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="AE_Signal_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartEvent_2">
         <dc:Bounds height="36.0" width="36.0" x="346.0" y="979.0"/>
         <bpmndi:BPMNLabel>
           <dc:Bounds height="0.0" width="0.0" x="364.0" y="1020.0"/>
@@ -251,7 +262,7 @@
       <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_7" bpmnElement="ServiceTask_6">
         <dc:Bounds height="80.0" width="100.0" x="694.0" y="1068.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_8" bpmnElement="PlantBrowser_1">
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_8" bpmnElement="ServiceTask_7">
         <dc:Bounds height="80.0" width="100.0" x="406.0" y="957.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_24" bpmnElement="SequenceFlow_24" sourceElement="_BPMNShape_StartEvent_4" targetElement="_BPMNShape_ServiceTask_8">
@@ -269,6 +280,16 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds height="22.0" width="80.0" x="416.0" y="752.0"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_DataStoreReference_2" bpmnElement="_DataStoreReference_2">
+        <dc:Bounds height="50.0" width="50.0" x="431.0" y="1116.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="169.0" x="372.0" y="1171.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_DataOutputAssociation_1" bpmnElement="DataOutputAssociation_1" sourceElement="_BPMNShape_ServiceTask_8" targetElement="_BPMNShape_DataStoreReference_2">
+        <di:waypoint xsi:type="dc:Point" x="456.0" y="1037.0"/>
+        <di:waypoint xsi:type="dc:Point" x="456.0" y="1116.0"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_IntermediateThrowEvent_4" bpmnElement="IntermediateThrowEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="350.0" y="502.0"/>
@@ -407,6 +428,18 @@
         <di:waypoint xsi:type="dc:Point" x="861.0" y="997.0"/>
         <di:waypoint xsi:type="dc:Point" x="861.0" y="997.0"/>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_DataOutputAssociation_2" bpmnElement="DataOutputAssociation_2" sourceElement="_BPMNShape_ScriptTask_3" targetElement="_BPMNShape_DataStoreReference_2">
+        <di:waypoint xsi:type="dc:Point" x="698.0" y="930.0"/>
+        <di:waypoint xsi:type="dc:Point" x="481.0" y="1119.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_DataOutputAssociation_3" bpmnElement="DataOutputAssociation_3" sourceElement="_BPMNShape_ServiceTask_6" targetElement="_BPMNShape_DataStoreReference_2">
+        <di:waypoint xsi:type="dc:Point" x="694.0" y="1022.0"/>
+        <di:waypoint xsi:type="dc:Point" x="481.0" y="1129.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_DataOutputAssociation_4" bpmnElement="DataOutputAssociation_4" sourceElement="_BPMNShape_ServiceTask_7" targetElement="_BPMNShape_DataStoreReference_2">
+        <di:waypoint xsi:type="dc:Point" x="694.0" y="1114.0"/>
+        <di:waypoint xsi:type="dc:Point" x="481.0" y="1138.0"/>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_IntermediateThrowEvent_9" bpmnElement="IntermediateThrowEvent_6">
         <dc:Bounds height="36.0" width="36.0" x="1212.0" y="442.0"/>
         <bpmndi:BPMNLabel>
@@ -430,6 +463,9 @@
           <dc:Bounds height="6.0" width="6.0" x="1485.0" y="460.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_CallActivity_2" bpmnElement="CallActivity_1">
+        <dc:Bounds height="80.0" width="100.0" x="1336.0" y="974.0"/>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_Task_2" targetElement="_BPMNShape_ServiceTask_2">
         <di:waypoint xsi:type="dc:Point" x="532.0" y="520.0"/>
         <di:waypoint xsi:type="dc:Point" x="648.0" y="520.0"/>
