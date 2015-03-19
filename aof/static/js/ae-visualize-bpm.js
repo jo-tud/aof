@@ -6,7 +6,7 @@ var canvas = $('#js-canvas');
 
 var renderer = new BpmnModeler({ container: canvas });
 
-var diagramURL = '/app-ensembles/visualize-bpm.html?URI='+ae_uri;
+var diagramURL = '/app-ensembles/get-bpmn?URI='+ae_uri;
 console.log("Diagram URL: " + diagramURL);
 
 function createNewDiagram() {

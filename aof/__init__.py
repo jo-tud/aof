@@ -43,7 +43,7 @@ def main(global_config, **settings):
     config.add_route('api-ap-json', '/api/app-pool.json')
 
     ## BPM
-    config.add_route('ae-bpmn', '/app-ensembles/BPMN/{ae_id}.bpmn')
+    config.add_route('ae-bpmn', '/app-ensembles/get-bpmn')
 
     ## Actions
     config.add_route('action-update-app-pool', '/api/actions/update-app-pool')

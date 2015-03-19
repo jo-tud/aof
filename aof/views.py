@@ -377,15 +377,27 @@ class AppEnsembleViews():
 
     @view_config(route_name='ae-bpmn')
     def ae_get_bpmn_view(self):
-        ae_id = self.request.matchdict['ae_id']
-        ae = self.ae_dict[ae_id]
-        bpmn = ae.get_bpm()
-        response = Response(
-            body=bpmn,
-            request=self.request,
-            content_type='txt/xml'
-        )
-        response.content_disposition = 'attachement; filename="'+ae_id+".bpmn"
+        if not self.request.params.has_key('URI'):
+            return Response('The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to retrieve the BPMN.')
+        else:
+            if len(self.request.params.getall('URI')) > 1:
+                return Response('More than one URI was supplied. Please supply exactly 1 URI.')
+            else:
+                ae_uri = self.request.params.getone('URI')
+                if ae_uri == "":
+                    return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
+
+        if ae_uri in self.ae_dict:
+            ae = self.ae_dict[ae_uri]
+            bpmn = ae.get_bpm()
+            response = Response(
+                body=bpmn,
+                request=self.request,
+                content_type='txt/xml'
+            )
+            response.content_disposition = 'attachement; filename="'+ae_uri+".bpmn"
+        else:
+            response = HTTPNotFound('The App-Ensemble "%s" could not be found.' % ae_uri)
         return response
 
     # Returns a json representation of all App-Ensembles + some additional info
