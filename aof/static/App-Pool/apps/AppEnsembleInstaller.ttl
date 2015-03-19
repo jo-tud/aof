@@ -1,22 +1,52 @@
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# AOF PREFIXES
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
+# USED ONTOLOGIES
+@prefix bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-@base <http://eatld.et.tu-dresden.de/aof/> .
-@prefix adl: <http://eatld.et.tu-dresden.de/aof/adl/> .
+# Namespaces for THIS App-Ensemble
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix play: <http://play.google.com/store/apps/details?id=> .
+@prefix android: <http://schemas.android.com/apk/res/android> .
 
-## URI of the Generic App that is described
-<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/>
+# Creator
+<mailto:max.mustermann@tu-dresden.de>    a foaf:Person ;
+        foaf:name "Max Mustermann";
+        foaf:mbox <mailto:max.mustermann@tu-dresden.de>;
+        foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php> .
 
-rdfs:label 		"App Ensemble Installer";
-adl:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk>
+# App description
+jenkins:AppEnsembleInstaller
+    a aof:App, aof:AndroidApp ;
 
-## Add Intents
-# adl:hasIntent	[
-#  adl:intentPurpose	"ShowSimpleMessage";
-#  adl:intentString	"eu.comvantage.iaf.SIMPLE_MESSAGE"]
+    rdfs:label "App Ensemble Installer" ;
+    rdfs:comment
+        """
+        The *App Ensemble Installer* downloads and installs App Ensembles.
+        """ ;
 
-## End of description
-. 
+    aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
+
+    aof:versionCode <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
+
+    aof:MainScreenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        rdfs:comment "Main Screenshot"
+    ] ;
+    aof:Screenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg>
+     ] ;
+
+   aof:hasIcon <http://localhost:8081/static/img/icon_placeholder.svg> ;
+
+   dc:creator <mailto:max.mustermann@tu-dresden.de>
+.

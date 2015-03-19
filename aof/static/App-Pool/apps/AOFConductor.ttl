@@ -1,4 +1,4 @@
-# APP-ENSEMBLE PREFIXES
+# AOF PREFIXES
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 
 # USED ONTOLOGIES
@@ -12,24 +12,45 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # Namespaces for THIS App-Ensemble
-@prefix jen: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
 @prefix play: <http://play.google.com/store/apps/details?id=> .
 @prefix android: <http://schemas.android.com/apk/res/android> .
 
 # Unique prefix for THIS App-Ensemble
 @prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2#> .
 
-## Conductor App
-jen:AOFConductor
+# Creator
+<mailto:johannes.pfeffer@tu-dresden.de>    a foaf:Person ;
+        foaf:name "Johannes Pfeffer";
+        foaf:mbox <mailto:johannes.pfeffer@tu-dresden.de>;
+        foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php?id=jp> .
+
+# Conductor App
+jenkins:AOFConductor
     a aof:App, aof:AndroidApp ;
     aof:hasRole aof:Conductor ;
 
-    dc:creator [
-        a foaf:Person ;
-        foaf:name "Johannes Pfeffer" ;
-        foaf:mbox <mailto:johannes.pfeffer@tu-dresden.de> ;
-        foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php?id=jp>
+    aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
+
+    aof:versionCode <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
+    
+    aof:MainScreenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        rdfs:comment "Main Screenshot"
+    ] ;
+    aof:Screenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg>
      ] ;
+    aof:Screenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/2/2f/Bundesarchiv_Bild_183-R92264%2C_Herbert_von_Karajan.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/2/2f/Bundesarchiv_Bild_183-R92264%2C_Herbert_von_Karajan.jpg> 
+     ] ;
+
+   aof:hasIcon <http://localhost:8081/static/img/icon_placeholder.svg> ;
+
+    dc:creator <mailto:johannes.pfeffer@tu-dresden.de> ;
 
     rdfs:label "AOF Conductor" ;
     rdfs:comment
@@ -49,7 +70,7 @@ jen:AOFConductor
             a aof:Input, android:extra ;
             aof:isRequired "False";
             android:name "org.aof.extra.AE_FILE";
-            aof:datatype xsd:anyURI
+            aof:datatype xsd:anyURI 
          ]
      ] ;
 
@@ -62,7 +83,7 @@ jen:AOFConductor
            This activity is the entry point for the application when it is used stand-alone. It does not expect to receive data.
             """ ;
      ] ;
-
+    
     aof:hasAppDependency play:org.openintents.filemanager .
 
 ### Additional statements

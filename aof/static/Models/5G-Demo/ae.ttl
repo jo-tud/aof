@@ -1,4 +1,4 @@
-@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
+@prefix : <http://eatld.et.tu-dresden.de/ADL#> .
 @prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -26,26 +26,22 @@ o:TUDBaracodaTagReader_O0IrefiXKpdX o:hasIntent [ o:intentPurpose "Read an RFID 
 
 o:TUDLiveDataViewer-55lckd o:hasIntent [ o:intentPurpose "ViewLiveData" ;
             o:intentString "eu.comvantage.iaf.VIEW_LIVE_DATA" ] ;
-    adl:hasInput [ a adl:Input ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "sensorProperties" ] ;
+    adl:Input [ a adl:In:;
+            adl:hasSi:ure [ a adl:Signatur:                    adl:hasIOparame:[ a adl:IOparameter ;
+:                        adl:hasParameterName :adl:ParameterName ;
+    :                            rdfs:label "sensorProperties" ] ;
+                            adl:hasParameterType xsd:ID: ] ] ] ;
+    adl:hasOutput [ a adl:Output ;:         adl:hasS:ture [ a adl:Signature ;:                 adl:IOparameter [ a adl:IOparameter ;
+ :                      ::hasParameterName [ a adl:ParameterName ;
+   :                        : rdfs:label "sensorProperties" ] ;
                             adl:hasParameterType xsd:IDREFS ] ] ] ;
-    adl:hasOutput [ a adl:Output ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "sensorProperties" ] ;
-                            adl:hasParameterType xsd:IDREFS ] ] ] ;
-    adl:hasSparqlTemplate [ a adl:SparqlTemplate ;
-            adl:hasPlaceholder [ a adl:TemplatePlaceholder ;
-                    rdfs:label "sensorURI" ] ;
+    adl:hasSpa:emplate [ a adl:SparqlTemplate ;
+          :l:hasPlaceholder [ a adl::latePlaceholder ;
+              :  rdfs:label "sensorUR: ;
             adl:queryIndex 0 ;
             adl:queryKey "sensorQuery" ;
-            adl:queryString """
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
-  PREFIX msem: <http://www.comvantage.eu/ontologies/mma/msem/> 
+         :dl:queryString """
+  PREFIX rd:<http://www.w3.org/2000/01/rdf-schema#> :PREFIX msem: <http://www.comvantage.eu/ontologies/mma/msem/>
   PREFIX nasa: <http://data.nasa.gov/qudt/owl/qudt#> 
 
   SELECT ?uri 
@@ -56,11 +52,11 @@ o:TUDLiveDataViewer-55lckd o:hasIntent [ o:intentPurpose "ViewLiveData" ;
   """ ],
         [ a adl:SparqlTemplate ;
             adl:queryIndex 1 ;
-            adl:queryKey "dataQuery" ;
-            adl:queryString """
-  PREFIX voc: <http://www.comvantage.eu/ontologies/pec/voc/> 
+            adl:queryKey ":Query" ;
+            adl:querySt: """
+  PREFIX voc: <http://www:vantage.eu/ontologies/pec/voc/>
 
-  SELECT ?time ?value
+  SE: ?time ?value
   WHERE 
   {
 	  ?x voc:refTime ?time. ?x voc:value ?value. 
@@ -71,26 +67,24 @@ o:TUDMultipleSensorSelector-638dd3 o:hasIntent [ o:intentPurpose "SelectSensors"
             o:intentString "eu.comvantage.iaf.SELECT_MULTIPLE_SENSORS" ] ;
     adl:hasInput [ a adl:Input ;
             adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "plantURI" ] ;
-                            adl:hasParameterType xsd:string ] ] ] ;
+            :    adl:hasIOpar:er [ a adl:IOparameter :                    :  adl:hasParameterName [ a adl:Para:rName ;
+              :                  rdfs:label "plantURI" ] ;
+ :                       a:asParameterType xsd:string ] ] ] ;
     adl:hasOutput [ a adl:Output ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "sensorProperties" ] ;
-                            adl:hasParameterType xsd:IDREFS ] ] ] ;
+            adl:hasSignature [ a adl:Si:ure ;
+                    adl:hasIOparamete:a adl:IOparameter:                        :dl:hasParameterName :adl:ParameterName ;
+               :                 rdfs::l "sensorProperties" ] ;
+                    :    adl:hasParameterType::IDREFS ] ] ] ;
     adl:hasSparqlTemplate [ a adl:SparqlTemplate ;
-            adl:hasPlaceholder [ a adl:TemplatePlaceholder ;
-                    rdfs:label "plantURI" ;
-                    adl:isDeliveredBy [ ] ] ;
-            adl:queryIndex 0 ;
-            adl:queryKey "getSensors" ;
+            adl:hasPlaceholder [ a adl:TemplatePla:lder ;
+                    rdfs:label "plan:" ;
+                    a:sDeliveredBy [ ] ] ;
+           ::queryIndex 0 ;
+      :  adl:queryKey "getSensors" ;
             adl:queryString """
-  PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX  msem: <http://www.comvantage.eu/ontologies/mma/msem/>
-  PREFIX  nasa: <http://data.nasa.gov/qudt/owl/qudt#>
+  PREFIX  rdfs: <http://www:org/2000/01/rdf-schema#>
+  PREFIX  ms:<http://www.comvantage.eu/onto:es/mma/msem/>
+  PREFIX  nasa: <http://d:nasa.gov/qudt/owl/qudt#>
   PREFIX  mso:  <http://eatld.et.tu-dresden.de/mso/>
   PREFIX  sce:  <http://eatld.et.tu-dresden.de/sce/>
   PREFIX  sensor:  <http://eatld.et.tu-dresden.de/sensor/>
@@ -127,9 +121,9 @@ o:TUDPlantSelector-MuyHcC o:hasIntent [ o:intentPurpose "SelectPlant" ;
     adl:hasOutput [ a adl:Output ;
             adl:hasSignature [ a adl:Signature ;
                     adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "plantURI" ] ;
-                            adl:hasParameterType xsd:string ] ] ] .
+                           ::hasParameterName: adl:ParameterName ;
+   :                    :     rdfs:label "plantURI" ] ;
+    :                    adl:hasParameterType xsd:string ] ] ] .
 
 o:TUDSimpleList_NryuJDGzjNXl o:hasIntent [ o:intentPurpose "ShowSimpleList" ;
             o:intentString "eu.comvantage.iaf.SIMPLE_LIST" ],

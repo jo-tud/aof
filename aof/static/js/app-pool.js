@@ -16,58 +16,9 @@ $(document).ajaxComplete(function () {
 });
 
 $(function() {
-    var liveFilter = $('#app_tables').liveFilter('.livefilter-input', 'div.columns', {
-        filterChildSelector: 'li.title'
+    var liveFilter = $('#app_table').liveFilter('.livefilter-input', 'tr.app_row', {
+        filterChildSelector: 'td.app_name'
         }
     );
     loadAP();
-
-    function loadAP () {
-        $.getJSON('/api/app-pool.json', function(data) {
-            var target = $('div#app_tables');
-            target.empty();
-
-            //console.log(data.json);
-            obj = JSON.parse(data.json);
-            //console.log(obj);
-            $.each(obj.results.bindings, function (key, val) {
-                var name, uri, binary, intent_string, intent_purpose;
-
-                if (! val.name) { uri = "http://#"; } else {name = val.name.value; }
-                if (! val.uri) { uri = "http://#"; } else {uri = val.uri.value; }
-                if (! val.binary) { binary = "http://#"; } else {binary = val.binary.value; }
-                if (! val.intent_string) { intent_string = "Not defined"; } else {intent_string = val.intent_string.value; }
-                if (! val.intent_purpose) { intent_purpose = "Not defined"; } else {intent_purpose = val.intent_purpose.value}
-
-                target.append(
-                    '<div class="small-12 medium-4 large-3 columns">' +
-                    '<ul class="pricing-table" data-equalizer-watch>' +
-                    '<li class="title">'+ name + '</li>' +
-                    '<li class="bullet-item"><a href="'+ uri + '">URI</a></li>' +
-                    '<li class="cta-button"><a class="button" href="' + binary + '">Download</a></li>' +
-                    '</ul>' +
-                    '</div>'
-                )
-            });
-            target.children().last().attr('class','small-12 medium-4 large-3 columns end');
-            $(document).foundation('reflow');
-            liveFilter.refresh();
-        });
-    }
-
-    function updateAP () {
-        $.get('/api/actions/update-app-pool', function(data) {
-            loadAP();
-            var alertHTML = $(
-                    '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
-                    'App-Pool updated. Number of apps: ' + data.toString() +
-                    '</div>'
-                    ).hide().fadeToggle().delay(2000).slideToggle();
-            $('#alerts').append(alertHTML);
-            });
-    }
-
-    $('#action_update').click(function () {
-        updateAP();
-    });
 });

@@ -41,7 +41,7 @@ class AppPool(ConjunctiveGraph):
                 try:
                     self.parse(source=o, format=util.guess_format(o))
                 except:
-                    self.log.error("There was a problem connecting to %s." %o)
+                    self.log.error("There was a problem reading %s." %o)
 
         loadAppDescriptions(self)
     
@@ -60,8 +60,9 @@ class AppPool(ConjunctiveGraph):
 
 # Will only be called when executed from shell
 if __name__ == "__main__":
+    import os
+    os.chdir("/home/jo/Dokumente/Orchestration/AOF")
     ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
 
-    ap = AppPool.Instance("http://domain.de/foo.ttl")
     print("This graph is a singleton and currently contains %i triples" %(ap.__len__() ) )
-    print("\nThe Graph:\n\n",ap.serialize(format="turtle", indent=1).decode())
+    #print("\nThe Graph:\n\n",ap.serialize(format="turtle", indent=1).decode())

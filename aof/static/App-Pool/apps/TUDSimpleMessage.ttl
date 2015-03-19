@@ -4,19 +4,19 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-@base <http://eatld.et.tu-dresden.de/aof/> .
-@prefix adl: <http://eatld.et.tu-dresden.de/aof/adl/> .
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
 
 ## URI of the Generic App that is described
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage>
 
 rdfs:label "TUD Simple Message App";
-adl:currentBinary <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/bin/TUDSimpleMessage-release.apk>;
+aof:currentBinary <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/bin/TUDSimpleMessage-release.apk>;
 
 ## Add Intents
-adl:hasIntent	[
-  adl:intentPurpose	"ShowSimpleMessage";
-  adl:intentString	"eu.comvantage.iaf.SIMPLE_MESSAGE"]
+:hasIntent	[
+  :intentPurpose	"ShowSimpleMessage";
+  :intentString	"eu.comvantage.iaf.SIMPLE_MESSAGE"]
 
 ## End of description
 . 

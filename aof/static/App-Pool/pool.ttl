@@ -3,6 +3,7 @@
 
 []
 	aof:hasAppDescription "aof/static/App-Pool/apps/AppEnsembleInstaller.ttl" ;
+	aof:hasAppDescription "aof/static/App-Pool/apps/AOFConductor.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/IAFLogin.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/IAFManagementComponent.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/IAFSkeletonApp.ttl" ;
