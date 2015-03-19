@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="/static/stylesheets/ae_bpmn-js.css"/>
 </%block>
 <div class="content" id="js-drop-zone">
-    <div class="message intro">
-        <div class="note">
-            Drop BPMN diagram from your desktop or <a id="js-create-diagram" href>create a new diagram</a> to get
-            started.
-        </div>
-    </div>
     <div class="message error">
         <div class="note">
             <p>Ooops, we could not display the BPMN 2.0 diagram.</p>

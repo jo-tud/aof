@@ -80,6 +80,13 @@ class AppPoolViews():
         resp = str(len(list(res)))
         return Response(resp)
 
+    @view_config(route_name='app-details', renderer='templates/app_details.mako')
+    def ap_get_app_details(self):
+        return {'menu': SITE_MENU,
+                'meta': META,
+            'page_title': 'App-Pool',
+        }
+
 class AppEnsembleViews():
     ae_dict = None
 

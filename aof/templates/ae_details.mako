@@ -51,7 +51,7 @@
 
 <%block name="local_js">
     <script type="text/javascript">
-        var ae_id =${ae_id};
+        var ae_id = "${ae_id}";
     </script>
     <script src="/static/js/jquery.liveFilter.js"></script>
     <script src="/static/js/jquery.loader-0.3.js"></script>
