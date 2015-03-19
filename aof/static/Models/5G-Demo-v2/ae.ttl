@@ -95,6 +95,8 @@ jen:AOFConductor
     a aof:App, aof:AndroidApp ;
     aof:hasRole aof:Conductor ;
     
+    aof:versionCode <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
+    
     aof:MainScreenshot [
         aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
         aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
@@ -157,6 +159,8 @@ jen:AOFConductor
 play:org.openintents.filemanager owl:sameAs <http://openintents.org/~oi/filemanager> .
 play:org.openintents.filemanager rdfs:seeAlso <http://openintents.org/~oi/filemanager> .
 
+
+## TUD Plant Selector
 jen:TUDPlantSelector
     a aof:App, aof:AndroidApp ;
     
@@ -208,6 +212,8 @@ aof:TUDBaracodaTagReader_O0IrefiXKpdX aof:hasIntent [ aof:intentPurpose "Read an
             aof:intentString "eu.comvantage.iaf.READ_TAG" ] ;
     aof:requiresApp aof:BaracodaManager-9sfLOr .
 
+
+## TUD Live Data Viewer
 aof:TUDLiveDataViewer-55lckd aof:hasIntent [ aof:intentPurpose "ViewLiveData" ;
             aof:intentString "eu.comvantage.iaf.VIEW_LIVE_DATA" ] ;
     adl:hasInput [ a adl:Input ;

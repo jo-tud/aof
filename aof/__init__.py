@@ -21,11 +21,13 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('orchestrate', '/orchestrate.html')
 
+    # App-Ensembles
     config.add_route('app-ensembles', '/app-ensembles.html')
-    config.add_route('ae-details', '/app-ensembles/{ae_id}')
+    config.add_route('ae-details', '/app-ensembles/details.html')
     config.add_route('ae-bpmn', '/app-ensembles/BPMN/{ae_id}.bpmn')
     config.add_route('ae-bpmn-js', '/app-ensembles/bpmn-js/{ae_id}')
 
+    # App-Pool
     config.add_route('app-pool', '/app-pool.html')
     config.add_route('app-details','/app-pool/app_details.html')
 
@@ -34,6 +36,7 @@ def main(global_config, **settings):
 
     config.add_route('info', '/info.html')
 
+    # API
     config.add_route('api', '/api/{tool}*')
 
     config.scan()

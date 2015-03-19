@@ -101,9 +101,18 @@ class AppEnsembleViews():
                 'meta': META,
                 'page_title': 'App-Ensembles'}
 
-    @view_config(route_name='ae-details', renderer='templates/ae_details.mako')
+    @view_config(route_name='ae-details', renderer='templates/ae-details.mako')
     def ae_details_view(self):
-        ae_id = self.request.matchdict['ae_id']
+        if not self.request.params.has_key('ID'):
+            return Response('The parameter "ID" was not supplied. Please provide the ID of the App-Ensemble for which you want to display the details.')
+        else:
+            if len(self.request.params.getall('ID')) > 1:
+                return Response('More than one ID was supplied. Please supply exactly 1 ID.')
+            else:
+                ae_id = self.request.params.getone('ID')
+                if ae_id == "":
+                    return Response('Value of the "ID"-parameter was empty. Please provide the ID of the App-Ensemble.')
+
         if ae_id in self.ae_dict:
             ae = self.ae_dict[ae_id]
             ae_apps = ae.getRequiredApps().bindings
@@ -117,7 +126,7 @@ class AppEnsembleViews():
                 'page_title': 'App-Ensemble Details'
             }
         else:
-            Response('Details for the App-Ensemble %s cannot be displayed.' % ae_id)
+            return Response('The App-Ensemble "%s" could not be found.' % ae_id)
 
     @view_config(route_name='ae-bpmn')
     def ae_get_bpmn_view(self):
