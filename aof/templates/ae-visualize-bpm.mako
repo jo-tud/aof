@@ -22,7 +22,7 @@
 
 <%block name="local_js">
     <script type="text/javascript">
-        var ae_id = "${ae_id}";
+        var ae_id = "${ae_uri}";
     </script>
     <!-- viewer dependencies -->
     <script src="/static/bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>

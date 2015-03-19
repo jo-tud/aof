@@ -103,36 +103,59 @@ class AppEnsembleViews():
 
     @view_config(route_name='ae-details', renderer='templates/ae-details.mako')
     def ae_details_view(self):
-        if not self.request.params.has_key('ID'):
-            return Response('The parameter "ID" was not supplied. Please provide the ID of the App-Ensemble for which you want to display the details.')
+        if not self.request.params.has_key('URI'):
+            return Response('The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to display the details.')
         else:
-            if len(self.request.params.getall('ID')) > 1:
-                return Response('More than one ID was supplied. Please supply exactly 1 ID.')
+            if len(self.request.params.getall('URI')) > 1:
+                return Response('More than one URI was supplied. Please supply exactly 1 URI.')
             else:
-                ae_id = self.request.params.getone('ID')
-                if ae_id == "":
-                    return Response('Value of the "ID"-parameter was empty. Please provide the ID of the App-Ensemble.')
+                ae_uri = self.request.params.getone('URI')
+                if ae_uri == "":
+                    return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
 
-        if ae_id in self.ae_dict:
-            ae = self.ae_dict[ae_id]
+        if ae_uri in self.ae_dict:
+            ae = self.ae_dict[ae_uri]
             ae_apps = ae.getRequiredApps().bindings
             return {
                 'ae_path': ae.ae_pkg_path,
-                'ae_id': ae_id,
-                'ae_has_bpmn': ae.has_bpmn(),
+                'ae_uri': ae_uri,
+                'ae_has_bpm': ae.has_bpm(),
                 'ae_apps': ae_apps,
                 'menu': SITE_MENU,
                 'meta': META,
                 'page_title': 'App-Ensemble Details'
             }
         else:
-            return Response('The App-Ensemble "%s" could not be found.' % ae_id)
+            return Response('The App-Ensemble "%s" could not be found.' % ae_uri)
+
+    @view_config(route_name='ae-visualize-bpm', renderer='templates/ae-visualize-bpm.mako')
+    def ae_visualize_bpm_view(self):
+        if not self.request.params.has_key('URI'):
+            return Response('The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to visualize the BPM.')
+        else:
+            if len(self.request.params.getall('URI')) > 1:
+                return Response('More than one URI was supplied. Please supply exactly 1 URI.')
+            else:
+                ae_uri = self.request.params.getone('URI')
+                if ae_uri == "":
+                    return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
+
+        ae = self.ae_dict[ae_uri]
+
+        return {
+            'ae_path': ae.ae_pkg_path,
+            'ae_uri': ae_uri,
+            'ae_has_bpmn': ae.has_bpm(),
+            'menu': SITE_MENU,
+            'meta': META,
+            'page_title': 'App-Ensemble Details'
+        }
 
     @view_config(route_name='ae-bpmn')
     def ae_get_bpmn_view(self):
         ae_id = self.request.matchdict['ae_id']
         ae = self.ae_dict[ae_id]
-        bpmn = ae.get_bpmn()
+        bpmn = ae.get_bpm()
         response = Response(
             body=bpmn,
             request=self.request,
@@ -140,20 +163,6 @@ class AppEnsembleViews():
         )
         response.content_disposition = 'attachement; filename="'+ae_id+".bpmn"
         return response
-
-    @view_config(route_name='ae-bpmn-js', renderer='templates/ae_bpmn-js.mako')
-    def ae_visualize_bpmn_view(self):
-        ae_id = self.request.matchdict['ae_id']
-        ae = self.ae_dict[ae_id]
-
-        return {
-            'ae_path': ae.ae_pkg_path,
-            'ae_id': ae_id,
-            'ae_has_bpmn': ae.has_bpmn(),
-            'menu': SITE_MENU,
-            'meta': META,
-            'page_title': 'App-Ensemble Details'
-        }
 
     @view_config(route_name='api', match_param='tool=get_ae_info', renderer='json')
     def ae_get_ae_info_json_view(self):

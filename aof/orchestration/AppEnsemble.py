@@ -59,10 +59,10 @@ class AppEnsemble(Graph):
         os.remove(self.ae_file.name)
         del(self)
 
-    def has_bpmn(self):
+    def has_bpm(self):
         return self.has_file('ae.bpmn')
 
-    def get_bpmn(self):
+    def get_bpm(self):
         return self.get_file('ae.bpmn')
 
     def has_file(self,filename):

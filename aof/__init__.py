@@ -24,8 +24,7 @@ def main(global_config, **settings):
     # App-Ensembles
     config.add_route('app-ensembles', '/app-ensembles.html')
     config.add_route('ae-details', '/app-ensembles/details.html')
-    config.add_route('ae-bpmn', '/app-ensembles/BPMN/{ae_id}.bpmn')
-    config.add_route('ae-bpmn-js', '/app-ensembles/bpmn-js/{ae_id}')
+    config.add_route('ae-visualize-bpm', '/app-ensembles/visualize-bpm.html')
 
     # App-Pool
     config.add_route('app-pool', '/app-pool.html')
@@ -38,6 +37,7 @@ def main(global_config, **settings):
 
     # API
     config.add_route('api', '/api/{tool}*')
+    config.add_route('ae-bpmn', '/app-ensembles/BPMN/{ae_id}.bpmn')
 
     config.scan()
 

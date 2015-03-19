@@ -49,7 +49,7 @@ $(function() {
                     $('<li class="bullet-item" id="app-list"></li>').appendTo(eq_div);
                     $('<span data-tooltip aria-haspopup="true" class="has-tip">Apps<span>').attr('title',app_list.slice(2)).appendTo($(pricing_table.find('#app-list')))
                 }
-                $('<li class="cta-button details"><a class="button" href="/app-ensembles/details.html?ID='+ae.id+'">Details</a></li>').attr('id',ae.id).appendTo(pricing_table);
+                $('<li class="cta-button details"><a class="button" href="/app-ensembles/details.html?URI='+ae.id+'">Details</a></li>').attr('id',ae.id).appendTo(pricing_table);
                 $('<li class="cta-button deploy"><a class="button floor" href="#">Install</a></li>').attr('id',ae.id).appendTo(pricing_table);
 
             });
@@ -76,9 +76,9 @@ $(function() {
     });
 
     $('div#ae_tables').on('click','.cta-button.deploy',(function (e) {
-        var ae_id = $(this).attr('id');
-        console.log("Requested download of App-Ensemble: " + ae_id);
-        top.location.href = '/api/get_ae_pkg?ae_id='+ ae_id;
+        var ae_uri = $(this).attr('uri');
+        console.log("Requested download of App-Ensemble: " + ae_uri);
+        top.location.href = '/api/get_ae_pkg?ae_uri='+ ae_uri;
         e.preventDefault();
     }));
 });

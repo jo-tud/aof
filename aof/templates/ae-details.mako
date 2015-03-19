@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="small-12 columns">
-        <h1>${ae_id}</h1>
+        <h1>${ae_uri}</h1>
         <table>
             <thead>
             <tr>
@@ -33,11 +33,11 @@
                 </td>
             </tr>
 
-                %if ae_has_bpmn:
+                %if ae_has_bpm:
                     <tr>
-                        <td>BPMN</td>
+                        <td>BPM</td>
                         <td>
-                            <a class="button" href="/app-ensembles/bpmn-js/${ae_id}">Show BPMN</a>
+                            <a class="button" href="/app-ensembles/visualize-bpm.html?URI=${ae_uri}">Visualize BPM</a>
                         </td>
                     </tr>
                 %endif
@@ -51,7 +51,7 @@
 
 <%block name="local_js">
     <script type="text/javascript">
-        var ae_id = "${ae_id}";
+        var ae_uri = "${ae_uri}";
     </script>
     <script src="/static/js/jquery.liveFilter.js"></script>
     <script src="/static/js/jquery.loader-0.3.js"></script>
