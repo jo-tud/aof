@@ -35,15 +35,16 @@ class AppPoolViews():
         #log.debug("Called __init__() of class AppPoolViews()")
 
     @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
-    def ap_show_view(self):
+    def ap_pool_view(self):
         #log.debug("Called view: ap_show_view()")
         return {'menu': SITE_MENU,
                 'meta': META,
                 'page_title': 'App-Pool',
         }
 
-    @view_config(route_name='api', match_param='tool=get_app_pool', renderer='json')
-    def ap_get_app_pool_json(self):
+    # Returns information on the App-Pool as JSON
+    @view_config(route_name='api-ap-json', renderer='json')
+    def api_ap_json_view(self):
         #log.debug("called view: ap_get_app_pool_json()")
         query = """
         PREFIX aof: <%s>
@@ -70,8 +71,8 @@ class AppPoolViews():
         # log.debug(json)
         return {'json': json}
 
-    @view_config(route_name='api', match_param='tool=update_app_pool')
-    def ap_update_app_pool(self):
+    @view_config(route_name='action-update-app-pool')
+    def action_update_app_pool_view(self):
         a = AssetResolver()
         path = a.resolve('aof:static/App-Pool/pool.ttl').abspath()
         ap = AppPool.Instance()
@@ -80,11 +81,21 @@ class AppPoolViews():
         resp = str(len(list(res)))
         return Response(resp)
 
-    @view_config(route_name='app-details', renderer='templates/app_details.mako')
-    def ap_get_app_details(self):
+    @view_config(route_name='app-details', renderer='templates/app-details.mako')
+    def ap_app_details_view(self):
+        if not self.request.params.has_key('URI'):
+            return Response('The parameter "URI" was not supplied. Please provide the URI of the App for which you want to display the details.')
+        else:
+            if len(self.request.params.getall('URI')) > 1:
+                return Response('More than one URI was supplied. Please supply exactly 1 URI.')
+            else:
+                app_uri = self.request.params.getone('URI')
+                if app_uri == "":
+                    return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App.')
         return {'menu': SITE_MENU,
                 'meta': META,
-            'page_title': 'App-Pool',
+                'page_title': 'App-Details',
+                'app_uri' : app_uri
         }
 
 class AppEnsembleViews():
@@ -126,7 +137,7 @@ class AppEnsembleViews():
                 'page_title': 'App-Ensemble Details'
             }
         else:
-            return Response('The App-Ensemble "%s" could not be found.' % ae_uri)
+            return HTTPNotFound('The App-Ensemble "%s" could not be found.' % ae_uri)
 
     @view_config(route_name='ae-visualize-bpm', renderer='templates/ae-visualize-bpm.mako')
     def ae_visualize_bpm_view(self):
@@ -139,17 +150,19 @@ class AppEnsembleViews():
                 ae_uri = self.request.params.getone('URI')
                 if ae_uri == "":
                     return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
+        if ae_uri in self.ae_dict:
+            ae = self.ae_dict[ae_uri]
 
-        ae = self.ae_dict[ae_uri]
-
-        return {
-            'ae_path': ae.ae_pkg_path,
-            'ae_uri': ae_uri,
-            'ae_has_bpmn': ae.has_bpm(),
-            'menu': SITE_MENU,
-            'meta': META,
-            'page_title': 'App-Ensemble Details'
-        }
+            return {
+                'ae_path': ae.ae_pkg_path,
+                'ae_uri': ae_uri,
+                'ae_has_bpmn': ae.has_bpm(),
+                'menu': SITE_MENU,
+                'meta': META,
+                'page_title': 'App-Ensemble Details'
+            }
+        else:
+            response = HTTPNotFound('The App-Ensemble "%s" could not be found.' % ae_uri)
 
     @view_config(route_name='ae-bpmn')
     def ae_get_bpmn_view(self):
@@ -164,36 +177,46 @@ class AppEnsembleViews():
         response.content_disposition = 'attachement; filename="'+ae_id+".bpmn"
         return response
 
-    @view_config(route_name='api', match_param='tool=get_ae_info', renderer='json')
-    def ae_get_ae_info_json_view(self):
+    # Returns a json representation of all App-Ensembles + some additional info
+    @view_config(route_name='api-ae-json',renderer='json')
+    def api_ae_json_view(self):
         ae_info = dict()
         try:
             for key, ae in self.ae_dict.items():
                 path = ae.ae_pkg_path
                 apps = ae.getRequiredApps().serialize(format='json').decode()
-                ae_info[key] = {'id': key, 'path': path, 'apps': apps}
+                ae_info[key] = {'uri': key, 'path': path, 'apps': apps}
         except AttributeError:
-            ae_info[key] = {'id': key, 'path': path, 'apps': {}}
-
+            ae_info[key] = {'uri': key, 'path': path, 'apps': {}}
         return {'json': ae_info}
 
-    @view_config(route_name='api', match_param='tool=get_ae_pkg')
+    @view_config(route_name='api-get-ae-pkg')
     def ae_get_ae_pkg_view(self):
-        param = self.request.params.getone('ae_id')
-        if param in self.ae_dict:
-            ae = self.ae_dict.get(param)
+        if not self.request.params.has_key('URI'):
+            return Response('The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to visualize the BPM.')
+        else:
+            if len(self.request.params.getall('URI')) > 1:
+                return Response('More than one URI was supplied. Please supply exactly 1 URI.')
+            else:
+                ae_uri = self.request.params.getone('URI')
+                if ae_uri == "":
+                    return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
+
+        if ae_uri in self.ae_dict:
+            ae = self.ae_dict.get(ae_uri)
             response = FileResponse(
                 ae.ae_pkg_path,
                 request=self.request,
                 content_type='application/vnd.aof.package-archive'
                 )
-            response.content_disposition = 'attachement; filename="'+param+".ae"
+            response.content_disposition = 'attachement; filename="'+ae_uri+".ae"
         else:
-            response = HTTPNotFound('There is no such resource')
+            response = HTTPNotFound('The App-Ensemble "%s" could not be found.' % ae_uri)
+
         return response
 
-    @view_config(route_name='api', match_param='tool=update_app_ensembles')
-    def ap_update_app_ensembles(self):
+    @view_config(route_name='action-update-ap-ensembles')
+    def action_update_app_ensembles_view(self):
         type(self).ae_dict = ae_tools.getExistingAE()
         resp = str(len(self.ae_dict))
         return Response(resp)

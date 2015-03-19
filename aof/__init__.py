@@ -28,16 +28,29 @@ def main(global_config, **settings):
 
     # App-Pool
     config.add_route('app-pool', '/app-pool.html')
-    config.add_route('app-details','/app-pool/app_details.html')
+    config.add_route('app-details','/app-pool/details.html')
 
+    # Demo
     config.add_route('demo', '/demo.html')
     config.add_route('demo_tool', '/demo/{tool}*')
 
+    # Info
     config.add_route('info', '/info.html')
 
     # API
-    config.add_route('api', '/api/{tool}*')
+    ## JSON
+    config.add_route('api-ae-json', '/api/app-ensembles.json')
+    config.add_route('api-ap-json', '/api/app-pool.json')
+
+    ## BPM
     config.add_route('ae-bpmn', '/app-ensembles/BPMN/{ae_id}.bpmn')
+
+    ## Actions
+    config.add_route('action-update-app-pool', '/api/actions/update-app-pool')
+    config.add_route('action-update-ap-ensembles', '/api/actions/update-app-ensembles')
+
+    ## Downloads
+    config.add_route('api-get-ae-pkg', '/api/download/ae-package')
 
     config.scan()
 

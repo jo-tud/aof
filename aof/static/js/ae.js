@@ -23,19 +23,19 @@ $(function() {
     get_updates();
 
     function get_updates () {
-        $.getJSON('/api/get_ae_info', function(data) {
+        $.getJSON('/api/app-ensembles.json', function(data) {
             var target = $('div#ae_tables');
             target.empty();
             // console.log(data.json);
             $.each(data.json, function (key, ae) {
                 target.append('<div class="small-12 medium-4 large-3 columns"></div>');
                 main_div = target.children().last();
-                main_div.attr('id',ae.id);
+                main_div.attr('id',ae.uri);
                 main_div.append('<ul class="pricing-table"></ul>');
                 var pricing_table = main_div.find('ul.pricing-table');
                 pricing_table.append('<div class="eq" data-equalizer-watch></div>')
                 var eq_div=pricing_table.find('.eq')
-                eq_div.append('<li class="title">'+ ae.id + '</li>');
+                eq_div.append('<li class="title">'+ ae.uri + '</li>');
                 $('<li class="bullet-item" id="app-path"></li>').appendTo(eq_div);
                 $('<span data-tooltip aria-haspopup="true" class="has-tip">Path<span>').attr('title',ae.path).appendTo($(eq_div.find('#app-path')))
                 var apps = JSON.parse(ae.apps).results.bindings;
@@ -49,8 +49,8 @@ $(function() {
                     $('<li class="bullet-item" id="app-list"></li>').appendTo(eq_div);
                     $('<span data-tooltip aria-haspopup="true" class="has-tip">Apps<span>').attr('title',app_list.slice(2)).appendTo($(pricing_table.find('#app-list')))
                 }
-                $('<li class="cta-button details"><a class="button" href="/app-ensembles/details.html?URI='+ae.id+'">Details</a></li>').attr('id',ae.id).appendTo(pricing_table);
-                $('<li class="cta-button deploy"><a class="button floor" href="#">Install</a></li>').attr('id',ae.id).appendTo(pricing_table);
+                $('<li class="cta-button details"><a class="button" href="/app-ensembles/details.html?URI='+ae.uri+'">Details</a></li>').attr('id',ae.uri).appendTo(pricing_table);
+                $('<li class="cta-button deploy"><a class="button floor" href="#">Install</a></li>').attr('uri',ae.uri).appendTo(pricing_table);
 
             });
             target.children().last().attr('class','small-12 medium-4 large-3 columns end')
@@ -60,7 +60,7 @@ $(function() {
     }
 
         function updateAppEnsembles () {
-        $.get('/api/update_app_ensembles', function(data) {
+        $.get('/api/actions/update-app-ensembles', function(data) {
             get_updates();
             var alertHTML = $(
                     '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
@@ -78,7 +78,7 @@ $(function() {
     $('div#ae_tables').on('click','.cta-button.deploy',(function (e) {
         var ae_uri = $(this).attr('uri');
         console.log("Requested download of App-Ensemble: " + ae_uri);
-        top.location.href = '/api/get_ae_pkg?ae_uri='+ ae_uri;
+        top.location.href = '/api/download/ae-package?URI='+ ae_uri;
         e.preventDefault();
     }));
 });

@@ -4,7 +4,7 @@
 <%block name="header">
     <link rel="stylesheet" href="/static/bower_components/bpmn-js/dist/assets/diagram-js.css"/>
     <link rel="stylesheet" href="/static/bower_components/bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css"/>
-    <link rel="stylesheet" href="/static/stylesheets/ae_bpmn-js.css"/>
+    <link rel="stylesheet" href="/static/stylesheets/ae-visualize-bpm.css"/>
 </%block>
 <div class="content" id="js-drop-zone">
     <div class="message error">
@@ -22,7 +22,7 @@
 
 <%block name="local_js">
     <script type="text/javascript">
-        var ae_id = "${ae_uri}";
+        var ae_uri = "${ae_uri}";
     </script>
     <!-- viewer dependencies -->
     <script src="/static/bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -35,7 +35,7 @@
     <script src="/static/bower_components/bpmn-js/dist/bpmn-modeler.js"></script>
 
     <!-- local js -->
-    <script src="/static/js/ae_bpmn-js.js"></script>
+    <script src="/static/js/ae-visualize-bpm.js"></script>
 
 
 </%block>

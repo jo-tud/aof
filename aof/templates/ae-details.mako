@@ -55,5 +55,5 @@
     </script>
     <script src="/static/js/jquery.liveFilter.js"></script>
     <script src="/static/js/jquery.loader-0.3.js"></script>
-    <script src="/static/js/ae_details.js"></script>
+    <script src="/static/js/ae-details.js"></script>
 </%block>

@@ -23,7 +23,7 @@ $(function() {
     loadAP();
 
     function loadAP () {
-        $.getJSON('/api/get_app_pool', function(data) {
+        $.getJSON('/api/app-pool.json', function(data) {
             var target = $('div#app_tables');
             target.empty();
 
@@ -56,7 +56,7 @@ $(function() {
     }
 
     function updateAP () {
-        $.get('/api/update_app_pool', function(data) {
+        $.get('/api/actions/update-app-pool', function(data) {
             loadAP();
             var alertHTML = $(
                     '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
