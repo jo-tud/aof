@@ -5,6 +5,7 @@ from pyramid.path import AssetResolver
 from pyramid.view import view_config
 from pyramid.response import Response, FileResponse
 from simpleconfigparser import simpleconfigparser
+from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppPool import AppPool
 from aof.orchestration.namespaces import AOF, ADL
 
@@ -22,10 +23,16 @@ log = logging.getLogger(__name__)
 
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
-
+    ap = AppPool.Instance()
+    number_of_apps = ap.getNumberOfApps()
+    number_of_ae = ae_tools.getNumberOfAE()
+    unique_triples = len(AOFGraph.Instance())
     return {'menu': SITE_MENU,
             'meta': META,
-            'page_title': 'Home'}
+            'page_title': 'AOF Home',
+            'number_of_apps': number_of_apps,
+            'number_of_ae': number_of_ae,
+            'unique_triples': unique_triples}
 
 
 class AppPoolViews():

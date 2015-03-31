@@ -16,6 +16,11 @@ def getExistingAE():
 
     return app_ensembles
 
+def getNumberOfAE():
+    return len(getExistingAE())
+
+
+
 def getRequiredApps(ae):
     #TODO: Adapt to new vocabulary
     res = ae.query("""

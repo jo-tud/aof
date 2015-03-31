@@ -57,6 +57,17 @@ class AppPool(ConjunctiveGraph):
     def _clear_app_pool(self):
         self.remove((None, None, None))
 
+    def getNumberOfApps(self):
+        query = """
+       PREFIX aof: <%(AOF)s>
+        SELECT DISTINCT ?app
+        WHERE {
+        # ?app a aof:App .
+        ?app aof:currentBinary ?binary
+        }
+        """ % {'AOF': str(AOF)}
+        test = self.query(query)
+        return len(self.query(query).bindings)
 
 # Will only be called when executed from shell
 if __name__ == "__main__":
@@ -65,4 +76,5 @@ if __name__ == "__main__":
     ap = AppPool.Instance("http://localhost:8081/static/App-Pool/pool.ttl")
 
     print("This graph is a singleton and currently contains %i triples" %(ap.__len__() ) )
+    print(ap.getNumberOfApps())
     #print("\nThe Graph:\n\n",ap.serialize(format="turtle", indent=1).decode())
