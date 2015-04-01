@@ -24,11 +24,10 @@ log = logging.getLogger(__name__)
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
     ap = AppPool.Instance()
-    number_of_apps = ap.getNumberOfApps()
-    number_of_ae = ae_tools.getNumberOfAE()
+    number_of_apps = str(ap.getNumberOfApps())
+    number_of_ae = str(ae_tools.getNumberOfAE())
     g = AOFGraph.Instance()
     unique_triples = g.__len__()
-    len_ap = ap.__len__()
     return {'menu': SITE_MENU,
             'meta': META,
             'page_title': 'AOF Home',
