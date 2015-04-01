@@ -27,7 +27,7 @@ def home_view(request):
     number_of_apps = str(ap.getNumberOfApps())
     number_of_ae = str(ae_tools.getNumberOfAE())
     g = AOFGraph.Instance()
-    unique_triples = g.__len__()
+    unique_triples = str(g.__len__())
     return {'menu': SITE_MENU,
             'meta': META,
             'page_title': 'AOF Home',
