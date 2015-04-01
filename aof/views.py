@@ -26,7 +26,9 @@ def home_view(request):
     ap = AppPool.Instance()
     number_of_apps = ap.getNumberOfApps()
     number_of_ae = ae_tools.getNumberOfAE()
-    unique_triples = len(AOFGraph.Instance())
+    g = AOFGraph.Instance()
+    unique_triples = g.__len__()
+    len_ap = ap.__len__()
     return {'menu': SITE_MENU,
             'meta': META,
             'page_title': 'AOF Home',
@@ -322,7 +324,7 @@ class AppEnsembleViews():
     def __init__(self, request):
         self.request = request
         if not type(self).ae_dict:
-            type(self).ae_dict = ae_tools.getExistingAE()
+            type(self).ae_dict = ae_tools.initializeExistingAE()
 
     @view_config(route_name='app-ensembles', renderer='templates/ae.mako')
     def app_ensembles_view(request):
@@ -447,7 +449,7 @@ class AppEnsembleViews():
 
     @view_config(route_name='action-update-ap-ensembles')
     def action_update_app_ensembles_view(self):
-        type(self).ae_dict = ae_tools.getExistingAE()
+        type(self).ae_dict = ae_tools.initializeExistingAE()
         resp = str(len(self.ae_dict))
         return Response(resp)
 

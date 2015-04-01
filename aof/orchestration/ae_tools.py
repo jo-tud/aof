@@ -3,7 +3,7 @@ from aof.orchestration.AppPool import AppPool
 from pyramid.path import AssetResolver
 import os
 
-def getExistingAE():
+def initializeExistingAE():
     app_ensembles = dict()
     a = AssetResolver()
     ae_dir = a.resolve('aof:static/App-Ensembles/').abspath()
@@ -17,7 +17,14 @@ def getExistingAE():
     return app_ensembles
 
 def getNumberOfAE():
-    return len(getExistingAE())
+    ae_ctr = 0
+    a = AssetResolver()
+    ae_dir = a.resolve('aof:static/App-Ensembles/').abspath()
+
+    for i in os.listdir(ae_dir):
+        if i.endswith(".ae"):
+            ae_ctr += 1
+    return ae_ctr
 
 
 
@@ -200,15 +207,15 @@ def getAppDetails(uri):
     exitPointOutputs = ap.query(exitPointsOutputsQuery).bindings
 
     #print(res.bindings[0]['?creator_name'])
-    print("Is the app an aof:AndroidApp? %s \n" % isAndroidApp)
-    print("App Details: %s \n" % appDetails)
-    print("Screenshots: %s \n" % screenshots)
+    #print("Is the app an aof:AndroidApp? %s \n" % isAndroidApp)
+    #print("App Details: %s \n" % appDetails)
+    #print("Screenshots: %s \n" % screenshots)
 
-    print("Entry Points: %s \n" % entryPoints)
-    print("Entry Point Inputs: %s" % entryPointInputs)
+    #print("Entry Points: %s \n" % entryPoints)
+    #print("Entry Point Inputs: %s" % entryPointInputs)
 
-    print("Exit Points: %s \n" % exitPoints)
-    print("Exit Point Outputs: %s" % exitPointOutputs)
+    #print("Exit Points: %s \n" % exitPoints)
+    #print("Exit Point Outputs: %s" % exitPointOutputs)
 
 
 
