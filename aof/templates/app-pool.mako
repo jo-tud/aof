@@ -20,20 +20,20 @@
             % for app in apps:
                 <tr class="app_row">
                     <td width="80px">
-                        <a href="/app-pool/details.html?URI=${app.uri}">
-                            % if app.icon :
-                                <img src="${app.icon}" width="64px" height="64px">
+                        <a href="/app-pool/details.html?URI=${app['uri']}">
+                            % if app['icon'] :
+                                <img src="${app['icon']}" width="64px" height="64px">
                             % else :
                                 <img src="/static/img/icon_placeholder.svg" width="64px" height="64px">
                             % endif
                         </a>
                     </td>
                     <td class="app_name">
-                        <a href="/app-pool/details.html?URI=${app.uri}">${app.name}</a>
+                        <a href="/app-pool/details.html?URI=${app['uri']}">${app['name']}</a>
                     </td>
                     <td width="100px">
                         <a class="button tiny secondary round" style="margin-bottom: 0px"
-                           href="${app.binary}">Download</a>
+                           href="${app['binary']}">Download</a>
                     </td>
                 </tr>
             % endfor
