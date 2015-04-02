@@ -4,6 +4,7 @@ from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver
 from pyramid.view import view_config
 from pyramid.response import Response, FileResponse
+from rdflib import URIRef
 from simpleconfigparser import simpleconfigparser
 from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppPool import AppPool
@@ -26,7 +27,7 @@ log = logging.getLogger(__name__)
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
     ap = AppPool.Instance()
-    number_of_apps = str(ap.getNumberOfApps())
+    number_of_apps = str(ap.get_number_of_apps())
     number_of_ae = str(ae_tools.getNumberOfAE())
     g = AOFGraph.Instance()
     unique_triples = str(g.__len__())
@@ -62,13 +63,13 @@ class AppPoolViews():
     def ap_pool_view(self):
         apps = list()
         ap = AppPool.Instance()
-        app_uris = ap.getAppURIs()
+        app_uris = ap.get_app_uris()
         for app_uri in app_uris:
             app = {
                 'uri': app_uri,
-                'name': ap.getAppName(app_uri),
-                'icon': ap.getAppIconURI(app_uri),
-                'binary': ap.getAppCurrentBinaryURI(app_uri)
+                'name': ap.get_name(app_uri),
+                'icon': ap.get_icon_uri(app_uri),
+                'binary': ap.get_binary_uri(app_uri)
             }
             apps.append(app)
 
@@ -87,191 +88,67 @@ class AppPoolViews():
             if len(self.request.params.getall('URI')) > 1:
                 return Response('More than one URI was supplied. Please supply exactly 1 URI.')
             else:
-                app_uri = self.request.params.getone('URI')
-                if app_uri == "":
+                uri = self.request.params.getone('URI')
+                if uri == "":
                     return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App.')
-
-        appDetailsQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-
-            SELECT *
-            WHERE {
-                # This is only for Android apps
-                <%(uri)s> a aof:AndroidApp ;
-
-                    # Label & comment
-                    rdfs:label ?label ;
-                    rdfs:comment ?comment ;
-                    aof:currentBinary ?binary .
-
-                # Role
-                OPTIONAL {
-                    <%(uri)s> aof:hasRole ?role .
-                }
-
-                # Main screenshot
-                OPTIONAL {
-                    <%(uri)s> a aof:AndroidApp ;
-                        aof:MainScreenshot [
-                        aof:hasScreenshot ?main_screenshot_uri ;
-                        aof:hasScreenshotThumbnail ?main_screenshot_thumb_uri
-                    ] .
-                    OPTIONAL {
-                        <%(uri)s> a aof:AndroidApp ;
-                            aof:MainScreenshot [
-                            rdfs:comment ?main_screenshot_comment
-                        ] .
-                    }
-                }
-
-                # Main screenshot
-                OPTIONAL {
-                    <%(uri)s> aof:hasIcon ?icon .
-                }
-
-                # Creator
-                <%(uri)s> dc:creator ?creator .
-                ?creator foaf:name ?creator_name ;
-                    foaf:mbox ?creator_mbox ;
-                    foaf:homepage ?creator_homepage .
-            }
-        """) % {'uri': app_uri}
-
-        # Get all additional screenshots
-        screenshotQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-
-            SELECT *
-            WHERE {
-                OPTIONAL {
-                    <%(uri)s> a aof:AndroidApp ;
-                        aof:Screenshot [
-                        aof:hasScreenshot ?main_screenshot_uri ;
-                        aof:hasScreenshotThumbnail ?main_screenshot_thumb_uri
-                    ] .
-                    OPTIONAL {
-                        <%(uri)s> a aof:AndroidApp ;
-                            aof:Screenshot [
-                            rdfs:comment ?main_screenshot_comment
-                        ] .
-                    }
-                }
-            }
-        """) % {'uri': app_uri}
-
-        # Get details for all entry points
-        entryPointsQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-            PREFIX android: <http://schemas.android.com/apk/res/android>
-
-            SELECT DISTINCT *
-            WHERE {
-                OPTIONAL {
-                    <%(uri)s> aof:providesEntryPoint ?entryPoint .
-                    BIND (android:action AS ?type)
-
-                    ?entryPoint a android:action ;
-                        rdfs:label ?label ;
-                        rdfs:comment ?comment ;
-                        android:name ?androidActionName .
-                }
-            }
-            ORDER BY ?label
-        """) % {'uri': app_uri}
-
-        # Get all inputs for all entry points
-        entryPointsInputsQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-            PREFIX android: <http://schemas.android.com/apk/res/android>
-
-            SELECT DISTINCT ?entryPoint ?input ?isRequired ?datatype ?androidExtraName ?type
-            WHERE {
-                OPTIONAL {
-                    <%(uri)s> aof:providesEntryPoint ?entryPoint .
-                    BIND (android:extra AS ?type)
-
-                    ?entryPoint a android:action ;
-                        aof:hasInput ?input .
-
-                    ?input a android:extra ;
-                        aof:isRequired ?isRequired ;
-                        aof:datatype ?datatype ;
-                        android:name ?androidExtraName .
-                }
-            }
-            ORDER BY ?androidExtraName
-        """) % {'uri': app_uri}
-
-        # Get details for all exit points
-        exitPointsQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-            PREFIX android: <http://schemas.android.com/apk/res/android>
-
-            SELECT *
-            WHERE {
-                OPTIONAL {
-                    <%(uri)s> aof:providesExitPoint ?exitPoint .
-
-                    ?exitPoint a android:action ;
-                        a ?type ;
-                        rdfs:label ?label ;
-                        rdfs:comment ?comment .
-                }
-            }
-        """) % {'uri': app_uri}
-
-        # Get all inputs for all entry points
-        exitPointsOutputsQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-            PREFIX android: <http://schemas.android.com/apk/res/android>
-
-            SELECT ?entryPoint ?output ?isGuaranteed ?datatype ?androidExtraName
-            WHERE {
-                OPTIONAL {
-                    <%(uri)s> aof:providesEntryPoint ?entryPoint .
-
-                    ?entryPoint a android:action ;
-                        aof:hasOutput ?output .
-
-                    ?output a android:extra ;
-                        aof:isGuaranteed ?isGuaranteed ;
-                        aof:datatype ?datatype ;
-                        android:name ?androidExtraName .
-                }
-            }
-        """) % {'uri': app_uri}
 
         ap = AppPool.Instance()
 
-        # Get information
-        isAndroidApp = ap.isAndroidApp(app_uri)
-        print(app_uri,isAndroidApp)
+        if ap.is_android_app(URIRef(uri)) != True:
+            return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % uri)
 
-        if isAndroidApp != True:
-            return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % app_uri)
+        details = {
+            'name': ap.get_name(URIRef(uri)),
+            'comment': ap.get_description(URIRef(uri)),
+            'icon': ap.get_icon_uri(URIRef(uri)),
+            'binary': ap.get_binary_uri(URIRef(uri)),
+            'has_role': ap.has_role(URIRef(uri)),
+            'has_main_screenshot': ap.has_main_screenshot(URIRef(uri)),
+            'has_other_screenshots': ap.has_other_screenshots(URIRef(uri)),
+            'has_creator': ap.has_creator(URIRef(uri)),
+            'has_entry_points': ap.has_entry_points(URIRef(uri)),
+            'has_exit_points': ap.has_exit_points(URIRef(uri))
+        }
+        if details['has_role']:
+            roles = ap.get_roles(URIRef(uri))
+        else:
+            roles = None
 
-        app_details = ap.query(appDetailsQuery).bindings[0]
-        screenshots = ap.query(screenshotQuery)
-        entry_points = ap.query(entryPointsQuery)
-        entry_points_inputs = ap.query(entryPointsInputsQuery)
-        exit_points = ap.query(exitPointsQuery)
-        exit_points_outputs = ap.query(exitPointsOutputsQuery)
+        if details['has_creator']:
+            creators = ap.get_creators(URIRef(uri))
+        else:
+            creators = None
+
+        if details['has_main_screenshot']:
+            main_screenshot = ap.get_main_screenshot(URIRef(uri))
+        else:
+            main_screenshot = None
+
+        if details['has_other_screenshots']:
+            screenshots = ap.get_other_screenshots(URIRef(uri))
+        else:
+            screenshots = None
+
+        if details['has_entry_points']:
+            entry_points = ap.get_entry_points(URIRef(uri))
+        else:
+            entry_points = None
+
+        if details['has_exit_points']:
+            exit_points = ap.get_entry_points(URIRef(uri))
+        else:
+            exit_points = None
 
         return {'meta': META,
                 'page_title': 'App-Details',
-                'app_uri': app_uri,
-                'app_details': app_details,
+                'uri': uri,
+                'details': details,
+                'roles': roles,
+                'creators': creators,
+                'main_screenshot': main_screenshot,
                 'screenshots': screenshots,
                 'entry_points': entry_points,
-                'entry_points_inputs': entry_points_inputs,
-                'exit_points': exit_points,
-                'exit_points_outputs': exit_points_outputs
+                'exit_points': exit_points
         }
     # Returns information on the App-Pool as JSON
 

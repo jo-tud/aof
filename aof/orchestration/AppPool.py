@@ -204,15 +204,16 @@ class AppPool(ConjunctiveGraph):
         """
         entry_points = list()
         for ep in self.objects(resource, AOF.providesEntryPoint):
-            entry_points.append(
-                {
-                    'uri': ep,
-                    'types': self.objects(ep, RDF.type),
-                    'android_name': self.value(ep, URIRef("http://schemas.android.com/apk/res/android/name")),
-                    'label': self.value(ep, RDFS.label),
-                    'comment': self.value(ep, RDFS.comment)
+            ep_details = {
+                'uri': ep,
+                'types': self.objects(ep, RDF.type),
+                'android_name': self.value(ep, URIRef("http://schemas.android.com/apk/res/android/name")),
+                'label': self.value(ep, RDFS.label),
+                'comment': self.value(ep, RDFS.comment)
                 }
-            )
+            if self.has_inputs(ep):
+               ep_details['inputs'] = self.get_inputs(ep)
+            entry_points.append(ep_details)
         return entry_points
 
     def has_inputs(self, entry_point):
@@ -228,23 +229,21 @@ class AppPool(ConjunctiveGraph):
         """
         inputs = list()
         for input in self.objects(entry_point, AOF.hasInput):
-            inputs.append(
-                {
-                    'uri': input,
-                    'types': self.objects(input, RDF.type),
-                    'android_name': self.value(input, URIRef("http://schemas.android.com/apk/res/android/name")),
-                    'is_required': self.value(input, AOF.isRequired),
-                    'data_type': self.value(input, AOF.datatype),
-                    'comment': self.value(input, RDFS.comment)
-                }
-            )
+            inputs.append({
+                'uri': input,
+                'types': self.objects(input, RDF.type),
+                'android_name': self.value(input, URIRef("http://schemas.android.com/apk/res/android/name")),
+                'is_required': self.value(input, AOF.isRequired),
+                'data_type': self.value(input, AOF.datatype),
+                'comment': self.value(input, RDFS.comment)
+                })
         return inputs
 
     def has_exit_points(self, resource):
         """
         Returns True if app has at least one exit point, otherwise returns False.
         """
-        return ((resource, AOF.providesExitPoint, None) in self)
+        return (resource, AOF.providesExitPoint, None) in self
 
     def get_exit_points(self, resource):
         """
@@ -252,14 +251,15 @@ class AppPool(ConjunctiveGraph):
         """
         exit_points = list()
         for ep in self.objects(resource, AOF.providesExitPoint):
-            exit_points.append(
-                {
+            ep_details ={
                     'uri': ep,
                     'types': self.objects(ep, RDF.type),
                     'label': self.value(ep, RDFS.label),
                     'comment': self.value(ep, RDFS.comment)
                 }
-            )
+            if self.has_outputs(ep):
+               ep_details['inputs'] = self.get_outputs(ep)
+            exit_points.append(ep_details)
         return exit_points
 
     def has_outputs(self, exit_point):
