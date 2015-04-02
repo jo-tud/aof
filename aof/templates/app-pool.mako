@@ -15,21 +15,25 @@
 </li>
 
 <div class="row full-width" id="app_table">
-    <table>
+    <table width="100%">
         <tbody>
             % for app in apps:
                 <tr class="app_row">
-                    % if app.icon :
-                        <td><img src="${app.icon}" width="64px" height="64px"></td>
-                    % else :
-                        <td><img src="/static/img/icon_placeholder.svg" width="64px" height="64px"></td>
-                    % endif
-                    <td class="app_name">
-                        ${app.name}
+                    <td width="80px">
+                        <a href="/app-pool/details.html?URI=${app.uri}">
+                            % if app.icon :
+                                <img src="${app.icon}" width="64px" height="64px">
+                            % else :
+                                <img src="/static/img/icon_placeholder.svg" width="64px" height="64px">
+                            % endif
+                        </a>
                     </td>
-                    <td>
-                        <a class="button" href="${app.binary}">Download</a>
-                        <a class="button" href="/app-pool/details.html?URI=${app.uri}">Details</a>
+                    <td class="app_name">
+                        <a href="/app-pool/details.html?URI=${app.uri}">${app.name}</a>
+                    </td>
+                    <td width="100px">
+                        <a class="button tiny secondary round" style="margin-bottom: 0px"
+                           href="${app.binary}">Download</a>
                     </td>
                 </tr>
             % endfor
