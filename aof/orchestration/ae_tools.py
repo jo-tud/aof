@@ -15,7 +15,7 @@ def initializeExistingAE():
             g = AOFGraph.Instance()
             # Check if
             if g.get_context(i):
-                AOFGraph.remove_graph(i)
+                g.remove_graph(i)
 
             ae = AppEnsemble(i)
             app_ensembles[i] = ae
