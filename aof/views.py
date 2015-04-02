@@ -60,23 +60,19 @@ class AppPoolViews():
 
     @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
     def ap_pool_view(self):
-        query = """
-        PREFIX aof: <%(AOF)s>
-        SELECT DISTINCT *
-        WHERE {
-        ?uri rdfs:label ?name ;
-            aof:currentBinary ?binary .
-            OPTIONAL {
-            ?uri aof:hasIcon ?icon
-            }
-
-        }
-        ORDER BY ?name
-        """ % {'AOF': str(AOF)}
+        apps = list()
         ap = AppPool.Instance()
-        apps = dict()
-        apps = ap.query(query)
+        app_uris = ap.getAppURIs()
+        for app_uri in app_uris:
+            app = {
+                'uri': app_uri,
+                'name': ap.getAppName(app_uri),
+                'icon': ap.getAppIconURI(app_uri),
+                'binary': ap.getAppCurrentBinaryURI(app_uri)
+            }
+            apps.append(app)
 
+        apps = sorted(apps, key=lambda app: (app['name'], app['uri']))
 
         return {'meta': META,
                 'page_title': 'App-Pool',
@@ -94,16 +90,6 @@ class AppPoolViews():
                 app_uri = self.request.params.getone('URI')
                 if app_uri == "":
                     return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App.')
-
-        isAndroidAppQuery = ("""
-            # AOF PREFIXES
-            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
-
-            ASK
-            WHERE {
-                    <%(uri)s> a aof:AndroidApp .
-            }
-        """) % {'uri': app_uri}
 
         appDetailsQuery = ("""
             # AOF PREFIXES
@@ -263,8 +249,8 @@ class AppPoolViews():
 
         ap = ap = AppPool.Instance()
 
-        # Execute queries
-        isAndroidApp = ap.query(isAndroidAppQuery).askAnswer
+        # Get information
+        isAndroidApp = ap.isAndroidApp(app_uri)
 
         if isAndroidApp != True:
             return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % app_uri)
