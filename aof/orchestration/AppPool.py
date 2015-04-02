@@ -70,7 +70,7 @@ class AppPool(ConjunctiveGraph):
 
     def get_app_uris(self):
         """
-        List of URI identifiers as URIRefs for all apps in the pool
+        List of URI resources as URIRefs for all apps in the pool
         """
         app_uris = list()
         # TODO: Implement better method to find all apps
@@ -80,87 +80,87 @@ class AppPool(ConjunctiveGraph):
             app_uris.append(app_uri)
         return app_uris
 
-    def get_name(self, identifier):
+    def get_name(self, resource):
         """
-        Returns the of an app identified by a given identifier.
+        Returns the of an app identified by a given resource.
         """
-        app_name = self.value(URIRef(identifier), RDFS.label)
+        app_name = self.value(resource, RDFS.label)
         return app_name
 
-    def get_description(self, identifier):
+    def get_description(self, resource):
         """
-        Returns the of an app identified by a given identifier.
+        Returns the of an app identified by a given resource.
         """
-        return self.value(URIRef(identifier), RDFS.comment)
+        return self.value(resource, RDFS.comment)
 
-    def get_icon_uri(self, identifier):
+    def get_icon_uri(self, resource):
         """
-        Returns the icon URI for a an app identified by a given identifier.
+        Returns the icon URI for a an app identified by a given resource.
         """
-        return self.value(URIRef(identifier), AOF.hasIcon)
+        return self.value(resource, AOF.hasIcon)
 
-    def get_binary_uri(self, identifier):
+    def get_binary_uri(self, resource):
         """
-        Returns the binary URI for a an app identified by a given identifier.
+        Returns the binary URI for a an app identified by a given resource.
         """
-        return self.value(URIRef(identifier), AOF.currentBinary)
+        return self.value(resource, AOF.currentBinary)
 
-    def has_role(self,identifier):
+    def has_role(self,resource):
         """
         Returns True if app has a specified role, otherwise returns False.
         """
-        q = ("ASK WHERE {<%(uri)s> aof:hasRole ?role .}") % {'uri': identifier}
+        q = ("ASK WHERE {<%(uri)s> aof:hasRole ?role .}") % {'uri': resource}
         return self.query(q).askAnswer
 
-    def get_roles(self, identifier):
+    def get_roles(self, resource):
         """
         Returns a list of roles the app has
         """
-        roles_iter = self.objects(URIRef(identifier), AOF.hasRole)
+        roles_iter = self.objects(resource, AOF.hasRole)
         roles = list()
         for role in roles_iter:
             roles.append(role)
         return roles
 
-    def is_android_app(self, identifier):
+    def is_android_app(self, resource):
         """
         Returns True if app is an Android app, otherwise returns False.
         """
-        q = ("ASK WHERE {<%(uri)s> a aof:AndroidApp .}") % {'uri': identifier}
+        q = ("ASK WHERE {<%(uri)s> a aof:AndroidApp .}") % {'uri': resource}
         return self.query(q).askAnswer
 
-    def has_main_screenshot(self, identifier):
+    def has_main_screenshot(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        return ((URIRef(identifier), AOF.MainScreenshot, None) in self)
+        return ((resource, AOF.MainScreenshot, None) in self)
 
-    def get_main_screenshot(self, identifier):
+    def get_main_screenshot(self, resource):
         """
         Returns a dictionary of the main screenshot URI thumbnail URI and comment
         """
-        main_screenshot = self.value(URIRef(identifier), AOF.MainScreenshot)
+        main_screenshot = self.value(resource, AOF.MainScreenshot)
         return {
             'uri': self.value(main_screenshot, AOF.hasScreenshot),
             'thumb_uri': self.value(main_screenshot, AOF.hasScreenshotThumbnail),
             'comment': self.value(main_screenshot, RDFS.comment)
         }
 
-    def has_other_screenshots(self, identifier):
+    def has_other_screenshots(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        if ((URIRef(identifier), AOF.Screenshot, None) in self):
+        if ((resource, AOF.Screenshot, None) in self):
             return True
         else:
             return False
 
-    def get_other_screenshots(self, identifier):
+    def get_other_screenshots(self, resource):
         """
         Returns a list of dictionaries of screenshot URI thumbnail URI and comment.
         """
         screenshots = list()
-        for screenshot in self.objects(URIRef(identifier), AOF.Screenshot):
+        for screenshot in self.objects(resource, AOF.Screenshot):
             screenshots.append(
                 {
                     'uri': self.value(screenshot, AOF.hasScreenshot),
@@ -170,18 +170,18 @@ class AppPool(ConjunctiveGraph):
             )
         return screenshots
 
-    def has_creator(self, identifier):
+    def has_creator(self, resource):
         """
         Returns True if app has at least one creator, otherwise returns False.
         """
-        return ((URIRef(identifier), DC.creator, None) in self)
+        return ((resource, DC.creator, None) in self)
 
-    def get_creators(self, identifier):
+    def get_creators(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
         creators = list()
-        for creator in self.objects(URIRef(identifier), DC.creator):
+        for creator in self.objects(resource, DC.creator):
             creators.append(
                 {
                     'uri': creator,
@@ -192,18 +192,18 @@ class AppPool(ConjunctiveGraph):
             )
         return creators
 
-    def has_entry_points(self, identifier):
+    def has_entry_points(self, resource):
         """
         Returns True if app has at least one entry point, otherwise returns False.
         """
-        return ((URIRef(identifier), AOF.providesEntryPoint, None) in self)
+        return ((resource, AOF.providesEntryPoint, None) in self)
 
-    def get_entry_points(self, identifier):
+    def get_entry_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
         entry_points = list()
-        for ep in self.objects(URIRef(identifier), AOF.providesEntryPoint):
+        for ep in self.objects(resource, AOF.providesEntryPoint):
             entry_points.append(
                 {
                     'uri': ep,
@@ -240,18 +240,18 @@ class AppPool(ConjunctiveGraph):
             )
         return inputs
 
-    def has_exit_points(self, identifier):
+    def has_exit_points(self, resource):
         """
         Returns True if app has at least one exit point, otherwise returns False.
         """
-        return ((URIRef(identifier), AOF.providesExitPoint, None) in self)
+        return ((resource, AOF.providesExitPoint, None) in self)
 
-    def get_exit_points(self, identifier):
+    def get_exit_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
         exit_points = list()
-        for ep in self.objects(URIRef(identifier), AOF.providesExitPoint):
+        for ep in self.objects(resource, AOF.providesExitPoint):
             exit_points.append(
                 {
                     'uri': ep,
@@ -297,35 +297,35 @@ if __name__ == "__main__":
     print("This graph is a singleton and currently contains %i triples" %(ap.__len__() ) )
     print(ap.get_number_of_apps())
     print("App URIs: " + str(ap.get_app_uris()))
-    print("An icon URI: " + str(ap.get_icon_uri("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
+    print("An icon URI: " + str(ap.get_icon_uri(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
 
-    print("An app name: " + str(ap.get_name("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("An app description: " + str(ap.get_description("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("Is this and Android app? " + str(ap.is_android_app("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("Does this app have a role? " + str(ap.has_role("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("Some app roles: " + str(ap.get_roles("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
+    print("An app name: " + str(ap.get_name(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("An app description: " + str(ap.get_description(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("Is this and Android app? " + str(ap.is_android_app(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("Does this app have a role? " + str(ap.has_role(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("Some app roles: " + str(ap.get_roles(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
 
-    print("Does this app have a screenshot? " + str(ap.has_main_screenshot("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("A main screenshot: " + str(ap.get_main_screenshot("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
+    print("Does this app have a screenshot? " + str(ap.has_main_screenshot(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("A main screenshot: " + str(ap.get_main_screenshot(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
 
-    print("Does this app have other screenshots? " + str(ap.has_other_screenshots("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("Some other screenshots: " + str(ap.get_other_screenshots("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
+    print("Does this app have other screenshots? " + str(ap.has_other_screenshots(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("Some other screenshots: " + str(ap.get_other_screenshots(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
 
-    print("Does this app have a creator? " + str(ap.has_creator("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    print("The creators: " + str(ap.get_creators("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
+    print("Does this app have a creator? " + str(ap.has_creator(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    print("The creators: " + str(ap.get_creators(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
 
-    print("Does this app have entry points? " + str(ap.has_entry_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    if ap.has_entry_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"):
-        print("These are the entry points: " + str(ap.get_entry_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-        an_entry_point = ap.get_entry_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")[0]['uri']
+    print("Does this app have entry points? " + str(ap.has_entry_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    if ap.has_entry_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")):
+        print("These are the entry points: " + str(ap.get_entry_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+        an_entry_point = ap.get_entry_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))[0]['uri']
         print("Does this entry point have inputs? " + str(ap.has_inputs(an_entry_point)))
         if ap.has_inputs(an_entry_point):
             print("Some inputs: " + str(ap.get_inputs(an_entry_point)))
 
-    print("Does this app have exit points? " + str(ap.has_exit_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-    if ap.has_exit_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"):
-        print("These are the exit points: " + str(ap.get_exit_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")))
-        an_exit_point = ap.get_exit_points("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")[0]['uri']
+    print("Does this app have exit points? " + str(ap.has_exit_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+    if ap.has_exit_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor")):
+        print("These are the exit points: " + str(ap.get_exit_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))))
+        an_exit_point = ap.get_exit_points(URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor"))[0]['uri']
         print("Does this exit point have inputs? " + str(ap.has_outputs(an_exit_point)))
         if ap.has_outputs(an_exit_point):
             print("Some outputs: " + str(ap.get_outputs(an_exit_point)))
