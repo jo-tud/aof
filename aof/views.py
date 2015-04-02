@@ -9,12 +9,15 @@ from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppPool import AppPool
 from aof.orchestration.namespaces import AOF, ADL
 
-from aof.orchestration import deploy, o, ae_tools
+from aof.orchestration import ae_tools
 
 from aof.static.data.static_data import META
 
 config = simpleconfigparser()
 config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)+'/aof.conf')
+
+a_resolver = AssetResolver()
+static_dir = a_resolver.resolve('aof:static/').abspath()
 
 app_pool = config.Paths.app_ensemble_location
 
@@ -34,9 +37,21 @@ def home_view(request):
             'unique_triples': unique_triples}
 
 @view_config(route_name='documentation', renderer='templates/documentation.mako')
-def documentation(request):
+def documentation_view(request):
     return {'meta': META,
             'page_title': 'Documentation'}
+
+@view_config(route_name='documentation-docs', renderer='templates/documentation-docs.mako')
+def documentation_docs_view(request):
+    document = request.matchdict['document']
+    if document == "app-description_specification":
+        content = open(os.path.join(static_dir,'doc','PLT-Bericht App-Description Specification v001.docx.html')).read()
+    elif document == "app-ensemble_specification":
+        content = open(os.path.join(static_dir,'doc','PLT-Bericht App-Ensemble Specification v001.docx.html')).read()
+
+    return {'meta': META,
+            'page_title': 'Documentation',
+            'content': content}
 
 class AppPoolViews():
     def __init__(self, request):

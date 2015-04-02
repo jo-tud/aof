@@ -32,6 +32,7 @@ def main(global_config, **settings):
 
     # Documentation
     config.add_route('documentation', '/documentation.html')
+    config.add_route('documentation-docs', '/doc/{document}.html')
 
     # API
     ## JSON
