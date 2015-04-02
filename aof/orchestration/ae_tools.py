@@ -1,3 +1,4 @@
+from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppEnsemble import AppEnsemble
 from aof.orchestration.AppPool import AppPool
 from pyramid.path import AssetResolver
@@ -11,6 +12,11 @@ def initializeExistingAE():
     for i in os.listdir(ae_dir):
         if i.endswith(".ae"):
             i = i[:-3]
+            g = AOFGraph.Instance()
+            # Check if
+            if g.get_context(i):
+                AOFGraph.remove_graph(i)
+
             ae = AppEnsemble(i)
             app_ensembles[i] = ae
 
