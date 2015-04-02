@@ -247,10 +247,11 @@ class AppPoolViews():
             }
         """) % {'uri': app_uri}
 
-        ap = ap = AppPool.Instance()
+        ap = AppPool.Instance()
 
         # Get information
         isAndroidApp = ap.isAndroidApp(app_uri)
+        print(app_uri,isAndroidApp)
 
         if isAndroidApp != True:
             return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % app_uri)
