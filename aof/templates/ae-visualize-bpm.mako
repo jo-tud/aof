@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="new_layout.mako"/>
+<%inherit file="layout.mako"/>
 <%block name="top_bar_actions"/>
 <%block name="header">
     <link rel="stylesheet" href="/static/bower_components/bpmn-js/dist/assets/diagram-js.css"/>

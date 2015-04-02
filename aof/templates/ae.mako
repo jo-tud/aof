@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="new_layout.mako"/>
+<%inherit file="layout.mako"/>
 <%block name="top_bar_actions">
     <li class="has-form show-for-medium-up">
         <div class="row collapse">

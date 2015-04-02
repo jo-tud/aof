@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="new_layout.mako"/>
+<%inherit file="layout.mako"/>
 <%block name="top_bar_actions">
 </%block>
 <div class="row">
@@ -7,8 +7,8 @@
         <h1>Application Orchestration Framework</h1>
 
         <ul>
-            <li>There are currently ${number_of_apps} Apps in the <a href="/app-pool.html">App-Pool</a>.</li>
-            <li>We have ${number_of_ae} App-Ensembles <a href="/app-ensembles.html">available</a>.</li>
+            <li>There are currently <a href="/app-pool.html">${number_of_apps} Apps</a> in the App-Pool.</li>
+            <li>We have <a href="/app-ensembles.html">${number_of_ae} App-Ensembles</a> available.</li>
             <li>The model currently consists of ${unique_triples} unique triples!</li>
         </ul>
     </div>

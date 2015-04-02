@@ -30,12 +30,8 @@ def main(global_config, **settings):
     config.add_route('app-pool', '/app-pool.html')
     config.add_route('app-details','/app-pool/details.html')
 
-    # Demo
-    config.add_route('demo', '/demo.html')
-    config.add_route('demo_tool', '/demo/{tool}*')
-
-    # Info
-    config.add_route('info', '/info.html')
+    # Documentation
+    config.add_route('documentation', '/documentation.html')
 
     # API
     ## JSON

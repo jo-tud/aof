@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-<%inherit file="new_layout.mako"/>
+<%inherit file="layout.mako"/>
 <%block name="header"></%block>
 <%block name="top_bar_actions">
     <li><a href="${app_details['binary']}" id="action_update">DOWNLOAD</a></li>
