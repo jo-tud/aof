@@ -276,16 +276,6 @@ class AppPoolViews():
         exit_points = ap.query(exitPointsQuery)
         exit_points_outputs = ap.query(exitPointsOutputsQuery)
 
-        print("Is the app an aof:AndroidApp? %s \n" % isAndroidApp)
-        print("App Details: %s \n" % app_details)
-        print("Screenshots: %s \n" % screenshots)
-
-        print("Entry Points: %s \n" % entry_points.bindings)
-        print("Entry Point Inputs: %s" % entry_points_inputs.bindings)
-
-        print("Exit Points: %s \n" % exit_points)
-        print("Exit Point Outputs: %s" % exit_points_outputs)
-
         return {'meta': META,
                 'page_title': 'App-Details',
                 'app_uri': app_uri,
