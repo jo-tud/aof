@@ -1,8 +1,7 @@
 from rdflib import ConjunctiveGraph, util, URIRef
-from pyramid.path import AssetResolver
-from aof.orchestration.AOFGraph import AOFGraph
-from aof.orchestration.namespaces import AOF
 from aof.orchestration.Singleton import Singleton
+from aof.orchestration.AOFGraph import AOFGraph
+from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, FOAF, RDF, RDFS
 
 import logging
@@ -207,7 +206,7 @@ class AppPool(ConjunctiveGraph):
             ep_details = {
                 'uri': ep,
                 'types': self.objects(ep, RDF.type),
-                'android_name': self.value(ep, URIRef("http://schemas.android.com/apk/res/android/name")),
+                'android_name': self.value(ep, ANDROID.name),
                 'label': self.value(ep, RDFS.label),
                 'comment': self.value(ep, RDFS.comment)
                 }
@@ -232,7 +231,7 @@ class AppPool(ConjunctiveGraph):
             inputs.append({
                 'uri': input,
                 'types': self.objects(input, RDF.type),
-                'android_name': self.value(input, URIRef("http://schemas.android.com/apk/res/android/name")),
+                'android_name': self.value(input, ANDROID.name),
                 'is_required': self.value(input, AOF.isRequired),
                 'data_type': self.value(input, AOF.datatype),
                 'comment': self.value(input, RDFS.comment)
@@ -258,7 +257,7 @@ class AppPool(ConjunctiveGraph):
                     'comment': self.value(ep, RDFS.comment)
                 }
             if self.has_outputs(ep):
-               ep_details['inputs'] = self.get_outputs(ep)
+               ep_details['outputs'] = self.get_outputs(ep)
             exit_points.append(ep_details)
         return exit_points
 
@@ -274,12 +273,12 @@ class AppPool(ConjunctiveGraph):
         :return: List of outputs as dictionaries
         """
         inputs = list()
-        for output in self.objects(exit_point, AOF.hasInput):
+        for output in self.objects(exit_point, AOF.hasOutput):
             inputs.append(
                 {
                     'uri': output,
                     'types': self.objects(output, RDF.type),
-                    'android_name': self.value(output, URIRef("http://schemas.android.com/apk/res/android/name")),
+                    'android_name': self.value(output, ANDROID.name),
                     'is_guaranteed': self.value(output, AOF.isGuaranteed),
                     'data_type': self.value(output, AOF.datatype),
                     'comment': self.value(output, RDFS.comment)

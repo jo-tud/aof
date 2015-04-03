@@ -8,7 +8,8 @@ from rdflib import URIRef
 from simpleconfigparser import simpleconfigparser
 from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppPool import AppPool
-from aof.orchestration.namespaces import AOF, ADL
+from aof.orchestration.namespaces import AOF, ANDROID
+from rdflib.namespace import DC, FOAF, RDF, RDFS
 
 from aof.orchestration import ae_tools
 
@@ -23,6 +24,8 @@ static_dir = a_resolver.resolve('aof:static/').abspath()
 app_pool = config.Paths.app_ensemble_location
 
 log = logging.getLogger(__name__)
+
+namespaces = {'AOF': AOF, 'ANDROID': ANDROID, 'DC': DC, 'FOAF': FOAF, 'RDF': RDF, 'RDFS': RDFS}
 
 @view_config(route_name='home', renderer='templates/home.mako')
 def home_view(request):
@@ -135,12 +138,13 @@ class AppPoolViews():
             entry_points = None
 
         if details['has_exit_points']:
-            exit_points = ap.get_entry_points(URIRef(uri))
+            exit_points = ap.get_exit_points(URIRef(uri))
         else:
             exit_points = None
 
         return {'meta': META,
                 'page_title': 'App-Details',
+                'namespaces': namespaces,
                 'uri': uri,
                 'details': details,
                 'roles': roles,

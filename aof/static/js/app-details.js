@@ -6,9 +6,18 @@ $(function () {
 
     // Make images square
     $(".imgLiquidFill").imgLiquid({
+        fill: true,
+        horizontalAlign: "50%",
+        verticalAlign: "50%"
+    });
+
+
+    // Full width
+    $(".imgLiquidFullWidth").imgLiquid({
         fill: false,
         horizontalAlign: "50%",
         verticalAlign: "50%"
     });
 
 });
+
