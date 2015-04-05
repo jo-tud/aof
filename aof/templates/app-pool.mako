@@ -13,35 +13,36 @@
         <input class="livefilter-input" type="text" placeholder="Filter">
     </div>
 </li>
-
-<div class="row full-width" id="app_table">
-    <table width="100%">
-        <tbody>
-            % for app in apps:
-                <tr class="app_row">
-                    <td width="80px">
-                        <a href="/app-pool/details.html?URI=${app['uri']}">
-                            % if app['icon'] :
-                                <img src="${app['icon']}" width="64px" height="64px">
-                            % else :
-                                <img src="/static/img/icon_placeholder.svg" width="64px" height="64px">
-                            % endif
-                        </a>
-                    </td>
-                    <td class="app_name">
-                        <a href="/app-pool/details.html?URI=${app['uri']}">${app['name']}</a>
-                    </td>
-                    <td width="100px">
-                        <a class="button tiny secondary round" style="margin-bottom: 0px"
-                           href="${app['binary']}">Download</a>
-                    </td>
-                </tr>
-            % endfor
-        </tbody>
-    </table>
+<div class="row">
+    <div class="small-12 columns">
+        <div id="app_table">
+            <table width="100%">
+                <tbody>
+                    % for app in apps:
+                        <tr class="app_row">
+                            <td width="80px">
+                                <a href="/app-pool/details.html?URI=${app['uri']}">
+                                    % if app['icon'] :
+                                        <img src="${app['icon']}" width="64px" height="64px">
+                                    % else :
+                                        <img src="/static/img/icon_placeholder.svg" width="64px" height="64px">
+                                    % endif
+                                </a>
+                            </td>
+                            <td class="app_name">
+                                <a href="/app-pool/details.html?URI=${app['uri']}">${app['name']}</a>
+                            </td>
+                            <td width="100px">
+                                <a class="button tiny secondary round" style="margin-bottom: 0px"
+                                   href="${app['binary']}">Download</a>
+                            </td>
+                        </tr>
+                    % endfor
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-<div class="row full-width" id="app_tables" data-equalizer></div>
 
 <%block name="local_js">
     <script src="static/js/jquery.liveFilter.js"></script>
