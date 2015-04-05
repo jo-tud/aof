@@ -13,7 +13,7 @@ $(function () {
 
 
     // Full width
-    $(".imgLiquidFullWidth").imgLiquid({
+    $(".imgLiquidThumb").imgLiquid({
         fill: false,
         horizontalAlign: "50%",
         verticalAlign: "50%"

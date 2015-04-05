@@ -1,5 +1,4 @@
 from rdflib import ConjunctiveGraph, util, URIRef
-from rdflib.plugins.parsers.notation3 import BadSyntax
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.namespaces import AOF, ANDROID

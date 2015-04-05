@@ -59,9 +59,12 @@
             % endif
             % if details['has_other_screenshots']:
                 % for screenshot in screenshots:
-                    <li><a class="th" href="${screenshot['uri']}">
-                        <img data-caption="${screenshot['comment']} "src="${screenshot['thumb_uri']}">
-                    </a>
+                    <li>
+                    <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;" >
+                        <a class="th" href="${screenshot['uri']}">
+                            <img data-caption="${screenshot['comment']} "src="${screenshot['thumb_uri']}" />
+                        </a>
+                    </div>
                     </li>
                 % endfor
             % endif
