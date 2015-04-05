@@ -7,7 +7,7 @@ $(function () {
     // Make images square
     $(".imgLiquidFill").imgLiquid({
         fill: true,
-        horizontalAlign: "50%",
+        horizontalAlign: "top",
         verticalAlign: "50%"
     });
 
