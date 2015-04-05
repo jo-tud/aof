@@ -2,6 +2,7 @@
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 
 []
+    aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyDioscoreaRoot/lastSuccessfulBuild/artifact/AOFDummyDioscoreaRoot/AOFDummyDioscoreaRoot.ttl" ;
     aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyCayenne/lastSuccessfulBuild/artifact/AOFDummyCayenne/AOFDummyCayenne.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyBirthwort/lastSuccessfulBuild/artifact/AOFDummyBirthwort/AOFDummyBirthwort.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/AOFDummyAconiteRoot.ttl" ;
