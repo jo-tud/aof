@@ -13,7 +13,6 @@
 <div class="row">
     <div class="small-12 medium-6 columns">
         <p class="markdown">${details['comment'].__str__().strip()}</p>
-        % if details['has_role']:
             <table width="100%">
                 <thead>
                 <tr>
@@ -35,16 +34,16 @@
                         </a>
                     </td>
                 </tr>
-
+        % if details['has_role']:
                     % for role in roles:
                         <tr>
                             <td><a href="${namespaces['AOF'].hasRole}">Role</a></td>
                             <td><a href="${role}">${role}</a></td>
                         </tr>
                     % endfor
+        % endif
                 </tbody>
             </table>
-        % endif
     </div>
     <div class="small-12 medium-6 columns">
         <ul class="clearing-thumbs clearing-feature" data-clearing>
