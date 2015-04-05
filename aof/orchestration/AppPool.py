@@ -1,4 +1,5 @@
 from rdflib import ConjunctiveGraph, util, URIRef
+from rdflib.plugins.parsers.notation3 import BadSyntax
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.namespaces import AOF, ANDROID
@@ -31,8 +32,8 @@ class AppPool(ConjunctiveGraph):
                     self.parse(source=source, format=format)
                     self.log.info("Initialized App-Pool from %s. This should happen only once." % self.init_source)
                 except:
-                    self.log.error(Exception)
                     self.log.error("There was a problem with initializing the App-Pool from %s" % self.init_source)
+                    self.log.error(Exception)
         else:
             self.log.debug("Initialized App-Pool. This should happen only once!")
 
@@ -40,6 +41,9 @@ class AppPool(ConjunctiveGraph):
             for s, p, o in self.triples( (None, AOF.hasAppDescription, None) ):
                 try:
                     self.parse(source=o, format=util.guess_format(o))
+                except SyntaxError as detail:
+                    self.log.error("There was a syntax error reading %s." %o)
+                    self.log.error(detail)
                 except:
                     self.log.error("There was a problem reading %s." %o)
 
