@@ -2,6 +2,8 @@
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 
 []
+
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/AOFDummyAconiteRoot.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/AppEnsembleInstaller.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/AOFConductor.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/IAFLogin.ttl" ;
