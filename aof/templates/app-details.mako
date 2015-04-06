@@ -158,7 +158,7 @@
             </div>
             <div class="row">
                 % for input in ep['inputs'] :
-                    <div class="small-6 columns">
+                    <div class="small-12 medium-6 columns">
                         <table width="100%">
                             <thead>
                             <tr>
@@ -234,13 +234,13 @@
         </div>
         % if 'outputs' in ep:
             <div class="row">
-                <div class="small-6 columns">
+                <div class="small-12 columns">
                     <h4><a href="${namespaces['AOF'].hasOutput}">Outputs</a></h4>
                 </div>
             </div>
             <div class="row">
                 % for output in ep['outputs'] :
-                    <div class="small-6 columns">
+                    <div class="small-12 medium-6 columns">
                         <table width="100%">
                             <thead>
                             <tr>
