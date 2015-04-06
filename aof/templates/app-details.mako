@@ -5,14 +5,51 @@
     <li><a href="${details['binary']}">DOWNLOAD</a></li>
 </%block>
 <div class="row">
+    % if True : # details['has_main_screenshot']:
+        <div class="small-12 columns">
+            <ul class="clearing-thumbs clearing-feature" data-clearing>
+                <li class="clearing-featured-img">
+                    <div class="row">
+                        <div class="small-12 medium-4 columns collapse">
+                            <div class="imgLiquidFill imgLiquid" style="width:320px; height:320px; margin-bottom: 10px">
+                                <a class="th" href="${main_screenshot['uri']}">
+                                    <img class="" data-caption="${main_screenshot['comment']}"
+                                         src="${main_screenshot['thumb_uri']}">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                % if details['has_other_screenshots']:
+                    % for screenshot in screenshots:
+                        <li class="clearing-featured-img">
+                            <div class="row">
+                                <div class="small-12 medium-1 columns">
+                                    <div class="imgLiquidFill imgLiquid" style="width:100px; height:100px; margin-bottom: 10px">
+                                        <a class="th" href="${screenshot['uri']}">
+                                            <img data-caption="${screenshot['comment']} "
+                                                 src="${screenshot['thumb_uri']}"/>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    % endfor
+
+                % endif
+            </ul>
+        </div>
+    % endif
     <div class="small-12 columns">
         <h1>${details['name']}</h1>
     </div>
 </div>
 
 <div class="row">
-    <div class="small-12 medium-6 columns">
+    <div class="small-12 columns">
         <p class="markdown">${details['comment'].__str__().strip()}</p>
+    </div>
+    <div class="small-12 columns">
         <table width="100%">
             <thead>
             <tr>
@@ -51,31 +88,7 @@
             </tbody>
         </table>
     </div>
-    <div class="small-12 medium-6 columns">
-        <ul class="clearing-thumbs clearing-feature" data-clearing>
-            % if details['has_main_screenshot']:
-                <li class="clearing-featured-img">
-                    <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;">
-                        <a class="th" href="${main_screenshot['uri']}">
-                            <img class="" data-caption="${main_screenshot['comment']}"
-                                 src="${main_screenshot['thumb_uri']}">
-                        </a>
-                    </div>
-                </li>
-            % endif
-            % if details['has_other_screenshots']:
-                % for screenshot in screenshots:
-                    <li>
-                        <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;">
-                            <a class="th" href="${screenshot['uri']}">
-                                <img data-caption="${screenshot['comment']} " src="${screenshot['thumb_uri']}"/>
-                            </a>
-                        </div>
-                    </li>
-                % endfor
-            % endif
-        </ul>
-    </div>
+
 </div>
 
 % if details['has_creator']:
