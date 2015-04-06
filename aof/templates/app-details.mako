@@ -13,57 +13,64 @@
 <div class="row">
     <div class="small-12 medium-6 columns">
         <p class="markdown">${details['comment'].__str__().strip()}</p>
-            <table width="100%">
-                <thead>
-                <tr>
-                    <th width="200">Property</th>
-                    <th>Values</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Resource URI</td>
-                    <td><a href="${uri}">${uri}</a></td>
-                </tr>
-                <tr>
-                    <td><a href="${namespaces['AOF'].hasIcon}">Icon</a></td>
-                    <td>
+        <table width="100%">
+            <thead>
+            <tr>
+                <th width="200">Property</th>
+                <th>Values</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Resource URI</td>
+                <td><a href="${uri}">${uri}</a></td>
+            </tr>
+            <tr>
+                <td><a href="${namespaces['AOF'].hasIcon}">Icon</a></td>
+                <td>
+                    % if details['icon'] != "None":
                         <a href="${details['icon']}" class="th radius">
                             <img src="${details['icon']}" class="imgLiquidFill imgLiquid"
                                  style="width: 48px; height: 48px">
                         </a>
-                    </td>
-                </tr>
-        % if details['has_role']:
+                    % else :
+                        <img src="/static/img/icon_placeholder.svg" alt="Placeholder icon"
+                             class="imgLiquidFill imgLiquid"
+                             style="width: 48px; height: 48px">
+                    % endif
+                </td>
+            </tr>
+                % if details['has_role']:
                     % for role in roles:
                         <tr>
                             <td><a href="${namespaces['AOF'].hasRole}">Role</a></td>
                             <td><a href="${role}">${role}</a></td>
                         </tr>
                     % endfor
-        % endif
-                </tbody>
-            </table>
+                % endif
+            </tbody>
+        </table>
     </div>
     <div class="small-12 medium-6 columns">
         <ul class="clearing-thumbs clearing-feature" data-clearing>
             % if details['has_main_screenshot']:
                 <li class="clearing-featured-img">
-                    <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;" >
-                    <a class="th" href="${main_screenshot['uri']}">
-                        <img class="" data-caption="${main_screenshot['comment']}" src="${main_screenshot['thumb_uri']}">
-                    </a>
+                    <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;">
+                        <a class="th" href="${main_screenshot['uri']}">
+                            <img class="" data-caption="${main_screenshot['comment']}"
+                                 src="${main_screenshot['thumb_uri']}">
+                        </a>
                     </div>
                 </li>
             % endif
             % if details['has_other_screenshots']:
                 % for screenshot in screenshots:
                     <li>
-                    <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;" >
-                        <a class="th" href="${screenshot['uri']}">
-                            <img data-caption="${screenshot['comment']} "src="${screenshot['thumb_uri']}" />
-                        </a>
-                    </div>
+                        <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;">
+                            <a class="th" href="${screenshot['uri']}">
+                                <img data-caption="${screenshot['comment']} " src="${screenshot['thumb_uri']}"/>
+                            </a>
+                        </div>
                     </li>
                 % endfor
             % endif

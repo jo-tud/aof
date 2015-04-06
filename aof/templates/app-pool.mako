@@ -22,7 +22,7 @@
                         <tr class="app_row">
                             <td width="80px">
                                 <a href="/app-pool/details.html?URI=${app['uri']}">
-                                    % if app['icon'] :
+                                    % if app['icon'] != "None":
                                         <img src="${app['icon']}" width="64px" height="64px">
                                     % else :
                                         <img src="/static/img/icon_placeholder.svg" width="64px" height="64px">
