@@ -88,25 +88,25 @@ class AppPool(ConjunctiveGraph):
         Returns the of an app identified by a given resource.
         """
         app_name = self.value(resource, RDFS.label)
-        return app_name
+        return app_name.__str__()
 
     def get_description(self, resource):
         """
         Returns the of an app identified by a given resource.
         """
-        return self.value(resource, RDFS.comment)
+        return self.value(resource, RDFS.comment).__str__()
 
     def get_icon_uri(self, resource):
         """
         Returns the icon URI for a an app identified by a given resource.
         """
-        return self.value(resource, AOF.hasIcon)
+        return self.value(resource, AOF.hasIcon).__str__()
 
     def get_binary_uri(self, resource):
         """
         Returns the binary URI for a an app identified by a given resource.
         """
-        return self.value(resource, AOF.currentBinary)
+        return self.value(resource, AOF.currentBinary).__str__()
 
     def has_role(self,resource):
         """
@@ -122,7 +122,7 @@ class AppPool(ConjunctiveGraph):
         roles_iter = self.objects(resource, AOF.hasRole)
         roles = list()
         for role in roles_iter:
-            roles.append(role)
+            roles.append(role.__str__())
         return roles
 
     def is_android_app(self, resource):
@@ -144,16 +144,16 @@ class AppPool(ConjunctiveGraph):
         """
         main_screenshot = self.value(resource, AOF.MainScreenshot)
         return {
-            'uri': self.value(main_screenshot, AOF.hasScreenshot),
-            'thumb_uri': self.value(main_screenshot, AOF.hasScreenshotThumbnail),
-            'comment': self.value(main_screenshot, RDFS.comment)
+            'uri': self.value(main_screenshot, AOF.hasScreenshot).__str__(),
+            'thumb_uri': self.value(main_screenshot, AOF.hasScreenshotThumbnail).__str__(),
+            'comment': self.value(main_screenshot, RDFS.comment).__str__()
         }
 
     def has_other_screenshots(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        if ((resource, AOF.Screenshot, None) in self):
+        if (resource, AOF.Screenshot, None) in self:
             return True
         else:
             return False
@@ -166,9 +166,9 @@ class AppPool(ConjunctiveGraph):
         for screenshot in self.objects(resource, AOF.Screenshot):
             screenshots.append(
                 {
-                    'uri': self.value(screenshot, AOF.hasScreenshot),
-                    'thumb_uri': self.value(screenshot, AOF.hasScreenshotThumbnail),
-                    'comment': self.value(screenshot, RDFS.comment)
+                    'uri': self.value(screenshot, AOF.hasScreenshot).__str__(),
+                    'thumb_uri': self.value(screenshot, AOF.hasScreenshotThumbnail).__str__(),
+                    'comment': self.value(screenshot, RDFS.comment).__str__()
                 }
             )
         return screenshots
@@ -187,10 +187,10 @@ class AppPool(ConjunctiveGraph):
         for creator in self.objects(resource, DC.creator):
             creators.append(
                 {
-                    'uri': creator,
-                    'name': self.value(creator, FOAF.name),
-                    'mbox': self.value(creator, FOAF.mbox),
-                    'homepage': self.value(creator, FOAF.homepage)
+                    'uri': creator.__str__(),
+                    'name': self.value(creator, FOAF.name).__str__(),
+                    'mbox': self.value(creator, FOAF.mbox).__str__(),
+                    'homepage': self.value(creator, FOAF.homepage).__str__()
                 }
             )
         return creators
@@ -208,11 +208,11 @@ class AppPool(ConjunctiveGraph):
         entry_points = list()
         for ep in self.objects(resource, AOF.providesEntryPoint):
             ep_details = {
-                'uri': ep,
+                'uri': ep.__str__(),
                 'types': self.objects(ep, RDF.type),
-                'android_name': self.value(ep, ANDROID.name),
-                'label': self.value(ep, RDFS.label),
-                'comment': self.value(ep, RDFS.comment)
+                'android_name': self.value(ep, ANDROID.name).__str__(),
+                'label': self.value(ep, RDFS.label).__str__(),
+                'comment': self.value(ep, RDFS.comment).__str__()
                 }
             if self.has_inputs(ep):
                ep_details['inputs'] = self.get_inputs(ep)
@@ -233,12 +233,12 @@ class AppPool(ConjunctiveGraph):
         inputs = list()
         for input in self.objects(entry_point, AOF.hasInput):
             inputs.append({
-                'uri': input,
+                'uri': input.__str__(),
                 'types': self.objects(input, RDF.type),
-                'android_name': self.value(input, ANDROID.name),
+                'android_name': self.value(input, ANDROID.name).__str__(),
                 'is_required': self.value(input, AOF.isRequired),
-                'data_type': self.value(input, AOF.datatype),
-                'comment': self.value(input, RDFS.comment)
+                'data_type': self.value(input, AOF.datatype).__str__(),
+                'comment': self.value(input, RDFS.comment).__str__()
                 })
         return inputs
 
@@ -255,10 +255,10 @@ class AppPool(ConjunctiveGraph):
         exit_points = list()
         for ep in self.objects(resource, AOF.providesExitPoint):
             ep_details ={
-                    'uri': ep,
+                    'uri': ep.__str__(),
                     'types': self.objects(ep, RDF.type),
-                    'label': self.value(ep, RDFS.label),
-                    'comment': self.value(ep, RDFS.comment)
+                    'label': self.value(ep, RDFS.label).__str__(),
+                    'comment': self.value(ep, RDFS.comment).__str__()
                 }
             if self.has_outputs(ep):
                ep_details['outputs'] = self.get_outputs(ep)
@@ -280,12 +280,12 @@ class AppPool(ConjunctiveGraph):
         for output in self.objects(exit_point, AOF.hasOutput):
             inputs.append(
                 {
-                    'uri': output,
+                    'uri': output.__str__(),
                     'types': self.objects(output, RDF.type),
-                    'android_name': self.value(output, ANDROID.name),
+                    'android_name': self.value(output, ANDROID.name).__str__(),
                     'is_guaranteed': self.value(output, AOF.isGuaranteed),
-                    'data_type': self.value(output, AOF.datatype),
-                    'comment': self.value(output, RDFS.comment)
+                    'data_type': self.value(output, AOF.datatype).__str__(),
+                    'comment': self.value(output, RDFS.comment).__str__()
                 }
             )
         return inputs
