@@ -46,7 +46,7 @@ jenkins:AppEnsembleInstaller
         aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg>
      ] ;
 
-   aof:hasIcon <http://localhost:8081/static/img/icon_placeholder.svg> ;
+   # aof:hasIcon <> ;
 
    dc:creator <mailto:max.mustermann@tu-dresden.de>
 .

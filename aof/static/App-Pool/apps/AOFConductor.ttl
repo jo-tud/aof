@@ -48,7 +48,7 @@ jenkins:AOFConductor
         aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/2/2f/Bundesarchiv_Bild_183-R92264%2C_Herbert_von_Karajan.jpg> 
      ] ;
 
-   aof:hasIcon <http://localhost:8081/static/img/icon_placeholder.svg> ;
+   # aof:hasIcon <> ;
 
     dc:creator <mailto:johannes.pfeffer@tu-dresdden.de> ;
     dc:creator <mailto:johannes.pfeffer@tu-dresden.de> ;
