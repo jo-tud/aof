@@ -8,11 +8,13 @@
     </li>
 </%block>
 
-<li class="has-form show-for-small-only">
-    <div class="row collapse">
-        <input class="livefilter-input" type="text" placeholder="Filter">
+<div class="row">
+    <div class="small-12 columns">
+        <li class="has-form show-for-small-only">
+            <input class="livefilter-input" type="text" placeholder="Filter">
+        </li>
     </div>
-</li>
+</div>
 <div class="row">
     <div class="small-12 columns">
         <div id="app_table">

@@ -10,11 +10,13 @@
     <li><a href="#" id="action_update">UPDATE</a></li>
 </%block>
 
-<li class="has-form show-for-small-only">
-    <div class="row collapse">
+<div class="row">
+    <div class="small-12 columns">
+        <li class="has-form show-for-small-only">
             <input class="livefilter-input" type="text" placeholder="Filter">
+        </li>
     </div>
-</li>
+</div>
 
 <div class="row" id="ae_tables" data-equalizer></div>
 
