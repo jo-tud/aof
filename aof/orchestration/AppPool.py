@@ -43,8 +43,9 @@ class AppPool(ConjunctiveGraph):
                 except SyntaxError as detail:
                     self.log.error("There was a syntax error reading %s." %o)
                     self.log.error(detail)
-                except:
+                except Exception as detail:
                     self.log.error("There was a problem reading %s." %o)
+                    self.log.error(detail)
 
         loadAppDescriptions(self)
     
