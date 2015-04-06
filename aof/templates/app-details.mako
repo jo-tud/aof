@@ -51,7 +51,7 @@
                 <li class="clearing-featured-img">
                     <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;" >
                     <a class="th" href="${main_screenshot['uri']}">
-                        <img class="" data-caption="${main_screenshot['comment']}" src="${main_screenshot['thumb_uri']}">
+                        <img class="" data-caption="${main_screenshot['comment']|n}" src="${main_screenshot['thumb_uri']}">
                     </a>
                     </div>
                 </li>
@@ -61,7 +61,7 @@
                     <li>
                     <div class="imgLiquidFill imgLiquid" style="width:300px; height:300px;" >
                         <a class="th" href="${screenshot['uri']}">
-                            <img data-caption="${screenshot['comment']} "src="${screenshot['thumb_uri']}" />
+                            <img data-caption="${screenshot['comment']|n} "src="${screenshot['thumb_uri']}" />
                         </a>
                     </div>
                     </li>
@@ -89,16 +89,16 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><a href="${namespaces['FOAF'].name}">Name</a></td>
-                        <td><span property="foaf:name">${creator['name']}</span></td>
+                        <td><a href="${namespaces['FOAF'].name|n}">Name</a></td>
+                        <td><span property="foaf:name">${creator['name']|n}</span></td>
                     </tr>
                     <tr>
                         <td><a href="${namespaces['FOAF'].mbox}">E-Mail</a></td>
-                        <td><a href="${creator['mbox']}" rel="foaf:mbox">${creator['mbox']}</a></td>
+                        <td><a href="${creator['mbox']|n}" rel="foaf:mbox">${creator['mbox']|n}</a></td>
                     </tr>
                     <tr>
                         <td><a href="${namespaces['FOAF'].homepage}">Homepage</a></td>
-                        <td><a href="${creator['homepage']}">${creator['homepage']}</a></td>
+                        <td><a href="${creator['homepage']|n}">${creator['homepage']|n}</a></td>
                     </tr>
                     </tbody>
                 </table>
