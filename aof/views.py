@@ -101,10 +101,10 @@ class AppPoolViews():
             return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % uri)
 
         details = {
-            'name': ap.get_name(URIRef(uri)),
-            'comment': ap.get_description(URIRef(uri)),
-            'icon': ap.get_icon_uri(URIRef(uri)),
-            'binary': ap.get_binary_uri(URIRef(uri)),
+            'name': ap.get_name(URIRef(uri)).__str__(),
+            'comment': ap.get_description(URIRef(uri)).__str__(),
+            'icon': ap.get_icon_uri(URIRef(uri)).__str__(),
+            'binary': ap.get_binary_uri(URIRef(uri)).__str__(),
             'has_role': ap.has_role(URIRef(uri)),
             'has_main_screenshot': ap.has_main_screenshot(URIRef(uri)),
             'has_other_screenshots': ap.has_other_screenshots(URIRef(uri)),
