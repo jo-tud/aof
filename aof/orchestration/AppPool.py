@@ -2,7 +2,7 @@ from rdflib import ConjunctiveGraph, util, URIRef
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.namespaces import AOF, ANDROID
-from rdflib.namespace import DC, FOAF, RDF, RDFS
+from rdflib.namespace import DC, DCTERMS, FOAF, RDF, RDFS
 
 import logging
 
@@ -66,7 +66,7 @@ class AppPool(ConjunctiveGraph):
         SELECT DISTINCT ?app
         WHERE {
         # ?app a aof:App .
-        ?app aof:currentBinary ?binary
+        ?app aof:hasInstallableArtifact ?binary
         }
         """
         return len(self.query(q).bindings)
@@ -79,7 +79,7 @@ class AppPool(ConjunctiveGraph):
         # TODO: Implement better method to find all apps
         # e.g.: for app_uri in self.objects(RDF.type, AOF.AndroidApp):
 
-        for app_uri in self.subjects(AOF.currentBinary):
+        for app_uri in self.subjects(AOF.hasInstallableArtifact):
             app_uris.append(app_uri)
         return app_uris
 
@@ -106,20 +106,20 @@ class AppPool(ConjunctiveGraph):
         """
         Returns the binary URI for a an app identified by a given resource.
         """
-        return self.value(resource, AOF.currentBinary).__str__()
+        return self.value(resource, AOF.hasInstallableArtifact).__str__()
 
     def has_role(self,resource):
         """
         Returns True if app has a specified role, otherwise returns False.
         """
-        q = ("ASK WHERE {<%(uri)s> aof:hasRole ?role .}") % {'uri': resource}
+        q = ("ASK WHERE {<%(uri)s> aof:hasAppEnsembleRole ?role .}") % {'uri': resource}
         return self.query(q).askAnswer
 
     def get_roles(self, resource):
         """
         Returns a list of roles the app has
         """
-        roles_iter = self.objects(resource, AOF.hasRole)
+        roles_iter = self.objects(resource, AOF.hasAppEnsembleRole)
         roles = list()
         for role in roles_iter:
             roles.append(role.__str__())
@@ -136,16 +136,15 @@ class AppPool(ConjunctiveGraph):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        return ((resource, AOF.MainScreenshot, None) in self)
+        return ((resource, AOF.hasMainScreenshot, None) in self)
 
     def get_main_screenshot(self, resource):
         """
         Returns a dictionary of the main screenshot URI thumbnail URI and comment
         """
-        main_screenshot = self.value(resource, AOF.MainScreenshot)
+        main_screenshot = self.value(resource, AOF.hasMainScreenshot)
         return {
-            'uri': self.value(main_screenshot, AOF.hasScreenshot).__str__(),
-            'thumb_uri': self.value(main_screenshot, AOF.hasScreenshotThumbnail).__str__(),
+            'uri': self.value(main_screenshot, FOAF.depiction).__str__(),
             'comment': self.value(main_screenshot, RDFS.comment).__str__()
         }
 
@@ -153,7 +152,7 @@ class AppPool(ConjunctiveGraph):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        if (resource, AOF.Screenshot, None) in self:
+        if (resource, AOF.hasScreenshot, None) in self:
             return True
         else:
             return False
@@ -163,11 +162,10 @@ class AppPool(ConjunctiveGraph):
         Returns a list of dictionaries of screenshot URI thumbnail URI and comment.
         """
         screenshots = list()
-        for screenshot in self.objects(resource, AOF.Screenshot):
+        for screenshot in self.objects(resource, AOF.hasScreenshot):
             screenshots.append(
                 {
-                    'uri': self.value(screenshot, AOF.hasScreenshot).__str__(),
-                    'thumb_uri': self.value(screenshot, AOF.hasScreenshotThumbnail).__str__(),
+                    'uri': self.value(screenshot, FOAF.depiction).__str__(),
                     'comment': self.value(screenshot, RDFS.comment).__str__()
                 }
             )
@@ -199,14 +197,14 @@ class AppPool(ConjunctiveGraph):
         """
         Returns True if app has at least one entry point, otherwise returns False.
         """
-        return ((resource, AOF.providesEntryPoint, None) in self)
+        return ((resource, AOF.hasEntryPoint, None) in self)
 
     def get_entry_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
         entry_points = list()
-        for ep in self.objects(resource, AOF.providesEntryPoint):
+        for ep in self.objects(resource, AOF.hasEntryPoint):
             ep_details = {
                 'uri': ep.__str__(),
                 'types': self.objects(ep, RDF.type),
@@ -246,14 +244,14 @@ class AppPool(ConjunctiveGraph):
         """
         Returns True if app has at least one exit point, otherwise returns False.
         """
-        return (resource, AOF.providesExitPoint, None) in self
+        return (resource, AOF.hasExitPoint, None) in self
 
     def get_exit_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
         exit_points = list()
-        for ep in self.objects(resource, AOF.providesExitPoint):
+        for ep in self.objects(resource, AOF.hasExitPoint):
             ep_details ={
                     'uri': ep.__str__(),
                     'types': self.objects(ep, RDF.type),
