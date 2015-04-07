@@ -1,0 +1,1045 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Johannes Pfeffer" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#document-history">Document history</a></li>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#contacts">Contacts</a></li>
+<li><a href="#at-a-glance">At a glance</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#used-vocabularies-ontologies">Used Vocabularies &amp; ontologies</a></li>
+<li><a href="#definition-of-prefixes">Definition of Prefixes</a></li>
+<li><a href="#identifier">Identifier</a></li>
+<li><a href="#type-and-role-of-the-app">Type and role of the App</a></li>
+<li><a href="#label-and-textual-description">Label and textual description </a></li>
+<li><a href="#binary-location-and-version">Binary location and version</a></li>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#creator">Creator</a></li>
+<li><a href="#entry-points">Entry Points</a></li>
+<li><a href="#exit-points">Exit points</a></li>
+<li><a href="#icon-and-screenshots">Icon and screenshots</a></li>
+<li><a href="#additional-statements">Additional statements</a></li>
+</ul></li>
+<li><a href="#terms">Terms</a><ul>
+<li><a href="#a-z-of-aof-terms">A-Z of AOF terms</a><ul>
+<li><a href="#classes">Classes:</a></li>
+<li><a href="#object-properties">Object Properties: </a></li>
+<li><a href="#data-properties">Data Properties:</a></li>
+</ul></li>
+<li><a href="#classes-1">Classes</a><ul>
+<li><a href="#class-aofandroidapp">Class: aof:AndroidApp</a></li>
+<li><a href="#class-aofapp">Class: aof:App</a></li>
+<li><a href="#class-aofappensembleinstaller">Class: aof:AppEnsembleInstaller</a></li>
+<li><a href="#class-aofappensemblerole">Class: aof:AppEnsembleRole</a></li>
+<li><a href="#class-aofconductor">Class: aof:Conductor</a></li>
+<li><a href="#class-aofentrypoint">Class: aof:EntryPoint</a></li>
+<li><a href="#class-aofexitpoint">Class: aof:ExitPoint</a></li>
+<li><a href="#class-aoficon">Class: aof:Icon</a></li>
+<li><a href="#class-aofinput">Class: aof:Input</a></li>
+<li><a href="#class-aofinstallableartifact">Class: aof:InstallableArtifact</a></li>
+<li><a href="#class-aofmainscreenshot">Class: aof:MainScreenshot</a></li>
+<li><a href="#class-aofoutput">Class: aof:Output</a></li>
+<li><a href="#class-aofscreenshot">Class: aof:Screenshot</a></li>
+</ul></li>
+<li><a href="#object-properties-1">Object Properties</a><ul>
+<li><a href="#property-aofhasappdependency">Property: aof:hasAppDependency</a></li>
+<li><a href="#property-aofhasappensemblerole">Property: aof:hasAppEnsembleRole</a></li>
+<li><a href="#property-aofhasicon">Property: aof:hasIcon, </a></li>
+<li><a href="#property-hasinstallableartifact">Property: hasInstallableArtifact</a></li>
+<li><a href="#property-aofhasentrypoint">Property: aof:hasEntryPoint, </a></li>
+<li><a href="#property-hasexitpoint">Property: hasExitPoint</a></li>
+<li><a href="#property-aofhasinput">Property: aof:hasInput</a></li>
+<li><a href="#property-aofhasmainscreenshot">Property: aof:hasMainScreenshot</a></li>
+<li><a href="#property-aofhasoutput">Property: aof:hasOutput</a></li>
+<li><a href="#property-aofhasscreenshot">Property: aof:hasScreenshot</a></li>
+<li><a href="#property-aofhasversion">Property: aof:hasVersion</a></li>
+</ul></li>
+<li><a href="#data-properties-1">Data Properties</a><ul>
+<li><a href="#property-aofisguaranteed">Property: aof:isGuaranteed</a></li>
+<li><a href="#property-aofisrequired">Property: aof:isRequired</a></li>
+<li><a href="#property-aofversion">Property: aof:version</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#examples">Examples</a><ul>
+<li><a href="#conductor-app">Conductor App</a></li>
+</ul></li>
+<li><a href="#workflows">Workflows</a><ul>
+<li><a href="#typical-lifecycle-of-app-descriptions">Typical lifecycle of App-descriptions</a></li>
+<li><a href="#integrating-app-descriptions-into-the-build-process">integrating app-descriptions into the build-process</a></li>
+</ul></li>
+<li><a href="#glossary">Glossary</a></li>
+</ul>
+</div>
+<p><strong>AOF Language specification</strong></p>
+<p><em>PLT-Bericht</em></p>
+<h1 id="document-history">Document history</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Version</th>
+<th align="left">Date</th>
+<th align="left">Author</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">001</td>
+<td align="left">2015-04-01</td>
+<td align="left">Johannes Pfeffer</td>
+<td align="left">Initial version of the specification, still named App-Description Specification</td>
+</tr>
+<tr class="even">
+<td align="left">002</td>
+<td align="left">2015-04-07</td>
+<td align="left">Johannes Pfeffer</td>
+<td align="left">Broadened the scope of the specification, added terms section, changed various Classes and Properties</td>
+</tr>
+</tbody>
+</table>
+<h1 id="abstract">Abstract</h1>
+<p>This document specifies the structure and content of App-Descriptions for App-Orchestration. The goal is to have a reference specification that all creators of App-Descriptions can refer to.</p>
+<h1 id="contacts">Contacts</h1>
+<p>Dipl.-Ing. Johannes Pfeffer is responsible for this document.</p>
+<p>E-Mail: <script type="text/javascript">
+<!--
+h='&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#46;&#100;&#x65;';a='&#64;';n='&#106;&#x6f;&#104;&#x61;&#110;&#110;&#x65;&#x73;&#46;&#112;&#102;&#x65;&#102;&#102;&#x65;&#114;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#106;&#x6f;&#104;&#x61;&#110;&#110;&#x65;&#x73;&#46;&#112;&#102;&#x65;&#102;&#102;&#x65;&#114;&#32;&#x61;&#116;&#32;&#116;&#x75;&#x2d;&#100;&#114;&#x65;&#x73;&#100;&#x65;&#110;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;</noscript></p>
+<p>Phone: +49 351 463 33387</p>
+<h1 id="at-a-glance">At a glance</h1>
+<p>An App-Description semantically describes an app. It at least contains the following information: about the name of the app, a textual description, the creator, the type of the app, location of binaries and screenshots, entry points and exit points.</p>
+<p>App-Descriptions are modeled in W3C’s RDF-format, usually in turtle notation.</p>
+<p>App-Descriptions adhere to the open-world assumption, meaning there is no limit to what can be asserted about an app. However, this specification defines a minimum of information that must be given and provides a recommendation on additional information to provide about an app.</p>
+<p>App-Descriptions are used in App-Ensembles (see App-Ensemble specification) to provide information about an app, such as available inputs and outputs.</p>
+<h1 id="usage">Usage</h1>
+<h2 id="introduction">Introduction</h2>
+<p>App-Descriptions are described as RDF and are usually written (serialized) in Turtle-format. They are named according to the following schema:</p>
+<pre><code>NameOfApp.ttl</code></pre>
+<p>An App-Description model consists of the following main parts:</p>
+<ul>
+<li><p>Definition of prefixes</p></li>
+<li><p>Identifier</p></li>
+<li><p>Information about the role of the app</p></li>
+<li><p>Type and role of the app</p></li>
+<li><p>Label and textual description</p></li>
+<li><p>Binary location and version</p></li>
+<li><p>Dependencies</p></li>
+<li><p>Information about the creator(s) of the app</p></li>
+<li><p>Entry-Points (with inputs)</p></li>
+<li><p>Exit-Points (with outputs)</p></li>
+<li><p>Icon and screenshots</p></li>
+<li><p>Additional statements about the app</p></li>
+</ul>
+<h2 id="used-vocabularies-ontologies">Used Vocabularies &amp; ontologies</h2>
+<p>The main vocabulary for App-Descriptions is the <em>Application-Orchestration-Framework-Vocabulary</em> with the preferred prefix <code>aof</code> and the base URI <a href="http://eatld.et.tu-dresden.de/aof/" class="uri">http://eatld.et.tu-dresden.de/aof/</a>.</p>
+<pre><code>@prefix aof: &lt;http://eatld.et.tu-dresden.de/aof/&gt; .</code></pre>
+<p>For describing the creator and her/his contact information, the <em>Dublin-Core Metadata Format</em> (elements and terms) and the <em>FOAF RDF-Schema</em> are used.</p>
+<pre><code>@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .</code></pre>
+<pre><code>@prefix dcterms: &lt;http://purl.org/dc/terms/&gt;  .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</code></pre>
+<p>To describe android-related properties of an app the Android apk namespace is used.</p>
+<pre><code>@prefix android: &lt;http://schemas.android.com/apk/res/android&gt; .</code></pre>
+<p>In addition the rdf, rdfs schemas are used as a basic language and the xsd schema is used to define value types.</p>
+<h2 id="definition-of-prefixes">Definition of Prefixes</h2>
+<p>It is good practice to add a section with prefixes used in the App-Description.</p>
+<p>This section may look like the following listing:</p>
+<pre><code># AOF namespace
+@prefix aof: &lt;http://eatld.et.tu-dresden.de/aof/&gt; .
+
+# Used ontologies
+@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .</code></pre>
+<pre><code>@prefix dcterms: &lt;http://purl.org/dc/terms/&gt;  .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix android: &lt;http://schemas.android.com/apk/res/android&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</code></pre>
+<p>In addition, it has proven useful to define some namespaces that may be used only in a certain App-Ensemble.</p>
+<pre><code># Namespaces for THIS App-Ensemble
+@prefix ex: &lt;http://example/</code></pre>
+<h2 id="identifier">Identifier</h2>
+<p>An App-Description always starts with the following triple:</p>
+<pre><code>&lt;http://url_that_uniquely_identifies_the_app&gt; a aof:App .</code></pre>
+<p>The subject of this statement is important because it is the main identifier that is used by tools that work with App-Descriptions. It should be long-living and if possible resolve to information about the app. Possibilities are the URL to an App-Store where the app can be downloaded or to a job on a build-server that creates the app.</p>
+<p>In this specification we will use ex-prefix (<code>&lt;http://example/&gt;</code>) and the app name <em>ExApp</em> for all examples.</p>
+<h2 id="type-and-role-of-the-app">Type and role of the App</h2>
+<p>There are two bits of information that should be provided about an app. First the <code>rdf:type</code> relation<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> and second the <code>aof:</code><code>hasAppEnsembleRole</code> relation. Both are <em>optional</em>.</p>
+<p>All apps are of type <code>aof:App</code>. Additionally, Android apps are of type <code>aof:AndroidApp</code>. Other platforms are not yet included in this specification. Please note, while this statement is optional it is highly recommended because applications may use it to determine the platform of the app.</p>
+<pre><code>ex:ExApp a aof:App, aof:AndroidApp .</code></pre>
+<p>There are some special roles for apps that are important for App-Ensembles. Normal apps don’t need this statement.</p>
+<pre><code>ex:ExApp aof:hasAppEnsembleRole aof:Conductor .</code></pre>
+<p>The <code>aof:Conductor</code> role means that the app can execute App-Ensembles by itself. Also available is <code>aof:AppEnsembleInstaller</code> which implies that the app is able to install App-Ensembles on a platform.</p>
+<h2 id="label-and-textual-description">Label and textual description </h2>
+<p>All apps must have a label (<code>rdfs:label</code>) and description (<code>rdfs:comment</code>).</p>
+<pre><code>ex:ExApp rdfs:label &quot;App-Description Specification Example App&quot; ;
+  rdfs:comment &quot;&quot;&quot;
+    The rdfs:comment should give a short textual description 
+    about the functionality of the app. It may contain *markdown* markup &quot;&quot;&quot; .</code></pre>
+<h2 id="binary-location-and-version">Binary location and version</h2>
+<p>If available, the location of a resource where the current binary can be downloaded should be given via the <code>aof:</code><code>hasInstallableArtifact</code> property. Preferably, this is a direct link to a binary. This property is optional but highly recommended.</p>
+<pre><code>ex:ExApp aof:hasInstallableArtifact &lt;http://example/example.apk&gt; .</code></pre>
+<p>The version number must be an integer. Version information may be provided in two different ways. The first option is to provide an http-URL to a resource that delivers the version code in the body part of the http response using <code>aof:</code><code>hasVersion</code>. The second way is to provide a version code integer directly via <code>aof:</code><code>version</code>. The <code>aof:</code><code>hasVersion</code> variant supersedes <code>aof:</code><code>version</code>.</p>
+<pre><code>ex:ExApp aof:hasVersion jenkins:AppEnsembleInstaller/buildNumber .
+
+# The alternative:
+ex:ExApp aof:version &quot;1&quot;^^xsd:integer .</code></pre>
+<h2 id="dependencies">Dependencies</h2>
+<p>If the app has dependencies in other apps, i.e. these other apps are required for it to function properly, they may be stated using <code>aof:hasAppDependency</code>.</p>
+<pre><code>ex:ExApp aof:hasAppDependency &lt;http://openintents.org/~oi/filemanager&gt; .</code></pre>
+<p>The object of this statement should be a URI that is unique and is used in other App-Descriptions when referring to this app.</p>
+<h2 id="creator">Creator</h2>
+<p>Information about the creator(s) is added by asserting one or more of the following statements:</p>
+<pre><code>ex:ExApp dc:creator &lt;mailto:max.mustermann@example.org&gt; .</code></pre>
+<p>The object of a <code>dc:creator</code> relation is a URI that uniquely identifies a creator (e.g. an e-mail address or a website). At the end of the App-Description resource should be detailed using the FOAF-vocabulary:</p>
+<pre><code>&lt;mailto:max.mustermann@example.org&gt; a foaf:Person ;
+  foaf:name &quot;Max Mustermann&quot; ;
+  foaf:mbox &lt;mailto:max.mustermann@example.org&gt; ;
+  foaf:homepage &lt;http://maxmustermann.info/&gt; .</code></pre>
+<p>Creator information is optional but highly recommended.</p>
+<h2 id="entry-points">Entry Points</h2>
+<p>Entry points provide information on how the app is started and what information it can use as input. There must be at least one entry point. Currently, entry points are only specified for Android apps.</p>
+<p>A basic entry point looks like this:</p>
+<pre><code>ex:ExApp aof:hasEntryPoint [
+  a aof:EntryPoint, android:action ;
+  android:name &quot;org.aof.action.EXAMPLE_ACTION&quot; ;
+  rdfs:label &quot;Example label&quot; ;
+  rdfs:comment &quot;
+    The comment should give a concise but conclusive description about what the 
+    entry point does. &quot;&quot;&quot; ;
+] .</code></pre>
+<p>An entry point may have zero or more inputs. If an entry point is given <code>aof:Input, android:extra, rdfs:comment, aof:isRequired, android:name</code> and <code>aof:hasDatatype</code> are all mandatory.</p>
+<pre><code>ex:entry_point_1 aof:hasInput [
+  a aof:Input, android:extra ;
+  rdfs:comment &quot;Description of the input&quot; ;
+  aof:isRequired &quot;False&quot; ;
+  android:name &quot;org.aof.extra.POI&quot; ;
+  aof:hasDatatype xsd:anyURI 
+] .</code></pre>
+<p>The statement <code>ex:entry_point_1 a aof:Input, android:extra</code> asserts that the resource is an entry point and also an android extra. Currently, only this type of input is specified and, therefore, must be provided if entry points are given. <code>aof:isRequired</code> states if this input must be provided, <code>android:name</code> gives the name of the extra, i.e. the key to look up the extra data field. There may be a naming convention for <code>android:name</code> that should be followed. For details see the App-Ensemble specification. The property <code>aof:hasDatatype</code> states the data type the extra must have using the xsd: notation.</p>
+<h2 id="exit-points">Exit points</h2>
+<p>Exit points provide information on data that is generated by an app. When apps provide information on exit points it is assumed that they have been created specifically for App-Orchestration and provide the output data after an orchestration specific user interaction, such as a <em>Done-Button.</em></p>
+<p>Currently exit points are only specified for Android apps.</p>
+<p>An exit point must have at least one output. All properties in the example below are mandatory if an exit point is described.</p>
+<p>A typical exit point looks like this:</p>
+<pre><code>ex:ExApp aof:hasExitPoint [
+  a aof:ExitPoint;
+  rdfs:label &quot;Main exit point&quot; ;
+  rdfs:comment &quot;Description of the exit point&quot; ; 
+  aof:hasOutput [
+    a aof:Output, android:extra ;
+    rdfs:comment &quot;Description of the output&quot; ;
+    aof:isGuaranteed &quot;False&quot; ;
+    android:name &quot;org.aof.extra.POI&quot; ;
+    aof:hasDatatype xsd:anyURI 
+  ]
+] .</code></pre>
+<p>The property <code>aof:isGuaranteed</code> is used to specify if an output will always be available or not. The property <code>android:name</code> is used to give the key for the data field. For the other properties, please see the section on entry points. There may be a naming convention for <code>android:name</code> that should be followed. For details see the App-Ensemble specification.</p>
+<h2 id="icon-and-screenshots">Icon and screenshots</h2>
+<p>It is recommended to provide a URI of an icon and some screenshots for all apps because this improves the display in lists, app-stores, etc. greatly. The icon is optional (<code>aof:hasIcon</code>). There may be 0 or 1 <em>main</em> screenshot (<code>aof:</code><code>has</code><code>MainScreenshot</code>) and 0 or more additional screenshots (<code>aof:</code><code>has</code><code>Screenshot</code>).</p>
+<p>Example:</p>
+<pre><code># Icon
+ex:exApp aof:hasIcon &lt;http://example/icon_placeholder.svg&gt; .
+
+# Screenshots: 1 main screenshot, 2 additional screenshots
+ex:exApp aof:hasMainScreenshot [
+  foaf:depiction &lt;http://example/sc1.jpg&gt; ; 
+  rdfs:comment &quot;Main screenshot&quot;
+] . 
+ex:exApp aof:hasScreenshot [
+  foaf:depiction &lt;http://example/sc2.jpg&gt; ; 
+  rdfs:comment &quot;2nd screenshot&quot;
+] .
+ex:exApp aof:hasScreenshot [
+  foaf:depiction &lt;http://example/sc3.jpg&gt; ; 
+  rdfs:comment &quot;3rd screenshot&quot;
+] .</code></pre>
+<h2 id="additional-statements">Additional statements</h2>
+<p>Since an App-Description lives in the open world assumption, there may be unlimited other statements about an app. Here are some examples:</p>
+<pre><code># References to resources describing the same thing or related things
+ex:ExApp owl:sameAs &lt;http://otherExample.org/app &gt; .
+ex:ExApp rdfs:seeAlso &lt;http://alternativeAppStore/otherApp .</code></pre>
+<h1 id="terms">Terms</h1>
+<h2 id="a-z-of-aof-terms">A-Z of AOF terms</h2>
+<h3 id="classes">Classes:</h3>
+<p>AndroidApp, App, AppEnsembleInstaller, AppEnsembleRole, Conductor, EntryPoint, ExitPoint, Icon, Input, InstallableArtifact, MainScreenshot, Output, Screenshot</p>
+<h3 id="object-properties">Object Properties: </h3>
+<p>hasAppDependency, hasAppEnsembleRole, hasIcon, hasInstallableArtifact, hasEntryPoint, hasExitPoint, hasInput, hasMainScreenshot, hasOutput, hasScreenshot, hasVersion</p>
+<h3 id="data-properties">Data Properties:</h3>
+<p>isGuaranteed, isRequired, version</p>
+<h2 id="classes-1">Classes</h2>
+<p><strong>Template:</strong></p>
+<p><em>Class</em> – Comment</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left">Having these properties implies being a thing of this class.</td>
+</tr>
+<tr class="even">
+<td align="left">Used with:</td>
+<td align="left">Every value of these properties is a thing of this class</td>
+</tr>
+<tr class="odd">
+<td align="left">Has Subclass:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Subclass Of</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Disjoint With</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofandroidapp">Class: aof:AndroidApp</h3>
+<p><em>AndroidApp</em> – An Android App</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>aof:App</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofapp">Class: aof:App</h3>
+<p><em>App</em> – An App</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left"><code>aof:hasAppDependency, aof:hasEntryPoint, aof:hasExitPoint, aof:hasIcon, aof:hasInstallableArtifact, aof:hasMainScreenshot, aof:hasAppEnsembleRole, aof:hasScreenshot, aof:hasVersion, aof:version</code></td>
+</tr>
+<tr class="even">
+<td align="left">Has Subclass:</td>
+<td align="left"><code>aof:AndroidApp</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofappensembleinstaller">Class: aof:AppEnsembleInstaller</h3>
+<p><em>AppEnsembleInstaller</em> – The role of being an app that can install App-Ensembles</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>aof:AppEnsembleRole</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofappensemblerole">Class: aof:AppEnsembleRole</h3>
+<p><em>AppEnsembleRole</em> – A role in an App-Ensemble</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasAppEnsembleRole</code></td>
+</tr>
+<tr class="even">
+<td align="left">Has Subclass:</td>
+<td align="left"><code>aof:AppEnsembleInstaller, aof:Conductor</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+<tr class="even">
+<td align="left">Disjoint With</td>
+<td align="left"><code>aof:App</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofconductor">Class: aof:Conductor</h3>
+<p><em>Conductor</em> – The role of being an app that can execute (conduct) App-Ensembles</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>aof:AppEnsembleRole</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofentrypoint">Class: aof:EntryPoint</h3>
+<p><em>EntryPoint</em> – An entry point to an app</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left"><code>aof:hasInput</code></td>
+</tr>
+<tr class="even">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasEntryPoint</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+<tr class="even">
+<td align="left">Disjoint With</td>
+<td align="left"><code>aof:ExitPoint</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofexitpoint">Class: aof:ExitPoint</h3>
+<p><em>ExitPoint</em> – An exit point of an app</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left"><code>aof:hasOutput</code></td>
+</tr>
+<tr class="even">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasExitPoint</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+<tr class="even">
+<td align="left">Disjoint With</td>
+<td align="left"><code>aof:EntryPoint</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aoficon">Class: aof:Icon</h3>
+<p><em>Icon</em> – An icon for an app</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasIcon</code></td>
+</tr>
+<tr class="even">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofinput">Class: aof:Input</h3>
+<p><em>Input</em> – An input to an app entry point</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left"><code>aof:isRequired</code></td>
+</tr>
+<tr class="even">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasInput</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+<tr class="even">
+<td align="left">Disjoint With</td>
+<td align="left"><code>aof:Output</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofinstallableartifact">Class: aof:InstallableArtifact</h3>
+<p><em>Installable Artifact</em> – An artifact that can be installed as an app</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasInstallableArtifact</code></td>
+</tr>
+<tr class="even">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofmainscreenshot">Class: aof:MainScreenshot</h3>
+<p><em>MainScreenshot</em> – The main screenshot of an app</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasMainScreenshot</code></td>
+</tr>
+<tr class="even">
+<td align="left">Subclass Of</td>
+<td align="left"><code>aof:Screenshot</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofoutput">Class: aof:Output</h3>
+<p><em>Output</em> – An output of an app exit point</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left"><code>aof:isGuaranteed</code></td>
+</tr>
+<tr class="even">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasOutput</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+<tr class="even">
+<td align="left">Disjoint With</td>
+<td align="left"><code>aof:Input</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="class-aofscreenshot">Class: aof:Screenshot</h3>
+<p><em>Screenshot</em> – A screenshot of an app</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Properties include:</td>
+<td align="left">Having these properties implies being a thing of this class.</td>
+</tr>
+<tr class="even">
+<td align="left">Used with:</td>
+<td align="left"><code>aof:hasScreenshot</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Has Subclass:</td>
+<td align="left"><code>aof:MainScreenshot</code></td>
+</tr>
+<tr class="even">
+<td align="left">Subclass Of</td>
+<td align="left"><code>owl:Thing</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="object-properties-1">Object Properties</h2>
+<p><strong>Template:</strong></p>
+<p><em>Property</em> – Comment</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a …</td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a …</td>
+</tr>
+</tbody>
+</table>
+<h3 id="property-aofhasappdependency">Property: aof:hasAppDependency</h3>
+<p><em>hasAppDependency</em> – Indicates an app dependency the object this app needs to be able to function correctly.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:App</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasAppDependency</code> property relates an <code>aof:App</code> with other apps that it depends upon.</p>
+<h3 id="property-aofhasappensemblerole">Property: aof:hasAppEnsembleRole</h3>
+<p><em>hasAppEnsembleRole</em> – Indicates a role in an App-Ensemble that this app has.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:AppEnsembleRole</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>hasAppEnsembleRole</code> property relates an <code>aof:App</code> to a role it has in an App-Ensemble.</p>
+<h3 id="property-aofhasicon">Property: aof:hasIcon, </h3>
+<p><em>hasIcon</em> – Indicates an icon for this app.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:Icon</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasIcon</code> property relates an <code>aof:App</code> with an icon image, e.g. for use in app stores.</p>
+<h3 id="property-hasinstallableartifact">Property: hasInstallableArtifact</h3>
+<p><em>hasInstallableArtifact</em> – Indicates an installable artifact, such as a binary executable or an APK-file of this app.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:InstallableArtifact</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasInstallableArtifact</code> relates an <code>aof:App</code> with a binary file that can install it.</p>
+<h3 id="property-aofhasentrypoint">Property: aof:hasEntryPoint, </h3>
+<p><em>hasEntryPoint</em> – Indicates an entry point this app has.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:EntryPoint</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasEntryPoint</code> property relates a <code>aof:App</code> to an entry point that app provides.</p>
+<h3 id="property-hasexitpoint">Property: hasExitPoint</h3>
+<p><em>hasExitPoint</em> – Indicates an exit point this app has.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:ExitPoint</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:has</code><code>Exit</code><code>Point</code> property relates a <code>aof:App</code> to an exit point that app provides.</p>
+<h3 id="property-aofhasinput">Property: aof:hasInput</h3>
+<p><em>hasInput</em> – Indicates an Input this app has.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:EntryPoint</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:input</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasInput</code> property relates a <code>aof:EntryPoint</code> to an input it provides.</p>
+<h3 id="property-aofhasmainscreenshot">Property: aof:hasMainScreenshot</h3>
+<p><em>hasMainScreenshot</em> – Indicates the main screenshot of this app.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:MainScreenshot</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasMainScreenshot</code> property relates a <code>aof:App</code> to the screenshot that represents the app best (e.g. in an app store).</p>
+<h3 id="property-aofhasoutput">Property: aof:hasOutput</h3>
+<p><em>hasOutput</em> – Indicates an output that this exit point of an app provides.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:ExitPoint</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:Output</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasOutput</code> property relates a <code>aof:ExitPoint</code> to an output, usually with a key and a value.</p>
+<h3 id="property-aofhasscreenshot">Property: aof:hasScreenshot</h3>
+<p><em>hasScreenshot</em> – Indicates a screenshot of this app.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+<tr class="even">
+<td align="left">Range:</td>
+<td align="left">every value of this property is a <code>aof:Screenshot</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:has</code><code>Screenshot</code> property relates a <code>aof:App</code> to a screenshot of a view of the app.</p>
+<h3 id="property-aofhasversion">Property: aof:hasVersion</h3>
+<p><em>hasVersion</em> – Indicates a resource that represents the version of this app.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>aof:hasVersion</code> property relates a <code>aof:App</code> to a http resource that provides an integer representation of the version it its http response body.</p>
+<h2 id="data-properties-1">Data Properties</h2>
+<p><strong>Template:</strong></p>
+<p><em>Property</em> – Comment</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a …</td>
+</tr>
+</tbody>
+</table>
+<h3 id="property-aofisguaranteed">Property: aof:isGuaranteed</h3>
+<p><em>isGuaranteed</em> – Indicates if this output is guaranteed.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:Output</code></td>
+</tr>
+</tbody>
+</table>
+<p>This property has the value <em>True</em> if this <code>aof:</code><code>Output</code> of this exit point of an app is guaranteed, otherwise it is <em>False</em>.</p>
+<h3 id="property-aofisrequired">Property: aof:isRequired</h3>
+<p><em>isRequired</em> – Indicates if this input is required.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:Input</code></td>
+</tr>
+</tbody>
+</table>
+<p>This property has the value <em>True</em> if this <code>aof:Input</code> of this entry point of an app is required, otherwise it is <em>False</em>.</p>
+<h3 id="property-aofversion">Property: aof:version</h3>
+<p><em>version</em> – Indicates the version of some app.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Status:</th>
+<th align="left">testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Domain:</td>
+<td align="left">having this property implies being a <code>aof:App</code></td>
+</tr>
+</tbody>
+</table>
+<p>The version of an app is an integer value. It may, e.g., be a build number.</p>
+<h1 id="examples">Examples</h1>
+<p>The following examples provide complete App-Descriptions that may be used as a starting point.</p>
+<h2 id="conductor-app">Conductor App</h2>
+<p>This example describes a conductor app, i.e. an app that executes App-Ensembles. Therefore, it has a <code>aof:</code><code>hasAppEnsembleRole</code><code> aof:Conductor</code> statement.</p>
+<pre><code># AOF prefixes
+@prefix aof: &lt;http://eatld.et.tu-dresden.de/aof/&gt; .
+
+# Used Ontologies
+@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; . 
+@prefix android: &lt;http://schemas.android.com/apk/res/android&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; . 
+
+# App description
+&lt;http://dev.plt.et.tu-dresden.de:8085/jenkins/job/ExampleConductor/LastSuccessfulBuild&gt;
+  a aof:App, aof:AndroidApp ;
+  aof:hasAppEnsembleRole aof:Conductor ;
+  
+  # Name and textual description
+  rdfs:label &quot;AOF Conductor&quot; ;
+  rdfs:comment &quot;&quot;&quot;
+    The *Conductor* is an app that executes App-Ensembles on Android devices.
+    &quot;&quot;&quot; ;
+
+  # Reference to binary and version information
+  aof:hasInstallableArtifact &lt;http://example/Conductor.apk&gt; ;
+
+  # This App-Description provides the version as a http-resource
+  aof:hasVersion &lt;http://Example/buildNumber&gt; ;
+  # The alternative:
+  # aof:version &quot;1&quot;^^xsd:integer ; 
+
+  # Dependencies
+  aof:hasAppDependency play:org.openintents.filemanager ;
+
+  # Creator reference, this is detailed at the end of the App-Description
+  dc:creator &lt;mailto:johannes.pfeffer@tu-dresden.de&gt; ;  
+
+  # Entry points
+  aof:hasEntryPoint [
+    a aof:EntryPoint, android:action ;
+    android:name &quot;org.aof.action.EXAMPLE_ACTION&quot; ;
+    rdfs:label &quot;Start Workflow&quot; ;
+    rdfs:comment &quot;&quot;&quot;
+      The comment should give a concise but conclusive description about what the 
+      entry point does. &quot;&quot;&quot; ;
+    aof:hasInput [
+      a aof:Input, android:extra ;
+      rdfs:comment &quot;Description of the input&quot; ;
+      aof:isRequired &quot;False&quot; ;
+      android:name &quot;org.aof.extra.POI&quot; ;
+      aof:hasDatatype xsd:anyURI 
+    ]
+  ] ;
+  
+  # Exit points
+  aof:hasExitPoint [
+    a aof:ExitPoint;
+    rdfs:label &quot;Main exit point&quot; ;
+    rdfs:comment &quot;Description of the exit point&quot; ; 
+    aof:hasOutput [
+      a aof:Output, android:extra ;
+      rdfs:comment &quot;Description of the output&quot; ;
+      aof:isGuaranteed &quot;False&quot; ;
+      android:name &quot;org.aof.extra.POI&quot; ;
+      aof:hasDatatype xsd:anyURI 
+    ]
+  ] ;
+
+  # Icon
+  aof:hasIcon &lt;http://example/icon_placeholder.svg&gt; ;
+
+  # Screenshots: 1 main screenshot, 2 other screenshots
+  aof:hasMainScreenshot [
+    foaf:depiction &lt;http://example/sc1.jpg&gt; ; 
+    rdfs:comment &quot;Main screenshot&quot;
+    ] ;
+  aof:hasScreenshot [
+    foaf:depiction &lt;http://example/sc2.jpg&gt; ; 
+    rdfs:comment &quot;2nd screenshot&quot;
+    ] ;
+  aof:hasScreenshot [
+    foaf:depiction &lt;http://example/sc3.jpg&gt; ; 
+    rdfs:comment &quot;3rd screenshot&quot;
+    ] ;
+
+# Additional statements
+# Creator
+&lt;mailto:johannes.pfeffer@tu-dresden.de&gt; a foaf:Person ;
+  foaf:name &quot;Johannes Pfeffer&quot;;
+  foaf:mbox &lt;mailto:johannes.pfeffer@tu-dresden.de&gt;;
+  foaf:homepage &lt;http://www.et.tu-dresden.de/ifa/index.php?id=jp&gt; .
+
+# References to resources describing the same thing or related things
+&lt;http://dev.plt.et.tu-dresden.de:8085/jenkins/job/ExampleConductor/LastSuccessfulBuild&gt;</code></pre>
+<pre><code>  owl:sameAs &lt;http://appStore/Conductor&gt; ;
+  rdfs:seeAlso &lt;http://alternativeAppStore/OtherConductor .</code></pre>
+<h1 id="workflows">Workflows</h1>
+<h2 id="typical-lifecycle-of-app-descriptions">Typical lifecycle of App-descriptions</h2>
+<p>Already during specification of an app a rudimentary app description with entry and exit points can be created. The URI of the app should be fixed already. Then, the App-Description should be updated with every public release of the app.</p>
+<h2 id="integrating-app-descriptions-into-the-build-process">integrating app-descriptions into the build-process</h2>
+<p>It may be sensible to integrate publication of the App-Description in the build process of the app. E.g. the App-Description may reside in the project structure for the app and is automatically published to an web server during a release or build process.</p>
+<h1 id="glossary">Glossary</h1>
+<p>For an always up-to-date version of the glossary refer to:</p>
+<p><a href="https://eatplt02.et.tu-dresden.de/intrawiki/doku.php?id=wiki:documentation:aof:glossary" class="uri">https://eatplt02.et.tu-dresden.de/intrawiki/doku.php?id=wiki:documentation:aof:glossary</a></p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The <code>rdf:type</code> relation can be abbreviated by <code>a</code> in Turtle notation<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+</body>
+</html>
