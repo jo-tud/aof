@@ -49,9 +49,7 @@ def documentation_view(request):
 def documentation_docs_view(request):
     document = request.matchdict['document']
     if document == "app-description_specification":
-        content = open(os.path.join(static_dir,'doc','PLT-Bericht App-Description Specification v001.docx.html')).read()
-    elif document == "app-ensemble_specification":
-        content = open(os.path.join(static_dir,'doc','PLT-Bericht App-Ensemble Specification v001.docx.html')).read()
+        content = open(os.path.join(static_dir,'doc','PLT-Bericht AOF Language Specification v002.docx.html')).read()
 
     return {'meta': META,
             'page_title': 'Documentation',

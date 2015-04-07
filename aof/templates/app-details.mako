@@ -5,7 +5,7 @@
     <li><a href="${details['binary']}">DOWNLOAD</a></li>
 </%block>
 <div class="row">
-    % if True : # details['has_main_screenshot']:
+    % if details['has_main_screenshot']:
         <div class="small-12 columns">
             <ul class="clearing-thumbs clearing-feature" data-clearing>
                 <li class="clearing-featured-img">
@@ -14,7 +14,7 @@
                             <div class="imgLiquidFill imgLiquid" style="width:320px; height:320px; margin-bottom: 10px">
                                 <a class="th" href="${main_screenshot['uri']}">
                                     <img class="" data-caption="${main_screenshot['comment']}"
-                                         src="${main_screenshot['thumb_uri']}">
+                                         src="${main_screenshot['uri']}">
                                 </a>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                     <div class="imgLiquidFill imgLiquid" style="width:100px; height:100px; margin-bottom: 10px">
                                         <a class="th" href="${screenshot['uri']}">
                                             <img data-caption="${screenshot['comment']} "
-                                                 src="${screenshot['thumb_uri']}"/>
+                                                 src="${screenshot['uri']}"/>
                                         </a>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
 
 <div class="row">
     <div class="small-12 columns">
-        <p class="markdown">${details['comment'].__str__().strip()}</p>
+        <p class="markdown">${details['comment']}</p>
     </div>
     <div class="small-12 columns">
         <table width="100%">
@@ -138,7 +138,7 @@
             <div class="small-12 columns">
                 <h3>${ep['label']}</h3>
 
-                <p class="markdown">${ep['comment'].__str__().strip()}</p>
+                <p class="markdown">${ep['comment'].__str__()}</p>
                 <table width="100%">
                     <thead>
                     <tr>
@@ -202,7 +202,7 @@
                             </tr>
                             <tr>
                                 <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
-                                <td class="markdown">${input['comment'].__str__().strip()}</td>
+                                <td class="markdown">${input['comment'].__str__()}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -224,7 +224,7 @@
             <div class="small-12 columns">
                 <h3>${ep['label']}</h3>
 
-                <p class="markdown">${ep['comment'].__str__().strip()}</p>
+                <p class="markdown">${ep['comment'].__str__()}</p>
                 <table width="100%">
                     <thead>
                     <tr>
@@ -284,7 +284,7 @@
                             </tr>
                             <tr>
                                 <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
-                                <td class="markdown">${output['comment'].__str__().strip()}</td>
+                                <td class="markdown">${output['comment']}</td>
                             </tr>
                             </tbody>
                         </table>
