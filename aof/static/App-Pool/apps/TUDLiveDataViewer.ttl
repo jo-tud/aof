@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/>
 
 rdfs:label 		"TUD Live Data Viewer";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/bin/TUDLiveDataViewer-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/bin/TUDLiveDataViewer-release.apk>
 
 ## Add Intents
 # :hasIntent	[

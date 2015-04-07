@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFSkeletonApp/>
 
 rdfs:label 		"ComVantage TUD Skeleton App";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFSkeletonApp/lastSuccessfulBuild/artifact/IAFSkeletonApp/bin/IAFSkeletonApp-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFSkeletonApp/lastSuccessfulBuild/artifact/IAFSkeletonApp/bin/IAFSkeletonApp-release.apk>
 
 ## Add Intents
 # :hasIntent	[

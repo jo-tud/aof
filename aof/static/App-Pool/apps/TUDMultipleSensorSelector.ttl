@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDMultipleSensorSelector/>
 
 rdfs:label 		"TUD Multiple Sensor Selector";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDMultipleSensorSelector/lastSuccessfulBuild/artifact/bin/TUDMultipleSensorSelector-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDMultipleSensorSelector/lastSuccessfulBuild/artifact/bin/TUDMultipleSensorSelector-release.apk>
 
 ## Add Intents
 # :hasIntent	[

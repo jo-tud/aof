@@ -10,8 +10,8 @@
 ## URI of the Generic App that is described
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNeighbourhoodBrowser/>
 
-rdfs:label 		"TUD Neighbourghood Browser 1";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNeighbourhoodBrowser/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser/bin/TUDNeighbourhoodBrowser-release.apk>
+rdfs:label 		"TUD Neighbourhood Browser 1";
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNeighbourhoodBrowser/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser/bin/TUDNeighbourhoodBrowser-release.apk>
 
 ## Add Intents
 # :hasIntent	[

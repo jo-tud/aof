@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFManagementComponent/>
 
 rdfs:label 		"IAF Management Component";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFManagementComponent/lastSuccessfulBuild/artifact/bin/IAFManagementComponent-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFManagementComponent/lastSuccessfulBuild/artifact/bin/IAFManagementComponent-release.apk>
 
 ## Add Intents
 # :hasIntent	[

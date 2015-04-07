@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNFCTagReader/>
 
 rdfs:label 		"TUD NFC Tag Reader";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNFCTagReader/lastSuccessfulBuild/artifact/bin/TUDNFCTagReader-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNFCTagReader/lastSuccessfulBuild/artifact/bin/TUDNFCTagReader-release.apk>
 
 ## Add Intents
 # :hasIntent	[

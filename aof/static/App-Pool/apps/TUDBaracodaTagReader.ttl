@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDBaracodaTagReader/>
 
 rdfs:label 		"TUD Baracoda Tag Reader";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDBaracodaTagReader/lastSuccessfulBuild/artifact/bin/TUDBaracodaTagReader-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDBaracodaTagReader/lastSuccessfulBuild/artifact/bin/TUDBaracodaTagReader-release.apk>
 
 ## Add Intents
 # :hasIntent	[

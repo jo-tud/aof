@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/>
 
 rdfs:label 		"TUD Time Series Viewer";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/bin/TUDTimeSeries-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/bin/TUDTimeSeries-release.apk>
 
 ## Add Intents
 # :hasIntent	[

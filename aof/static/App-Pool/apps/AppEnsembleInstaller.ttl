@@ -32,7 +32,7 @@ jenkins:AppEnsembleInstaller
         The *App Ensemble Installer* downloads and installs App Ensembles.
         """ ;
 
-    aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
+    aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
 
     aof:versionCode <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
 

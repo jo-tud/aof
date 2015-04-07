@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/>
 
 rdfs:label 		"TUD Sensor Selection";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/lastSuccessfulBuild/artifact/bin/TUDSensorSelection-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/lastSuccessfulBuild/artifact/bin/TUDSensorSelection-release.apk>
 
 ## Add Intents
 # :hasIntent	[

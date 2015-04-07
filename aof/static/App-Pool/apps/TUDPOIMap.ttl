@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPOIMap/>
 
 rdfs:label 		"TUD POI Map";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPOIMap/lastSuccessfulBuild/artifact/TUDPOIMap/bin/TUDPOIMap-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPOIMap/lastSuccessfulBuild/artifact/TUDPOIMap/bin/TUDPOIMap-release.apk>
 
 ## Add Intents
 # :hasIntent	[

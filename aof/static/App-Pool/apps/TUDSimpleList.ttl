@@ -5,4 +5,4 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/>
 
 rdfs:label "TUD Simple List App" ;
-aof:currentBinary <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/bin/TUDSimpleList-release.apk> .
+aof:hasInstallableArtifact <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/bin/TUDSimpleList-release.apk> .

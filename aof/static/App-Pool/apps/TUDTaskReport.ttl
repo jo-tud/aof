@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTaskReport/>
 
 rdfs:label 		"TUD Task Report App";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTaskReport/lastSuccessfulBuild/artifact/bin/TUDTaskReport-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTaskReport/lastSuccessfulBuild/artifact/bin/TUDTaskReport-release.apk>
 
 ## Add Intents
 # :hasIntent	[

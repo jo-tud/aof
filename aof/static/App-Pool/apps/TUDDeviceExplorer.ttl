@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDDeviceExplorer/>
 
 rdfs:label 		"TUD Device Explorer";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDDeviceExplorer/lastSuccessfulBuild/artifact/TUDDeviceExplorer/bin/TUDDeviceExplorer-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDDeviceExplorer/lastSuccessfulBuild/artifact/TUDDeviceExplorer/bin/TUDDeviceExplorer-release.apk>
 
 ## Add Intents
 # :hasIntent	[

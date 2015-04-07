@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSparqlTest/>
 
 rdfs:label 		"TUD SPARQL Tester";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSparqlTest/lastSuccessfulBuild/artifact/TUDSparqlTest/bin/TUDSparqlTest-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSparqlTest/lastSuccessfulBuild/artifact/TUDSparqlTest/bin/TUDSparqlTest-release.apk>
 
 ## Add Intents
 # :hasIntent	[

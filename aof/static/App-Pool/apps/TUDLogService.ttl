@@ -11,7 +11,7 @@
 <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLogService/>
 
 rdfs:label 		"TUD Log Service";
-aof:currentBinary	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLogService/lastSuccessfulBuild/artifact/bin/TUDLogService-release.apk>
+aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLogService/lastSuccessfulBuild/artifact/bin/TUDLogService-release.apk>
 
 ## Add Intents
 # :hasIntent	[
