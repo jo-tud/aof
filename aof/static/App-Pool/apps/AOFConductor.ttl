@@ -55,18 +55,18 @@ jenkins:AOFConductor
 
     rdfs:label "AOF Conductor" ;
     rdfs:comment
-        """
-        The *AOF Conductor* is an app that executes App-Ensembles on Android mobile devices.
-        """ ;
+"""
+The *AOF Conductor* is an app that executes App-Ensembles on Android mobile devices.
+""" ;
     ### Entry points
     aof:providesEntryPoint [
         a aof:EntryPoint, android:action ;
         android:name "org.aof.action.START_WORKFLOW" ;
         rdfs:label "Start Workflow" ;
         rdfs:comment
-            """
-            When called with no extras, the *StartWorkflow* action brings up an activity that enables the user to choose an App-Ensemble from the file system. When the *org.aof.extra.AE_FILE* extra is provided, the App-Ensemble is loaded immediately.
-            """ ;
+"""
+When called with no extras, the *StartWorkflow* action brings up an activity that enables the user to choose an App-Ensemble from the file system. When the *org.aof.extra.AE_FILE* extra is provided, the App-Ensemble is loaded immediately.
+""" ;
         aof:hasInput [
             a aof:Input, android:extra ;
             aof:isRequired "False";
@@ -87,9 +87,9 @@ jenkins:AOFConductor
         android:name "android.intent.action.MAIN" ;
         rdfs:label "Main entry point" ;
         rdfs:comment
-            """
-           This activity is the entry point for the application when it is used stand-alone. It does not expect to receive data.
-            """ ;
+"""
+This activity is the entry point for the application when it is used stand-alone. It does not expect to receive data.
+""" ;
      ] ;
 
 
