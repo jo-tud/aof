@@ -15,13 +15,8 @@ from aof.orchestration import ae_tools
 
 from aof.static.data.static_data import META
 
-config = simpleconfigparser()
-config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)+'/aof.conf')
-
 a_resolver = AssetResolver()
 static_dir = a_resolver.resolve('aof:static/').abspath()
-
-app_pool = config.Paths.app_ensemble_location
 
 log = logging.getLogger(__name__)
 
