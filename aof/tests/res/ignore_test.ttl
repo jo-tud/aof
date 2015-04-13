@@ -17,7 +17,7 @@
 @prefix android: <http://schemas.android.com/apk/res/android/> .
 
 # Unique prefix for THIS App-Ensemble
-@prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2#> .
+@prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2xyzTEST#> .
 
 # Creator
 <mailto:johannes.pfeffer@tu-dresden.de>    a foaf:Person ;
@@ -26,11 +26,9 @@
         foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php?id=jp> .
 
 # Conductor App
-<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/LastSuccessfulBuild>
+<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/LastSuccessfulBuildIGNORETEST>
     a aof:App, aof:AndroidApp ;
     aof:hasAppEnsembleRole aof:Conductor ;
-
-    aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
 
     aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/buildNumber> ;
     
@@ -45,8 +43,9 @@
         foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/2/2f/Bundesarchiv_Bild_183-R92264%2C_Herbert_von_Karajan.jpg>
      ] ;
 
-    aof:hasIcon "www.testicon.de" ;
+   # aof:hasIcon <> ;
 
+    dc:creator <mailto:johannes.pfeffer@tu-dresdden.de> ;
     dc:creator <mailto:johannes.pfeffer@tu-dresden.de> ;
 
     rdfs:label "AOF Conductor" ;

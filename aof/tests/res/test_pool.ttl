@@ -2,5 +2,6 @@
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 
 []
-	aof:hasAppDescription "tests/res/min_test.ttl" ;
-	aof:hasAppDescription "tests/res/max_test.ttl" .
+	aof:hasAppDescription "res/min_test.ttl" ;
+	aof:hasAppDescription "res/ignore_test.ttl" ;
+	aof:hasAppDescription "res/max_test.ttl" .
