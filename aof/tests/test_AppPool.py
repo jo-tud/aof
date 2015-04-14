@@ -11,7 +11,6 @@ class AppPoolTests(unittest.TestCase):
     """
 
     TODO's:
-    - wie kann ich die entry_points addressieren
     """
 
     def setUp(self):
