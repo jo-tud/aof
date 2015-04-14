@@ -46,7 +46,7 @@
         foaf:depiction <http://mustermann.de/maxApp/res/otherScreenshot2.jpg>
      ] ;
 
-    aof:hasIcon <http://mustermann.de/maxApp/res/icon.apk> ;
+    aof:hasIcon <http://mustermann.de/maxApp/res/icon.jpg> ;
 
     dc:creator <mailto:max@mustermann.de> ;
 
