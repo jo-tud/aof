@@ -138,7 +138,7 @@ class AppPoolTests(unittest.TestCase):
         maxPoints=self.ap.get_entry_points(self.maxApp)
         minPoints=self.ap.get_entry_points(self.minApp)
 
-        self.assertIs(maxPoints.__len__(),2,"Number of Creators (Conductor app) is not correct")
+        self.assertIs(maxPoints.__len__(),2,"Number of EntryPoints (MaxApp) is not correct")
 
         # Searching the right Entry Point of the maxApp for the validation of its content. If it is not found give out an error
         i=0
@@ -148,16 +148,52 @@ class AppPoolTests(unittest.TestCase):
                 break
             i+=1
         else:
-            self.assertTrue(False,"The Entry Points of the Conductor aren't loaded correctly")
+            self.assertTrue(False,"The Entry Points of the MaxApp aren't loaded correctly")
+
         # validation of the content
         self.assertEqual(entryPoint['label'],"Start Workflow")
 
-        self.assertIs(minPoints.__len__(),0,"Number of Creators (ComVantage IAF Login App (for the test case)) is not correct")
+        self.assertIs(entryPoint['inputs'].__len__(),2,"The Number if EntryPoint inputs is not correct!")
+        i=0
+        while (i<entryPoint['inputs'].__len__()):
+            if entryPoint['inputs'][i]['comment']=='**Testkommentar**':
+                break
+            i+=1
+        else:
+            self.assertTrue(False,"The Entry Points Inputs of the MaxApp aren't loaded correctly")
 
-        # Checking the inputs of the entrypoint which is checked
-
-        # Don't know how to call the input???
+        self.assertIs(minPoints.__len__(),0,"Number of EntryPoints (MinApp) is not correct")
 
     def test_hasget_exit_points_with_output_check_maxminApp(self):
         # Tests if the exit points are loaded correctly. Afterwards checks the Outputs for the Conductor exit point
-        pass
+        self.assertTrue(self.ap.has_exit_points(self.maxApp),"App with Creators returns None!")
+        self.assertFalse(self.ap.has_exit_points(self.minApp),"App with no Creators returns one!")
+
+        maxPoints=self.ap.get_exit_points(self.maxApp)
+        minPoints=self.ap.get_exit_points(self.minApp)
+
+        self.assertIs(maxPoints.__len__(),1,"Number of exitPoints (MaxApp) is not correct")
+
+        # Searching the right exit Point of the maxApp for the validation of its content. If it is not found give out an error
+        i=0
+        while (i<maxPoints.__len__()):
+            if maxPoints[i]['label']=='Main_exit_point':
+                exitPoint=maxPoints[i]
+                break
+            i+=1
+        else:
+            self.assertTrue(False,"The exit Points of the MaxApp aren't loaded correctly")
+
+        # validation of the content
+        self.assertEqual(exitPoint['comment'],"DescriptionExitPoint")
+
+        self.assertIs(exitPoint['outputs'].__len__(),1,"The Number if exitPoint outputs is not correct!")
+        i=0
+        while (i<exitPoint['outputs'].__len__()):
+            if exitPoint['outputs'][i]['data_type']=='http://www.w3.org/2001/XMLSchema#anyURI':
+                break
+            i+=1
+        else:
+            self.assertTrue(False,"The exit Points outputs of the MaxApp aren't loaded correctly")
+
+        self.assertIs(minPoints.__len__(),0,"Number of Creators (MinApp) is not correct")
