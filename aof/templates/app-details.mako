@@ -97,36 +97,33 @@
             <h2><a rel="dc:creator" href="${namespaces['DC'].creator}">Creators</a></h2>
         </div>
     </div>
-    <% i = 0%>
         % for creator in creators:
-            <% i = i if i < 2 else 0%>
-            ${'<div class="row">' if (i == 0) else '' | n}
-            <div class="small-12 medium-6 columns">
-                <table width="100%">
-                    <thead>
-                    <tr>
-                        <th width="200">Property</th>
-                        <th>Values</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><a href="${namespaces['FOAF'].name}">Name</a></td>
-                        <td><span property="foaf:name">${creator['name']}</span></td>
-                    </tr>
-                    <tr>
-                        <td><a href="${namespaces['FOAF'].mbox}">E-Mail</a></td>
-                        <td><a href="${creator['mbox']}" rel="foaf:mbox">${creator['mbox']}</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="${namespaces['FOAF'].homepage}">Homepage</a></td>
-                        <td><a href="${creator['homepage']}">${creator['homepage']}</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            ${'</div>' if (i == 1 or loop.last) else '' | n}
-            <% i += 1%>
+            ${'<div class="row">' if loop.even else '' | n}
+                <div class="small-12 medium-6 columns">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <th width="200">Property</th>
+                            <th>Values</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><a href="${namespaces['FOAF'].name}">Name</a></td>
+                            <td><span property="foaf:name">${creator['name']}</span></td>
+                        </tr>
+                        <tr>
+                            <td><a href="${namespaces['FOAF'].mbox}">E-Mail</a></td>
+                            <td><a href="${creator['mbox']}" rel="foaf:mbox">${creator['mbox']}</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="${namespaces['FOAF'].homepage}">Homepage</a></td>
+                            <td><a href="${creator['homepage']}">${creator['homepage']}</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            ${'</div>' if (loop.odd or loop.last) else '' | n}
         % endfor
 % endif
 
@@ -172,49 +169,45 @@
                     <h4><a href="${namespaces['AOF'].hasInput}">Inputs</a></h4>
                 </div>
             </div>
-            <% i = 0%>
                 % for input in ep['inputs'] :
-                    <% i = i if i < 2 else 0%>
-                    ${'<div class="row">' if (i == 0) else '' | n}
-                    <div class="small-12 medium-6 columns${' end' if loop.last else ''}">
-                        <table width="100%">
-                            <thead>
-                            <tr>
-                                <th width="200">Property</th>
-                                <th>Values</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="${namespaces['RDF'].type}">Type</a></td>
-                                <td>
-                                    %for type in input['types']:
-                                        <a href="${type}">${type}</a><br/>
-                                    %endfor
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['AOF'].isRequired}">Required</a></td>
-                                <td>${input['is_required']}</td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['ANDROID'].name}">android:name</a></td>
-                                <td>${input['android_name']}</td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['AOF'].datatype}">Data type</a></td>
-                                <td><a href="{input['data_type']}">${input['data_type']}</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
-                                <td class="markdown">${input['comment'].__str__()}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    ${'</div>' if (i == 1 or loop.last) else '' | n}
-                    <% i += 1%>
+                    ${'<div class="row">' if loop.even else '' | n}
+                        <div class="small-12 medium-6 columns${' end' if loop.last else ''}">
+                            <table width="100%">
+                                <thead>
+                                <tr>
+                                    <th width="200">Property</th>
+                                    <th>Values</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><a href="${namespaces['RDF'].type}">Type</a></td>
+                                    <td>
+                                        %for type in input['types']:
+                                            <a href="${type}">${type}</a><br/>
+                                        %endfor
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['AOF'].isRequired}">Required</a></td>
+                                    <td>${input['is_required']}</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['ANDROID'].name}">android:name</a></td>
+                                    <td>${input['android_name']}</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['AOF'].datatype}">Data type</a></td>
+                                    <td><a href="{input['data_type']}">${input['data_type']}</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
+                                    <td class="markdown">${input['comment'].__str__()}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    ${'</div>' if (loop.odd or loop.last) else '' | n}
                 % endfor
         % endif
     % endfor
@@ -259,49 +252,45 @@
                 </div>
             </div>
 
-            <% i = 0%>
                 % for output in ep['outputs'] :
-                    <% i = i if i < 2 else 0%>
-                    ${'<div class="row">' if (i == 0) else '' | n}
-                    <div i="${i}" class="small-12 medium-6 columns${' end' if loop.last else ''}">
-                        <table width="100%">
-                            <thead>
-                            <tr>
-                                <th width="200">Property</th>
-                                <th>Values</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="${namespaces['RDF'].type}">Type</a></td>
-                                <td>
-                                    %for type in output['types']:
-                                        <a href="${type}">${type}</a><br/>
-                                    %endfor
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['AOF'].isGuaranteed}">Guaranteed</a></td>
-                                <td>${output['is_guaranteed']}</td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['ANDROID'].name}">android:name</a></td>
-                                <td>${output['android_name']}</td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['AOF'].datatype}">Data type</a></td>
-                                <td><a href="{output['data_type']}">${input['data_type']}</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
-                                <td class="markdown">${output['comment']}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    ${'</div>' if (i == 1 or loop.last) else '' | n}
-                    <% i += 1%>
+                    ${'<div class="row">' if loop.even else '' | n}
+                        <div class="small-12 medium-6 columns${' end' if loop.last else ''}">
+                            <table width="100%">
+                                <thead>
+                                <tr>
+                                    <th width="200">Property</th>
+                                    <th>Values</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><a href="${namespaces['RDF'].type}">Type</a></td>
+                                    <td>
+                                        %for type in output['types']:
+                                            <a href="${type}">${type}</a><br/>
+                                        %endfor
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['AOF'].isGuaranteed}">Guaranteed</a></td>
+                                    <td>${output['is_guaranteed']}</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['ANDROID'].name}">android:name</a></td>
+                                    <td>${output['android_name']}</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['AOF'].datatype}">Data type</a></td>
+                                    <td><a href="{output['data_type']}">${input['data_type']}</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
+                                    <td class="markdown">${output['comment']}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    ${'</div>' if (loop.odd or loop.last) else '' | n}
                 % endfor
         % endif
     % endfor
