@@ -6,6 +6,8 @@
             <input class="livefilter-input" type="text" placeholder="Filter">
         </div>
     </li>
+    <li class="divider"></li>
+    <li><a href="#" id="action_update">UPDATE</a></li>
 </%block>
 
 <div class="row">

@@ -16,9 +16,16 @@ $(document).ajaxComplete(function () {
 });
 
 $(function() {
+
     var liveFilter = $('#app_table').liveFilter('.livefilter-input', 'tr.app_row', {
         filterChildSelector: 'td.app_name'
         }
     );
-    loadAP();
+
+    $('#action_update').click(function () {
+        $.get('/api/actions/update-app-pool', function(data) {
+        window.location.reload()
+        });
+    });
+
 });
