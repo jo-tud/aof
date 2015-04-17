@@ -7,16 +7,7 @@
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
 
 
-## URI of the Generic App that is described
-<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/>
+<http://mustermann.de/minApp>
 
-rdfs:label 		"ComVantage IAF Login App";
-aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk>
-
-## Add Intents
-# :hasIntent	[
-#  :intentPurpose	"ShowSimpleMessage";
-#  :intentString	"eu.comvantage.iaf.SIMPLE_MESSAGE"]
-
-## End of description
-. 
+rdfs:label 		"MinApp";
+aof:hasInstallableArtifact	<http://mustermann.de/minApp/res/install.apk>.

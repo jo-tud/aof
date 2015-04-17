@@ -20,41 +20,38 @@
 @prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2#> .
 
 # Creator
-<mailto:johannes.pfeffer@tu-dresden.de>    a foaf:Person ;
-        foaf:name "Johannes Pfeffer";
-        foaf:mbox <mailto:johannes.pfeffer@tu-dresden.de>;
-        foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php?id=jp> .
+<mailto:max@mustermann.de>    a foaf:Person ;
+        foaf:name "Mustermann";
+        foaf:mbox <mailto:max@mustermann.de>;
+        foaf:homepage <http://www.mustermann.de> .
 
-# Conductor App
-<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/LastSuccessfulBuild>
+# MaxApp
+<http://mustermann.de/maxApp>
     a aof:App, aof:AndroidApp ;
     aof:hasAppEnsembleRole aof:Conductor ;
 
-    aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
+    aof:hasInstallableArtifact	<http://mustermann.de/maxApp/res/install.apk> ;
 
     aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/buildNumber> ;
+    aof:version "1"^^xsd:integer ;
     
     aof:hasMainScreenshot [
-        foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg>
+        foaf:depiction <http://mustermann.de/maxApp/res/mainScreenshot.jpg>
     ] ;
     aof:hasScreenshot [
-        foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        foaf:depiction <http://mustermann.de/maxApp/res/otherScreenshot1.jpg> ;
         rdfs:comment "Main Screenshot"
      ] ;
     aof:hasScreenshot [
-        foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/2/2f/Bundesarchiv_Bild_183-R92264%2C_Herbert_von_Karajan.jpg>
+        foaf:depiction <http://mustermann.de/maxApp/res/otherScreenshot2.jpg>
      ] ;
 
-   # aof:hasIcon <> ;
+    aof:hasIcon <http://mustermann.de/maxApp/res/icon.jpg> ;
 
-    dc:creator <mailto:johannes.pfeffer@tu-dresdden.de> ;
-    dc:creator <mailto:johannes.pfeffer@tu-dresden.de> ;
+    dc:creator <mailto:max@mustermann.de> ;
 
-    rdfs:label "AOF Conductor" ;
-    rdfs:comment
-"""
-The *AOF Conductor* is an app that executes App-Ensembles on Android mobile devices.
-""" ;
+    rdfs:label "MaxApp" ;
+    rdfs:comment "App with all objects of the specification" ;
     ### Entry points
     aof:hasEntryPoint [
         a aof:EntryPoint, android:action ;
@@ -93,11 +90,11 @@ This activity is the entry point for the application when it is used stand-alone
     # Exit points
     aof:hasExitPoint [
     a aof:ExitPoint;
-    rdfs:label "Main exit point" ;
-    rdfs:comment "Description of the exit point" ;
+    rdfs:label "Main_exit_point" ;
+    rdfs:comment "DescriptionExitPoint" ;
     aof:hasOutput [
       a aof:Output, android:extra ;
-      rdfs:comment "Description of the output" ;
+      rdfs:comment "output2" ;
       aof:isGuaranteed "False" ;
       android:name "org.aof.extra.POI" ;
       aof:datatype xsd:anyURI
