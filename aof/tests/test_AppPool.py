@@ -18,10 +18,10 @@ class AppPoolTests(unittest.TestCase):
         self.config = testing.setUp()
         a = AssetResolver()
         self.path = a.resolve('aof:tests/res/test_pool.ttl').abspath()
-        self.ap=AppPool.Instance(source=self.path, format="turtle")
+        self.ap=AppPool.Instance()
+        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
         self.maxApp=URIRef("http://mustermann.de/maxApp")
         self.minApp=URIRef("http://mustermann.de/minApp")
-
 
     def tearDown(self):
         testing.tearDown()
@@ -36,7 +36,7 @@ class AppPoolTests(unittest.TestCase):
         self.ap.clear_app_pool()
         self.assertIs(self.ap.get_number_of_apps(), 0, "AppPool's Clear-Method is broken!")
 
-        self.ap.add_apps(source=self.path, format="turtle")
+        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
         self.assertIs(self.ap.get_number_of_apps(), 2, "AppPool's Update Method is broken!")
 
 
