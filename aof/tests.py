@@ -38,7 +38,8 @@ class ToolsTests(unittest.TestCase):
 
         self.assertRaises(TypeError, AOFGraph)
 
-        ap = AppPool.Instance(uri)
+        ap = AppPool.Instance()
+        ap.add_apps_from_app_pool_definition(uri)
         self.assertIsInstance(ap, Graph)
         self.assertIsInstance(ap.store, IOMemory)
 
