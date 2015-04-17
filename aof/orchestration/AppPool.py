@@ -13,52 +13,41 @@ __all__ = [
 @Singleton
 class AppPool(ConjunctiveGraph):
     init_source = None
-    def __init__(self, source=None, format=None):
-        """
-        @param string source: An InputSource, file-like object, or string. In the case of a string the string is the location of the source.
-        @param string format: Must be given if format can not be determined from source, 'xml', 'n3', 'nt', 'trix', and 'rdfa' are built in.
-        """
+    def __init__(self):
         g = AOFGraph.Instance()
         ConjunctiveGraph.__init__(self, store=g.store, identifier=AOF.AppPool)
 
         self.log = logging.getLogger(__name__)
-        if source:
-            if self.init_source:
-                self.log.error("App-Pool was already initialized from %s. Ignoring %s." % self.init_source, source)
-            else:
-                self.init_source = source
-                try:
-                    self.parse(source=source, format=format)
-                    self.log.info("Initialized App-Pool from %s. This should happen only once." % self.init_source)
-                except:
-                    self.log.error("There was a problem with initializing the App-Pool from %s" % self.init_source)
-                    self.log.error(Exception)
-        else:
-            self.log.debug("Initialized App-Pool. This should happen only once!")
 
-        def loadAppDescriptions(self):
-            for s, p, o in self.triples( (None, AOF.hasAppDescription, None) ):
-                try:
-                    self.parse(source=o, format=util.guess_format(o))
-                except SyntaxError as detail:
-                    self.log.error("There was a syntax error reading %s." %o)
-                    self.log.error(detail)
-                except Exception as detail:
-                    self.log.error("There was a problem reading %s." %o)
-                    self.log.error(detail)
+    def add_apps_from_app_pool_definition(self, source=None, format=None):
+        """
+        Adds apps to the pool from a given app-pool definition source which contains statements in the form:
+        [] aof:hasAppDescription "[URI to app-description]" .
 
-        loadAppDescriptions(self)
-    
-    ''' Returns the result of a query as JSON
-    '''
-    def update_app_pool(self, source=None, format=None):
-        self.init_source = None
-        self._clear_app_pool()
-        AppPool.Instance().__init__(source, format)
+        @param string source: An InputSource, file-like object, or string. In the case of a string the string is the location of the source.
+        @param string format: Must be given if format can not be determined from source, 'xml', 'n3', 'nt', 'trix', 'turtle' and 'rdfa' are built in.
+        """
+        try:
+            self.parse(source=source, format=format)
+            self.log.info("Added apps from %s." % source)
+        except:
+            self.log.error("There was a problem with adding apps to the App-Pool from %s" % self.init_source)
+            self.log.error(Exception)
 
-    ''' Clear the App-Pool
-    '''
-    def _clear_app_pool(self):
+        # Get app descriptions referenced in the App-Pool definition
+        for s, p, o in self.triples( (None, AOF.hasAppDescription, None) ):
+            try:
+                self.parse(source=o, format=util.guess_format(o))
+            except SyntaxError as detail:
+                self.log.error("There was a syntax error reading %s." %o)
+                self.log.error(detail)
+            except Exception as detail:
+                self.log.error("There was a problem reading %s." %o)
+                self.log.error(detail)
+
+    def clear_app_pool(self):
+        ''' Clear the App-Pool
+        '''
         self.remove((None, None, None))
 
     def get_number_of_apps(self):
