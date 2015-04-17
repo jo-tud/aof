@@ -97,8 +97,10 @@
             <h2><a rel="dc:creator" href="${namespaces['DC'].creator}">Creators</a></h2>
         </div>
     </div>
-    <div class="row">
+    <% i = 0%>
         % for creator in creators:
+            <% i = i if i < 2 else 0%>
+            ${'<div class="row">' if (i == 0) else '' | n}
             <div class="small-12 medium-6 columns">
                 <table width="100%">
                     <thead>
@@ -123,8 +125,9 @@
                     </tbody>
                 </table>
             </div>
+            ${'</div>' if (i == 1 or loop.last) else '' | n}
+            <% i += 1%>
         % endfor
-    </div>
 % endif
 
 % if details['has_entry_points']:
@@ -169,9 +172,11 @@
                     <h4><a href="${namespaces['AOF'].hasInput}">Inputs</a></h4>
                 </div>
             </div>
-            <div class="row">
+            <% i = 0%>
                 % for input in ep['inputs'] :
-                    <div class="small-12 medium-6 columns">
+                    <% i = i if i < 2 else 0%>
+                    ${'<div class="row">' if (i == 0) else '' | n}
+                    <div class="small-12 medium-6 columns${' end' if loop.last else ''}">
                         <table width="100%">
                             <thead>
                             <tr>
@@ -207,8 +212,10 @@
                             </tbody>
                         </table>
                     </div>
+
+                    ${'</div>' if (i == 1 or loop.last) else '' | n}
+                    <% i += 1%>
                 % endfor
-            </div>
         % endif
     % endfor
 % endif
@@ -251,9 +258,12 @@
                     <h4><a href="${namespaces['AOF'].hasOutput}">Outputs</a></h4>
                 </div>
             </div>
-            <div class="row">
+
+            <% i = 0%>
                 % for output in ep['outputs'] :
-                    <div class="small-12 medium-6 columns">
+                    <% i = i if i < 2 else 0%>
+                    ${'<div class="row">' if (i == 0) else '' | n}
+                    <div i="${i}" class="small-12 medium-6 columns${' end' if loop.last else ''}">
                         <table width="100%">
                             <thead>
                             <tr>
@@ -289,8 +299,10 @@
                             </tbody>
                         </table>
                     </div>
+
+                    ${'</div>' if (i == 1 or loop.last) else '' | n}
+                    <% i += 1%>
                 % endfor
-            </div>
         % endif
     % endfor
 % endif
