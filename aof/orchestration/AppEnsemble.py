@@ -46,7 +46,7 @@ class AppEnsemble(Graph):
         type(self).counter -= 1
         #os.remove(self.ae_file.name)
 
-
+    # TODO
     def add_apps(self,apps):
         for app in apps:
             pass
