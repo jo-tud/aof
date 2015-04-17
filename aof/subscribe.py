@@ -14,4 +14,5 @@ def after_application_created(event):
     a = AssetResolver()
     path = a.resolve('aof:static/App-Pool/pool.ttl').abspath()
 
-    AppPool.Instance(source=path,format="turtle")
+    ap = AppPool.Instance()
+    ap.add_apps_from_app_pool_definition(source=path, format="turtle")
