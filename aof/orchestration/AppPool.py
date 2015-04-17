@@ -49,6 +49,7 @@ class AppPool(ConjunctiveGraph):
         ''' Clear the App-Pool
         '''
         self.remove((None, None, None))
+        self.log.info("Cleared the App-Pool.")
 
     def get_number_of_apps(self):
         q = """
