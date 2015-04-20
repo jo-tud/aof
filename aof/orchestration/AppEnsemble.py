@@ -46,18 +46,20 @@ class AppEnsemble(Graph):
         type(self).counter -= 1
         #os.remove(self.ae_file.name)
 
+
     # TODO
-    def add_apps(self,apps):
-        for app in apps:
-            pass
+    #def add_apps(self,apps):
+    #    for app in apps:
+    #        pass
 
     # Wrapper for self.parse
     def load_ae_model(self,source):
         self.parse(source)
 
-    def remove_app_ensemble(self):
-        os.remove(self.ae_file.name)
-        del(self)
+    # TODO
+    #def remove_app_ensemble(self):
+    #    os.remove(self.ae_file.name)
+    #    del(self)
 
     def has_bpm(self):
         return self.has_file('ae.bpmn')
@@ -80,9 +82,9 @@ class AppEnsemble(Graph):
                     file = ae_pkg.read(filename)
                     ae_pkg.close()
                     return file
-                else:
-                    return 'File "%s" not found' % filename
-                    #TODO: Raise an appropriate error
+            else:
+                return 'File "%s" not found' % filename
+                #TODO: Raise an appropriate error
 
     def getRequiredApps(self):
         #TODO: Adapt to new ontology
