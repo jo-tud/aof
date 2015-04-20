@@ -10,17 +10,21 @@ from aof.orchestration.AppEnsemble import AppEnsemble
 
 class AppEnsembleTests(unittest.TestCase):
 
-    def setUp(self):
-        """
-        creates an test archive with test-files and saves it into the App-Ensembles Folder and then sets up
-        the AppEnsemble Instance
-        """
-        self.config = testing.setUp()
-        self.a = AssetResolver()
-        self.ae_name='testAppEnsemble'
+    ae_name='testAppEnsemble'
+    ae_test_origin_path='aof:tests/res/'
 
+    def setUp(self):
+        # sets up the AppEnsemble Instance with an Testarchive
+        self.config = testing.setUp()
+        self._createTestArchive()
+        self.ae=AppEnsemble(self.ae_name)
+
+    def _createTestArchive(self):
+        # creates an test archive with test-files and saves it into the App-Ensembles Folder
+
+        self.a = AssetResolver()
         #Path where the files for the zip are located
-        originsPath=self.a.resolve('aof:tests/res/').abspath()
+        originsPath=self.a.resolve(self.ae_test_origin_path).abspath()
 
         # Destination of the zip archive
         self.destTestArchive= self.a.resolve(AppEnsemble.ae_folder_path).abspath() + self.ae_name + AppEnsemble.ae_extension
@@ -34,9 +38,6 @@ class AppEnsembleTests(unittest.TestCase):
             zip_ae.write(originsPath + 'min_test.ttl','apps/min_test.ttl')
         finally:
             zip_ae.close()
-
-        # Set up the AppEnsemble
-        self.ae=AppEnsemble(self.ae_name)
 
     def tearDown(self):
         # Deletes the generated test archive
