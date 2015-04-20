@@ -15,6 +15,11 @@ __all__ = [
 # This class should accept a turtle file or a zip file
 class AppEnsemble(Graph):
     counter = 0
+    ae_extention='.ae'
+    ae_filename = 'ae.ttl'
+    bpmn_filename= 'ae.bpmn'
+    ae_folder_path = 'aof:static/App-Ensembles/'
+
     def __init__(self,identifier=None):
         type(self).counter += 1
         g = AOFGraph.Instance()
@@ -27,19 +32,19 @@ class AppEnsemble(Graph):
             assert isinstance(identifier, str)
             id = identifier
             Graph.__init__(self, store=g.store, identifier=id)
-            self.ae_pkg_path = self.a.resolve('aof:static/App-Ensembles/' + identifier + '.ae').abspath()
+            self.ae_pkg_path = self.a.resolve(self.ae_folder_path + identifier + self.ae_extention).abspath()
 
             if os.path.isfile(self.ae_pkg_path):
                 with zipfile.ZipFile(self.ae_pkg_path, "r") as ae_pkg:
                     for name in ae_pkg.namelist():
-                        if fnmatch.fnmatch(name, 'ae.ttl'):
-                            ae_model = ae_pkg.read('ae.ttl').decode()
+                        if fnmatch.fnmatch(name, self.ae_filename):
+                            ae_model = ae_pkg.read(self.ae_filename).decode()
                             self.parse(data=ae_model, format=util.guess_format(name))
                     ae_pkg.close()
 
         else:
             Graph.__init__(self, store=g.store)
-            self.ae_pkg_path = self.a.resolve('aof:static/App-Ensembles/').abspath() + self.identifier + ".ae"
+            self.ae_pkg_path = self.a.resolve(self.ae_folder_path).abspath() + self.identifier + self.ae_extention
             zipfile.ZipFile(self.ae_pkg_path, 'w')
 
     def __del__(self):
@@ -62,10 +67,10 @@ class AppEnsemble(Graph):
     #    del(self)
 
     def has_bpm(self):
-        return self.has_file('ae.bpmn')
+        return self.has_file(self.bpmn_filename)
 
     def get_bpm(self):
-        return self.get_file('ae.bpmn')
+        return self.get_file(self.bpmn_filename)
 
     def has_file(self,filename):
         with zipfile.ZipFile(self.ae_pkg_path, "r") as ae_pkg:
@@ -83,8 +88,8 @@ class AppEnsemble(Graph):
                     ae_pkg.close()
                     return file
             else:
-                return 'File "%s" not found' % filename
-                #TODO: Raise an appropriate error
+                raise IOError('File "%s" not found in AppEnsemble' % filename)
+                return False
 
     def getRequiredApps(self):
         #TODO: Adapt to new ontology
