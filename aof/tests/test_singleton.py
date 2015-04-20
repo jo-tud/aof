@@ -25,9 +25,6 @@ class SingletonTests(unittest.TestCase):
         - Multiexistence of Singletons
         - Callability without the Instance()-Funktion
         - Correctness of the __instancecheck__
-        To do:
-        - the correct reinitialization of the Singleton (Params should be renewed)
-        - Initialitation without and with parameters
     """
 
     def setUp(self):
