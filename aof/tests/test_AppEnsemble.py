@@ -23,13 +23,12 @@ class AppEnsembleTests(unittest.TestCase):
         originsPath=self.a.resolve('aof:tests/res/').abspath()
 
         # Destination of the zip archive
-        self.destTestArchive= self.a.resolve(AppEnsemble.ae_folder_path).abspath() + self.ae_name + AppEnsemble.ae_extention
+        self.destTestArchive= self.a.resolve(AppEnsemble.ae_folder_path).abspath() + self.ae_name + AppEnsemble.ae_extension
 
         # Creation of the zip archive
         zip_ae = zipfile.ZipFile(self.destTestArchive, mode='w')
         try:
             zip_ae.write(originsPath + 'test_ae.ttl',AppEnsemble.ae_filename)
-            zip_ae.write(originsPath + 'test_ae_empty.ttl','test_ae_empty.ttl')
             zip_ae.write(originsPath + 'test_ae.bpmn',AppEnsemble.bpmn_filename)
             zip_ae.write(originsPath + 'max_test.ttl','apps/max_test.ttl')
             zip_ae.write(originsPath + 'min_test.ttl','apps/min_test.ttl')

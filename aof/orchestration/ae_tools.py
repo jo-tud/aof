@@ -7,10 +7,10 @@ import os
 def initializeExistingAE():
     app_ensembles = dict()
     a = AssetResolver()
-    ae_dir = a.resolve('aof:static/App-Ensembles/').abspath()
+    ae_dir = a.resolve(AppEnsemble.ae_folder_path).abspath()
 
     for i in os.listdir(ae_dir):
-        if i.endswith(".ae"):
+        if i.endswith(AppEnsemble.ae_extension):
             i = i[:-3]
             g = AOFGraph.Instance()
             # Check if
@@ -25,10 +25,10 @@ def initializeExistingAE():
 def getNumberOfAE():
     ae_ctr = 0
     a = AssetResolver()
-    ae_dir = a.resolve('aof:static/App-Ensembles/').abspath()
+    ae_dir = a.resolve(AppEnsemble.ae_folder_path).abspath()
 
     for i in os.listdir(ae_dir):
-        if i.endswith(".ae"):
+        if i.endswith(AppEnsemble.ae_extension):
             ae_ctr += 1
     return ae_ctr
 
