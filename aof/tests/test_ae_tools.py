@@ -48,13 +48,3 @@ class ae_tools_Tests(AppEnsembleTests):
             list.append(key)
         list.sort()
         self.assertListEqual(list,['testAppEnsemble','testAppEnsemble2'],'AppEnsembles are not initialized properly')
-
-    def test_getRequiredApps(self):
-        ae=ae_tools.initializeExistingAE()
-        self.assertIs(len(ae_tools.getRequiredApps(ae['testAppEnsemble']).bindings),8)
-
-    # TODO: is this function senseful
-    def test_getAppDetails(self):
-        #details=ae_tools.getAppDetails('http://mustermann.de/maxApp')
-        #print(details)
-        pass
