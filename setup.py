@@ -16,7 +16,8 @@ requires = [
     'waitress',
     'rdflib',
     'nose',
-    'simpleconfigparser'
+    'simpleconfigparser',
+    'webtest'
     ]
 
 setup(name='AOF',
