@@ -23,7 +23,7 @@ log = logging.getLogger(__name__)
 namespaces = {'AOF': AOF, 'ANDROID': ANDROID, 'DC': DC, 'FOAF': FOAF, 'RDF': RDF, 'RDFS': RDFS}
 
 @view_config(route_name='home', renderer='templates/home.mako')
-def home_view(request):
+def home_view(context, request):
     ap = AppPool.Instance()
     number_of_apps = str(ap.get_number_of_apps())
     number_of_ae = str(ae_tools.getNumberOfAE())
@@ -36,12 +36,12 @@ def home_view(request):
             'unique_triples': unique_triples}
 
 @view_config(route_name='documentation', renderer='templates/documentation.mako')
-def documentation_view(request):
+def documentation_view(context, request):
     return {'meta': META,
             'page_title': 'Documentation'}
 
 @view_config(route_name='documentation-docs', renderer='templates/documentation-docs.mako')
-def documentation_docs_view(request):
+def documentation_docs_view(context,request):
     document = request.matchdict['document']
     if document == "app-description_specification":
         content = open(os.path.join(static_dir,'doc','PLT-Bericht AOF Language Specification v002.docx.html')).read()
@@ -51,7 +51,7 @@ def documentation_docs_view(request):
             'content': content}
 
 class AppPoolViews():
-    def __init__(self, request):
+    def __init__(self,context, request):
         self.request = request
         #log.debug("Called __init__() of class AppPoolViews()")
 
@@ -190,7 +190,7 @@ class AppEnsembleViews():
 
     ae_dict = None
 
-    def __init__(self, request):
+    def __init__(self,context, request):
         self.request = request
         if not type(self).ae_dict:
             type(self).ae_dict = ae_tools.initializeExistingAE()
