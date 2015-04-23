@@ -15,8 +15,6 @@ requires = [
     'pyramid_debugtoolbar',
     'waitress',
     'rdflib',
-    'nose',
-    'simpleconfigparser',
     'webtest'
     ]
 
