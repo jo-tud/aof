@@ -14,7 +14,7 @@
 	aof:hasAppDescription "aof/static/App-Pool/apps/IAFSkeletonApp.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDBaracodaTagReader.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDDeviceExplorer.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDLiveDataViewer.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/TUDLiveDataViewer.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDLogService.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDMultipleSensorSelector.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDNeighbourhoodBrowser.ttl" ;
