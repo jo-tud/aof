@@ -24,10 +24,10 @@ class AppEnsembleTests(unittest.TestCase):
 
         self.a = AssetResolver()
         #Path where the files for the zip are located
-        originsPath=self.a.resolve(self.ae_test_origin_path).abspath()
+        originsPath=self.a.resolve(AppEnsembleTests.ae_test_origin_path).abspath()
 
         # Destination of the zip archive
-        self.destTestArchive= self.a.resolve(AppEnsemble.ae_folder_path).abspath() + self.ae_name + AppEnsemble.ae_extension
+        self.destTestArchive= self.a.resolve(AppEnsemble.ae_folder_path).abspath() + AppEnsembleTests.ae_name + AppEnsemble.ae_extension
 
         # Creation of the zip archive
         zip_ae = zipfile.ZipFile(self.destTestArchive, mode='w')
@@ -39,10 +39,13 @@ class AppEnsembleTests(unittest.TestCase):
         finally:
             zip_ae.close()
 
+    def _deleteTestArchive(self):
+        os.remove(self.destTestArchive)
+
     def tearDown(self):
         # Deletes the generated test archive
         testing.tearDown()
-        os.remove(self.destTestArchive)
+        self._deleteTestArchive()
 
     def test_hasget_bpm(self):
         self.assertTrue(self.ae.has_bpm())
