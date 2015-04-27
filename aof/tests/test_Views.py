@@ -9,10 +9,11 @@ from aof.tests.test_AppEnsemble import AppEnsembleTests
 from aof.orchestration.AppEnsemble import AppEnsemble
 
 # TODO: Is this also important to test?
+
 '''
 class ViewTest_home_view(unittest.TestCase):
 
-    # TODO: Make Integration Test work!
+
     def setUp(self):
         from pyramid.path import AssetResolver
         from aof.orchestration.AppPool import AppPool
@@ -149,3 +150,22 @@ class FunctionalTests(unittest.TestCase):
         self._status_code_test(res)
         self.assertTrue(b'seem to be an Android App' in res.body)
 
+# TODO : Are these views used?
+class ApiTests(unittest.TestCase):
+    def setUp(self):
+        self.config = testing.setUp()
+
+    def tearDown(self):
+        testing.tearDown()
+
+    def test_ae_get_bpmn_view(self):
+        pass
+
+    def test_api_ae_json_view(self):
+        pass
+
+    def test_ae_get_ae_pkg_view(self):
+        pass
+
+    def test_action_update_app_ensembles_view(self):
+        pass
