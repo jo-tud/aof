@@ -35,6 +35,7 @@ class ae_tools_Tests(AppEnsembleTests):
     def tearDown(self):
         # Deletes the generated test archive
         testing.tearDown(self)
+        AppEnsembleTests.ae_name='testAppEnsemble2'
 
     def test_getNumberOfAE(self):
         # Tests whether the amount of AEs in the Test folder is 2
