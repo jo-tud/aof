@@ -116,3 +116,10 @@ class AppEnsembleManager():
         except KeyError as detail:
             self.log.error('AppEnsemble "{}" was not found in the AppEnsemblePool!'.format(detail))
             return None
+
+    def get_all_AppEnsembles(self):
+        """
+        Returns the whole AppEnsemble-Pool
+        :return: dictionary
+        """
+        return self.pool

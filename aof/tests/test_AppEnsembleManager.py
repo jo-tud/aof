@@ -43,3 +43,8 @@ class AppEnsembleManagerTests(unittest.TestCase):
 
         #self.assertRaises(KeyError,self.aem.get_AppEnsemble,"testAppEnsembleNotExist")
         self.assertIsInstance(self.aem.get_AppEnsemble("testAppEnsemble"),AppEnsemble)
+
+    def test_get_all(self):
+        pool=self.aem.get_all_AppEnsembles()
+        self.assertTrue(isinstance(pool,dict))
+        self.assertGreaterEqual(len(pool),1)
