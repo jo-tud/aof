@@ -8,6 +8,7 @@ from rdflib import URIRef
 from simpleconfigparser import simpleconfigparser
 from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppPool import AppPool
+from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, FOAF, RDF, RDFS
 
@@ -191,9 +192,10 @@ class AppEnsembleViews():
     ae_dict = None
 
     def __init__(self,context, request):
+        self.aemanager=AppEnsembleManager.Instance()
         self.request = request
         if not type(self).ae_dict:
-            type(self).ae_dict = ae_tools.initializeExistingAE()
+            type(self).ae_dict = self.aemanager.get_all_AppEnsembles()
 
     @view_config(route_name='app-ensembles', renderer='templates/ae.mako')
     def app_ensembles_view(request):
@@ -315,6 +317,7 @@ class AppEnsembleViews():
 
     @view_config(route_name='action-update-ap-ensembles')
     def action_update_app_ensembles_view(self):
-        type(self).ae_dict = ae_tools.initializeExistingAE()
-        resp = str(len(self.ae_dict))
+        self.aemanager.reload()
+        type(self).ae_dict = self.aemanager.get_all_AppEnsembles()
+        resp = str(len(self.aemanager))
         return Response(resp)
