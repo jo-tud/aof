@@ -48,3 +48,13 @@ class AppEnsembleManagerTests(unittest.TestCase):
         pool=self.aem.get_all_AppEnsembles()
         self.assertTrue(isinstance(pool,dict))
         self.assertGreaterEqual(len(pool),1)
+
+    def test_reload(self):
+        originlen=len(self.aem)
+        AppEnsembleTests._deleteTestArchive(self)
+        self.aem.reload()
+        newlen=len(self.aem)
+        AppEnsembleTests._createTestArchive(self)
+        self.aem.reload()
+        self.assertNotEqual(originlen,newlen)
+

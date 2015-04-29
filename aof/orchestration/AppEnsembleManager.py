@@ -61,7 +61,7 @@ class AppEnsembleManager():
 
     def _load_AppEnsembles(self):
         """
-        Indexes the AppEnsemble-Directory for files with the AppEnsemble-Extension and add them to the AppEnsemblePool.
+        Indexes the AppEnsemble-Directory for files with the AppEnsemble-Extension and ADDs them to the AppEnsemblePool.
         :return:None
         """
         try:
@@ -94,6 +94,15 @@ class AppEnsembleManager():
         :return: None
         """
         self._ae_folder_path=path
+        self._load_AppEnsembles()
+        return None
+
+    def reload(self):
+        """
+        CLEARs the AppEnsemble-Pool and reloads the AppEnsembles into the pool.
+        :return:None
+        """
+        self.pool.clear()
         self._load_AppEnsembles()
         return None
 
