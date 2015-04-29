@@ -6,55 +6,7 @@ from pyramid.events import ApplicationCreated
 from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from aof.tests.test_AppEnsemble import AppEnsembleTests
-from aof.orchestration.AppEnsemble import AppEnsemble
 
-# TODO: Is this also important to test?
-
-'''
-class ViewTest_home_view(unittest.TestCase):
-
-
-    def setUp(self):
-        from pyramid.path import AssetResolver
-        from aof.orchestration.AppPool import AppPool
-
-        #import aof
-
-        self.config = testing.setUp()
-        #self.config.include('aof')
-
-        a = AssetResolver()
-        self.path = a.resolve('aof:tests/res/test_pool.ttl').abspath()
-        self.ap=AppPool.Instance()
-        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
-
-
-    def tearDown(self):
-        testing.tearDown()
-
-    def test_it(self):
-        request = testing.DummyRequest()
-        context = testing.DummyResource()
-        response = views.home_view(context,request)
-        #print(response.status)
-        self.assertTrue(int(response['number_of_apps'])>0,'Home View: AppPool is not initialized correctly!')
-        self.assertIsInstance(response['number_of_apps'],str,'Home View: Number of Apps is not a string!')
-
-        self.assertTrue(int(response['number_of_ae'])>0,'Home View:AppEnsembles are not initialized correctly!')
-        self.assertIsInstance(response['number_of_ae'],str,'Home View: Number of AppEnsembles is not a string!')
-
-        self.assertTrue(int(response['unique_triples'])>0,'Home View:Unique Triples are not initialized correctly!')
-        self.assertIsInstance(response['unique_triples'],str,'Home View: Number of Unique Triples is not a string!')
-
-        self.assertTrue(len(response['page_title'])>0,'Home View:Page Title does not exist!')
-        self.assertIsInstance(response['page_title'],str,'Home View: Page Title is not a string!')
-
-        self.assertIsInstance(response['meta']['acronym'],str,'Home View: Meta-acronym is not a string!')
-        self.assertTrue(len(response['meta']['acronym'])>0,'Home View:Meta-acronym does not exist!')
-
-        self.assertTrue(len(response['meta']['appname'])>0,'Home View:Meta-appname does not exist!')
-        self.assertIsInstance(response['meta']['appname'],str,'Home View: meta-appname is not a string!')
-'''
 
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
@@ -149,23 +101,3 @@ class FunctionalTests(unittest.TestCase):
         res =self.testapp.get('/app-pool/details.html?URI=http://abc')
         self._status_code_test(res)
         self.assertTrue(b'seem to be an Android App' in res.body)
-
-# TODO : Are these views used?
-class ApiTests(unittest.TestCase):
-    def setUp(self):
-        self.config = testing.setUp()
-
-    def tearDown(self):
-        testing.tearDown()
-
-    def test_ae_get_bpmn_view(self):
-        pass
-
-    def test_api_ae_json_view(self):
-        pass
-
-    def test_ae_get_ae_pkg_view(self):
-        pass
-
-    def test_action_update_app_ensembles_view(self):
-        pass
