@@ -6,6 +6,7 @@ This file should contain any event listeners for pyramid
 from pyramid.events import ApplicationCreated
 from pyramid.events import subscriber
 from aof.orchestration.AppPool import AppPool
+from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from pyramid.path import AssetResolver
 
 @subscriber(ApplicationCreated)
@@ -16,3 +17,5 @@ def after_application_created(event):
 
     ap = AppPool.Instance()
     ap.add_apps_from_app_pool_definition(source=path, format="turtle")
+
+    aem=AppEnsembleManager.Instance()
