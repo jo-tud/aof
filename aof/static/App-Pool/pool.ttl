@@ -24,7 +24,7 @@
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDRoutingApp.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDSensorSelection.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDSimpleList.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDSimpleMessage.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/TUDSimpleMessage.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDSparqlTest.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDTaskReport.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/TUDTimeSeries.ttl" .
