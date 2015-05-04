@@ -1,6 +1,7 @@
 from rdflib import ConjunctiveGraph, util, URIRef
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AOFGraph import AOFGraph
+from pyramid.path import AssetResolver
 from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, DCTERMS, FOAF, RDF, RDFS
 
@@ -35,8 +36,16 @@ class AppPool(ConjunctiveGraph):
             self.log.error(Exception)
 
         # Get app descriptions referenced in the App-Pool definition
+        a=AssetResolver('aof')
         for s, p, o in self.triples( (None, AOF.hasAppDescription, None) ):
             try:
+                # Checking whether the path is relative or not. If is then resolve it with AssetResolver to avoid unittest-Problems
+                # TODO: fits only for the relative pathes "aof/static/..." or "static/..."
+                if not o.startswith('http://'):
+                    if o.startswith('aof/'):
+                        o=o.replace('aof/','',1)
+                    o=a.resolve('aof:{}'.format(o)).abspath()
+
                 self.parse(source=o, format=util.guess_format(o))
             except SyntaxError as detail:
                 self.log.error("There was a syntax error reading %s." %o)
