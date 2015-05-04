@@ -36,12 +36,11 @@ class AppEnsembleManagerTests(unittest.TestCase):
         self.assertEqual(AssetResolver().resolve(new_path).abspath(),self.aem.get_ae_folder_path())
         self.aem.set_ae_folder_path(origin_path)
 
-    #TODO KeyError wird nicht ausgelöst
     def test_hasget_AppEnsemble(self):
         self.assertFalse(self.aem.has_AppEnsemble("testAppEnsembleNotExist"))
         self.assertTrue(self.aem.has_AppEnsemble("testAppEnsemble"))
 
-        #self.assertRaises(KeyError,self.aem.get_AppEnsemble,"testAppEnsembleNotExist")
+        self.assertIsNone(self.aem.get_AppEnsemble("testAppEnsembleNotExist"))
         self.assertIsInstance(self.aem.get_AppEnsemble("testAppEnsemble"),AppEnsemble)
 
     def test_get_all(self):
