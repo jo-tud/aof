@@ -123,7 +123,7 @@ class AppEnsembleManager():
         try:
             return self.pool[identifier]
         except KeyError as detail:
-            self.log.error('AppEnsemble "{}" was not found in the AppEnsemblePool!'.format(detail))
+            self.log.info('AppEnsemble "{}" was not found in the AppEnsemblePool!'.format(detail))
             return None
 
     def get_all_AppEnsembles(self):

@@ -251,6 +251,7 @@ class AppEnsembleViews():
             }
         else:
             response = HTTPNotFound('The App-Ensemble "%s" could not be found.' % ae_uri)
+            return response
 
     @view_config(route_name='ae-bpmn')
     def ae_get_bpmn_view(self):
