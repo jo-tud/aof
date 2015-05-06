@@ -7,9 +7,9 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyBirthwort/lastSuccessfulBuild/artifact/AOFDummyBirthwort/AOFDummyBirthwort.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/AOFDummyAconiteRoot.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNeighbourhoodBrowser2/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser2/TUDNeighbourhoodBrowser2.ttl" ;
-	aof:hasAppDescription "apps/AppEnsembleInstaller.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/AppEnsembleInstaller.ttl" ;
 	aof:hasAppDescription "apps/AOFConductor.ttl" ;
-	aof:hasAppDescription "apps/IAFLogin.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFLogin/lastSuccessfulBuild/artifact/IAFLogin/IAFLogin.ttl" ;
 	aof:hasAppDescription "apps/IAFManagementComponent.ttl" ;
 	aof:hasAppDescription "apps/IAFSkeletonApp.ttl" ;
 	aof:hasAppDescription "apps/TUDBaracodaTagReader.ttl" ;
@@ -23,8 +23,8 @@
 	aof:hasAppDescription "apps/TUDPOIMap.ttl" ;
 	aof:hasAppDescription "apps/TUDRoutingApp.ttl" ;
 	aof:hasAppDescription "apps/TUDSensorSelection.ttl" ;
-	aof:hasAppDescription "apps/TUDSimpleList.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/TUDSimpleList.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/TUDSimpleMessage.ttl" ;
-	aof:hasAppDescription "apps/TUDSparqlTest.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSparqlTest/lastSuccessfulBuild/artifact/TUDSparqlTest/TUDSparqlTest.ttl" ;
 	aof:hasAppDescription "apps/TUDTaskReport.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/TUDTimeSeries.ttl" .
