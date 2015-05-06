@@ -12,6 +12,7 @@ class FunctionalTests(unittest.TestCase):
     def setUp(self):
         from aof import main
 
+
         a = AssetResolver()
         path = a.resolve('aof:tests/res/test_pool.ttl').abspath()
         ap = AppPool.Instance()
@@ -24,6 +25,8 @@ class FunctionalTests(unittest.TestCase):
         app = main({})
         from webtest import TestApp
         self.testapp = TestApp(app)
+
+
 
 
     def tearDown(self):

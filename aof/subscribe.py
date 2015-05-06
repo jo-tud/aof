@@ -9,7 +9,7 @@ from aof.orchestration.AppPool import AppPool
 from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from pyramid.path import AssetResolver
 from pyramid.threadlocal import get_current_registry
-
+"""
 @subscriber(ApplicationCreated)
 def after_application_created(event):
     # Initialize App-Pool
@@ -23,4 +23,4 @@ def after_application_created(event):
     ap.add_apps_from_app_pool_definition(source=path, format="turtle")
 
     aem=AppEnsembleManager.Instance()
-    aem.set_ae_folder_path(settings['app_ensemble_folder'])
+    aem.set_ae_folder_path(settings['app_ensemble_folder'])"""

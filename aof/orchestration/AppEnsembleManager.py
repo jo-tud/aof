@@ -3,6 +3,7 @@ __author__ = 'Korbinian Hörfurter'
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AppEnsemble import AppEnsemble
 from pyramid.path import AssetResolver
+from pyramid.threadlocal import get_current_registry
 
 import os
 import logging
@@ -28,7 +29,12 @@ class AppEnsembleManager():
         :return:None
         """
         self.log = logging.getLogger(__name__)
+
         self._ae_folder_path_backup=self._ae_folder_path
+
+        registry = get_current_registry()
+        if registry is None:
+            self._ae_folder_path=registry.settings['app_ensemble_folder']
 
         self.pool=dict()
         self.a = AssetResolver()
