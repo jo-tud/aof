@@ -234,6 +234,7 @@ class IntegrationViewTests(unittest.TestCase):
 
         response = views.AppEnsembleViews(self.context, self.request).ae_details_view()
         self.assertEqual(response['ae_uri'], 'testAppEnsemble')
+
         #self.assertTrue(len(response['ae_apps']) > 1)
 
         self._standard_tests(response)
