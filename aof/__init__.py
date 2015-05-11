@@ -11,7 +11,6 @@ def main(global_config, **settings):
     # session factory
     session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
 
-    config = Configurator(settings=settings)
     config = Configurator(settings=settings, session_factory=session_factory)
     config.include('pyramid_chameleon')
     config.include('pyramid_mako')
@@ -31,8 +30,8 @@ def main(global_config, **settings):
     config.add_route('app-details','/app-pool/details.html')
 
     # Documentation
-    config.add_route('documentation', '/documentation.html')
-    config.add_route('documentation-docs', '/doc/{document}.html')
+    config.add_route('documentation', '/docs/index.html')
+    config.add_route('documentation-docs', '/docs/{document}.html')
 
     # API
     ## JSON
