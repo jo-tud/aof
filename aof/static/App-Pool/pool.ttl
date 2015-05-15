@@ -10,9 +10,9 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/AppEnsembleInstaller.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/AOFConductor.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFLogin/lastSuccessfulBuild/artifact/IAFLogin/IAFLogin.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/IAFManagementComponent.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFManagementComponent/lastSuccessfulBuild/artifact/IAFManagementComponent.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFSkeletonApp/lastSuccessfulBuild/artifact/IAFSkeletonApp/IAFSkeletonApp.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDBaracodaTagReader.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDBaracodaTagReader/lastSuccessfulBuild/artifact/TUDBaracodaTagReader.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDDeviceExplorer.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/TUDLiveDataViewer.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDLogService.ttl" ;
