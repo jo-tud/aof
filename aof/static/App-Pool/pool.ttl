@@ -13,7 +13,7 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFManagementComponent/lastSuccessfulBuild/artifact/IAFManagementComponent.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFSkeletonApp/lastSuccessfulBuild/artifact/IAFSkeletonApp/IAFSkeletonApp.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDBaracodaTagReader/lastSuccessfulBuild/artifact/TUDBaracodaTagReader.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDDeviceExplorer.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDDeviceExplorer/lastSuccessfulBuild/artifact/TUDDeviceExplorer/TUDDeviceExplorer.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/TUDLiveDataViewer.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDLogService.ttl" ;
 	aof:hasAppDescription "aof/static/App-Pool/apps/TUDMultipleSensorSelector.ttl" ;
