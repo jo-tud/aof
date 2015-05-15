@@ -2,8 +2,10 @@ from rdflib import ConjunctiveGraph, util, URIRef
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AOFGraph import AOFGraph
 from pyramid.path import AssetResolver
+import os.path
 from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, DCTERMS, FOAF, RDF, RDFS
+from pyramid.threadlocal import get_current_registry
 
 import logging
 
@@ -13,12 +15,21 @@ __all__ = [
 
 @Singleton
 class AppPool(ConjunctiveGraph):
-    init_source = None
+    init_source = "aof:static/App-Pool/pool.ttl"
     def __init__(self):
         g = AOFGraph.Instance()
         ConjunctiveGraph.__init__(self, store=g.store, identifier=AOF.AppPool)
 
         self.log = logging.getLogger(__name__)
+
+        registry = get_current_registry()
+        if registry is None:
+            self.init_source=registry.settings['app_pool_path']
+
+        a = AssetResolver()
+        path = a.resolve(self.init_source).abspath()
+
+        self.add_apps_from_app_pool_definition(source=path, format="turtle")
 
     def add_apps_from_app_pool_definition(self, source=None, format=None):
         """
@@ -28,23 +39,27 @@ class AppPool(ConjunctiveGraph):
         @param string source: An InputSource, file-like object, or string. In the case of a string the string is the location of the source.
         @param string format: Must be given if format can not be determined from source, 'xml', 'n3', 'nt', 'trix', 'turtle' and 'rdfa' are built in.
         """
+        self.clear_app_pool()
+
+        if source==None:
+            source=self.init_source
         try:
             self.parse(source=source, format=format)
             self.log.info("Added apps from %s." % source)
         except:
-            self.log.error("There was a problem with adding apps to the App-Pool from %s" % self.init_source)
+            self.log.error("There was a problem with adding apps to the App-Pool from %s" % source)
             self.log.error(Exception)
 
-        # Get app descriptions referenced in the App-Pool definition
-        a=AssetResolver('aof')
+        basedir=source.rpartition("\\")
+        basedir=basedir[0]+basedir[1]
+
+        a=AssetResolver()
+
         for s, p, o in self.triples( (None, AOF.hasAppDescription, None) ):
             try:
-                # Checking whether the path is relative or not. If is then resolve it with AssetResolver to avoid unittest-Problems
-                # TODO: fits only for the relative pathes "aof/static/..." or "static/..."
-                if not o.startswith('http://'):
-                    if o.startswith('aof/'):
-                        o=o.replace('aof/','',1)
-                    o=a.resolve('aof:{}'.format(o)).abspath()
+                # Checking whether the path is relative or not. If is then resolve it
+                if not (o.startswith('http://') or o.startswith('/')):
+                    o=a.resolve(os.path.abspath(basedir+o)).abspath()
 
                 self.parse(source=o, format=util.guess_format(o))
             except SyntaxError as detail:
@@ -53,6 +68,8 @@ class AppPool(ConjunctiveGraph):
             except Exception as detail:
                 self.log.error("There was a problem reading %s." %o)
                 self.log.error(detail)
+
+
 
     def clear_app_pool(self):
         ''' Clear the App-Pool

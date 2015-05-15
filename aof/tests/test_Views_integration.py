@@ -7,6 +7,7 @@ from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from aof.tests.test_AppEnsemble import AppEnsembleTests
 from aof.orchestration.AppEnsemble import AppEnsemble
+from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from webob.multidict import MultiDict
 from pyramid.response import Response,FileResponse
 from pyramid.httpexceptions import HTTPNotFound
@@ -56,22 +57,15 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertIsInstance(page_title, str, 'Page Title is not a string!')
 
     def _standard_tests(self, response):
-        """
-        Tests page title and meta-data
-        :param response:
-        :return:
-        """
+        #Tests page title and meta-data
+
         self._pagetitle_test(response['page_title'])
         self._meta_test(response['meta'])
 
     # Private functionality: URI-Testing
 
     def _URI_error_tests(self,view_to_test,delete_tests=list()):
-        """
-        Testing for all URI-Errors
-        :param view_to_test:
-        :return:
-        """
+        #Testing for all URI-Errors
         self.view_to_test=view_to_test
         test_list=['_noURI_test','_emptyURI_test','_tooMuchURI_butOK_test','_tooMuchURI_test','_wrongURI_test']
 
@@ -160,11 +154,8 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertRaises(KeyError,views.documentation_docs_view,self.context, self.request)
 
     def test_views_for_URIError(self):
-        """
-        tests wrong URIS for all the views with an request URI
-        :return:
-        """
 
+        #tests wrong URIS for all the views with an request URI
         test_views=dict()
         test_views["AppEnsembleViews"]=list()
         test_views["AppPoolViews"]=list()
@@ -215,19 +206,19 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertEqual(response['details']['icon'],'http://mustermann.de/maxApp/res/icon.jpg')
         self._standard_tests(response)
 
-
+    #TODO View seem to be broken. Check and adapt the test
     def test_api_ap_json_view(self):
         response = views.AppPoolViews(self.context, self.request).api_ap_json_view()
         self.assertTrue('json' in response)
         response=response['json']
-        #TODO noch response auswerten
-        #print(response)
 
-    # TODO: improve test
-    def test_action_update_app_pool_view(self):
+
+    def test_zz_action_update_app_pool_view(self):
+        self.request.registry.settings['app_pool_path']='aof:tests/res/test_pool.ttl'
         response = views.AppPoolViews(self.context, self.request).action_update_app_pool_view()
-        # TODO AppPool anzahl mit response vergleichen
         self.assertIsInstance(response,Response)
+        ap=AppPool.Instance()
+        self.assertTrue(int(response.body)==ap.get_number_of_apps())
 
     # AppEnsemble Views
 
@@ -235,7 +226,7 @@ class IntegrationViewTests(unittest.TestCase):
         response = views.AppEnsembleViews(self.context, self.request).app_ensembles_view()
         self._standard_tests(response)
 
-
+    #TODO geht nicht mehr
     def test_ae_details_view(self):
 
         self.request.params = MultiDict()
@@ -243,10 +234,10 @@ class IntegrationViewTests(unittest.TestCase):
 
         response = views.AppEnsembleViews(self.context, self.request).ae_details_view()
         self.assertEqual(response['ae_uri'], 'testAppEnsemble')
-        #TODO self.assertTrue(len(response['ae_apps']) > 1)
+
+        #self.assertTrue(len(response['ae_apps']) > 1)
 
         self._standard_tests(response)
-
 
     def test_ae_visualize_bpm_view(self):
         self.request.params = MultiDict()
@@ -268,7 +259,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertTrue(int(response.headers.get('Content-Length'))<100)
         self.assertTrue(".bpmn" in response.headers.get('Content-Disposition'))
 
-
+    #TODO geht nicht mehr
     def test_api_ae_json_view(self):
         response = views.AppEnsembleViews(self.context, self.request).api_ae_json_view()
         del(response['json']['5G-Demo'])
@@ -277,7 +268,8 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertTrue('testAppEnsemble' in response)
         response=response['testAppEnsemble']
         self.assertEqual(response['uri'],'testAppEnsemble')
-        #TODO self.assertTrue(len(response['apps'])>1000)
+        #self.assertTrue(len(response['apps'])>1000)
+
 
 
     def test_ae_get_ae_pkg_view(self):
@@ -290,10 +282,12 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertTrue(".ae" in response.headers.get('Content-Disposition'))
 
 
-    # TODO: improve test
-    def test_action_update_app_ensembles_view(self):
+    def test_zz_action_update_app_ensembles_view(self):
         response = views.AppEnsembleViews(self.context, self.request).action_update_app_ensembles_view()
         self.assertIsInstance(response,Response)
+        aem=AppEnsembleManager.Instance()
+        self.assertTrue(int(response.body)==len(aem))
+
 
 
 
