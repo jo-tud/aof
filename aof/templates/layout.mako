@@ -25,7 +25,7 @@
                     <ul class="left">
                         <li><a href="/app-pool.html">App-Pool</a></li>
                         <li><a href="/app-ensembles.html">App-Ensembles</a></li>
-                        <li><a href="/documentation.html">Documentation</a></li>
+                        <li><a href="/docs/index.html">Documentation</a></li>
                     </ul>
                     <ul class="right">
                         <%block name="top_bar_actions" />

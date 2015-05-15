@@ -23,13 +23,11 @@ class AppPool(ConjunctiveGraph):
         self.log = logging.getLogger(__name__)
 
         registry = get_current_registry()
-        if registry is None:
+        if (registry.settings is not None) and ('app_pool_path' in registry.settings):
             self.init_source=registry.settings['app_pool_path']
 
-        a = AssetResolver()
-        path = a.resolve(self.init_source).abspath()
 
-        self.add_apps_from_app_pool_definition(source=path, format="turtle")
+        self.add_apps_from_app_pool_definition(source=self.init_source, format="turtle")
 
     def add_apps_from_app_pool_definition(self, source=None, format=None):
         """
@@ -44,6 +42,8 @@ class AppPool(ConjunctiveGraph):
         if source==None:
             source=self.init_source
         try:
+            a = AssetResolver()
+            source = a.resolve(source).abspath()
             self.parse(source=source, format=format)
             self.log.info("Added apps from %s." % source)
         except:
