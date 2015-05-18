@@ -69,7 +69,7 @@ class AppPoolTests(unittest.TestCase):
 
     def test_get_binary_uri_maxApp(self):
         # test if the Binary uri of the maxApp is correct .
-        self.assertEqual(self.ap.get_binary_uri(self.maxApp),"http://mustermann.de/maxApp/res/install.apk","An App with an Binary Uri returns None!")
+        self.assertEqual(self.ap.get_install_uri(self.maxApp),"http://mustermann.de/maxApp/res/install.apk","An App with an Binary Uri returns None!")
 
     def test_hasget_role_maxminApp(self):
         # Tests if the Roles are loaded correctly

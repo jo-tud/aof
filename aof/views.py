@@ -141,7 +141,7 @@ class AppPoolViews(PageViews):
                 'uri': app_uri,
                 'name': self.pool.get_name(app_uri),
                 'icon': self.pool.get_icon_uri(app_uri),
-                'binary': self.pool.get_binary_uri(app_uri)
+                'binary': self.pool.get_install_uri(app_uri)
             }
             apps.append(app)
 

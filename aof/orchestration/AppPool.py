@@ -83,7 +83,7 @@ class AppPool(ConjunctiveGraph):
         SELECT DISTINCT ?app
         WHERE {
         # ?app a aof:App .
-        ?app aof:hasInstallableArtifact ?binary
+        ?app aof:hasInstallableArtifact ?installable
         }
         """
         return len(self.query(q).bindings)
@@ -119,7 +119,7 @@ class AppPool(ConjunctiveGraph):
         """
         return self.value(resource, AOF.hasIcon).__str__()
 
-    def get_binary_uri(self, resource):
+    def get_install_uri(self, resource):
         """
         Returns the binary URI for a an app identified by a given resource.
         """
