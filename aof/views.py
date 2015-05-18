@@ -16,6 +16,8 @@ from pyramid.path import AssetResolver
 from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, FOAF, RDF, RDFS
 
+from webob.multidict import MultiDict
+
 from aof.static.data.static_data import META
 
 
@@ -337,6 +339,22 @@ class DocumentationViews(PageViews):
     @view_config(route_name='documentation', renderer='templates/documentation.mako')
     def page_overview(self):
         self._setTitle('Documentation')
+        """
+        def recursive_folder_dict(basepath):
+            allowed_doc_types=('.html','.htm','.pdf')
+            s=MultiDict()
+            for file in os.listdir(basepath):
+                if os.path.isdir(os.path.join(basepath,file)):
+                    s[file]=recursive_folder_dict(os.path.join(basepath,file)))
+                else:
+                    if os.path.splitext(file)[1] in allowed_doc_types:
+                        s.add("",file)
+            return s
+
+        basepath=os.path.join(static_dir,"docs")
+        structure=recursive_folder_dict(basepath)
+
+        custom_args= {'structure': structure}"""
         return self._returnCustomDict()
 
     @view_config(route_name='documentation-docs', renderer='templates/documentation-docs.mako')
@@ -348,8 +366,6 @@ class DocumentationViews(PageViews):
 
         custom_args= {'content': content}
         return self._returnCustomDict(custom_args)
-
-    
 
 
 
