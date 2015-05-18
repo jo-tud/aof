@@ -17,14 +17,14 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/TUDLiveDataViewer.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLogService/lastSuccessfulBuild/artifact/TUDLogService.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDMultipleSensorSelector/lastSuccessfulBuild/artifact/TUDMultipleSensorSelector.ttl" ;
-	aof:hasAppDescription "apps/TUDNeighbourhoodBrowser.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNeighbourhoodBrowser/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser/TUDNeighbourhoodBrowser.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNFCTagReader/lastSuccessfulBuild/artifact/TUDNFCTagReader.ttl" ;
-	aof:hasAppDescription "apps/TUDPlantSelector.ttl" ;
-	aof:hasAppDescription "apps/TUDPOIMap.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPlantSelector/lastSuccessfulBuild/artifact/TUDPlantSelector.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPOIMap/lastSuccessfulBuild/artifact/TUDPOIMap/TUDPOIMap.ttl" ;
 	aof:hasAppDescription "apps/TUDRoutingApp.ttl" ;
-	aof:hasAppDescription "apps/TUDSensorSelection.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/lastSuccessfulBuild/artifact/TUDSensorSelection.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/TUDSimpleList.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/TUDSimpleMessage.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSparqlTest/lastSuccessfulBuild/artifact/TUDSparqlTest/TUDSparqlTest.ttl" ;
-	aof:hasAppDescription "apps/TUDTaskReport.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTaskReport/lastSuccessfulBuild/artifact/TUDTaskReport.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/TUDTimeSeries.ttl" .
