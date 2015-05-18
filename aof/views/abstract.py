@@ -11,7 +11,6 @@ from rdflib import URIRef
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver
 
-import inspect
 
 from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, FOAF, RDF, RDFS
@@ -42,20 +41,23 @@ class URICheckDecorator(object):
                         return f(self, *args, **kwargs)
         return wrapper
 
-class URIExistDecorator_AE(object):
+class URIExistDecorator(object):
     def __call__(self, f):
         def wrapper(self, *args, **kwargs):
-            if self.uri in self.pool:
+            if isinstance(self.pool,AppPool):
+                if self.pool.in_pool(self.uri):
+                    return f(self, *args, **kwargs)
+            elif self.uri in self.pool:
                 return f(self, *args, **kwargs)
             else:
-                return HTTPNotFound('The App-Ensemble "%s" could not be found.' % self.uri)
+                return HTTPNotFound('The uri "%s" could not be found.' % self.uri)
         return wrapper
 
-class URIExistDecorator_AP(object):
+class AppCheckDecorator(object):
     def __call__(self, f):
         def wrapper(self, *args, **kwargs):
             if self.pool.is_android_app(self.uri) != True:
-                return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % value)
+                return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % self.uri)
             else:
                 return f(self, *args, **kwargs)
         return wrapper
@@ -113,16 +115,10 @@ class PageViews(AbstractViews):
                 'unique_triples': unique_triples}
         return self._returnCustomDict(custom_args)
 
-    def _value_in_pool_check(self,value):
-        if value in self.pool:
-            return True
-        else:
-            return False
 
-
-class AppPoolBaseViews(PageViews):
+class AppPoolViews(PageViews):
     def __init__(self, context, request):
-        super(AppPoolBaseViews, self).__init__(context, request)
+        super(AppPoolViews, self).__init__(context, request)
         self.pool=AppPool.Instance()
     
     @view_config(route_name='app-pool', renderer='templates/app-pool.mako')
@@ -159,7 +155,7 @@ class AppPoolBaseViews(PageViews):
         SELECT DISTINCT *
         WHERE {
         ?uri rdfs:label ?name ;
-            aof:currentBinary ?binary .
+            aof:hasInstallableArtifact ?binary .
             OPTIONAL {
             ?uri aof:hasIcon ?icon
             }
@@ -172,32 +168,14 @@ class AppPoolBaseViews(PageViews):
 
         # log.debug(json)
         return {'json': json}
-
-
-
-class AppPoolRequestViews(AppPoolBaseViews):
-    def __init__(self, context, request):
-        super(AppPoolRequestViews, self).__init__(context, request)
-        #self.uri= self.request.params.getone('URI')
-        """self.uri=self._URIcheck()
-        if isinstance(self.uri,Response):
-            return self.uri
-        else:
-            self.uri=URIRef(self.uri)"""
-            
-    def _value_in_pool_check(self,value):
-        if self.pool.is_android_app(value) != True:
-            return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % value)
-        else:
-            return True
             
 
     @view_config(route_name='app-details', renderer='templates/app-details.mako')
     @URICheckDecorator()
-    @URIExistDecorator_AP()
+    @URIExistDecorator()
+    @AppCheckDecorator()
     def page_details(self):
-             #if isinstance(self._value_in_pool_check(self.uri),Response):
-            #return self._value_in_pool_check(self.uri)
+        self._setTitle('App-Details')
         details = {
             'name': self.pool.get_name(self.uri).__str__(),
             'comment': self.pool.get_description(self.uri).__str__(),
@@ -253,15 +231,16 @@ class AppPoolRequestViews(AppPoolBaseViews):
         return self._returnCustomDict(custom_args)
 
 
-class AppEnsembleBaseViews(PageViews):
+class AppEnsembleViews(PageViews):
     def __init__(self, context, request):
-        super(AppEnsembleBaseViews, self).__init__(context, request)
+        super(AppEnsembleViews, self).__init__(context, request)
         self.pool=AppEnsembleManager.Instance()
         
     @view_config(route_name='app-ensembles', renderer='templates/ae.mako')
     def page_overview(self):
         self._setTitle('App-Ensembles')
         return self._returnCustomDict()
+
 
     @view_config(route_name='api-ae-json',renderer='json')
     def api_json(self):
@@ -282,51 +261,55 @@ class AppEnsembleBaseViews(PageViews):
         resp = str(len(self.pool))
         return Response(resp)
 
-class AppEnsembleRequestViews(AppEnsembleBaseViews):
-    def __init__(self, context, request):
-        super(AppEnsembleRequestViews, self).__init__(context, request)
-
 
     @view_config(route_name='ae-details', renderer='templates/ae-details.mako')
     @URICheckDecorator()
-    @URIExistDecorator_AE()
+    @URIExistDecorator()
     def page_details(self):
+        self._setTitle('App-Ensemble Details')
         ae = self.pool.get_AppEnsemble(self.uri)
+
         ae_apps = ae.getRequiredApps().bindings
         custom_args= {
-                'ae_path': ae.ae_pkg_path,
-                'ae_uri': self.uri,
-                'ae_has_bpm': ae.has_bpm(),
-                'ae_apps': ae_apps
-            }
+                    'ae_path': ae.ae_pkg_path,
+                    'ae_uri': self.uri,
+                    'ae_has_bpm': ae.has_bpm(),
+                    'ae_apps': ae_apps
+                }
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='ae-visualize-bpm', renderer='templates/ae-visualize-bpm.mako')
     @URICheckDecorator()
+    @URIExistDecorator()
     def page_visualize_bpm(self):
+        self._setTitle('App-Ensemble Details')
         ae = self.pool.get_AppEnsemble(self.uri)
         custom_args= {
-                'ae_path': ae.ae_pkg_path,
-                'ae_uri': self.uri,
-                'ae_has_bpmn': ae.has_bpm()
-            }
+                    'ae_path': ae.ae_pkg_path,
+                    'ae_uri': self.uri,
+                    'ae_has_bpmn': ae.has_bpm()
+                }
         return self._returnCustomDict(custom_args)
+
 
     @view_config(route_name='ae-bpmn')
     @URICheckDecorator()
+    @URIExistDecorator()
     def page_get_bpmn(self):
         ae = self.pool.get_AppEnsemble(self.uri)
         bpmn = ae.get_bpm()
         response = Response(
-                body=bpmn,
-                request=self.request,
-                content_type='txt/xml'
-            )
+                    body=bpmn,
+                    request=self.request,
+                    content_type='txt/xml'
+                )
         response.content_disposition = 'attachement; filename="'+self.uri+".bpmn"
         return response
 
+
     @view_config(route_name='api-get-ae-pkg')
     @URICheckDecorator()
+    @URIExistDecorator()
     def page_get_ae_pkg(self):
         ae = self.pool.get_AppEnsemble(self.uri)
         response = FileResponse(
@@ -356,6 +339,9 @@ class DocumentationViews(PageViews):
 
         custom_args= {'content': content}
         return self._returnCustomDict(custom_args)
+
+    
+
 
 
 
