@@ -50,12 +50,12 @@ class FunctionalTests(unittest.TestCase):
         self.assertRaises(AppError,self.testapp.get,'/i-do-not-exist-test')
 
     def test_documentation(self):
-        res=self.testapp.get('/documentation.html')
+        res=self.testapp.get('/docs/index.html')
         self._status_code_test(res)
         self._body_title_test(res,"Documentation")
 
     def test_documentation_doc_exists(self):
-        res =self.testapp.get('/doc/app-description_specification.html')
+        res =self.testapp.get('/docs/app-description_specification.html')
         self._status_code_test(res)
         self._body_title_test(res,"Documentation")
 
@@ -101,6 +101,6 @@ class FunctionalTests(unittest.TestCase):
         self.assertTrue(b'-parameter was empty' in res.body)
 
     def test_app_pool_details_wrong_uri_param(self):
-        res =self.testapp.get('/app-pool/details.html?URI=http://abc')
-        self._status_code_test(res)
-        self.assertTrue(b'seem to be an Android App' in res.body)
+        from webtest import AppError
+        self.assertRaises(AppError,self.testapp.get,'/app-pool/details.html?URI=http://abc')
+

@@ -44,7 +44,7 @@ class IntegrationViewTests(unittest.TestCase):
 
     def tearDown(self):
         testing.tearDown()
-        #AppEnsembleTests._deleteTestArchive(self)
+        AppEnsembleTests._deleteTestArchive(self)
 
 
     # Private functionality
