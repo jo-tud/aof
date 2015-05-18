@@ -48,6 +48,7 @@ class AppEnsembleManager():
         :param identifier: String (Name of the AppEnsemble i.e. testAppEnsemble.ae-> item=testAppEnsemble
         :return:Boolean
         """
+        identifier=str(identifier)
         return identifier in self.pool
 
     def __len__(self):
@@ -126,6 +127,7 @@ class AppEnsembleManager():
         :param identifier: String (Name of the AppEnsemble i.e. testAppEnsemble.ae-> item=testAppEnsemble
         :return: AppEnsemble or None (if it does not exist)
         """
+        identifier=str(identifier)
         try:
             return self.pool[identifier]
         except KeyError as detail:

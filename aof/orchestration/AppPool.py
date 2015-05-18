@@ -8,6 +8,7 @@ from rdflib.namespace import DC, DCTERMS, FOAF, RDF, RDFS
 from pyramid.threadlocal import get_current_registry
 
 import logging
+import inspect
 
 __all__ = [
     'AppPool'
@@ -140,6 +141,16 @@ class AppPool(ConjunctiveGraph):
         for role in roles_iter:
             roles.append(role.__str__())
         return roles
+
+    def in_pool(self, resource):
+        """
+        Searches for an specific AppEnsemble.
+        :param resource: String (Name of the App
+        :return:Boolean
+        """
+        q = ("ASK WHERE {<%(uri)s> ?p ?o .}")% {'uri': URIRef(resource)}
+        return self.query(q).askAnswer
+
 
     def is_android_app(self, resource):
         """
