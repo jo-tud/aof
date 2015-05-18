@@ -312,7 +312,7 @@ class AppEnsembleViews(PageViews):
                     request=self.request,
                     content_type='txt/xml'
                 )
-        response.content_disposition = 'attachement; filename="'+self.uri+".bpmn"
+        response.content_disposition = 'attachement; filename="'+self.uri+'.bpmn"'
         return response
 
 
@@ -344,7 +344,7 @@ class DocumentationViews(PageViews):
         self._setTitle('Documentation')
         document = self.request.matchdict['document']
         if document == "app-description_specification":
-            content = open(os.path.join(static_dir,'doc','PLT-Bericht AOF Language Specification v002.docx.html')).read()
+            content = open(os.path.join(static_dir,'docs','PLT-Bericht AOF Language Specification v002.docx.html')).read()
 
         custom_args= {'content': content}
         return self._returnCustomDict(custom_args)

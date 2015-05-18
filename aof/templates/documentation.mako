@@ -6,7 +6,7 @@
     <div class="small-12 columns">
         <h1>Documentation</h1>
         <ul>
-            <li><b>AOF Language Specification</b> <i>Version 002</i> <a href="/doc/app-description_specification.html">HTML</a> <a href="/static/doc/PLT-Bericht AOF Language Specification v002.docx.pdf">PDF</a></li>
+            <li><b>AOF Language Specification</b> <i>Version 002</i> <a href="/docs/app-description_specification.html">HTML</a> <a href="/static/docs/PLT-Bericht AOF Language Specification v002.docx.pdf">PDF</a></li>
             <li><a href="https://eatplt02.et.tu-dresden.de/intrawiki/doku.php?id=wiki:documentation:aof:start">Information on the AOF in the PLT Wiki</a></li>
 
         </ul>
