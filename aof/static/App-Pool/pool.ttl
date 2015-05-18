@@ -8,7 +8,7 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/AOFDummyAconiteRoot.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNeighbourhoodBrowser2/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser2/TUDNeighbourhoodBrowser2.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/AppEnsembleInstaller.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/AOFConductor.ttl" ;
+	aof:hasAppDescription "apps/AOFConductor.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFLogin/lastSuccessfulBuild/artifact/IAFLogin/IAFLogin.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFManagementComponent/lastSuccessfulBuild/artifact/IAFManagementComponent.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/IAFSkeletonApp/lastSuccessfulBuild/artifact/IAFSkeletonApp/IAFSkeletonApp.ttl" ;
@@ -17,14 +17,14 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/TUDLiveDataViewer.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDLogService/lastSuccessfulBuild/artifact/TUDLogService.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDMultipleSensorSelector/lastSuccessfulBuild/artifact/TUDMultipleSensorSelector.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDNeighbourhoodBrowser.ttl" ;
+	aof:hasAppDescription "apps/TUDNeighbourhoodBrowser.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNFCTagReader/lastSuccessfulBuild/artifact/TUDNFCTagReader.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDPlantSelector.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDPOIMap.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDRoutingApp.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDSensorSelection.ttl" ;
+	aof:hasAppDescription "apps/TUDPlantSelector.ttl" ;
+	aof:hasAppDescription "apps/TUDPOIMap.ttl" ;
+	aof:hasAppDescription "apps/TUDRoutingApp.ttl" ;
+	aof:hasAppDescription "apps/TUDSensorSelection.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/TUDSimpleList.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/TUDSimpleMessage.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSparqlTest/lastSuccessfulBuild/artifact/TUDSparqlTest/TUDSparqlTest.ttl" ;
-	aof:hasAppDescription "aof/static/App-Pool/apps/TUDTaskReport.ttl" ;
+	aof:hasAppDescription "apps/TUDTaskReport.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/TUDTimeSeries.ttl" .
