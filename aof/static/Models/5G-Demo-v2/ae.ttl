@@ -73,21 +73,24 @@ ae:SequenceFlow_1 a bpmn2:sequenceFlow ;
     bpmn2:has_sourceRef ae:AE_Signal_1 ;
     bpmn2:has_targetRef ae:PlantBrowser_1 .
 
-### Signal catcher
+### Message catcher
 ae:AE_Signal_1 a bpmn2:startEvent ;
     bpmn2:id "AE_Signal_1" ;
     bpmn2:outgoing ae:SequenceFlow_1 ;
     bpmn2:has_eventDefinition ae:_MessageEventDefinition_10 .
 
-### Service Tasks
+### User Tasks
 ### These Tasks realize the App-Ensemble
-ae:PlantBrowser_1 a bpmn2:serviceTask ;
+ae:PlantBrowser_1 a bpmn2:userTask, jen:TUDPlantSelector ; # a = abgeleitete Klasse
     bpmn2:id "PlantBrowser_1" ;
-    bpmn2:name "Plant Browser" ;
-    aof:associatedApp jen:TUDPlantSelector .
+    bpmn2:name "Plant Browser" .
 #If there are restrictions on the Version of the app that shall be used:    
 #aof:minVersion, aof:maxVersion, aof:exactVersion
-    
+
+### Manual Tasks
+
+
+
 
 # APPS
 ## Conductor App
