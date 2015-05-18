@@ -67,7 +67,7 @@ class AppPoolTests(unittest.TestCase):
         self.assertEqual(str(self.ap.get_icon_uri(self.maxApp)),"http://mustermann.de/maxApp/res/icon.jpg","An App with an Icon returns None!")
         self.assertEqual(str(self.ap.get_icon_uri(self.minApp)),"None","An App with NO Icon returns one!")
 
-    def test_get_binary_uri_maxApp(self):
+    def test_get_install_uri_maxApp(self):
         # test if the Binary uri of the maxApp is correct .
         self.assertEqual(self.ap.get_install_uri(self.maxApp),"http://mustermann.de/maxApp/res/install.apk","An App with an Binary Uri returns None!")
 

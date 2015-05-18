@@ -189,7 +189,7 @@ class AppPoolViews(PageViews):
             'name': self.pool.get_name(self.uri).__str__(),
             'comment': self.pool.get_description(self.uri).__str__(),
             'icon': self.pool.get_icon_uri(self.uri).__str__(),
-            'binary': self.pool.get_binary_uri(self.uri).__str__(),
+            'binary': self.pool.get_install_uri(self.uri).__str__(),
             'has_role': self.pool.has_role(self.uri),
             'has_main_screenshot': self.pool.has_main_screenshot(self.uri),
             'has_other_screenshots': self.pool.has_other_screenshots(self.uri),
