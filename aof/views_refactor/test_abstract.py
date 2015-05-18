@@ -3,7 +3,7 @@ from pyramid import testing
 
 import json
 
-import aof.views.abstract as views
+import aof.views_refactor.abstract as views
 from pyramid.events import ApplicationCreated
 from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
