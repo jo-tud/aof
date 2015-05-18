@@ -312,7 +312,7 @@ class AppEnsembleViews(PageViews):
                     request=self.request,
                     content_type='txt/xml'
                 )
-        response.content_disposition = 'attachement; filename="'+self.uri+'.bpmn"'
+        response.content_disposition = 'attachement; filename="'+str(self.uri)+".bpmn"
         return response
 
 
@@ -326,7 +326,7 @@ class AppEnsembleViews(PageViews):
                 request=self.request,
                 content_type='application/vnd.aof.package-archive'
             )
-        response.content_disposition = 'attachement; filename="'+self.uri+".ae"
+        response.content_disposition = 'attachement; filename="'+str(self.uri)+".ae"
         return response
 
 
