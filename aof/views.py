@@ -4,6 +4,7 @@ from aof.orchestration.AOFGraph import AOFGraph
 
 import os
 import logging
+from functools import wraps
 
 from pyramid.view import view_config
 from pyramid.response import Response, FileResponse
@@ -26,6 +27,7 @@ log = logging.getLogger(__name__)
 
 class URICheckDecorator(object):
     def __call__(self, f):
+        @wraps(f)
         def wrapper(self, *args, **kwargs):
             if not self.request.params.has_key('URI'):
                 return Response('The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to display the details.')
@@ -43,18 +45,25 @@ class URICheckDecorator(object):
 
 class URIExistDecorator(object):
     def __call__(self, f):
+        @wraps(f)
         def wrapper(self, *args, **kwargs):
             if isinstance(self.pool,AppPool):
                 if self.pool.in_pool(self.uri):
                     return f(self, *args, **kwargs)
-            elif self.uri in self.pool:
-                return f(self, *args, **kwargs)
+                else:
+                    return HTTPNotFound('The uri "%s" could not be found in the AppPool.' % self.uri)
+            elif isinstance(self.pool,AppEnsembleManager):
+                if self.uri in self.pool:
+                    return f(self, *args, **kwargs)
+                else:
+                    return HTTPNotFound('The uri "%s" could not be found in the AppEnsemblePool.' % self.uri)
             else:
-                return HTTPNotFound('The uri "%s" could not be found.' % self.uri)
+                return log.error('URIExistDecorator was called without an AppPool or an AppEnsembleManager. The given object was an instance of {} and the pool was of type {}'.format(type(self),type(self.pool)))
         return wrapper
 
 class AppCheckDecorator(object):
     def __call__(self, f):
+        @wraps(f)
         def wrapper(self, *args, **kwargs):
             if self.pool.is_android_app(self.uri) != True:
                 return Response("The app '%s' doesn't seem to be an Android App. Currently only Android Apps are supported." % self.uri)
