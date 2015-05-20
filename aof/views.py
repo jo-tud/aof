@@ -326,35 +326,67 @@ class DocumentationViews(PageViews):
     @view_config(route_name='documentation', renderer='templates/documentation.mako')
     def page_overview(self):
         self._setTitle('Documentation')
-        """
-        def recursive_folder_dict(basepath):
-            allowed_doc_types=('.html','.htm','.pdf')
-            s=MultiDict()
+
+        def recursive_folder_dict(basepath,root):
+            structure=list()
+            allowed_doc_types=('HTML','PDF','LINK')
             for file in os.listdir(basepath):
                 if os.path.isdir(os.path.join(basepath,file)):
-                    s[file]=recursive_folder_dict(os.path.join(basepath,file)))
+                    structure.append({"name" : file, "children":recursive_folder_dict(os.path.join(basepath,file),root)})
                 else:
-                    if os.path.splitext(file)[1] in allowed_doc_types:
-                        s.add("",file)
-            return s
+                    tmp_name=os.path.splitext(file)
+                    key=tmp_name[1].replace(".","",1).upper()
+                    if key in allowed_doc_types:
+                        if key=="HTML":
+                            path="/docs/"
+                        elif key=="LINK":
+                            path="/redirect/"
+                        else:
+                            path="/resources/"
+                        path +=os.path.join(basepath,file).replace(root+"\\","").replace("\\","/")
+                        for idx,s in enumerate(structure):
+                            if s["name"]==tmp_name[0]:
+                                s['resources'].update({key :path})
+                                structure[idx] = s
+                                break
+                        else:
+                            structure.append({"name" : tmp_name[0], "children":None, 'resources':{key:path}})
+            return structure
+
 
         basepath=os.path.join(static_dir,"docs")
-        structure=recursive_folder_dict(basepath)
+        structure=recursive_folder_dict(basepath,basepath)
 
-        custom_args= {'structure': structure}"""
-        return self._returnCustomDict()
+        custom_args= {'structure': structure}
+        return self._returnCustomDict(custom_args)
 
     @view_config(route_name='documentation-docs', renderer='templates/documentation-docs.mako')
     def page_doc_view(self):
         self._setTitle('Documentation')
         document = self.request.matchdict['document']
         if document == "app-description_specification":
-            content = open(os.path.join(static_dir,'docs','PLT-Bericht AOF Language Specification v002.docx.html')).read()
+            content = open(os.path.join(static_dir,'docs','AOF Language Specification v002.docx.html')).read()
+        else:
+            content = open(os.path.join(static_dir,'docs',self.request.matchdict['document'])).read()
 
         custom_args= {'content': content}
         return self._returnCustomDict(custom_args)
 
 
+    @view_config(route_name='documentation-resource')
+    def page_resource_response(self):
+        document = self.request.matchdict['document']
+        response = FileResponse(
+                os.path.join(static_dir,"docs",document),
+                request=self.request
+            )
+        return response
+
+    @view_config(route_name='documentation-redirect')
+    def page_redirect_response(self):
+        from pyramid.httpexceptions import HTTPFound
+        content = open(os.path.join(static_dir,'docs',self.request.matchdict['document'])).read()
+        return HTTPFound(location=content)
 
 
 
