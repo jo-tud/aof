@@ -99,19 +99,6 @@ class PageViews(AbstractViews):
     def _setTitle(self,value):
         self.page_title=value
 
-    def _URIcheck(self):
-        if not self.request.params.has_key('URI'):
-            return Response('The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to display the details.')
-        else:
-            if len(self.request.params.getall('URI')) > 1:
-                return Response('More than one URI was supplied. Please supply exactly 1 URI.')
-            else:
-                uri = self.request.params.getone('URI')
-                if uri == "":
-                    return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
-                else:
-                    return uri
-
     @view_config(route_name='home', renderer='templates/home.mako')
     def page_home(self):
         self._setTitle('AOF Home')

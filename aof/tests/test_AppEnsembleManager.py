@@ -21,6 +21,10 @@ class AppEnsembleManagerTests(unittest.TestCase):
     def test_contains(self):
         self.assertTrue("testAppEnsemble" in self.aem)
 
+    def test_str(self):
+        string=str(self.aem)
+        self.assertTrue("AppPoolManager-Details" in string)
+
     def test_contains_not(self):
         self.assertFalse("testAppEnsemble_NotExist" in self.aem)
 

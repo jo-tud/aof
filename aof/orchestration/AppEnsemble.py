@@ -89,7 +89,6 @@ class AppEnsemble(Graph):
                     return file
             else:
                 raise IOError('File "%s" not found in AppEnsemble' % filename)
-                return False
 
     def getRequiredApps(self):
         #TODO: Adapt to new ontology
