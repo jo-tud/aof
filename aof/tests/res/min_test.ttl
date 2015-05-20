@@ -8,6 +8,6 @@
 
 
 <http://mustermann.de/minApp>
-
-rdfs:label 		"MinApp";
-aof:hasInstallableArtifact	<http://mustermann.de/minApp/res/install.apk>.
+    a aof:App, aof:AndroidApp ;
+    rdfs:label 		"MinApp";
+    aof:hasInstallableArtifact	<http://mustermann.de/minApp/res/install.apk>.

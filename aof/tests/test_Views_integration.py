@@ -203,12 +203,31 @@ class IntegrationViewTests(unittest.TestCase):
                 nameindex = appname
 
 
-    def test_ap_app_details_view(self):
+    def test_ap_app_details_view_maxapp(self):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'http://mustermann.de/maxApp')
 
         response = views.AppPoolViews(self.context, self.request).page_details()
         self.assertEqual(response['details']['icon'],'http://mustermann.de/maxApp/res/icon.jpg')
+        self.assertIsNotNone(response['roles'])
+        self.assertIsNotNone(response['creators'])
+        self.assertIsNotNone(response['main_screenshot'])
+        self.assertIsNotNone(response['screenshots'])
+        self.assertIsNotNone(response['entry_points'])
+        self.assertIsNotNone(response['exit_points'])
+        self._standard_tests(response)
+
+    def test_ap_app_details_view_minapp(self):
+        self.request.params = MultiDict()
+        self.request.params.add('URI', 'http://mustermann.de/minApp')
+
+        response = views.AppPoolViews(self.context, self.request).page_details()
+        self.assertIsNone(response['roles'])
+        self.assertIsNone(response['creators'])
+        self.assertIsNone(response['main_screenshot'])
+        self.assertIsNone(response['screenshots'])
+        self.assertIsNone(response['entry_points'])
+        self.assertIsNone(response['exit_points'])
         self._standard_tests(response)
 
 
