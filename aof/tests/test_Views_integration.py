@@ -149,12 +149,12 @@ class IntegrationViewTests(unittest.TestCase):
 
     # TODO: view should be improved, because it is not dynamic. Afterwards improve this testing
     def test_documentation_docs_view(self):
-        self.request.matchdict['document']= 'app-description_specification'
+        self.request.matchdict['document']= 'app-description_specification.html'
         response = views.DocumentationViews(self.context, self.request).page_doc_view()
         self._standard_tests(response)
 
     def test_documentation_docs_view_wrongparam(self):
-        self.request.matchdict['wrongparam']= 'app-description_specification'
+        self.request.matchdict['wrongparam']= 'app-description_specification.html'
         view=views.DocumentationViews(self.context, self.request)
         self.assertRaises(KeyError,view.page_doc_view)
 

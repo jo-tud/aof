@@ -364,7 +364,7 @@ class DocumentationViews(PageViews):
     def page_doc_view(self):
         self._setTitle('Documentation')
         document = self.request.matchdict['document']
-        if document == "app-description_specification":
+        if document == "app-description_specification.html":
             content = open(os.path.join(static_dir,'docs','AOF Language Specification v002.docx.html')).read()
         else:
             content = open(os.path.join(static_dir,'docs',self.request.matchdict['document'])).read()
