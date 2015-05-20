@@ -84,7 +84,8 @@ class AppPoolTests(unittest.TestCase):
 
     def test_is_android_app_maxminApp(self):
         self.assertTrue(self.ap.is_android_app(self.maxApp),"MapApp should be an Android App!")
-        self.assertFalse(self.ap.is_android_app(self.minApp),"MinApp should not be an Android App!")
+        self.assertTrue(self.ap.is_android_app(self.minApp),"MinApp should not be an Android App!")
+
 
     def test_hasget_main_screenshot_maxminApp(self):
         # Tests if the Main Screenshots are loaded correctly
