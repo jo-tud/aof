@@ -16,13 +16,7 @@ from pyramid.path import AssetResolver
 from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, FOAF, RDF, RDFS
 
-from webob.multidict import MultiDict
-
-from aof.static.data.static_data import META
-
-
 a_resolver = AssetResolver()
-static_dir = a_resolver.resolve('aof:static/').abspath()
 namespaces= {'AOF': AOF, 'ANDROID': ANDROID, 'DC': DC, 'FOAF': FOAF, 'RDF': RDF, 'RDFS': RDFS}
 log = logging.getLogger(__name__)
 
