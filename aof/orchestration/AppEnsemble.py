@@ -21,6 +21,7 @@ class AppEnsemble(Graph):
     ae_extension='.ae'
     ae_filename = 'ae.ttl'
     bpmn_filename= 'ae.bpmn'
+    ae_folder_path=_ae_folder_path
 
     def __init__(self,identifier=None):
 

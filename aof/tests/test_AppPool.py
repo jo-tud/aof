@@ -4,8 +4,8 @@ from pyramid import testing
 from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from rdflib import URIRef
+import aof.tests
 
-from aof.orchestration.namespaces import AOF, ANDROID
 
 class AppPoolTests(unittest.TestCase):
     """
@@ -15,9 +15,9 @@ class AppPoolTests(unittest.TestCase):
 
     def setUp(self):
         # Sets up the AppPool for Testing with two apps (one with maximum attributes one with minimum attributes)
-        self.config = testing.setUp()
+        self.config = testing.setUp(settings=aof.tests.settings)
         a = AssetResolver()
-        self.path = a.resolve('aof:tests/res/test_pool.ttl').abspath()
+        self.path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         self.ap=AppPool.Instance()
         self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
         self.maxApp=URIRef("http://mustermann.de/maxApp")

@@ -2,6 +2,7 @@ import unittest
 import os
 import zipfile
 
+import aof.tests
 from pyramid import testing
 from pyramid.path import AssetResolver
 from aof.orchestration.AppEnsemble import AppEnsemble
@@ -15,7 +16,7 @@ class AppEnsembleTests(unittest.TestCase):
 
     def setUp(self):
         # sets up the AppEnsemble Instance with an Testarchive
-        self.config = testing.setUp()
+        self.config = testing.setUp(settings=aof.tests.settings)
         self._createTestArchive()
         self.ae=AppEnsemble(self.ae_name)
 

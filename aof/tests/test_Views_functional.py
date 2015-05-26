@@ -1,32 +1,39 @@
 import unittest
 from pyramid import testing
 
-import aof.views as views
-from pyramid.events import ApplicationCreated
 from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from aof.tests.test_AppEnsemble import AppEnsembleTests
+
+import aof.tests
+
 
 
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
         from aof import main
 
-
+        # Setting up Testpool and TestAppEnsemble
         a = AssetResolver()
-        path = a.resolve('aof:tests/res/test_pool.ttl').abspath()
+        path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         ap = AppPool.Instance()
-        ap.add_apps_from_app_pool_definition(source=path, format="turtle")
+        ap.add_apps_from_app_pool_definition(source=path,format="turtle")
 
         self.aeTests=AppEnsembleTests()
         self.aeTests._createTestArchive()
 
+        # Creating app with parameter
+        META=aof.tests.settings["META"]
 
-        app = main({})
+        app = main({},app_pool_path=aof.tests.settings["app_pool_path"],
+                    app_ensemble_folder=aof.tests.settings["app_ensemble_folder"],
+                    documentation_docs_path=aof.tests.settings["documentation_docs_path"],
+                    META=META)
         from webtest import TestApp
         self.testapp = TestApp(app)
 
-
+        import ast
+        self.meta=ast.literal_eval(META)
 
 
     def tearDown(self):
@@ -36,7 +43,7 @@ class FunctionalTests(unittest.TestCase):
         self.assertEqual(testapp_get_result.status_code,200)
 
     def _body_title_test(self,res,title):
-        self.assertTrue(bytes('<title>'+title+'</title>', 'utf-8') in res.body)
+        self.assertTrue(bytes('<title>'+title+' | '+self.meta['acronym']+'</title>', 'utf-8') in res.body,"Title {} is not found in the document".format(title))
 
     def test_home_view(self):
         res = self.testapp.get('/')

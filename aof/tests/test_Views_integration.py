@@ -1,19 +1,16 @@
 import unittest
 from pyramid import testing
-
 import json
 
-import aof.views as views
-from pyramid.events import ApplicationCreated
-from pyramid.path import AssetResolver
-from aof.orchestration.AppPool import AppPool
-from aof.tests.test_AppEnsemble import AppEnsembleTests
-from aof.orchestration.AppEnsemble import AppEnsemble
 from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from webob.multidict import MultiDict
 from pyramid.response import Response,FileResponse
-from pyramid.httpexceptions import HTTPNotFound
-from rdflib import ConjunctiveGraph, util, URIRef
+from rdflib import URIRef
+
+import aof.views as views
+
+import aof.tests
+from aof.tests.test_AppEnsemble import AppEnsembleTests
 
 
 
@@ -22,14 +19,12 @@ class IntegrationViewTests(unittest.TestCase):
         from pyramid.path import AssetResolver
         from aof.orchestration.AppPool import AppPool
 
-        # import aof
-
-        self.config = testing.setUp()
+        self.config = testing.setUp(settings=aof.tests.settings)
         AppEnsembleTests._createTestArchive(self)
 
         #Setting up Test-AppPool
         a = AssetResolver()
-        self.path = a.resolve('aof:tests/res/test_pool.ttl').abspath()
+        self.path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         self.ap = AppPool.Instance()
         self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
 

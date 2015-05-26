@@ -4,11 +4,12 @@ from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from aof.tests.test_AppEnsemble import AppEnsembleTests
 from aof.orchestration.AppEnsemble import AppEnsemble
 from pyramid.path import AssetResolver
+import aof.tests
 
 class AppEnsembleManagerTests(unittest.TestCase):
 
     def setUp(self):
-        self.config = testing.setUp()
+        self.config = testing.setUp(settings=aof.tests.settings)
         # First add Testappensemble
         AppEnsembleTests._createTestArchive(self)
         # Load AppEnsembles

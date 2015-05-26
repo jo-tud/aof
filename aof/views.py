@@ -91,9 +91,11 @@ class PageViews(AbstractViews):
         super(PageViews, self).__init__(context, request)
         self.pool=None
         self.page_title="Page Title not defined"
+        import ast
+        self.meta=ast.literal_eval(self.request.registry.settings['META'])
 
     def _returnCustomDict(self, *args):
-        custom_args={'meta': META,'page_title': self.page_title}
+        custom_args={'meta': self.meta,'page_title': self.page_title}
         return super(PageViews, self)._returnCustomDict(custom_args,*args)
 
     def _setTitle(self,value):
@@ -372,7 +374,7 @@ class DocumentationViews(PageViews):
         self._setTitle('Documentation')
         document = self.request.matchdict['document']
         if document == "app-description_specification.html":
-            content = open(os.path.join(self.docs_path,'docs','AOF Language Specification v002.docx.html')).read()
+            content = open(os.path.join(self.docs_path,'AOF Language Specification v002.docx.html')).read()
         else:
             content = open(os.path.join(self.docs_path,self.request.matchdict['document'])).read()
 
