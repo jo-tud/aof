@@ -4,7 +4,7 @@
 </%block>
 <div class="row">
     <div class="small-12 columns">
-        <h1>Application Orchestration Framework</h1>
+        <h1>${meta['appname']}</h1>
 
         <ul>
             <li>There are currently <a href="/app-pool.html">${number_of_apps} Apps</a> in the App-Pool.</li>
