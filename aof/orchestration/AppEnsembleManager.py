@@ -4,9 +4,11 @@ from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AppEnsemble import AppEnsemble
 from pyramid.path import AssetResolver
 from pyramid.threadlocal import get_current_registry
+from aof.orchestration.AppEnsemble import _ae_folder_path
 
 import os
 import logging
+
 
 @Singleton
 class AppEnsembleManager():
@@ -20,9 +22,6 @@ class AppEnsembleManager():
     - returns a specific AppEnsemble-Object (get_AppEnsemble)
     - relaods the AppEnsemble-Pool with a new path (set_ae_folder_path)
     """
-
-    _ae_folder_path='aof:static/App-Ensembles/'
-
     def __init__(self):
         """
         Set up the AppEnsemblePool and load the AppEnsembles from the standard path
@@ -30,6 +29,7 @@ class AppEnsembleManager():
         """
         self.log = logging.getLogger(__name__)
 
+        self._ae_folder_path=_ae_folder_path
         self._ae_folder_path_backup=self._ae_folder_path
 
         registry = get_current_registry()

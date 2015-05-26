@@ -141,7 +141,7 @@ class AppPoolViews(PageViews):
 
     @view_config(route_name='action-update-app-pool')
     def action_update(self):
-        self.pool.add_apps_from_app_pool_definition()
+        self.pool.add_apps_from_app_pool_definition(source=None,format='turtle')
         res = str(self.pool.get_number_of_apps())
         return Response(res)
 
@@ -323,6 +323,13 @@ class DocumentationViews(PageViews):
     def __init__(self, context, request):
         super(DocumentationViews, self).__init__(context, request)
 
+        if request.registry is not None:
+            self.docs_path=request.registry.settings['documentation_docs_path']
+        else:
+            self.docs_path="aof:resources/docs"
+
+        self.docs_path=AssetResolver().resolve(self.docs_path).abspath()
+
     @view_config(route_name='documentation', renderer='templates/documentation.mako')
     def page_overview(self):
         self._setTitle('Documentation')
@@ -354,7 +361,7 @@ class DocumentationViews(PageViews):
             return structure
 
 
-        basepath=os.path.join(static_dir,"docs")
+        basepath=self.docs_path
         structure=recursive_folder_dict(basepath,basepath)
 
         custom_args= {'structure': structure}
@@ -365,9 +372,9 @@ class DocumentationViews(PageViews):
         self._setTitle('Documentation')
         document = self.request.matchdict['document']
         if document == "app-description_specification.html":
-            content = open(os.path.join(static_dir,'docs','AOF Language Specification v002.docx.html')).read()
+            content = open(os.path.join(self.docs_path,'docs','AOF Language Specification v002.docx.html')).read()
         else:
-            content = open(os.path.join(static_dir,'docs',self.request.matchdict['document'])).read()
+            content = open(os.path.join(self.docs_path,self.request.matchdict['document'])).read()
 
         custom_args= {'content': content}
         return self._returnCustomDict(custom_args)
@@ -377,7 +384,7 @@ class DocumentationViews(PageViews):
     def page_resource_response(self):
         document = self.request.matchdict['document']
         response = FileResponse(
-                os.path.join(static_dir,"docs",document),
+                os.path.join(self.docs_path,document),
                 request=self.request
             )
         return response
@@ -385,7 +392,7 @@ class DocumentationViews(PageViews):
     @view_config(route_name='documentation-redirect')
     def page_redirect_response(self):
         from pyramid.httpexceptions import HTTPFound
-        content = open(os.path.join(static_dir,'docs',self.request.matchdict['document'])).read()
+        content = open(os.path.join(self.docs_path,self.request.matchdict['document'])).read()
         return HTTPFound(location=content)
 
 

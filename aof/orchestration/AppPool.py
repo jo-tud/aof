@@ -16,7 +16,9 @@ __all__ = [
 
 @Singleton
 class AppPool(ConjunctiveGraph):
-    init_source = "aof:static/App-Pool/pool.ttl"
+    init_source = "aof:resources/App-Pool/pool.ttl"
+    init_format="turtle"
+
     def __init__(self):
         g = AOFGraph.Instance()
         ConjunctiveGraph.__init__(self, store=g.store, identifier=AOF.AppPool)
@@ -28,7 +30,8 @@ class AppPool(ConjunctiveGraph):
             self.init_source=registry.settings['app_pool_path']
 
 
-        self.add_apps_from_app_pool_definition(source=self.init_source, format="turtle")
+
+        self.add_apps_from_app_pool_definition(source=self.init_source, format=self.init_format)
 
     def add_apps_from_app_pool_definition(self, source=None, format=None):
         """
@@ -42,7 +45,10 @@ class AppPool(ConjunctiveGraph):
 
         if source==None:
             source=self.init_source
+            if format==None:
+                format=self.init_format
         try:
+
             a = AssetResolver()
             source = a.resolve(source).abspath()
             self.parse(source=source, format=format)

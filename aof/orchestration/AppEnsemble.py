@@ -12,15 +12,18 @@ import logging
 __all__ = [
     'AppEnsemble'
 ]
+
+_ae_folder_path='aof:resources/App-Ensembles/'
+
 # This class should accept a turtle file or a zip file
 class AppEnsemble(Graph):
     counter = 0
     ae_extension='.ae'
     ae_filename = 'ae.ttl'
     bpmn_filename= 'ae.bpmn'
-    ae_folder_path = 'aof:static/App-Ensembles/'
 
     def __init__(self,identifier=None):
+
         type(self).counter += 1
         g = AOFGraph.Instance()
         self.log = logging.getLogger(__name__)
@@ -32,7 +35,7 @@ class AppEnsemble(Graph):
             assert isinstance(identifier, str)
             id = identifier
             Graph.__init__(self, store=g.store, identifier=id)
-            self.ae_pkg_path = self.a.resolve(self.ae_folder_path + identifier + self.ae_extension).abspath()
+            self.ae_pkg_path = self.a.resolve(_ae_folder_path + identifier + self.ae_extension).abspath()
 
             if os.path.isfile(self.ae_pkg_path):
                 with zipfile.ZipFile(self.ae_pkg_path, "r") as ae_pkg:
@@ -44,7 +47,7 @@ class AppEnsemble(Graph):
 
         else:
             Graph.__init__(self, store=g.store)
-            self.ae_pkg_path = self.a.resolve(self.ae_folder_path).abspath() + self.identifier + self.ae_extension
+            self.ae_pkg_path = self.a.resolve(_ae_folder_path).abspath() + self.identifier + self.ae_extension
             zipfile.ZipFile(self.ae_pkg_path, 'w')
 
     def __del__(self):
