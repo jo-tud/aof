@@ -1,12 +1,16 @@
 import unittest
 from pyramid import testing
 import json
+import os
 
 from aof.orchestration.AppEnsembleManager import AppEnsembleManager
+from aof.orchestration.AppPool import AppPool
 from webob.multidict import MultiDict
 from pyramid.response import Response,FileResponse
 from rdflib import URIRef
 
+from pyramid.httpexceptions import HTTPNotFound
+from pyramid.path import AssetResolver
 import aof.views as views
 
 import aof.tests
@@ -14,13 +18,16 @@ from aof.tests.test_AppEnsemble import AppEnsembleTests
 
 
 
+
+
+
 class IntegrationViewTests(unittest.TestCase):
     def setUp(self):
-        from pyramid.path import AssetResolver
+
         from aof.orchestration.AppPool import AppPool
 
         self.config = testing.setUp(settings=aof.tests.settings)
-        AppEnsembleTests._createTestArchive(self)
+        aof.tests._create_test_AppEnsemble()
 
         #Setting up Test-AppPool
         a = AssetResolver()
@@ -32,6 +39,9 @@ class IntegrationViewTests(unittest.TestCase):
         self.ae=AppEnsembleManager.Instance()
         self.ae.reload()
 
+        #Setting up Test-HTML for Documentation
+        aof.tests._create_test_html_file()
+
         # Setting up request and context
         self.request = testing.DummyRequest()
         self.context = testing.DummyResource()
@@ -39,8 +49,8 @@ class IntegrationViewTests(unittest.TestCase):
 
     def tearDown(self):
         testing.tearDown()
-        AppEnsembleTests._deleteTestArchive(self)
-
+        aof.tests._delete_test_AppEnsemble()
+        aof.tests._delete_test_html_file()
 
     # Private functionality
 
@@ -80,7 +90,6 @@ class IntegrationViewTests(unittest.TestCase):
 
 
     def _call_view_to_test(self):
-        #print(self.viewclass_to_test+"///"+self.view_to_test)
         return getattr(getattr(views,self.viewclass_to_test)(self.context, self.request),self.view_to_test)()
 
     def _noURI_test(self):
@@ -142,16 +151,20 @@ class IntegrationViewTests(unittest.TestCase):
 
         self._standard_tests(response)
 
-    # TODO: view should be improved, because it is not dynamic. Afterwards improve this testing
     def test_documentation_docs_view(self):
-        self.request.matchdict['document']= 'app-description_specification.html'
+        self.request.matchdict['document']= 'test.html'
         response = views.DocumentationViews(self.context, self.request).page_doc_view()
         self._standard_tests(response)
 
+    def test_documentation_docs_view_not_exist(self):
+        self.request.matchdict['document']= 'i-do-not-exist.html'
+        response = views.DocumentationViews(self.context, self.request).page_doc_view()
+        self.assertIsInstance(response,HTTPNotFound)
+
     def test_documentation_docs_view_wrongparam(self):
         self.request.matchdict['wrongparam']= 'app-description_specification.html'
-        view=views.DocumentationViews(self.context, self.request)
-        self.assertRaises(KeyError,view.page_doc_view)
+        response=views.DocumentationViews(self.context, self.request)
+        self.assertRaises(KeyError,response.page_doc_view)
 
     def test_views_for_URIError(self):
 
@@ -233,13 +246,13 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertTrue(response[0]['name']['value']==('MaxApp' or 'MinApp'))
 
 
-    # TODO fix test
-    """def test_zz_action_update_app_pool_view(self):
+
+    def test_zz_action_update_app_pool_view(self):
         self.request.registry.settings['app_pool_path']='aof:tests/res/test_pool.ttl'
         response = views.AppPoolViews(self.context, self.request).action_update()
         self.assertIsInstance(response,Response)
         ap=AppPool.Instance()
-        self.assertTrue(int(response.body)==ap.get_number_of_apps())"""
+        self.assertTrue(int(response.body)==ap.get_number_of_apps())
 
     # AppEnsemble Views
 

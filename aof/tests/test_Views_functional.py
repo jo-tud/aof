@@ -20,7 +20,10 @@ class FunctionalTests(unittest.TestCase):
         ap.add_apps_from_app_pool_definition(source=path,format="turtle")
 
         self.aeTests=AppEnsembleTests()
-        self.aeTests._createTestArchive()
+        aof.tests._create_test_AppEnsemble()
+
+        #Set up Test-HTML for Documentation
+        aof.tests._create_test_html_file()
 
         # Creating app with parameter
         META=aof.tests.settings["META"]
@@ -37,7 +40,8 @@ class FunctionalTests(unittest.TestCase):
 
 
     def tearDown(self):
-        self.aeTests._deleteTestArchive()
+        aof.tests._delete_test_AppEnsemble()
+        aof.tests._delete_test_html_file()
 
     def _status_code_test(self,testapp_get_result):
         self.assertEqual(testapp_get_result.status_code,200)
@@ -62,15 +66,13 @@ class FunctionalTests(unittest.TestCase):
         self._body_title_test(res,"Documentation")
 
     def test_documentation_doc_exists(self):
-        res =self.testapp.get('/docs/app-description_specification.html')
+        res =self.testapp.get('/docs/test.html')
         self._status_code_test(res)
-        self._body_title_test(res,"Documentation")
+        self.assertTrue(bytes('<testtag>HTML-Test</testtag>', 'utf-8') in res.body,"Test-Documentation Document} is not found")
 
-    # TODO: Documentation umschreiben
     def test_documentation_doc_not_exists(self):
-        #res =self.testapp.get('/app-description_not_exists.html')
-        #self._status_code_test(res)
-        pass
+        from webtest import AppError
+        self.assertRaises(AppError,self.testapp.get,'/docs/i-do-not-exist.html')
 
     def test_app_ensembles(self):
         res=self.testapp.get('/app-ensembles.html')

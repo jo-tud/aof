@@ -67,6 +67,19 @@ class AppCheckDecorator(object):
                 return f(self, *args, **kwargs)
         return wrapper
 
+class DocumentExistsDecorator(object):
+    def __call__(self, f):
+        @wraps(f)
+        def wrapper(self, *args, **kwargs):
+
+            document = self.request.matchdict['document']
+            doc_path=os.path.join(self.docs_path,document)
+            if os.path.exists(doc_path):
+                return f(self, *args, **kwargs)
+            else:
+                return HTTPNotFound('The resource "%s" could not be found within the Documentation.' % document)
+        return wrapper
+
 
 class AbstractViews():
     def __init__(self,context, request):
@@ -364,19 +377,18 @@ class DocumentationViews(PageViews):
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='documentation-docs', renderer='templates/documentation-docs.mako')
+    @DocumentExistsDecorator()
     def page_doc_view(self):
         self._setTitle('Documentation')
         document = self.request.matchdict['document']
-        if document == "app-description_specification.html":
-            content = open(os.path.join(self.docs_path,'AOF Language Specification v002.docx.html')).read()
-        else:
-            content = open(os.path.join(self.docs_path,self.request.matchdict['document'])).read()
+        content = open(os.path.join(self.docs_path,self.request.matchdict['document'])).read()
 
         custom_args= {'content': content}
         return self._returnCustomDict(custom_args)
 
 
     @view_config(route_name='documentation-resource')
+    @DocumentExistsDecorator()
     def page_resource_response(self):
         document = self.request.matchdict['document']
         response = FileResponse(

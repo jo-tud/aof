@@ -11,13 +11,13 @@ class AppEnsembleManagerTests(unittest.TestCase):
     def setUp(self):
         self.config = testing.setUp(settings=aof.tests.settings)
         # First add Testappensemble
-        AppEnsembleTests._createTestArchive(self)
+        aof.tests._create_test_AppEnsemble()
         # Load AppEnsembles
         self.aem=AppEnsembleManager.Instance()
 
     def tearDown(self):
         testing.tearDown()
-        AppEnsembleTests._deleteTestArchive(self)
+        aof.tests._delete_test_AppEnsemble()
 
     def test_contains(self):
         self.assertTrue("testAppEnsemble" in self.aem)
@@ -55,10 +55,10 @@ class AppEnsembleManagerTests(unittest.TestCase):
 
     def test_reload(self):
         originlen=len(self.aem)
-        AppEnsembleTests._deleteTestArchive(self)
+        aof.tests._delete_test_AppEnsemble()
         self.aem.reload()
         newlen=len(self.aem)
-        AppEnsembleTests._createTestArchive(self)
+        aof.tests._create_test_AppEnsemble()
         self.aem.reload()
         self.assertNotEqual(originlen,newlen)
 

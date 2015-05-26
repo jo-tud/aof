@@ -8,10 +8,6 @@ import aof.tests
 
 
 class AppPoolTests(unittest.TestCase):
-    """
-
-    TODO's:
-    """
 
     def setUp(self):
         # Sets up the AppPool for Testing with two apps (one with maximum attributes one with minimum attributes)

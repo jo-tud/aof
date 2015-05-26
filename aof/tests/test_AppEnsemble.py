@@ -11,42 +11,17 @@ from aof.orchestration.AppEnsemble import AppEnsemble
 
 class AppEnsembleTests(unittest.TestCase):
 
-    ae_name='testAppEnsemble'
-    ae_test_origin_path='aof:tests/res/'
-
     def setUp(self):
         # sets up the AppEnsemble Instance with an Testarchive
         self.config = testing.setUp(settings=aof.tests.settings)
-        self._createTestArchive()
-        self.ae=AppEnsemble(self.ae_name)
+        aof.tests._create_test_AppEnsemble()
+        self.ae=AppEnsemble(aof.tests.settings['ae_name'])
 
-    def _createTestArchive(self):
-        # creates an test archive with test-files and saves it into the App-Ensembles Folder
-
-        self.a = AssetResolver()
-        #Path where the files for the zip are located
-        originsPath=self.a.resolve(AppEnsembleTests.ae_test_origin_path).abspath()
-
-        # Destination of the zip archive
-        self.destTestArchive= self.a.resolve(AppEnsemble.ae_folder_path).abspath() + AppEnsembleTests.ae_name + AppEnsemble.ae_extension
-
-        # Creation of the zip archive
-        zip_ae = zipfile.ZipFile(self.destTestArchive, mode='w')
-        try:
-            zip_ae.write(originsPath + 'test_ae.ttl',AppEnsemble.ae_filename)
-            zip_ae.write(originsPath + 'test_ae.bpmn',AppEnsemble.bpmn_filename)
-            zip_ae.write(originsPath + 'max_test.ttl','apps/max_test.ttl')
-            zip_ae.write(originsPath + 'min_test.ttl','apps/min_test.ttl')
-        finally:
-            zip_ae.close()
-
-    def _deleteTestArchive(self):
-        os.remove(self.destTestArchive)
 
     def tearDown(self):
         # Deletes the generated test archive
         testing.tearDown()
-        self._deleteTestArchive()
+        aof.tests._delete_test_AppEnsemble()
 
     def test_hasget_bpm(self):
         self.assertTrue(self.ae.has_bpm())
