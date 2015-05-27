@@ -3,6 +3,7 @@ from pyramid import testing
 
 from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
+from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from aof.tests.test_AppEnsemble import AppEnsembleTests
 
 import aof.tests
@@ -88,6 +89,13 @@ class FunctionalTests(unittest.TestCase):
         self._status_code_test(res)
         self._body_title_test(res,"App-Ensemble Details | BPMN")
 
+    def test_app_ensemble_update(self):
+        aem=AppEnsembleManager.Instance()
+        aem.pool.clear()
+        num=len(aem)
+        res =self.testapp.get('/api/actions/update-app-ensembles')
+        self.assertGreater(int(res.body),0)
+
     def test_app_pool(self):
         res=self.testapp.get('/app-pool.html')
         self._status_code_test(res)
@@ -113,3 +121,9 @@ class FunctionalTests(unittest.TestCase):
         from webtest import AppError
         self.assertRaises(AppError,self.testapp.get,'/app-pool/details.html?URI=http://abc')
 
+    def test_app_pool_update(self):
+        ap=AppPool.Instance()
+        ap.clear_app_pool()
+        num=ap.get_number_of_apps()
+        res =self.testapp.get('/api/actions/update-app-pool')
+        self.assertGreater(int(res.body),num)
