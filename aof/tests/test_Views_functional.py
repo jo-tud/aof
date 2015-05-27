@@ -94,7 +94,7 @@ class FunctionalTests(unittest.TestCase):
         aem.pool.clear()
         num=len(aem)
         res =self.testapp.get('/api/actions/update-app-ensembles')
-        self.assertGreater(int(res.body),0)
+        self.assertGreater(int(res.body),num)
 
     def test_app_pool(self):
         res=self.testapp.get('/app-pool.html')
