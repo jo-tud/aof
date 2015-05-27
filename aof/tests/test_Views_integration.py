@@ -11,7 +11,10 @@ from rdflib import URIRef
 
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver
-import aof.views as views
+from aof.views.PageViews import PageViews
+from aof.views.AppEnsembleViews import AppEnsembleViews
+from aof.views.AppPoolViews import AppPoolViews
+from aof.views.DocumentationViews import DocumentationViews
 
 import aof.tests
 from aof.tests.test_AppEnsemble import AppEnsembleTests
@@ -90,7 +93,10 @@ class IntegrationViewTests(unittest.TestCase):
 
 
     def _call_view_to_test(self):
-        return getattr(getattr(views,self.viewclass_to_test)(self.context, self.request),self.view_to_test)()
+        module = getattr(aof.views,self.viewclass_to_test)
+        class_ = getattr(module, self.viewclass_to_test)
+        ret=getattr(class_(self.context, self.request),self.view_to_test)()
+        return ret
 
     def _noURI_test(self):
         response = self._call_view_to_test()
@@ -130,7 +136,7 @@ class IntegrationViewTests(unittest.TestCase):
     # General view tests
 
     def test_home_view(self):
-        response = views.PageViews(self.context, self.request).page_home()
+        response = PageViews(self.context, self.request).page_home()
 
         self.assertTrue(int(response['number_of_apps']) > 0, 'Home View: AppPool is not initialized correctly!')
         self.assertIsInstance(response['number_of_apps'], str, 'Home View: Number of Apps is not a string!')
@@ -147,24 +153,24 @@ class IntegrationViewTests(unittest.TestCase):
     def test_documentation_view(self):
         request = testing.DummyRequest()
         context = testing.DummyResource()
-        response = views.DocumentationViews(self.context, self.request).page_overview()
+        response = DocumentationViews(self.context, self.request).page_overview()
 
         self._standard_tests(response)
 
     def test_documentation_docs_view(self):
         self.request.matchdict['document']= 'test.html'
-        response = views.DocumentationViews(self.context, self.request).page_doc_view()
+        response = DocumentationViews(self.context, self.request).page_html_view()
         self._standard_tests(response)
 
     def test_documentation_docs_view_not_exist(self):
         self.request.matchdict['document']= 'i-do-not-exist.html'
-        response = views.DocumentationViews(self.context, self.request).page_doc_view()
+        response = DocumentationViews(self.context, self.request).page_html_view()
         self.assertIsInstance(response,HTTPNotFound)
 
     def test_documentation_docs_view_wrongparam(self):
         self.request.matchdict['wrongparam']= 'app-description_specification.html'
-        response=views.DocumentationViews(self.context, self.request)
-        self.assertRaises(KeyError,response.page_doc_view)
+        response=DocumentationViews(self.context, self.request)
+        self.assertRaises(KeyError,response.page_html_view)
 
     def test_views_for_URIError(self):
 
@@ -175,8 +181,8 @@ class IntegrationViewTests(unittest.TestCase):
 
         test_views["AppEnsembleViews"].append({'view': "page_details", 'ignore_test': []})
         test_views["AppEnsembleViews"].append({'view': "page_visualize_bpm", 'ignore_test': []})
-        test_views["AppEnsembleViews"].append({'view': "page_get_bpmn", 'ignore_test': ["_tooMuchURI_butOK_test"]})
-        test_views["AppEnsembleViews"].append({'view': "page_get_ae_pkg", 'ignore_test': ["_tooMuchURI_butOK_test"]})
+        test_views["AppEnsembleViews"].append({'view': "action_get_bpmn_data", 'ignore_test': ["_tooMuchURI_butOK_test"]})
+        test_views["AppEnsembleViews"].append({'view': "action_get_ae_pkg", 'ignore_test': ["_tooMuchURI_butOK_test"]})
 
         test_views["AppPoolViews"].append({'view': "page_details", 'ignore_test': ["_tooMuchURI_butOK_test","_wrongURI_test"]})
 
@@ -190,7 +196,7 @@ class IntegrationViewTests(unittest.TestCase):
     # AppPool View tests
 
     def test_documentation_ap_pool_view(self):
-        response = views.AppPoolViews(self.context, self.request).page_overview()
+        response = AppPoolViews(self.context, self.request).page_overview()
 
         self._standard_tests(response)
 
@@ -215,7 +221,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'http://mustermann.de/maxApp')
 
-        response = views.AppPoolViews(self.context, self.request).page_details()
+        response = AppPoolViews(self.context, self.request).page_details()
         self.assertEqual(response['details']['icon'],'http://mustermann.de/maxApp/res/icon.jpg')
         self.assertIsNotNone(response['roles'])
         self.assertIsNotNone(response['creators'])
@@ -229,7 +235,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'http://mustermann.de/minApp')
 
-        response = views.AppPoolViews(self.context, self.request).page_details()
+        response = AppPoolViews(self.context, self.request).page_details()
         self.assertIsNone(response['roles'])
         self.assertIsNone(response['creators'])
         self.assertIsNone(response['main_screenshot'])
@@ -240,7 +246,7 @@ class IntegrationViewTests(unittest.TestCase):
 
 
     def test_api_ap_json_view(self):
-        response = views.AppPoolViews(self.context, self.request).api_json()
+        response = AppPoolViews(self.context, self.request).api_json()
         self.assertTrue('json' in response)
         response=json.loads(response['json'])['results']['bindings']
         self.assertTrue(response[0]['name']['value']==('MaxApp' or 'MinApp'))
@@ -249,7 +255,7 @@ class IntegrationViewTests(unittest.TestCase):
 
     def test_zz_action_update_app_pool_view(self):
         self.request.registry.settings['app_pool_path']='aof:tests/res/test_pool.ttl'
-        response = views.AppPoolViews(self.context, self.request).action_update()
+        response = AppPoolViews(self.context, self.request).action_update()
         self.assertIsInstance(response,Response)
         ap=AppPool.Instance()
         self.assertTrue(int(response.body)==ap.get_number_of_apps())
@@ -257,7 +263,7 @@ class IntegrationViewTests(unittest.TestCase):
     # AppEnsemble Views
 
     def test_app_ensembles_view(self):
-        response = views.AppEnsembleViews(self.context, self.request).page_overview()
+        response = AppEnsembleViews(self.context, self.request).page_overview()
         self._standard_tests(response)
 
 
@@ -266,7 +272,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = views.AppEnsembleViews(self.context, self.request).page_details()
+        response = AppEnsembleViews(self.context, self.request).page_details()
         self.assertEqual(response['ae_uri'], URIRef('testAppEnsemble'))
 
         self.assertTrue(len(response['ae_apps']) > 1)
@@ -277,7 +283,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = views.AppEnsembleViews(self.context, self.request).page_visualize_bpm()
+        response = AppEnsembleViews(self.context, self.request).page_visualize_bpm()
         self.assertEqual(response['ae_uri'], URIRef('testAppEnsemble'))
         self.assertEqual(response['ae_has_bpmn'], True)
         self._standard_tests(response)
@@ -287,14 +293,14 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = views.AppEnsembleViews(self.context, self.request).page_get_bpmn()
+        response = AppEnsembleViews(self.context, self.request).action_get_bpmn_data()
         self.assertIsInstance(response,Response)
         self.assertEqual(response.headers.get('Content-Type'), 'txt/xml')
         self.assertTrue(int(response.headers.get('Content-Length'))<100)
         self.assertTrue(".bpmn" in response.headers.get('Content-Disposition'))
 
     def test_api_ae_json_view(self):
-        response = views.AppEnsembleViews(self.context, self.request).api_json()
+        response = AppEnsembleViews(self.context, self.request).api_json()
         del(response['json']['5G-Demo'])
         self.assertTrue('json' in response)
         response=response['json']
@@ -309,14 +315,14 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = views.AppEnsembleViews(self.context, self.request).page_get_ae_pkg()
+        response = AppEnsembleViews(self.context, self.request).action_get_ae_pkg()
         self.assertIsInstance(response,FileResponse)
         self.assertEqual(response.headers.get('Content-Type'), 'application/vnd.aof.package-archive')
         self.assertTrue(".ae" in response.headers.get('Content-Disposition'))
 
 
     def test_zz_action_update_app_ensembles_view(self):
-        response = views.AppEnsembleViews(self.context, self.request).action_update()
+        response = AppEnsembleViews(self.context, self.request).action_update()
         self.assertIsInstance(response,Response)
         aem=AppEnsembleManager.Instance()
         self.assertTrue(int(response.body)==len(aem))

@@ -86,7 +86,7 @@ class FunctionalTests(unittest.TestCase):
     def test_app_ensemble_bpmn(self):
         res=self.testapp.get('/app-ensembles/visualize-bpm.html?URI=testAppEnsemble')
         self._status_code_test(res)
-        self._body_title_test(res,"App-Ensemble Details")
+        self._body_title_test(res,"App-Ensemble Details | BPMN")
 
     def test_app_pool(self):
         res=self.testapp.get('/app-pool.html')
