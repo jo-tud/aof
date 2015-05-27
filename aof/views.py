@@ -21,7 +21,14 @@ namespaces= {'AOF': AOF, 'ANDROID': ANDROID, 'DC': DC, 'FOAF': FOAF, 'RDF': RDF,
 log = logging.getLogger(__name__)
 
 
-class URICheckDecorator(object):
+class RequestPoolURI_Decorator(object):
+    """
+    Checks
+    - Was an URI supplied
+    - Was only one URI supplied
+    - Was an URI supplied but the value empty
+    - Does the supplied uri has an reference in the AppPool or AppEnsembleManager
+    """
     def __call__(self, f):
         @wraps(f)
         def wrapper(self, *args, **kwargs):
@@ -36,26 +43,24 @@ class URICheckDecorator(object):
                         return Response('Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
                     else:
                         self.uri=URIRef(uri)
+                        if isinstance(self.pool,AppPool):
+                            if self.pool.in_pool(self.uri):
+                                return f(self, *args, **kwargs)
+                            else:
+                                return HTTPNotFound('The uri "%s" could not be found in the AppPool.' % self.uri)
+                        elif isinstance(self.pool,AppEnsembleManager):
+                            if self.uri in self.pool:
+                                self.uri=URIRef(self.uri)
+                                return f(self, *args, **kwargs)
+                            else:
+                                return HTTPNotFound('The uri "%s" could not be found in the AppEnsemblePool.' % self.uri)
+                        else:
+                            return log.error('URIExistDecorator was called without an AppPool or an AppEnsembleManager. The given object was an instance of {} and the pool was of type {}'.format(type(self),type(self.pool)))
+
+
                         return f(self, *args, **kwargs)
         return wrapper
 
-class URIExistDecorator(object):
-    def __call__(self, f):
-        @wraps(f)
-        def wrapper(self, *args, **kwargs):
-            if isinstance(self.pool,AppPool):
-                if self.pool.in_pool(self.uri):
-                    return f(self, *args, **kwargs)
-                else:
-                    return HTTPNotFound('The uri "%s" could not be found in the AppPool.' % self.uri)
-            elif isinstance(self.pool,AppEnsembleManager):
-                if self.uri in self.pool:
-                    return f(self, *args, **kwargs)
-                else:
-                    return HTTPNotFound('The uri "%s" could not be found in the AppEnsemblePool.' % self.uri)
-            else:
-                return log.error('URIExistDecorator was called without an AppPool or an AppEnsembleManager. The given object was an instance of {} and the pool was of type {}'.format(type(self),type(self.pool)))
-        return wrapper
 
 class AppCheckDecorator(object):
     def __call__(self, f):
@@ -178,8 +183,7 @@ class AppPoolViews(PageViews):
             
 
     @view_config(route_name='app-details', renderer='templates/app-details.mako')
-    @URICheckDecorator()
-    @URIExistDecorator()
+    @RequestPoolURI_Decorator()
     @AppCheckDecorator()
     def page_details(self):
         self._setTitle('App-Details')
@@ -270,8 +274,7 @@ class AppEnsembleViews(PageViews):
 
 
     @view_config(route_name='ae-details', renderer='templates/ae-details.mako')
-    @URICheckDecorator()
-    @URIExistDecorator()
+    @RequestPoolURI_Decorator()
     def page_details(self):
         self._setTitle('App-Ensemble Details')
         ae = self.pool.get_AppEnsemble(self.uri)
@@ -286,8 +289,7 @@ class AppEnsembleViews(PageViews):
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='ae-visualize-bpm', renderer='templates/ae-visualize-bpm.mako')
-    @URICheckDecorator()
-    @URIExistDecorator()
+    @RequestPoolURI_Decorator()
     def page_visualize_bpm(self):
         self._setTitle('App-Ensemble Details')
         ae = self.pool.get_AppEnsemble(self.uri)
@@ -300,8 +302,7 @@ class AppEnsembleViews(PageViews):
 
 
     @view_config(route_name='ae-bpmn')
-    @URICheckDecorator()
-    @URIExistDecorator()
+    @RequestPoolURI_Decorator()
     def page_get_bpmn(self):
         ae = self.pool.get_AppEnsemble(self.uri)
         bpmn = ae.get_bpm()
@@ -315,8 +316,7 @@ class AppEnsembleViews(PageViews):
 
 
     @view_config(route_name='api-get-ae-pkg')
-    @URICheckDecorator()
-    @URIExistDecorator()
+    @RequestPoolURI_Decorator()
     def page_get_ae_pkg(self):
         ae = self.pool.get_AppEnsemble(self.uri)
         response = FileResponse(
