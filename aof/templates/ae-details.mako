@@ -57,7 +57,7 @@
 % if qrcode != "None":
     <div class="medium-3 columns panel pagination-centered">
         <img src="${qrcode}" alt="${ae_uri}"/>
-        <span class=" info label">Download AppEnsemble</span>
+        <span class="secondary label">Download AppEnsemble</span>
     </div>
     % endif
 </div>
