@@ -66,7 +66,7 @@ class AppEnsembleViews(PageViews):
             from urllib.parse import urljoin
             introspector = self.request.registry.introspector
             api_ae_uri = str(introspector.get('routes', 'api-get-ae-pkg')['pattern'])
-            api_ae_uri= urljoin(self.request.application_url,api_ae_uri+"?uri="+self.uri,)
+            api_ae_uri= urljoin(self.request.application_url,api_ae_uri+"?URI="+self.uri,)
         except:
             api_ae_uri=None
 

@@ -119,7 +119,7 @@ class PageViews(AbstractViews):
                 qrcode.svg(target,size)
             target=target.replace(AssetResolver().resolve('aof:').abspath(),"")
             target=target.replace('\\',"/")
-            qrcode=""+target
+            qrcode=target
         else:
             log.error("QRCode for {} could not be created. Seems to be an invalid URL!".format(url))
             qrcode = None
