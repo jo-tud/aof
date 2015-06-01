@@ -93,8 +93,10 @@
         </table>
     </div>
     % if qrcode != "None":
-    <div class="medium-3 columns">
+    <div class="medium-3 columns panel pagination-centered">
             <img src="${qrcode}" alt="${details['name']}"/>
+            <span class=" info label">Download App</span>
+    </div>
     </div>
     % endif
 
