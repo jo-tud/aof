@@ -1,10 +1,12 @@
 from pyramid.config import Configurator
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
 import os
+import aof.tmp
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+
 
     here = os.path.dirname(os.path.abspath(__file__))
 
@@ -15,6 +17,7 @@ def main(global_config, **settings):
     config.include('pyramid_chameleon')
     config.include('pyramid_mako')
     config.add_static_view('static', 'static', cache_max_age=3600)
+    config.add_static_view('tmp', 'tmp', cache_max_age=3600)
     
     # Routes
     config.add_route('home', '/')
@@ -54,5 +57,9 @@ def main(global_config, **settings):
     config.scan()
 
     settings['mako.directories'] = os.path.join(here, 'templates')
+
+
+    # Clear all temporary files
+    aof.tmp.clear_all_tmp_files()
 
     return config.make_wsgi_app()
