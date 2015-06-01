@@ -327,6 +327,17 @@ class IntegrationViewTests(unittest.TestCase):
         aem=AppEnsembleManager.Instance()
         self.assertTrue(int(response.body)==len(aem))
 
+    def test_QRCode_generate_valid(self):
+        response=PageViews(self.context,self.request)._generateQRCode("http://mustermann.de/minApp")
+        self.assertEqual("/tmp/qrcodes/6545b7b29202cbb09883dd0b4595a149.svg",response)
+
+    def test_QRCode_generate_notvalid(self):
+        response=PageViews(self.context,self.request)._generateQRCode("http://mustermann.de/maxApp")
+        self.assertNotEqual("/tmp/qrcodes/6545b7b29202cbb09883dd0b4595a149.svg",response)
+
+    def test_QRCode_generate_wrongURI(self):
+        response=PageViews(self.context,self.request)._generateQRCode("mustermann.de/maxApp")
+        self.assertIsNone(response)
 
 
 

@@ -106,7 +106,7 @@ class PageViews(AbstractViews):
         """
         import pyqrcode
         from pyramid.path import AssetResolver
-        from urllib.parse import urlparse,urlencode
+        from urllib.parse import urlparse
         from hashlib import md5
 
         valid_url=urlparse(url)
