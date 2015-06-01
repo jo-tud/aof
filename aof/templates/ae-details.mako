@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 <%inherit file="layout.mako"/>
 <%block name="top_bar_actions">
-    <li><a href="/api/download/ae-package?URI=${ae_uri}" id="action_update">INSTALL</a></li>
+    <li><a href="${ae_api_path}" id="action_update">INSTALL</a></li>
 </%block>
 
 <div class="row">

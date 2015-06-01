@@ -68,12 +68,13 @@ class AppEnsembleViews(PageViews):
             api_ae_uri = str(introspector.get('routes', 'api-get-ae-pkg')['pattern'])
             api_ae_uri= urljoin(self.request.application_url,api_ae_uri+"?URI="+self.uri,)
         except:
-            api_ae_uri=None
+            api_ae_uri="/api/download/ae-package?URI="+self.uri
 
         ae_apps = ae.getRequiredApps().bindings
         custom_args = {
             'ae_path': ae.ae_pkg_path,
             'ae_uri': self.uri,
+            'ae_api_path':api_ae_uri,
             'qrcode': self._generateQRCode(api_ae_uri),
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps
