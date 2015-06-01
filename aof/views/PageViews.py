@@ -7,6 +7,8 @@ from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from aof.orchestration.AppPool import AppPool
 from aof.views import AbstractViews
+
+import os
 import logging
 
 __author__ = 'khoerfurter'
@@ -96,6 +98,34 @@ class PageViews(AbstractViews):
         self.page_title = str(value)
         return None
 
+    def _generateQRCode(self,url,size=4):
+        """
+        Generates an QR-Code-SVG into the directory "static/img/qrcodes"
+        Filename of the SVG is an md5-hash of the uri.
+        :return: relative URL or None if the url is not valid
+        """
+        import pyqrcode
+        from pyramid.path import AssetResolver
+        from urllib.parse import urlparse,urlencode
+        from hashlib import md5
+
+        valid_url=urlparse(url)
+        if bool(valid_url.scheme):
+            hash=md5()
+            hash.update(url.encode('utf-8'))
+            target=AssetResolver().resolve(os.path.join('aof:tmp','qrcodes',str(hash.hexdigest())+".svg")).abspath()
+            if not os.path.exists(target):
+                qrcode = pyqrcode.create(url)
+                qrcode.svg(target,size)
+            target=target.replace(AssetResolver().resolve('aof:').abspath(),"")
+            target=target.replace('\\',"/")
+            qrcode=""+target
+        else:
+            log.error("QRCode for {} could not be created. Seems to be an invalid URL!".format(url))
+            qrcode = None
+        return qrcode
+
+
     @view_config(route_name='home', renderer='aof:templates/home.mako')
     def page_home(self):
         """
@@ -114,3 +144,5 @@ class PageViews(AbstractViews):
         return self._returnCustomDict(custom_args)
 
 
+if __name__ == "__main__":
+    print(PageViews(1,2)._generateQRCode("http://www.cyt.de/test.html?a=b&c=d",1))

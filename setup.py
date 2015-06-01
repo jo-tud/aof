@@ -15,7 +15,8 @@ requires = [
     'pyramid_debugtoolbar',
     'waitress',
     'rdflib',
-    'webtest'
+    'webtest',
+    'pyqrcode'
     ]
 
 setup(name='AOF',

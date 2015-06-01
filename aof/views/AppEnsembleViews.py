@@ -62,10 +62,19 @@ class AppEnsembleViews(PageViews):
         self._setTitle('App-Ensemble Details')
         ae = self.pool.get_AppEnsemble(self.uri)
 
+        try:
+            from urllib.parse import urljoin
+            introspector = self.request.registry.introspector
+            api_ae_uri = str(introspector.get('routes', 'api-get-ae-pkg')['pattern'])
+            api_ae_uri= urljoin(self.request.application_url,api_ae_uri+"?uri="+self.uri,)
+        except:
+            api_ae_uri=None
+
         ae_apps = ae.getRequiredApps().bindings
         custom_args = {
             'ae_path': ae.ae_pkg_path,
             'ae_uri': self.uri,
+            'qrcode': self._generateQRCode(api_ae_uri),
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps
         }

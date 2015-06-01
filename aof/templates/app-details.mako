@@ -49,7 +49,11 @@
     <div class="small-12 columns">
         <p class="markdown">${details['comment']}</p>
     </div>
-    <div class="small-12 columns">
+    % if qrcode != "None":
+        <div class="small-9 columns">
+    % else :
+        <div class="small-12 columns">
+    % endif
         <table width="100%">
             <thead>
             <tr>
@@ -88,6 +92,11 @@
             </tbody>
         </table>
     </div>
+    % if qrcode != "None":
+    <div class="medium-3 columns">
+            <img src="${qrcode}" alt="${details['name']}"/>
+    </div>
+    % endif
 
 </div>
 

@@ -5,8 +5,15 @@
 </%block>
 
 <div class="row">
+    <h1>${ae_uri}</h1>
+</div>
+<div class="row">
+% if qrcode != "None":
+    <div class="small-9 columns">
+% else :
     <div class="small-12 columns">
-        <h1>${ae_uri}</h1>
+% endif
+
         <table>
             <thead>
             <tr>
@@ -47,6 +54,11 @@
             </tbody>
         </table>
     </div>
+% if qrcode != "None":
+    <div class="medium-3 columns">
+            <img src="${qrcode}" alt="${ae_uri}"/>
+    </div>
+    % endif
 </div>
 
 

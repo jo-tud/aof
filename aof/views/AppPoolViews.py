@@ -156,6 +156,7 @@ class AppPoolViews(PageViews):
 
         custom_args = {'namespaces': namespaces,
                        'uri': self.uri,
+                       'qrcode': self._generateQRCode(self.uri),
                        'details': details,
                        'roles': roles,
                        'creators': creators,
