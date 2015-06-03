@@ -186,7 +186,7 @@ class AppPoolTests(unittest.TestCase):
         self.assertIs(exitPoint['outputs'].__len__(),1,"The Number if exitPoint outputs is not correct!")
         i=0
         while (i<exitPoint['outputs'].__len__()):
-            if exitPoint['outputs'][i]['data_type']=='http://www.w3.org/2001/XMLSchema#anyURI':
+            if exitPoint['outputs'][i]['has_datatype']=='http://www.w3.org/2001/XMLSchema#anyURI':
                 break
             i+=1
         else:
