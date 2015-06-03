@@ -10,6 +10,7 @@ from aof.views import AbstractViews
 
 import os
 import logging
+import ast
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -71,7 +72,7 @@ class PageViews(AbstractViews):
         super(PageViews, self).__init__(context, request)
         self.pool = None
         self.page_title = None
-        import ast
+
 
         self.meta = ast.literal_eval(self.request.registry.settings['META'])
 
