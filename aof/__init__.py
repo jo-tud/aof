@@ -36,8 +36,6 @@ def main(global_config, **settings):
     config.add_route('documentation', '/docs/index.html')
     config.add_route('documentation-docs', '/docs/{document:.*}')
     config.add_route('documentation-resource', '/resources/{document}')
-    config.add_route('documentation-redirect', '/redirect/{document}')
-
 
     # API
     ## JSON

@@ -71,13 +71,14 @@ class DocumentationViews(PageViews):
                     tmp_name = os.path.splitext(file)
                     key = tmp_name[1].replace(".", "", 1).upper()
                     if key in allowed_doc_types:
-                        if key == "HTML":
-                            path = "/docs/"
-                        elif key == "LINK":
-                            path = "/redirect/"
+                        if key == "LINK":
+                            path = open(os.path.join(basepath, file)).read()
                         else:
-                            path = "/resources/"
-                        path += os.path.join(basepath, file).replace(root + "\\", "").replace("\\", "/")
+                            if key == "HTML":
+                                path = "/docs/"
+                            else:
+                                path = "/resources/"
+                            path += os.path.join(basepath, file).replace(root + "\\", "").replace("\\", "/")
                         for idx, s in enumerate(structure):
                             if s["name"] == tmp_name[0]:
                                 s['resources'].update({key: path})
@@ -120,16 +121,4 @@ class DocumentationViews(PageViews):
             request=self.request
         )
         return response
-
-    @view_config(route_name='documentation-redirect')
-    def page_redirect_response(self):
-        """
-        Generates an HTTP-REDIRECT to the requested URL
-        :return: HTTPFound
-        """
-        from pyramid.httpexceptions import HTTPFound
-
-        content = open(os.path.join(self.docs_path, self.request.matchdict['document'])).read()
-        return HTTPFound(location=content)
-
 
