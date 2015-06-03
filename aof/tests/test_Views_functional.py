@@ -48,7 +48,7 @@ class FunctionalTests(unittest.TestCase):
         self.assertEqual(testapp_get_result.status_code,200)
 
     def _body_title_test(self,res,title):
-        self.assertTrue(bytes('<title>'+title+' | '+self.meta['acronym']+'</title>', 'utf-8') in res.body,"Title {} is not found in the document".format(title))
+        self.assertTrue(bytes('<title>'+title+' - '+self.meta['acronym']+'</title>', 'utf-8') in res.body,"Title {} is not found in the document".format(title))
 
     def test_home_view(self):
         res = self.testapp.get('/')
