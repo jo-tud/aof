@@ -72,7 +72,6 @@ class AppEnsembleViews(PageViews):
 
         ae_apps = ae.getRequiredApps().bindings
         custom_args = {
-            'ae_path': ae.ae_pkg_path,
             'ae_uri': self.uri,
             'ae_api_path':api_ae_uri,
             'qrcode': self._generateQRCode(api_ae_uri),

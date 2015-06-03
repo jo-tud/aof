@@ -24,11 +24,6 @@
 
             <tbody>
             <tr>
-                <td>Path</td>
-                <td>${ae_path}</td>
-            </tr>
-
-            <tr>
                 <td>Apps</td>
                 <td>
                     % for app in ae_apps:
