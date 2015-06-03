@@ -19,8 +19,3 @@ class AOFGraph(Dataset):
 
         # Make sure the aof namespace is always known to AOFGraph
         self.bind('aof', AOF)
-
-# Will only be called when executed from shell
-if __name__ == "__main__":
-    s = AOFGraph.Instance()
-    print("This graph is a singleton and currently contains %i triples" %(s.__len__() ) )

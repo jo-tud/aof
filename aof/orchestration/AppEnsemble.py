@@ -105,11 +105,3 @@ class AppEnsemble(Graph):
             }
         """)
         return res
-
-# Will only be called when executed from shell
-if __name__ == "__main__":
-    ae= AppEnsemble('5G-Demo')
-    print("Instance number: %i" % ae.counter)
-    print(ae.identifier)
-    test = ae.getRequiredApps()
-    print(test)
