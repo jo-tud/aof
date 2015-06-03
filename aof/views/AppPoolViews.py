@@ -1,14 +1,36 @@
 from functools import wraps
+import logging
+
 from pyramid.response import Response
 from pyramid.view import view_config
+
+from rdflib import ConjunctiveGraph, BNode
+
 from aof.orchestration.AppPool import AppPool
 from aof.orchestration.namespaces import AOF
 from aof.views import namespaces
 from aof.views.PageViews import PageViews, RequestPoolURI_Decorator
-import logging
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
+
+# TODO: Check for speed optimization
+def fill_graph_by_subject(basegraph, newgraph, subject, loop_count=0):
+    """
+    Fills an Graph with all triples with an certain subject. Includes the necessary triples for the objects until the deepth of 5.
+    :param basegraph: Graph with the data for the new Graph
+    :param newgraph: Instance of the new Graph
+    :param subject: subject of triples which is looked for in the basegraph
+    :return: Graph
+    """
+    loop_count += 1
+    for s, p, o in basegraph.triples((subject, None, None)):
+        newgraph.add((s, p, o))
+        if type(
+                o) == BNode and loop_count < 6:  # it will do: (S1,P1,O1) -> if O1 has an own Description: (O1,P2,O2)... 5 times
+            newgraph = fill_graph_by_subject(basegraph, newgraph, o, loop_count)
+    return newgraph
+
 
 class AppCheckDecorator(object):
     """
@@ -103,7 +125,7 @@ class AppPoolViews(PageViews):
         # log.debug(json)
         return {'json': json}
 
-    @view_config(route_name='app-details', renderer='aof:templates/app-details.mako')
+    @view_config(route_name='app-details', renderer='aof:templates/app-details.mako', accept='text/html')
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
     def page_details(self):
@@ -167,4 +189,18 @@ class AppPoolViews(PageViews):
                        }
         return self._returnCustomDict(custom_args)
 
+    @view_config(route_name='app-details', accept='application/rdf+xml')
+    @RequestPoolURI_Decorator()
+    @AppCheckDecorator()
+    def api_details(self):
+        ret = ConjunctiveGraph()
+        ret = fill_graph_by_subject(self.pool, ret, self.uri)
+        return Response(ret.serialize(format='application/rdf+xml'))
 
+    """@view_config(route_name='app-details', accept='text/turtle')
+    @RequestPoolURI_Decorator()
+    @AppCheckDecorator()
+    def api_details(self):
+        ret = ConjunctiveGraph()
+        ret = fill_graph_by_subject(self.pool, ret, self.uri)
+        return Response(ret.serialize(format='text/turtle'))"""
