@@ -268,7 +268,7 @@ class AppPool(ConjunctiveGraph):
                 'types': self.objects(input, RDF.type),
                 'android_name': self.value(input, ANDROID.name).__str__(),
                 'is_required': self.value(input, AOF.isRequired),
-                'data_type': self.value(input, AOF.datatype).__str__(),
+                'has_datatype': self.value(input, AOF.hasDatatype).__str__(),
                 'comment': self.value(input, RDFS.comment).__str__()
                 })
         return inputs
@@ -315,7 +315,7 @@ class AppPool(ConjunctiveGraph):
                     'types': self.objects(output, RDF.type),
                     'android_name': self.value(output, ANDROID.name).__str__(),
                     'is_guaranteed': self.value(output, AOF.isGuaranteed),
-                    'data_type': self.value(output, AOF.datatype).__str__(),
+                    'has_datatype': self.value(output, AOF.hasDatatype).__str__(),
                     'comment': self.value(output, RDFS.comment).__str__()
                 }
             )

@@ -208,8 +208,8 @@
                                     <td>${input['android_name']}</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="${namespaces['AOF'].datatype}">Data type</a></td>
-                                    <td><a href="${input['data_type']}">${input['data_type']}</a></td>
+                                    <td><a href="${namespaces['AOF'].hasDatatype}">Data type</a></td>
+                                    <td><a href="${input['has_datatype']}">${input['has_datatype']}</a></td>
                                 </tr>
                                 <tr>
                                     <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
@@ -291,8 +291,8 @@
                                     <td>${output['android_name']}</td>
                                 </tr>
                                 <tr>
-                                    <td><a href="${namespaces['AOF'].datatype}">Data type</a></td>
-                                    <td><a href="${output['data_type']}">${output['data_type']}</a></td>
+                                    <td><a href="${namespaces['AOF'].hasDatatype}">Data type</a></td>
+                                    <td><a href="${output['has_datatype']}">${output['has_datatype']}</a></td>
                                 </tr>
                                 <tr>
                                     <td><a href="${namespaces['RDFS'].comment}">Comment</a></td>
