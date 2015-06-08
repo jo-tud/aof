@@ -202,18 +202,22 @@ class AppPoolViews(PageViews):
                        }
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='app-details', accept='application/rdf+xml')
-    @RequestPoolURI_Decorator()
-    @AppCheckDecorator()
-    def api_details(self):
-        ret = ConjunctiveGraph()
-        ret = fill_graph_by_subject(self.pool, ret, self.uri)
-        return Response(ret.serialize(format='application/rdf+xml'))
-
     @view_config(route_name='app-details', accept='text/turtle')
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
-    def api_details(self):
+    def api_details_turtle(self):
         ret = ConjunctiveGraph()
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
+        print("turtle")
         return Response(ret.serialize(format='text/turtle'))
+
+    @view_config(route_name='app-details', accept='application/rdf+xml')
+    @RequestPoolURI_Decorator()
+    @AppCheckDecorator()
+    def api_details_rdfxml(self):
+        ret = ConjunctiveGraph()
+        ret = fill_graph_by_subject(self.pool, ret, self.uri)
+        print("rdf")
+        return Response(ret.serialize(format='application/rdf+xml'))
+
+
