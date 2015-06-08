@@ -5,6 +5,9 @@ from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from aof.tests.test_AppEnsemble import AppEnsembleTests
+from webtest import TestApp,TestRequest
+import ast
+from aof import main
 
 import aof.tests
 
@@ -12,7 +15,7 @@ import aof.tests
 
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
-        from aof import main
+
 
         # Setting up Testpool and TestAppEnsemble
         a = AssetResolver()
@@ -33,10 +36,10 @@ class FunctionalTests(unittest.TestCase):
                     app_ensemble_folder=aof.tests.settings["app_ensemble_folder"],
                     documentation_docs_path=aof.tests.settings["documentation_docs_path"],
                     META=META)
-        from webtest import TestApp
+
         self.testapp = TestApp(app)
 
-        import ast
+
         self.meta=ast.literal_eval(META)
 
 
@@ -79,10 +82,19 @@ class FunctionalTests(unittest.TestCase):
         res=self.testapp.get('/app-ensembles.html')
         self._status_code_test(res)
 
-    def test_app_ensemble_details(self):
+    def test_app_ensemble_details_html(self):
         res=self.testapp.get('/app-ensembles/details.html?URI=testAppEnsemble')
         self._status_code_test(res)
         self.assertTrue(b'<h1>testAppEnsemble</h1>' in res.body)
+
+    # TODO
+    """def test_app_ensemble_details_rdf(self):
+        req = TestRequest.blank('/app-ensembles/details.html?URI=testAppEnsemble', accept='text/turtle')
+        res = self.testapp.do_request(req)
+        #res=self.testapp.get('/app-ensembles/details.html?URI=testAppEnsemble', extra_environ={'accept':'application/rdf+xml'})
+        self._status_code_test(res)
+        print(res.body)
+        self.assertTrue(b'<rdf:RDF' in res.body)"""
 
     def test_app_ensemble_bpmn(self):
         res=self.testapp.get('/app-ensembles/visualize-bpm.html?URI=testAppEnsemble')

@@ -208,7 +208,6 @@ class AppPoolViews(PageViews):
     def api_details_turtle(self):
         ret = ConjunctiveGraph()
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
-        print("turtle")
         return Response(ret.serialize(format='text/turtle'))
 
     @view_config(route_name='app-details', accept='application/rdf+xml')
@@ -217,7 +216,6 @@ class AppPoolViews(PageViews):
     def api_details_rdfxml(self):
         ret = ConjunctiveGraph()
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
-        print("rdf")
         return Response(ret.serialize(format='application/rdf+xml'))
 
 

@@ -142,14 +142,14 @@ class PageViews(AbstractViews):
 
         ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
         ae_inst_arifact=ap.get_install_uri(ae_inst_uri)
-        ae__inst_qrcode=self._generateQRCode(ape_inst_arifact)
+        ae_inst_qrcode=self._generateQRCode(ae_inst_arifact)
 
 
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
                        'unique_triples': unique_triples,
                        'ae_inst_uri' : ae_inst_uri,
-                       'qr_code_aeinstaller':ae_inst_qrcode
+                       'ae_inst_qrcode':ae_inst_qrcode
                        }
         return self._returnCustomDict(custom_args)
 
