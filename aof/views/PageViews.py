@@ -148,7 +148,7 @@ class PageViews(AbstractViews):
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
                        'unique_triples': unique_triples,
-                       'ae_inst_uri' : ae_inst_uri
+                       'ae_inst_uri' : ae_inst_uri,
                        'qr_code_aeinstaller':ae_inst_qrcode
                        }
         return self._returnCustomDict(custom_args)
