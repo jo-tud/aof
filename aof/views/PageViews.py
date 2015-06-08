@@ -139,9 +139,18 @@ class PageViews(AbstractViews):
         number_of_ae = str(len(aem))
         g = AOFGraph.Instance()
         unique_triples = str(g.__len__())
+
+        ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
+        ae_inst_artifact=ap.get_install_uri(ae_inst_uri)
+        ae_inst_qrcode=self._generateQRCode(ae_inst_artifact)
+
+
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
-                       'unique_triples': unique_triples}
+                       'unique_triples': unique_triples,
+                       'ae_inst_uri' : ae_inst_uri,
+                       'ae_inst_qrcode':ae_inst_qrcode
+                       }
         return self._returnCustomDict(custom_args)
 
 
