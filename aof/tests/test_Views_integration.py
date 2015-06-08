@@ -7,13 +7,14 @@ from aof.orchestration.AppEnsembleManager import AppEnsembleManager
 from aof.orchestration.AppPool import AppPool
 from webob.multidict import MultiDict
 from pyramid.response import Response,FileResponse
-from rdflib import URIRef
+from rdflib import URIRef,ConjunctiveGraph
+
 
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.path import AssetResolver
 from aof.views.PageViews import PageViews
 from aof.views.AppEnsembleViews import AppEnsembleViews
-from aof.views.AppPoolViews import AppPoolViews
+from aof.views.AppPoolViews import AppPoolViews,fill_graph_by_subject
 from aof.views.DocumentationViews import DocumentationViews
 
 import aof.tests
@@ -338,6 +339,43 @@ class IntegrationViewTests(unittest.TestCase):
     def test_QRCode_generate_wrongURI(self):
         response=PageViews(self.context,self.request)._generateQRCode("mustermann.de/maxApp")
         self.assertIsNone(response)
+
+    def test_fill_graph_by_subject(self):
+        """
+        Tests whether the extracted graph contains all relevant statements about the URI.
+        Must differ in 1 statement because in the max_test.ttl there is a dummy statement
+        """
+        originGraph = ConjunctiveGraph()
+        originGraph.parse(source=AssetResolver().resolve("aof:tests/res/max_test.ttl").abspath(),format="turtle")
+        newGraph = ConjunctiveGraph()
+        newGraph=fill_graph_by_subject(originGraph, newGraph, URIRef("http://mustermann.de/maxApp"))
+
+        diff=originGraph-newGraph
+        self.assertIs(len(diff),1,"Method 'test_fill_graph_by_subject' extracts not all relevant Terms")
+
+    def test_fill_graph_by_subject_wrongparams(self):
+        newGraph = ConjunctiveGraph()
+        res=fill_graph_by_subject("", newGraph, URIRef("http://mustermann.de/minApp"))
+        self.assertTrue(isinstance(res,ConjunctiveGraph))
+        self.assertTrue(len(res)==0)
+
+        res=fill_graph_by_subject(self.ap, "", URIRef("http://mustermann.de/minApp"))
+        self.assertTrue(isinstance(res,ConjunctiveGraph))
+        self.assertTrue(len(res)>0)
+
+        res=fill_graph_by_subject(self.ap, newGraph, "")
+        self.assertTrue(res==self.ap)
+
+        res=fill_graph_by_subject(self.ap, newGraph, 123)
+        self.assertTrue(res==self.ap)
+
+    def test_fill_graph_by_subject_too_much_iterations(self):
+
+        newGraph = ConjunctiveGraph()
+        res=fill_graph_by_subject(self.ap, newGraph, URIRef("http://mustermann.de/iteration7"))
+        # Maximum 5 iterations are allowed = 2 base-statements + 5* 2 iteration-statements=12 statements
+        self.assertIs(len(res),12)
+
 
 
 

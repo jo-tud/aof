@@ -4,7 +4,7 @@ import logging
 from pyramid.response import Response
 from pyramid.view import view_config
 
-from rdflib import ConjunctiveGraph, BNode
+from rdflib import ConjunctiveGraph,Graph, BNode, URIRef
 
 from aof.orchestration.AppPool import AppPool
 from aof.orchestration.namespaces import AOF
@@ -23,11 +23,24 @@ def fill_graph_by_subject(basegraph, newgraph, subject, loop_count=0):
     :param subject: subject of triples which is looked for in the basegraph
     :return: Graph
     """
+    subject_list=[BNode,URIRef]
+
+    if not issubclass(type(basegraph),Graph):
+        log.error("The given basegraph is not a subclass of Graph!")
+        return ConjunctiveGraph()
+    elif subject == "":
+        log.info("The given subject was empty. Returning the basegraph")
+        return basegraph
+    elif type(subject) not in subject_list:
+        log.info("The given subject was not of type BNode or URIRef. Returning the basegraph")
+        return basegraph
+    elif not issubclass(type(newgraph),Graph):
+        newgraph=ConjunctiveGraph()
+
     loop_count += 1
     for s, p, o in basegraph.triples((subject, None, None)):
         newgraph.add((s, p, o))
-        if type(
-                o) == BNode and loop_count < 6:  # it will do: (S1,P1,O1) -> if O1 has an own Description: (O1,P2,O2)... 5 times
+        if type(o) in subject_list and loop_count < 6:  # it will do: (S1,P1,O1) -> if O1 has an own Description: (O1,P2,O2)... 5 times
             newgraph = fill_graph_by_subject(basegraph, newgraph, o, loop_count)
     return newgraph
 
@@ -197,10 +210,10 @@ class AppPoolViews(PageViews):
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
         return Response(ret.serialize(format='application/rdf+xml'))
 
-    """@view_config(route_name='app-details', accept='text/turtle')
+    @view_config(route_name='app-details', accept='text/turtle')
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
     def api_details(self):
         ret = ConjunctiveGraph()
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
-        return Response(ret.serialize(format='text/turtle'))"""
+        return Response(ret.serialize(format='text/turtle'))

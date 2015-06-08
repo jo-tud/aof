@@ -32,6 +32,23 @@
 
     dc:creator <mailto:max@mustermann.de> ;
 
-    rdfs:label "IgnoreApp" ;
-    .
+    rdfs:label "IgnoreApp" .
+
+<http://mustermann.de/iteration0> a   rdfs:Class.
+
+<http://mustermann.de/iteration1>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration0>.
+<http://mustermann.de/iteration2>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration1>.
+ <http://mustermann.de/iteration3>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration2>.
+ <http://mustermann.de/iteration4>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration3>.
+ <http://mustermann.de/iteration5>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration4>.
+ <http://mustermann.de/iteration6>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration5>.
+  <http://mustermann.de/iteration7>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration6>.
+
 
