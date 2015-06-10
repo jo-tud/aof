@@ -112,7 +112,7 @@ class FunctionalTests(unittest.TestCase):
         self._body_title_test(res,"App-Pool")
 
     def test_app_pool_details(self):
-        res =self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp')
+        res =self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/html'})
         self._status_code_test(res)
         self._body_title_test(res,"App-Details")
         self.assertTrue(b'max@mustermann.de' in res.body)
