@@ -190,11 +190,12 @@ class AppPoolViews(PageViews):
         else:
             exit_points = None
 
-
-        introspector = self.request.registry.introspector
-        api_app_ttl_uri = str(introspector.get('routes', 'api-app-details')['pattern'])
-        api_app_ttl_uri= urljoin(self.request.application_url,api_app_ttl_uri+"?URI="+self.uri,)
-
+        try:
+            introspector = self.request.registry.introspector
+            api_app_ttl_uri = str(introspector.get('routes', 'api-app-details')['pattern'])
+            api_app_ttl_uri= urljoin(self.request.application_url,api_app_ttl_uri+"?URI="+self.uri)
+        except:
+            api_app_ttl_uri="/api/app-pool/details.html?URI="+self.uri
 
         custom_args = {'namespaces': namespaces,
                        'uri': self.uri,
