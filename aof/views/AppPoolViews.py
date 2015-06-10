@@ -202,6 +202,7 @@ class AppPoolViews(PageViews):
                        }
         return self._returnCustomDict(custom_args)
 
+    @view_config(route_name='api-app-details')
     @view_config(route_name='app-details', accept='text/turtle')
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()

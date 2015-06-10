@@ -52,6 +52,9 @@ def main(global_config, **settings):
     ## Downloads
     config.add_route('api-get-ae-pkg', '/api/download/ae-package')
 
+    ## TTL
+    config.add_route('api-app-details','/api/app-pool/details.html')
+
     config.scan()
 
     settings['mako.directories'] = os.path.join(here, 'templates')
