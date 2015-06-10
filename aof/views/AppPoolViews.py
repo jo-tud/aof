@@ -10,6 +10,7 @@ from aof.orchestration.AppPool import AppPool
 from aof.orchestration.namespaces import AOF
 from aof.views import namespaces
 from aof.views.PageViews import PageViews, RequestPoolURI_Decorator
+from urllib.parse import urljoin
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -189,6 +190,12 @@ class AppPoolViews(PageViews):
         else:
             exit_points = None
 
+
+        introspector = self.request.registry.introspector
+        api_app_ttl_uri = str(introspector.get('routes', 'api-app-details')['pattern'])
+        api_app_ttl_uri= urljoin(self.request.application_url,api_app_ttl_uri+"?URI="+self.uri,)
+
+
         custom_args = {'namespaces': namespaces,
                        'uri': self.uri,
                        'qrcode': self._generateQRCode(details['binary']),
@@ -198,7 +205,8 @@ class AppPoolViews(PageViews):
                        'main_screenshot': main_screenshot,
                        'screenshots': screenshots,
                        'entry_points': entry_points,
-                       'exit_points': exit_points
+                       'exit_points': exit_points,
+                       'api_app_ttl_uri':api_app_ttl_uri
                        }
         return self._returnCustomDict(custom_args)
 
