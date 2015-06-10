@@ -89,9 +89,7 @@ class FunctionalTests(unittest.TestCase):
 
     # TODO
     """def test_app_ensemble_details_rdf(self):
-        req = TestRequest.blank('/app-ensembles/details.html?URI=testAppEnsemble', accept='text/turtle')
-        res = self.testapp.do_request(req)
-        #res=self.testapp.get('/app-ensembles/details.html?URI=testAppEnsemble', extra_environ={'accept':'application/rdf+xml'})
+        res = self.testapp.get('/app-ensembles/details.html?URI=testAppEnsemble', headers={"accept":'text/turtle'})
         self._status_code_test(res)
         print(res.body)
         self.assertTrue(b'<rdf:RDF' in res.body)"""
