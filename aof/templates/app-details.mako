@@ -2,6 +2,7 @@
 <%inherit file="layout.mako"/>
 <%block name="header"></%block>
 <%block name="top_bar_actions">
+    <li><a href="${api_app_ttl_uri}">Show App-Description</a></li>
     <li><a href="${details['binary']}">DOWNLOAD</a></li>
 </%block>
 <div class="row">
