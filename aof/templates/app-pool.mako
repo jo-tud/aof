@@ -38,6 +38,10 @@
                             </td>
                             <td width="100px">
                                 <a class="button tiny secondary round" style="margin-bottom: 0px"
+                                   href="/app-pool/details.html?URI=${app['uri']}">Details</a>
+                            </td>
+                            <td width="100px">
+                                <a class="button tiny secondary round" style="margin-bottom: 0px"
                                    href="${app['binary']}">Download</a>
                             </td>
                         </tr>
