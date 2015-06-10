@@ -54,6 +54,7 @@ def main(global_config, **settings):
 
     ## TTL
     config.add_route('api-app-details','/api/app-pool/details.html')
+    config.add_route('api-app-details-show','/api/app-pool/details-show.html')
 
     config.scan()
 

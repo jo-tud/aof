@@ -111,7 +111,7 @@ class AppPoolViews(PageViews):
         """
         self.pool.add_apps_from_app_pool_definition(source=None, format='turtle')
         res = str(self.pool.get_number_of_apps())
-        return Response(res)
+        return Response(res,)
 
     @view_config(route_name='api-ap-json', renderer='json')
     def api_json(self):
@@ -192,7 +192,7 @@ class AppPoolViews(PageViews):
 
         try:
             introspector = self.request.registry.introspector
-            api_app_ttl_uri = str(introspector.get('routes', 'api-app-details')['pattern'])
+            api_app_ttl_uri = str(introspector.get('routes', 'api-app-details-show')['pattern'])
             api_app_ttl_uri= urljoin(self.request.application_url,api_app_ttl_uri+"?URI="+self.uri)
         except:
             api_app_ttl_uri="/api/app-pool/details.html?URI="+self.uri
@@ -211,21 +211,26 @@ class AppPoolViews(PageViews):
                        }
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='api-app-details')
     @view_config(route_name='app-details', accept='text/turtle')
-    @RequestPoolURI_Decorator()
-    @AppCheckDecorator()
+    @view_config(route_name='api-app-details')
     def api_details_turtle(self):
-        ret = ConjunctiveGraph()
-        ret = fill_graph_by_subject(self.pool, ret, self.uri)
-        return Response(ret.serialize(format='text/turtle'))
+        return self._api_details_return(format='turtle',content_type='text/turtle')
+
+    @view_config(route_name='api-app-details-show')
+    def api_details_turtle_display(self):
+        response=self._api_details_return(format='turtle',content_type='text/plain')
+        return response
 
     @view_config(route_name='app-details', accept='application/rdf+xml')
+    def api_details_rdfxml(self):
+        return self._api_details_return(format='application/rdf+xml',content_type='application/rdf+xml')
+
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
-    def api_details_rdfxml(self):
+    def _api_details_return(self,format,content_type=None):
         ret = ConjunctiveGraph()
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
-        return Response(ret.serialize(format='application/rdf+xml'))
+        ret=ret.serialize(format=format)
+        return Response(ret,content_type=content_type)
 
 
