@@ -87,13 +87,6 @@ class FunctionalTests(unittest.TestCase):
         self._status_code_test(res)
         self.assertTrue(b'<h1>testAppEnsemble</h1>' in res.body)
 
-    # TODO
-    """def test_app_ensemble_details_rdf(self):
-        res = self.testapp.get('/app-ensembles/details.html?URI=testAppEnsemble', headers={"accept":'text/turtle'})
-        self._status_code_test(res)
-        print(res.body)
-        self.assertTrue(b'<rdf:RDF' in res.body)"""
-
     def test_app_ensemble_bpmn(self):
         res=self.testapp.get('/app-ensembles/visualize-bpm.html?URI=testAppEnsemble')
         self._status_code_test(res)
@@ -130,6 +123,16 @@ class FunctionalTests(unittest.TestCase):
     def test_app_pool_details_wrong_uri_param(self):
         from webtest import AppError
         self.assertRaises(AppError,self.testapp.get,'/app-pool/details.html?URI=http://abc')
+
+    def test_app_pool_details_rdf(self):
+        res = self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'application/rdf+xml'})
+        self._status_code_test(res)
+        self.assertTrue(b'<rdf:RDF' in res.body)
+
+    def test_app_pool_details_turtle(self):
+        res = self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/turtle'})
+        self._status_code_test(res)
+        self.assertTrue(b'@prefix' in res.body)
 
     def test_app_pool_update(self):
         ap=AppPool.Instance()
