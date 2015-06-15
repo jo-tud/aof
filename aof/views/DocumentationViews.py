@@ -79,7 +79,6 @@ class DocumentationViews(PageViews):
                             else:
                                 path = "/resources/"
                             path += os.path.join(basepath, file).replace(root+os.sep, "").replace(os.sep, "/")
-                            print(path)
                         for idx, s in enumerate(structure):
                             if s["name"] == tmp_name[0]:
                                 s['resources'].update({key: path})
