@@ -197,6 +197,7 @@ class AppPoolViews(PageViews):
         except:
             api_app_ttl_uri="/api/app-pool/details.html?URI="+self.uri
 
+
         custom_args = {'namespaces': namespaces,
                        'uri': self.uri,
                        'qrcode': self._generateQRCode(details['binary']),
@@ -207,7 +208,8 @@ class AppPoolViews(PageViews):
                        'screenshots': screenshots,
                        'entry_points': entry_points,
                        'exit_points': exit_points,
-                       'api_app_ttl_uri':api_app_ttl_uri
+                       'api_app_ttl_uri':api_app_ttl_uri,
+                       'build_number':self.pool.get_build_number(self.uri)
                        }
         return self._returnCustomDict(custom_args)
 

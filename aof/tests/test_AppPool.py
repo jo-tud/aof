@@ -4,6 +4,8 @@ from pyramid import testing
 from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from rdflib import URIRef
+from rdflib.term import Literal
+from aof.orchestration.namespaces import AOF, ANDROID
 import aof.tests
 
 
@@ -193,3 +195,47 @@ class AppPoolTests(unittest.TestCase):
             self.assertTrue(False,"The exit Points outputs of the MaxApp aren't loaded correctly")
 
         self.assertIs(minPoints.__len__(),0,"Number of Creators (MinApp) is not correct")
+
+    def test_buildNumber_all(self):
+        # prepare
+        has_v=list()
+        v=list()
+        for o in self.ap.objects(self.maxApp, AOF.hasVersion ):
+            has_v.append((self.maxApp, AOF.hasVersion,o) )
+        for o in self.ap.objects(self.maxApp, AOF.version ):
+            v.append((self.maxApp, AOF.version,o))
+        has_v=has_v[0]
+        v=v[0]
+        self.ap.remove(has_v)
+        self.ap.remove(v)
+
+        # AOF.hasVersion:no - AOF.version:no
+        result= self.ap.get_build_number(self.maxApp)
+        self.assertEqual("N/A",result)
+
+        # AOF.hasVersion:no - AOF.version:yes
+        self.ap.add(v)
+        result= self.ap.get_build_number(self.maxApp)
+        self.assertEqual(Literal(1),result)
+
+        # AOF.hasVersion:yes - AOF.version:yes
+        self.ap.add(has_v)
+        result= self.ap.get_build_number(self.maxApp)
+        self.assertTrue("(1)" in result)
+
+        # AOF.hasVersion:yes - AOF.version:no
+        self.ap.remove(v)
+        result= self.ap.get_build_number(self.maxApp)
+        self.assertTrue("(1)"  not in result and "N/A" not in result)
+
+        # AOF.hasVersion:yes but INVALID URI - AOF.version:no
+        self.ap.remove(has_v)
+        has_v_wrong=(self.maxApp, AOF.hasVersion,URIRef("httptest:test.test/test"))
+        self.ap.add(has_v_wrong)
+        result= self.ap.get_build_number(self.maxApp)
+        self.assertEqual("N/A",result)
+
+        #clear
+        self.ap.remove(has_v_wrong)
+        self.ap.add(v)
+        self.ap.add(has_v)

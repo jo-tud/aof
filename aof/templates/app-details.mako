@@ -82,6 +82,10 @@
                     % endif
                 </td>
             </tr>
+            <tr>
+                <td><a href="${namespaces['AOF'].hasVersion}">Build Number</a></td>
+                <td>${build_number}</td>
+            </tr>
                 % if details['has_role']:
                     % for role in roles:
                         <tr>

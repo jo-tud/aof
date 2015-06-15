@@ -34,7 +34,7 @@
 
     aof:hasInstallableArtifact	<http://mustermann.de/maxApp/res/install.apk> ;
 
-    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/buildNumber> ;
+    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
     aof:version "1"^^xsd:integer ;
     
     aof:hasMainScreenshot [

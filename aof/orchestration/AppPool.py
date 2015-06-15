@@ -7,6 +7,9 @@ from aof.orchestration.namespaces import AOF, ANDROID
 from rdflib.namespace import DC, DCTERMS, FOAF, RDF, RDFS
 from pyramid.threadlocal import get_current_registry
 
+import requests
+import requests.exceptions
+
 import logging
 import inspect
 
@@ -320,3 +323,25 @@ class AppPool(ConjunctiveGraph):
                 }
             )
         return inputs
+
+    def get_build_number(self,resource):
+        build_number_uri = self.value(resource, AOF.hasVersion)
+        build_number_doc=build_number=self.value(resource,AOF.version)
+        if build_number_uri != None:
+            try:
+                r = requests.get(build_number_uri)
+                r.raise_for_status()
+                build_number=r.text
+                if build_number_doc != None:
+                    build_number+=" ({})".format(build_number_doc)
+            except:
+                if build_number_doc != None:
+                    build_number=build_number_doc
+                else:
+                    build_number="N/A"
+        elif build_number_doc != None:
+            build_number=build_number_doc
+        else:
+            build_number="N/A"
+
+        return build_number

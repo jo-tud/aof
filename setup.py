@@ -16,7 +16,8 @@ requires = [
     'waitress',
     'rdflib',
     'webtest',
-    'pyqrcode'
+    'pyqrcode',
+    'requests'
     ]
 
 setup(name='AOF',
