@@ -230,6 +230,12 @@ class AppPoolViews(PageViews):
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
     def _api_details_return(self,format,content_type=None):
+        """
+        Extracts all tuples for an specific URI out of the Graph
+        :param format: desired format of the App-Details i.e. "application/rdf+xml" or "text/turtel"
+        :param content_type: desired output medium i.e. "application/rdf+xml" or "text/plain"
+        :return:
+        """
         ret = ConjunctiveGraph()
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
         ret=ret.serialize(format=format)
