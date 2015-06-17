@@ -19,5 +19,16 @@ $(function () {
         verticalAlign: "50%"
     });
 
+    getBuildNumber();
+
+    function getBuildNumber(){
+        $.getJSON('/api/app-pool/version.json?URI='+$("#resource-uri").attr("href"), function(data) {
+            var target = $('tbody#app-details-general');
+            if(data.json.build_number != ""){
+                $('tbody#app-details-general').append('<tr><td><a href="http://eatld.et.tu-dresden.de/aof/hasVersion">Build Number</a></td><td>'+data.json.build_number+'</td></tr>');
+            }
+        });
+    }
+
 });
 

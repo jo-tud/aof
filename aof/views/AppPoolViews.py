@@ -208,8 +208,8 @@ class AppPoolViews(PageViews):
                        'screenshots': screenshots,
                        'entry_points': entry_points,
                        'exit_points': exit_points,
-                       'api_app_ttl_uri':api_app_ttl_uri,
-                       'build_number':self.pool.get_build_number(self.uri)
+                       'api_app_ttl_uri':api_app_ttl_uri
+                       # build number is loaded via ajax
                        }
         return self._returnCustomDict(custom_args)
 
@@ -240,5 +240,12 @@ class AppPoolViews(PageViews):
         ret = fill_graph_by_subject(self.pool, ret, self.uri)
         ret=ret.serialize(format=format)
         return Response(ret,content_type=content_type)
+
+    @RequestPoolURI_Decorator()
+    @view_config(route_name='api-app-version-json', renderer='json')
+    def api_app_version_json(self):
+        result={'json':{'build_number':self.pool.get_build_number(self.uri)}}
+        return result
+
 
 

@@ -41,6 +41,7 @@ def main(global_config, **settings):
     ## JSON
     config.add_route('api-ae-json', '/api/app-ensembles.json')
     config.add_route('api-ap-json', '/api/app-pool.json')
+    config.add_route('api-app-version-json','/api/app-pool/version.json')
 
     ## BPM
     config.add_route('ae-bpmn', '/app-ensembles/get-bpmn')
@@ -55,6 +56,8 @@ def main(global_config, **settings):
     ## TTL
     config.add_route('api-app-details','/api/app-pool/details.html')
     config.add_route('api-app-details-show','/api/app-pool/details-show.html')
+
+
 
     config.scan()
 

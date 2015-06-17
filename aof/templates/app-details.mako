@@ -62,10 +62,10 @@
                 <th>Values</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="app-details-general">
             <tr>
                 <td>Resource URI</td>
-                <td><a href="${uri}">${uri}</a></td>
+                <td><a href="${uri}" id="resource-uri">${uri}</a></td>
             </tr>
             <tr>
                 <td><a href="${namespaces['AOF'].hasIcon}">Icon</a></td>
@@ -81,10 +81,6 @@
                              style="width: 48px; height: 48px">
                     % endif
                 </td>
-            </tr>
-            <tr>
-                <td><a href="${namespaces['AOF'].hasVersion}">Build Number</a></td>
-                <td>${build_number}</td>
             </tr>
                 % if details['has_role']:
                     % for role in roles:
