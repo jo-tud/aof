@@ -329,7 +329,7 @@ class AppPool(ConjunctiveGraph):
         build_number_doc=build_number=self.value(resource,AOF.version)
         if build_number_uri != None:
             try:
-                r = requests.get(build_number_uri)
+                r = requests.get(build_number_uri,timeout=0.1) # timeout 100ms
                 r.raise_for_status()
                 build_number=r.text
                 if build_number_doc != None:
@@ -338,10 +338,10 @@ class AppPool(ConjunctiveGraph):
                 if build_number_doc != None:
                     build_number=build_number_doc
                 else:
-                    build_number="N/A"
+                    build_number=None
         elif build_number_doc != None:
             build_number=build_number_doc
         else:
-            build_number="N/A"
+            build_number=None
 
         return build_number
