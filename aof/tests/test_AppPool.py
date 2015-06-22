@@ -221,12 +221,12 @@ class AppPoolTests(unittest.TestCase):
         # AOF.hasVersion:yes - AOF.version:yes
         self.ap.add(has_v)
         result= self.ap.get_build_number(self.maxApp)
-        self.assertTrue("(1)" in result)
+        self.assertTrue("(1)" not in result)
 
         # AOF.hasVersion:yes - AOF.version:no
         self.ap.remove(v)
         result= self.ap.get_build_number(self.maxApp)
-        self.assertTrue("(1)"  not in result and "None" not in result)
+        self.assertTrue("(1)" not in result and "None" not in result)
 
         # AOF.hasVersion:yes but INVALID URI - AOF.version:no
         self.ap.remove(has_v)

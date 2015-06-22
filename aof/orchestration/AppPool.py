@@ -332,8 +332,6 @@ class AppPool(ConjunctiveGraph):
                 r = requests.get(build_number_uri,timeout=0.1) # timeout 100ms
                 r.raise_for_status()
                 build_number=r.text
-                if build_number_doc != None:
-                    build_number+=" ({})".format(build_number_doc)
             except:
                 if build_number_doc != None:
                     build_number=build_number_doc
