@@ -2,16 +2,18 @@ __author__ = 'Korbinian Hörfurter'
 
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AppEnsemble import AppEnsemble
+from aof.orchestration.AOFPool import AOFPool
 from pyramid.path import AssetResolver
 from pyramid.threadlocal import get_current_registry
 from aof.orchestration.AppEnsemble import _ae_folder_path
+
 
 import os
 import logging
 
 
 @Singleton
-class AppEnsemblePool():
+class AppEnsemblePool(AOFPool):
     """
     The AppEnsemblePool is a Singleton which
     - indexes a folder and searches for AppEnsemble-Files (__init__)

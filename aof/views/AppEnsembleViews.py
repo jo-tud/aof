@@ -74,7 +74,7 @@ class AppEnsembleViews(PageViews):
         custom_args = {
             'ae_uri': self.uri,
             'ae_api_path':api_ae_uri,
-            'qrcode': self._generateQRCode(api_ae_uri),
+            'qrcode': self.pool.get_QRCode(api_ae_uri),
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps
         }

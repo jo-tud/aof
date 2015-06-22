@@ -1,6 +1,7 @@
 from rdflib import ConjunctiveGraph, util, URIRef
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AOFGraph import AOFGraph
+from aof.orchestration.AOFPool import AOFPool
 from pyramid.path import AssetResolver
 import os.path
 from aof.orchestration.namespaces import AOF, ANDROID
@@ -18,7 +19,7 @@ __all__ = [
 ]
 
 @Singleton
-class AppPool(ConjunctiveGraph):
+class AppPool(ConjunctiveGraph,AOFPool):
     init_source = "aof:resources/App-Pool/pool.ttl"
     init_format="turtle"
 

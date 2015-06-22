@@ -19,7 +19,7 @@ from aof.views.DocumentationViews import DocumentationViews
 
 import aof.tests
 from aof.tests.test_AppEnsemble import AppEnsembleTests
-
+from aof.orchestration.AppPool import AppPool
 
 
 
@@ -27,8 +27,6 @@ from aof.tests.test_AppEnsemble import AppEnsembleTests
 
 class IntegrationViewTests(unittest.TestCase):
     def setUp(self):
-
-        from aof.orchestration.AppPool import AppPool
 
         self.config = testing.setUp(settings=aof.tests.settings)
         aof.tests._create_test_AppEnsemble()
@@ -328,17 +326,7 @@ class IntegrationViewTests(unittest.TestCase):
         aem=AppEnsemblePool.Instance()
         self.assertTrue(int(response.body)==len(aem))
 
-    def test_QRCode_generate_valid(self):
-        response=PageViews(self.context,self.request)._generateQRCode("http://mustermann.de/minApp")
-        self.assertEqual("/tmp/qrcodes/6545b7b29202cbb09883dd0b4595a149.svg",response)
 
-    def test_QRCode_generate_notvalid(self):
-        response=PageViews(self.context,self.request)._generateQRCode("http://mustermann.de/maxApp")
-        self.assertNotEqual("/tmp/qrcodes/6545b7b29202cbb09883dd0b4595a149.svg",response)
-
-    def test_QRCode_generate_wrongURI(self):
-        response=PageViews(self.context,self.request)._generateQRCode("mustermann.de/maxApp")
-        self.assertIsNone(response)
 
     def test_fill_graph_by_subject(self):
         """

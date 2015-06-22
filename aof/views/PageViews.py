@@ -99,33 +99,6 @@ class PageViews(AbstractViews):
         self.page_title = str(value)
         return None
 
-    def _generateQRCode(self,url,size=4):
-        """
-        Generates an QR-Code-SVG into the directory "static/img/qrcodes"
-        Filename of the SVG is an md5-hash of the uri.
-        :return: relative URL or None if the url is not valid
-        """
-        import pyqrcode
-        from pyramid.path import AssetResolver
-        from urllib.parse import urlparse
-        from hashlib import md5
-
-        valid_url=urlparse(url)
-        if bool(valid_url.scheme):
-            hash=md5()
-            hash.update(url.encode('utf-8'))
-            target=AssetResolver().resolve(os.path.join('aof:tmp','qrcodes',str(hash.hexdigest())+".svg")).abspath()
-            if not os.path.exists(target):
-                qrcode = pyqrcode.create(url)
-                qrcode.svg(target,size)
-            target=target.replace(AssetResolver().resolve('aof:').abspath(),"")
-            target=target.replace('\\',"/")
-            qrcode=target
-        else:
-            log.error("QRCode for {} could not be created. Seems to be an invalid URL!".format(url))
-            qrcode = None
-        return qrcode
-
 
     @view_config(route_name='home', renderer='aof:templates/home.mako')
     def page_home(self):
@@ -142,7 +115,7 @@ class PageViews(AbstractViews):
 
         ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
         ae_inst_arifact=ap.get_install_uri(ae_inst_uri)
-        ae_inst_qrcode=self._generateQRCode(ae_inst_arifact)
+        ae_inst_qrcode=ap.get_QRCode(ae_inst_arifact)
 
 
         custom_args = {'number_of_apps': number_of_apps,
@@ -155,4 +128,4 @@ class PageViews(AbstractViews):
 
 
 if __name__ == "__main__":
-    print(PageViews(1,2)._generateQRCode("http://www.cyt.de/test.html?a=b&c=d",1))
+    pass
