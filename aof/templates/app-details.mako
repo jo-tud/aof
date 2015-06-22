@@ -2,8 +2,8 @@
 <%inherit file="layout.mako"/>
 <%block name="header"></%block>
 <%block name="top_bar_actions">
-    <li><a href="${api_app_ttl_uri}">Show App-Description</a></li>
-    <li><a href="${details['binary']}">DOWNLOAD</a></li>
+    <li><a href="${api_app_ttl_uri}">SHOW APP-DESCRIPTION</a></li>
+    <li><a href="${details['binary']}">DOWNLOAD APP</a></li>
 </%block>
 <div class="row">
     % if details['has_main_screenshot']:

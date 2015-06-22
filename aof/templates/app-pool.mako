@@ -7,7 +7,7 @@
         </div>
     </li>
     <li class="divider"></li>
-    <li><a href="#" id="action_update">UPDATE</a></li>
+    <li><a href="#" id="action_update">UPDATE POOL</a></li>
 </%block>
 
 <div class="row">
