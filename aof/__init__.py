@@ -66,5 +66,6 @@ def main(global_config, **settings):
 
     # Clear all temporary files
     aof.tmp.clear_all_tmp_files()
+    # for a cronjob: function located in aof/tmp/__init__.py -> clear_all_tmp_files()
 
     return config.make_wsgi_app()
