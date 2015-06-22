@@ -23,7 +23,7 @@
                 </ul>
                 <section class="top-bar-section"> <!-- Right Nav Section -->
                     <ul class="left">
-                        <li><a href="/app-pool.html">App-Pool</a></li>
+                        <li><a href="/app-pool.html">Apps</a></li>
                         <li><a href="/app-ensembles.html">App-Ensembles</a></li>
                         <li><a href="/docs/index.html">Documentation</a></li>
                     </ul>
