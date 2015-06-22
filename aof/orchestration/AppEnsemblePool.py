@@ -11,9 +11,9 @@ import logging
 
 
 @Singleton
-class AppEnsembleManager():
+class AppEnsemblePool():
     """
-    The AppEnsembleManager is a Singleton which
+    The AppEnsemblePool is a Singleton which
     - indexes a folder and searches for AppEnsemble-Files (__init__)
     - gives information about:
         - elements contained (__contains__,has_AppEnsemble,__str__)

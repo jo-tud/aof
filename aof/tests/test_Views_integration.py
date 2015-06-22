@@ -3,7 +3,7 @@ from pyramid import testing
 import json
 import os
 
-from aof.orchestration.AppEnsembleManager import AppEnsembleManager
+from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.orchestration.AppPool import AppPool
 from webob.multidict import MultiDict
 from pyramid.response import Response,FileResponse
@@ -40,7 +40,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
 
         #Setting up Test-AppEnsemble
-        self.ae=AppEnsembleManager.Instance()
+        self.ae=AppEnsemblePool.Instance()
         self.ae.reload()
 
         #Setting up Test-HTML for Documentation
@@ -325,7 +325,7 @@ class IntegrationViewTests(unittest.TestCase):
     def test_zz_action_update_app_ensembles_view(self):
         response = AppEnsembleViews(self.context, self.request).action_update()
         self.assertIsInstance(response,Response)
-        aem=AppEnsembleManager.Instance()
+        aem=AppEnsemblePool.Instance()
         self.assertTrue(int(response.body)==len(aem))
 
     def test_QRCode_generate_valid(self):

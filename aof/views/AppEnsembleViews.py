@@ -1,6 +1,6 @@
 from pyramid.response import Response, FileResponse
 from pyramid.view import view_config
-from aof.orchestration.AppEnsembleManager import AppEnsembleManager
+from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.views.PageViews import PageViews,RequestPoolURI_Decorator
 import logging
 
@@ -15,7 +15,7 @@ class AppEnsembleViews(PageViews):
 
     def __init__(self, context, request):
         super(AppEnsembleViews, self).__init__(context, request)
-        self.pool = AppEnsembleManager.Instance()
+        self.pool = AppEnsemblePool.Instance()
 
     @view_config(route_name='app-ensembles', renderer='aof:templates/ae.mako')
     def page_overview(self):

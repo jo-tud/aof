@@ -1,6 +1,6 @@
 import unittest
 from pyramid import testing
-from aof.orchestration.AppEnsembleManager import AppEnsembleManager
+from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.tests.test_AppEnsemble import AppEnsembleTests
 from aof.orchestration.AppEnsemble import AppEnsemble
 from pyramid.path import AssetResolver
@@ -13,7 +13,7 @@ class AppEnsembleManagerTests(unittest.TestCase):
         # First add Testappensemble
         aof.tests._create_test_AppEnsemble()
         # Load AppEnsembles
-        self.aem=AppEnsembleManager.Instance()
+        self.aem=AppEnsemblePool.Instance()
 
     def tearDown(self):
         testing.tearDown()

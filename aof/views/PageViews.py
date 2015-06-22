@@ -4,7 +4,7 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from rdflib import URIRef
 from aof.orchestration.AOFGraph import AOFGraph
-from aof.orchestration.AppEnsembleManager import AppEnsembleManager
+from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.orchestration.AppPool import AppPool
 from aof.views import AbstractViews
 
@@ -21,9 +21,9 @@ class RequestPoolURI_Decorator(object):
     - Was an URI supplied
     - Was only one URI supplied
     - Was an URI supplied but the value empty
-    - Does the supplied uri has an reference in the AppPool or AppEnsembleManager
+    - Does the supplied uri has an reference in the AppPool or AppEnsemblePool
 
-    # Add this to Methods which use URIs to get Information about Elements out of the appPool or AppEnsembleManager
+    # Add this to Methods which use URIs to get Information about Elements out of the appPool or AppEnsemblePool
     """
 
     def __call__(self, f):
@@ -47,7 +47,7 @@ class RequestPoolURI_Decorator(object):
                                 return f(self, *args, **kwargs)
                             else:
                                 return HTTPNotFound('The uri "%s" could not be found in the AppPool.' % self.uri)
-                        elif isinstance(self.pool, AppEnsembleManager):
+                        elif isinstance(self.pool, AppEnsemblePool):
                             if self.uri in self.pool:
                                 self.uri = URIRef(self.uri)
                                 return f(self, *args, **kwargs)
@@ -56,7 +56,7 @@ class RequestPoolURI_Decorator(object):
                                     'The uri "%s" could not be found in the AppEnsemblePool.' % self.uri)
                         else:
                             return log.error(
-                                'URIExistDecorator was called without an AppPool or an AppEnsembleManager. The given object was an instance of {} and the pool was of type {}'.format(
+                                'URIExistDecorator was called without an AppPool or an AppEnsemblePool. The given object was an instance of {} and the pool was of type {}'.format(
                                     type(self), type(self.pool)))
 
                         return f(self, *args, **kwargs)
@@ -134,7 +134,7 @@ class PageViews(AbstractViews):
         """
         self._setTitle('AOF Home')
         ap = AppPool.Instance()
-        aem = AppEnsembleManager.Instance()
+        aem = AppEnsemblePool.Instance()
         number_of_apps = str(ap.get_number_of_apps())
         number_of_ae = str(len(aem))
         g = AOFGraph.Instance()
