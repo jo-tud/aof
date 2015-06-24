@@ -40,7 +40,7 @@ class AppEnsembleViews(PageViews):
                 ae_info[key] = {'uri': key, 'path': path, 'apps': apps}
         except AttributeError:
             ae_info[key] = {'uri': key, 'path': path, 'apps': {}}
-        return {'json': ae_info}
+        return ae_info
 
     @view_config(route_name='action-update-ap-ensembles')
     def action_update(self):
