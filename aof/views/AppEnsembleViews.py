@@ -92,7 +92,7 @@ class AppEnsembleViews(PageViews):
         }
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='ae-bpmn')
+    @view_config(route_name='api-appensembles-ae-bpmn')
     @RequestPoolURI_Decorator()
     def action_get_bpmn_data(self):
         """
