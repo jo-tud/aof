@@ -11,6 +11,7 @@ from aof.orchestration.namespaces import AOF
 from aof.views import namespaces
 from aof.views.PageViews import PageViews, RequestPoolURI_Decorator
 from urllib.parse import urljoin
+from urllib.parse import quote_plus
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -80,7 +81,7 @@ class AppPoolViews(PageViews):
         super(AppPoolViews, self).__init__(context, request)
         self.pool = AppPool.Instance()
 
-    @view_config(route_name='app-pool', renderer='aof:templates/app-pool.mako')
+    @view_config(route_name='apps', renderer='aof:templates/app-pool.mako')
     def page_overview(self):
         """
         Generates the parameters for the AppPool-Homepage
@@ -92,6 +93,7 @@ class AppPoolViews(PageViews):
         for app_uri in app_uris:
             app = {
                 'uri': app_uri,
+                'details_uri':self.build_URI('app-details',"{URI:.*}",quote_plus(app_uri)),#/apps/"+quote_plus(app_uri)+"/details",
                 'name': self.pool.get_name(app_uri),
                 'icon': self.pool.get_icon_uri(app_uri),
                 'binary': self.pool.get_install_uri(app_uri)
@@ -194,8 +196,8 @@ class AppPoolViews(PageViews):
 
         try:
             introspector = self.request.registry.introspector
-            api_app_ttl_uri = str(introspector.get('routes', 'api-app-details-show')['pattern'])
-            api_app_ttl_uri= urljoin(self.request.application_url,api_app_ttl_uri+"?URI="+self.uri)
+            api_app_ttl_uri = self.get_URI('api-app-details-show')
+            api_app_ttl_uri= api_app_ttl_uri+"?URI="+self.uri
         except:
             api_app_ttl_uri="/api/app-pool/details.html?URI="+self.uri
 
