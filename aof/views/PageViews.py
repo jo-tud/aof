@@ -7,6 +7,7 @@ from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.orchestration.AppPool import AppPool
 from aof.views import AbstractViews
+from urllib.parse import unquote_plus
 
 import os
 import logging
@@ -29,19 +30,23 @@ class RequestPoolURI_Decorator(object):
     def __call__(self, f):
         @wraps(f)
         def wrapper(self, *args, **kwargs):
-            if not self.request.params.has_key('URI'):
+
+            if not self.request.params.has_key('URI') and 'URI' not in self.request.matchdict:
                 return Response(
                     'The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to display the details.')
             else:
-                if len(self.request.params.getall('URI')) > 1:
+                if len(self.request.params.getall('URI')) > 1  and 'URI' not in self.request.matchdict:
                     return Response('More than one URI was supplied. Please supply exactly 1 URI.')
                 else:
-                    uri = self.request.params.getone('URI')
+                    if 'URI' in self.request.matchdict:
+                        uri=self.request.matchdict['URI']
+                    else:
+                        uri = self.request.params.getone('URI')
                     if uri == "":
                         return Response(
                             'Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
                     else:
-                        self.uri = URIRef(uri)
+                        self.uri = URIRef(unquote_plus(uri))
                         if isinstance(self.pool, AppPool):
                             if self.pool.in_pool(self.uri):
                                 return f(self, *args, **kwargs)

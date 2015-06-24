@@ -100,37 +100,37 @@ class FunctionalTests(unittest.TestCase):
         self.assertGreater(int(res.body),num)
 
     def test_app_pool(self):
-        res=self.testapp.get('/app-pool.html')
+        res=self.testapp.get('/apps.html')
         self._status_code_test(res)
         self._body_title_test(res,"App-Pool")
 
     def test_app_pool_details(self):
-        res =self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/html'})
+        res =self.testapp.get('/apps/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/html'})
         self._status_code_test(res)
         self._body_title_test(res,"App-Details")
         self.assertTrue(b'max@mustermann.de' in res.body)
 
     def test_app_pool_details_no_params(self):
-        res =self.testapp.get('/app-pool/details.html')
+        res =self.testapp.get('/apps/details.html')
         self._status_code_test(res)
         self.assertTrue(b'The parameter "URI" was not supplied' in res.body)
 
     def test_app_pool_details_no_uri_param(self):
-        res =self.testapp.get('/app-pool/details.html?URI=')
+        res =self.testapp.get('/apps/details.html?URI=')
         self._status_code_test(res)
         self.assertTrue(b'-parameter was empty' in res.body)
 
     def test_app_pool_details_wrong_uri_param(self):
         from webtest import AppError
-        self.assertRaises(AppError,self.testapp.get,'/app-pool/details.html?URI=http://abc')
+        self.assertRaises(AppError,self.testapp.get,'/apps/details.html?URI=http://abc')
 
     def test_app_pool_details_rdf(self):
-        res = self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'application/rdf+xml'})
+        res = self.testapp.get('/apps/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'application/rdf+xml'})
         self._status_code_test(res)
         self.assertTrue(b'<rdf:RDF' in res.body)
 
     def test_app_pool_details_turtle(self):
-        res = self.testapp.get('/app-pool/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/turtle'})
+        res = self.testapp.get('/apps/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/turtle'})
         self._status_code_test(res)
         self.assertTrue(b'@prefix' in res.body)
 

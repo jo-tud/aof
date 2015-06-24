@@ -34,11 +34,11 @@
                                 </a>
                             </td>
                             <td class="app_name">
-                                <a href="/app-pool/details.html?URI=${app['uri']}">${app['name']}</a>
+                                <a href="/apps/details.html?URI=${app['uri']}">${app['name']}</a>
                             </td>
                             <td width="100px">
                                 <a class="button tiny secondary round" style="margin-bottom: 0px"
-                                   href="/app-pool/details.html?URI=${app['uri']}">Details</a>
+                                   href="/apps/details.html?URI=${app['uri']}">Details</a>
                             </td>
                             <td width="100px">
                                 <a class="button tiny secondary round" style="margin-bottom: 0px"

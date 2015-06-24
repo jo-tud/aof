@@ -104,6 +104,7 @@ class AppPoolViews(PageViews):
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='action-update-app-pool')
+    @view_config(route_name='api-apps-update')
     def action_update(self):
         """
         Action: Update the AppPool from current AppPool definition
@@ -114,6 +115,7 @@ class AppPoolViews(PageViews):
         return Response(res,)
 
     @view_config(route_name='api-ap-json', renderer='json')
+    @view_config(route_name='api-apps', renderer='json')
     def api_json(self):
         """
         Generates the pool in Json
@@ -214,7 +216,6 @@ class AppPoolViews(PageViews):
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='app-details', accept='text/turtle')
-    @view_config(route_name='api-app-details')
     def api_details_turtle(self):
         return self._api_details_return(format='turtle',content_type='text/turtle')
 
@@ -242,10 +243,32 @@ class AppPoolViews(PageViews):
         return Response(ret,content_type=content_type)
 
     @RequestPoolURI_Decorator()
-    @view_config(route_name='api-app-version-json', renderer='json')
+    @view_config(route_name='api-apps-app-version', renderer='json')
     def api_app_version_json(self):
-        result={'json':{'build_number':self.pool.get_build_number(self.uri)}}
+        result={'build_number':self.pool.get_build_number(self.uri)}
         return result
+
+    @view_config(route_name='api-apps-app-details')
+    @RequestPoolURI_Decorator()
+    def api_app_details(self):
+        if 'text/turtle' in str(self.request.accept):
+            return self._api_details_return(format='turtle',content_type='text/turtle')
+        else:
+            return self._api_details_return(format='application/rdf+xml',content_type='application/rdf+xml')
+
+    @view_config(route_name='api-apps-app-property', renderer='json')
+    @RequestPoolURI_Decorator()
+    def api_app_param(self):
+        response=list()
+        for s, p, o in self.pool.triples((self.uri,URIRef(self.request.matchdict['property']),None)):
+            response.append(o)
+        return response
+
+
+
+
+
+
 
 
 

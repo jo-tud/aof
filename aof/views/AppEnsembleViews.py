@@ -53,6 +53,7 @@ class AppEnsembleViews(PageViews):
         return Response(resp)
 
     @view_config(route_name='ae-details', renderer='aof:templates/ae-details.mako')
+    @view_config(route_name='ae-details-new', renderer='aof:templates/ae-details.mako')
     @RequestPoolURI_Decorator()
     def page_details(self):
         """
