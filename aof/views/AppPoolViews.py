@@ -116,7 +116,6 @@ class AppPoolViews(PageViews):
         res = str(self.pool.get_number_of_apps())
         return Response(res,)
 
-    @view_config(route_name='api-ap-json', renderer='json')
     @view_config(route_name='api-apps', renderer='json')
     def api_json(self):
         """
@@ -141,7 +140,7 @@ class AppPoolViews(PageViews):
         json = res.serialize(format="json").decode()
 
         # log.debug(json)
-        return {'json': json}
+        return json
 
     @view_config(route_name='app-details', renderer='aof:templates/app-details.mako', accept='text/html')
     @RequestPoolURI_Decorator()

@@ -25,7 +25,7 @@ class AppEnsembleViews(PageViews):
         self._setTitle('App-Ensembles')
         return self._returnCustomDict()
 
-    @view_config(route_name='api-ae-json', renderer='json')
+    @view_config(route_name='api-appensembles', renderer='json')
     def api_json(self):
         """
         Generates the pool in Json
