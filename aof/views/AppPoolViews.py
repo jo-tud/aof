@@ -194,14 +194,6 @@ class AppPoolViews(PageViews):
         else:
             exit_points = None
 
-        try:
-            introspector = self.request.registry.introspector
-            api_app_ttl_uri = self.get_URI('api-app-details-show')
-            api_app_ttl_uri= api_app_ttl_uri+"?URI="+self.uri
-        except:
-            api_app_ttl_uri="/api/app-pool/details.html?URI="+self.uri
-
-
         custom_args = {'namespaces': namespaces,
                        'uri': self.uri,
                        'qrcode': self.pool.get_QRCode(details['binary']),
@@ -212,23 +204,11 @@ class AppPoolViews(PageViews):
                        'screenshots': screenshots,
                        'entry_points': entry_points,
                        'exit_points': exit_points,
-                       'api_app_ttl_uri':api_app_ttl_uri
+                       'api_app_ttl_uri':self.build_URI('api-apps-app-details','{URI:.*}',self.uri)+"?format=turtle&content_type=text/plain"
                        # build number is loaded via ajax
                        }
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='app-details', accept='text/turtle')
-    def api_details_turtle(self):
-        return self._api_details_return(format='turtle',content_type='text/turtle')
-
-    @view_config(route_name='api-app-details-show')
-    def api_details_turtle_display(self):
-        response=self._api_details_return(format='turtle',content_type='text/plain')
-        return response
-
-    @view_config(route_name='app-details', accept='application/rdf+xml')
-    def api_details_rdfxml(self):
-        return self._api_details_return(format='application/rdf+xml',content_type='application/rdf+xml')
 
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
@@ -251,12 +231,25 @@ class AppPoolViews(PageViews):
         return result
 
     @view_config(route_name='api-apps-app-details')
+    @view_config(route_name='app-details', accept='text/turtle')
+    @view_config(route_name='app-details', accept='application/rdf+xml')
     @RequestPoolURI_Decorator()
     def api_app_details(self):
-        if 'text/turtle' in str(self.request.accept):
+        if self.request.params.has_key('format') or self.request.params.has_key('content_type'):
+            format=None
+            content_type=None
+            if self.request.params.has_key('format'):
+                format=self.request.params.getone('format')
+            else:
+                format='application/rdf+xml'
+            if self.request.params.has_key('content_type'):
+                content_type=self.request.params.getone('content_type')
+            return self._api_details_return(format=format,content_type=content_type)
+        elif 'text/turtle' in str(self.request.accept):
             return self._api_details_return(format='turtle',content_type='text/turtle')
         else:
             return self._api_details_return(format='application/rdf+xml',content_type='application/rdf+xml')
+
 
     @view_config(route_name='api-apps-app-property', renderer='json')
     @RequestPoolURI_Decorator()
