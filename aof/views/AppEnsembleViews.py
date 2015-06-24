@@ -53,7 +53,6 @@ class AppEnsembleViews(PageViews):
         return Response(resp)
 
     @view_config(route_name='ae-details', renderer='aof:templates/ae-details.mako')
-    @view_config(route_name='ae-details-new', renderer='aof:templates/ae-details.mako')
     @RequestPoolURI_Decorator()
     def page_details(self):
         """
@@ -63,14 +62,8 @@ class AppEnsembleViews(PageViews):
         self._setTitle('App-Ensemble Details')
         ae = self.pool.get_AppEnsemble(self.uri)
 
-        try:
-            #TODO
-            from urllib.parse import urljoin
-            introspector = self.request.registry.introspector
-            api_ae_uri = str(introspector.get('routes', 'api-get-ae-pkg')['pattern'])
-            api_ae_uri= urljoin(self.request.application_url,api_ae_uri+"?URI="+self.uri,)
-        except:
-            api_ae_uri="/api/download/ae-package?URI="+self.uri
+
+        api_ae_uri=self.build_URI('api-appensembles-ae-package','{URI:.*}',self.uri)
 
         ae_apps = ae.getRequiredApps().bindings
         custom_args = {
@@ -116,7 +109,7 @@ class AppEnsembleViews(PageViews):
         response.content_disposition = 'attachement; filename="' + str(self.uri) + ".bpmn"
         return response
 
-    @view_config(route_name='api-get-ae-pkg')
+    @view_config(route_name='api-appensembles-ae-package')
     @RequestPoolURI_Decorator()
     def action_get_ae_pkg(self):
         """

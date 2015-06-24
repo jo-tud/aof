@@ -78,7 +78,7 @@ $(function() {
     $('div#ae_tables').on('click','.cta-button.deploy',(function (e) {
         var ae_uri = $(this).attr('uri');
         console.log("Requested download of App-Ensemble: " + ae_uri);
-        top.location.href = '/api/download/ae-package?URI='+ ae_uri;
+        top.location.href = '/api/app-ensembles/'+encodeURI(ae_uri)+'/package';
         e.preventDefault();
     }));
 });
