@@ -41,7 +41,7 @@
                     <tr>
                         <td>BPM</td>
                         <td>
-                            <a class="button" href="/app-ensembles/visualize-bpm.html?URI=${ae_uri}">Visualize BPM</a>
+                            <a class="button" href="${bpmn_uri}">Visualize BPM</a>
                         </td>
                     </tr>
                 %endif

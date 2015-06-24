@@ -64,6 +64,7 @@ class AppEnsembleViews(PageViews):
         ae = self.pool.get_AppEnsemble(self.uri)
 
         try:
+            #TODO
             from urllib.parse import urljoin
             introspector = self.request.registry.introspector
             api_ae_uri = str(introspector.get('routes', 'api-get-ae-pkg')['pattern'])
@@ -77,7 +78,8 @@ class AppEnsembleViews(PageViews):
             'ae_api_path':api_ae_uri,
             'qrcode': self.pool.get_QRCode(api_ae_uri),
             'ae_has_bpm': ae.has_bpm(),
-            'ae_apps': ae_apps
+            'ae_apps': ae_apps,
+            'bpmn_uri':self.build_URI('ae-visualize-bpm',"{URI}",self.uri)
         }
         return self._returnCustomDict(custom_args)
 

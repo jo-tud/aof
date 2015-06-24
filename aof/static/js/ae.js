@@ -49,7 +49,7 @@ $(function() {
                     $('<li class="bullet-item" id="app-list"></li>').appendTo(eq_div);
                     $('<span data-tooltip aria-haspopup="true" class="has-tip">Apps<span>').attr('title',app_list.slice(2)).appendTo($(pricing_table.find('#app-list')))
                 }
-                $('<li class="cta-button details"><a class="button" href="/app-ensembles/details.html?URI='+ae.uri+'">Details</a></li>').attr('id',ae.uri).appendTo(pricing_table);
+                $('<li class="cta-button details"><a class="button" href="/app-ensembles/'+encodeURI(ae.uri)+'/details.html">Details</a></li>').attr('id',ae.uri).appendTo(pricing_table);
                 $('<li class="cta-button deploy"><a class="button floor" href="#">Install</a></li>').attr('uri',ae.uri).appendTo(pricing_table);
 
             });
