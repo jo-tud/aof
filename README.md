@@ -10,10 +10,6 @@ Cd into the project directory and execute
 
     python setup.py develop
 
-Currently the most interesting branch is *distributed*. You can check it out like this:
-
-    git checkout -b distributed origin/distributed
-
 To start the AOF webserver execute
 
     pserve development.ini
