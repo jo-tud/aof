@@ -1,0 +1,7 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
+[]
+	aof:hasAppDescription "min_test.ttl" ;
+	aof:hasAppDescription "ignore_test.ttl" ;
+	aof:hasAppDescription "max_test.ttl" .

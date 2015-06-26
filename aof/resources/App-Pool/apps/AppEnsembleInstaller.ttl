@@ -1,0 +1,52 @@
+# AOF PREFIXES
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
+# USED ONTOLOGIES
+@prefix bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Namespaces for THIS App-Ensemble
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix play: <http://play.google.com/store/apps/details?id=> .
+@prefix android: <http://schemas.android.com/apk/res/android> .
+
+# Creator
+<mailto:max.mustermann@tu-dresden.de>    a foaf:Person ;
+        foaf:name "Max Mustermann";
+        foaf:mbox <mailto:max.mustermann@tu-dresden.de>;
+        foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php> .
+
+# App description
+jenkins:AppEnsembleInstaller
+    a aof:App, aof:AndroidApp ;
+
+    rdfs:label "App Ensemble Installer" ;
+    rdfs:comment
+        """
+        The *App Ensemble Installer* downloads and installs App Ensembles.
+        """ ;
+
+    aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
+
+    aof:versionCode <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
+
+    aof:MainScreenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        rdfs:comment "Main Screenshot"
+    ] ;
+    aof:Screenshot [
+        aof:hasScreenshot <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg> ;
+        aof:hasScreenshotThumbnail <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg>
+     ] ;
+
+   # aof:hasIcon <> ;
+
+   dc:creator <mailto:max.mustermann@tu-dresden.de>
+.

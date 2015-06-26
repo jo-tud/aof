@@ -1,0 +1,112 @@
+# AOF PREFIXES
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
+# USED ONTOLOGIES
+@prefix bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Namespaces for THIS App-Ensemble
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix play: <http://play.google.com/store/apps/details?id=> .
+@prefix android: <http://schemas.android.com/apk/res/android/> .
+
+# Unique prefix for THIS App-Ensemble
+@prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2#> .
+
+# Creator
+<mailto:johannes.pfeffer@tu-dresden.de>    a foaf:Person ;
+        foaf:name "Johannes Pfeffer";
+        foaf:mbox <mailto:johannes.pfeffer@tu-dresden.de>;
+        foaf:homepage <http://www.et.tu-dresden.de/ifa/index.php?id=jp> .
+
+# Conductor App
+<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/LastSuccessfulBuild>
+    a aof:App, aof:AndroidApp ;
+    aof:hasAppEnsembleRole aof:Conductor ;
+
+    aof:hasInstallableArtifact	<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/artifact/AppEnsembleInstaller/bin/AppEnsembleInstaller-release.apk> ;
+
+    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AOFConductor/lastSuccessfulBuild/buildNumber> ;
+    
+    aof:hasMainScreenshot [
+        foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Full_score.jpg/320px-Full_score.jpg>
+    ] ;
+    aof:hasScreenshot [
+        foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Steven_Sametz_conducting%2C_cropped.jpg/256px-Steven_Sametz_conducting%2C_cropped.jpg> ;
+        rdfs:comment "Main Screenshot"
+     ] ;
+    aof:hasScreenshot [
+        foaf:depiction <http://upload.wikimedia.org/wikipedia/commons/2/2f/Bundesarchiv_Bild_183-R92264%2C_Herbert_von_Karajan.jpg>
+     ] ;
+
+   # aof:hasIcon <> ;
+
+    dc:creator <mailto:johannes.pfeffer@tu-dresdden.de> ;
+    dc:creator <mailto:johannes.pfeffer@tu-dresden.de> ;
+
+    rdfs:label "AOF Conductor" ;
+    rdfs:comment
+"""
+The *AOF Conductor* is an app that executes App-Ensembles on Android mobile devices.
+""" ;
+    ### Entry points
+    aof:hasEntryPoint [
+        a aof:EntryPoint, android:action ;
+        android:name "org.aof.action.START_WORKFLOW" ;
+        rdfs:label "Start Workflow" ;
+        rdfs:comment
+"""
+When called with no extras, the *StartWorkflow* action brings up an activity that enables the user to choose an App-Ensemble from the file system. When the *org.aof.extra.AE_FILE* extra is provided, the App-Ensemble is loaded immediately.
+""" ;
+        aof:hasInput [
+            a aof:Input, android:extra ;
+            aof:isRequired "False";
+            android:name "org.aof.extra.AE_FILE";
+            aof:hasDatatype xsd:anyURI ;
+            rdfs:comment "**Testkommentar**"
+         ];
+        aof:hasInput [
+            a aof:Input, android:extra ;
+            aof:isRequired "False";
+            android:name "org.aof.extra.AE_FILE";
+            aof:hasDatatype xsd:anyURI
+         ]
+     ] ;
+
+    aof:hasEntryPoint [
+        a aof:EntryPoint, android:action ;
+        android:name "android.intent.action.MAIN" ;
+        rdfs:label "Main entry point" ;
+        rdfs:comment
+"""
+This activity is the entry point for the application when it is used stand-alone. It does not expect to receive data.
+""" ;
+     ] ;
+
+
+    # Exit points
+    aof:hasExitPoint [
+    a aof:ExitPoint;
+    rdfs:label "Main exit point" ;
+    rdfs:comment "Description of the exit point" ;
+    aof:hasOutput [
+      a aof:Output, android:extra ;
+      rdfs:comment "Description of the output" ;
+      aof:isGuaranteed "False" ;
+      android:name "org.aof.extra.POI" ;
+      aof:hasDatatype xsd:anyURI
+    ]
+    ] ;
+    
+    aof:hasAppDependency play:org.openintents.filemanager .
+
+### Additional statements
+### Which is better?
+play:org.openintents.filemanager owl:sameAs <http://openintents.org/~oi/filemanager> .
+play:org.openintents.filemanager rdfs:seeAlso <http://openintents.org/~oi/filemanager> .

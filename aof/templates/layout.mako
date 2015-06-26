@@ -1,85 +1,53 @@
 <!DOCTYPE html>
-<html lang="${request.locale_name}">
+<html class="no-js" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="XHTML+RDFa 1.0" xml:lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>${page_title} - ${meta['acronym']}</title>
+        <link rel="shortcut icon" href="${request.static_url('aof:static/img/favicon.png')}">
+        <link rel="stylesheet" href="/static/stylesheets/app.css" />
+        <script src="/static/bower_components/modernizr/modernizr.js"></script>
+        <%block name="header"/>
+    </head>
+    <body>
+        <div class="sticky">
+            <nav class="top-bar" data-topbar role="navigation">
+                <ul class="title-area">
+                    <li class="name">
+                        <h1><a href="/">AOF</a></h1>
+                    </li> <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="${meta['appname']}:${page_title}">
-    <meta name="author" content="Johannes Pfeffer">
-
-    <link rel="shortcut icon" href="${request.static_url('aof:static/favicon.png')}">
-    <!--Theme-->
-    <link href="http://cdn.wijmo.com/themes/sterling/jquery-wijmo.css" rel="stylesheet" type="text/css" />
-
-    <title>${meta['appname']}:${page_title}</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Main AOF style sheet -->
-    <link href="${request.static_url('aof:static/theme.css')}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-  % if request.session.peek_flash():
-  <div id="flash">
-      <% flash = request.session.pop_flash() %>
-      % for message in flash:
-        ${message}<br />
-      % endfor
-  </div>
-  % endif
-
-  <div class="main">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10">
-            <div class="content">
-              <h1><span class="font-semi-bold">${meta['acronym']}</span> <span class="smaller">${meta['appname']}</span></h1>
-              <p class="lead">${page_title}.</p>
-            </div>
-          </div>
+                    <li class="toggle-topbar menu-icon">
+                        <a href="#"><span>Menu</span></a>
+                    </li>
+                </ul>
+                <section class="top-bar-section"> <!-- Right Nav Section -->
+                    <ul class="left">
+                        <li><a href="/app-pool.html">Apps</a></li>
+                        <li><a href="/app-ensembles.html">App-Ensembles</a></li>
+                        <li><a href="/docs/index.html">Documentation</a></li>
+                    </ul>
+                    <ul class="right">
+                        <%block name="top_bar_actions" />
+                    </ul>
+                </section>
+            </nav>
         </div>
-        <div class="row">
-          <div class="col-md-10">
-            <div class="content">
-              <p class="menu">
-                  % if menu:
-                    % for item in menu[:-1]:
-                        <a href="${item['href']}">${item['title']}</a>&nbsp;|&nbsp;
-                    % endfor
-                      <a href="${menu[-1]['href']}">${menu[-1]['title']}</a>
-                  %else:
-                      There are no menu items
-                  %endif
-              </p>
-              ${next.body()}
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="links">
-            <ul>
-              <li class="plt-logo"><a href="http://www.et.tu-dresden.de/ifa/index.php?id=plt"><img class="logo img-responsive" src="${request.static_url('aof:static/logo_plt.png')}" alt="Chair for Distributed Control Systems Engineering"></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-  </div>
+        <%block name="alerts"><div class="row" id="alerts"></div></%block>
+        <%block name="overlays"/>
+
+        ${next.body()}
+        <%block name="global_js">
+        <script src="/static/bower_components/foundation/js/vendor/jquery.js"></script>
+        <script src="/static/bower_components/foundation/js/vendor/fastclick.js"></script>
+        <script src="/static/bower_components/foundation/js/foundation.min.js"></script>
+        <script src="/static/js/app.js"></script>
+        </%block>
+        <%block name="local_js" />
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//oss.maxcdn.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//oss.maxcdn.com/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
-</body>
+
+
+    </body>
 </html>

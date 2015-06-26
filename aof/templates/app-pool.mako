@@ -1,60 +1,59 @@
 # -*- coding: utf-8 -*-
 <%inherit file="layout.mako"/>
+<%block name="top_bar_actions">
+    <li class="has-form show-for-medium-up">
+        <div class="row collapse">
+            <input class="livefilter-input" type="text" placeholder="Filter">
+        </div>
+    </li>
+    <li class="divider"></li>
+    <li><a href="#" id="action_update">UPDATE POOL</a></li>
+</%block>
 
-<!--Theme-->
-    <link href="http://cdn.wijmo.com/themes/sterling/jquery-wijmo.css" rel="stylesheet" type="text/css" />
-
-    <!--Wijmo Widgets CSS-->
-    <link href="http://cdn.wijmo.com/jquery.wijmo-pro.all.3.20142.45.min.css" rel="stylesheet" type="text/css" />
-
-    <!--RequireJs-->
-    <script type="text/javascript" src="http://cdn.wijmo.com/external/require.js"></script>
-
-    <script type="text/javascript">
-	requirejs.config({
-	    baseUrl: "http://cdn.wijmo.com/amd-js/3.20142.45",
-		paths: {
-		    "jquery": "jquery-1.11.1.min",
-		    "jquery-ui": "jquery-ui-1.11.0.custom.min",
-		    "jquery.ui": "jquery-ui",
-		    "jquery.mousewheel": "jquery.mousewheel.min",
-		    "globalize": "globalize.min",
-		    "bootstrap": "bootstrap.min", //Needed if you use Bootstrap.
-		    "knockout": "knockout-3.1.0" //Needed if you use Knockout.
-		}
-	});
-    </script>
-    <!--Require aof.tools Js-->
-    <script type="text/javascript" src="${request.static_url('aof:static/js/aof.tools.js')}"></script>
-
-    <script id="scriptInit" type="text/javascript">
-        require(["wijmo.wijgrid"], function () {
-            $(document).ready(function () {
-                $.getJSON('/app-pool.json',function(data){
-                    var json_data=data['json'];
-                    var dataObj=eval("("+json_data+")");
-                    var gridData = getGridData(dataObj);
-
-                    $("#wijgrid").wijgrid({
-                        cellClicked: function (e, args) {
-                        // alert(args.cell.value());
-                        },
-                        allowSorting: true,
-                        allowPaging: false,
-                        pageSize: 10,
-                        allowVirtualScrolling: true,
-                        showFilter: true,
-                        columns: gridData[0],
-                        data: gridData[1]
-		             });
-
-                });
-            });
-        });
-    </script>
-<body>
-    <div class="container">
-        <table id="wijgrid">
-	    </table>
+<div class="row">
+    <div class="small-12 columns">
+        <li class="has-form show-for-small-only">
+            <input class="livefilter-input" type="text" placeholder="Filter">
+        </li>
     </div>
-</body>
+</div>
+<div class="row">
+    <div class="small-12 columns">
+        <div id="app_table">
+            <table width="100%">
+                <tbody>
+                    % for app in apps:
+                        <tr class="app_row">
+                            <td width="80px">
+                                <a href="/app-pool/details.html?URI=${app['uri']}">
+                                    % if app['icon'] != "None":
+                                        <img src="${app['icon']}" width="64px" height="64px">
+                                    % else :
+                                        <img src="/static/img/icon_placeholder.svg" width="64px" height="64px">
+                                    % endif
+                                </a>
+                            </td>
+                            <td class="app_name">
+                                <a href="/app-pool/details.html?URI=${app['uri']}">${app['name']}</a>
+                            </td>
+                            <td width="100px">
+                                <a class="button tiny secondary round" style="margin-bottom: 0px"
+                                   href="/app-pool/details.html?URI=${app['uri']}">Details</a>
+                            </td>
+                            <td width="100px">
+                                <a class="button tiny secondary round" style="margin-bottom: 0px"
+                                   href="${app['binary']}">Download</a>
+                            </td>
+                        </tr>
+                    % endfor
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%block name="local_js">
+    <script src="static/js/jquery.liveFilter.js"></script>
+    <script src="static/js/jquery.loader-0.3.js"></script>
+    <script src="static/js/app-pool.js"></script>
+</%block>

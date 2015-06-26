@@ -1,0 +1,54 @@
+# AOF PREFIXES
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
+# USED ONTOLOGIES
+@prefix bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Namespaces for THIS App-Ensemble
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix play: <http://play.google.com/store/apps/details?id=> .
+@prefix android: <http://schemas.android.com/apk/res/android/> .
+
+# Unique prefix for THIS App-Ensemble
+@prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2xyzTEST#> .
+
+# Creator
+<mailto:max@mustermann.de>    a foaf:Person ;
+        foaf:name "Mustermann";
+        foaf:mbox <mailto:max@mustermann.de>;
+        foaf:homepage <http://www.mustermann.de> .
+
+# MaxApp
+<http://mustermann.de/ignoreApp>
+    a aof:App, aof:AndroidApp ;
+    aof:hasAppEnsembleRole aof:Conductor;
+
+    dc:creator <mailto:max@mustermann.de> ;
+
+    rdfs:label "IgnoreApp" .
+
+<http://mustermann.de/iteration0> a   rdfs:Class.
+
+<http://mustermann.de/iteration1>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration0>.
+<http://mustermann.de/iteration2>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration1>.
+ <http://mustermann.de/iteration3>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration2>.
+ <http://mustermann.de/iteration4>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration3>.
+ <http://mustermann.de/iteration5>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration4>.
+ <http://mustermann.de/iteration6>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration5>.
+  <http://mustermann.de/iteration7>    a   rdfs:Class;
+                rdfs:subClassOf <http://mustermann.de/iteration6>.
+
+

@@ -1,0 +1,371 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  color: #ffffff;
+  background: #307ABE;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+p {
+  font-weight: 300;
+}
+.font-normal {
+  font-weight: 400;
+}
+.font-semi-bold {
+  font-weight: 600;
+}
+.font-bold {
+  font-weight: 700;
+}
+.main {
+  margin-top: 20px;
+}
+.main .content {
+  margin-left: 10px;
+}
+#home.main {
+  margin-top: 250px;
+}
+
+.main .content h1 {
+  margin-top: 0px;
+  font-size: 36px;
+}
+#home.main .content h1 {
+  margin-top: 10px;
+  font-size: 60px;
+}
+
+main .content h1 .smaller {
+  font-size: 36px;
+  color: #80CAF1;
+}
+#home.main .content h1 .smaller {
+  font-size: 40px;
+  color: #80CAF1;
+}
+
+.main .content .lead {
+  font-size: 25px;
+  color: #ffffff;
+}
+.main .content .lead .font-normal {
+  color: #ffffff;
+}
+
+.main .menu a {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+#home.main .menu a {
+  font-size: 35px;
+  color: #ffffff;
+}
+
+.main .links {
+  float: right;
+  right: 0;
+  margin-top: 125px;
+}
+.main .links ul {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+.main .links ul li {
+  list-style: none;
+  display: inline;
+  margin: 0 10px;
+}
+.main .links ul li:first-child {
+  margin-left: 0;
+}
+.main .links ul li:last-child {
+  margin-right: 0;
+}
+.main .links ul li.current-version {
+  color: #80CAF1;
+  font-weight: 400;
+}
+.main .links ul li a {
+  color: #ffffff;
+}
+.main .links ul li a:hover {
+  text-decoration: underline;
+}
+.main .links ul li .icon-muted {
+  color: #eb8b95;
+  margin-right: 5px;
+}
+.main .links ul li:hover .icon-muted {
+  color: #ffffff;
+}
+
+#content_o .model_select {
+  margin-top:40px;
+}
+#content_o .model_select #select {
+  position:absolute;
+  margin-left:4px;
+  margin-top:4px;
+  width:240px;
+}
+
+#content_o .model_select #deploy {
+  position:absolute;
+  margin-left:275px;
+  margin-top:-2px;
+}
+
+#content_o .model_select #submit {
+  position:absolute;
+  margin-left:615px;
+  margin-top:-2px;
+}
+
+#content_o .model_select {
+  height:50px;
+}
+
+#content_o .functions .label {
+  float: left;
+}
+
+#content_dp #deploy{
+  position:absolute;
+  margin-left: 10px;
+  margin-top: -2px;
+}
+
+#content_dp_select .model_select #select {
+  position:absolute;
+  margin-left:4px;
+  margin-top:4px;
+  width:260px
+}
+
+#content_dp_select .model_select #deploy_1{
+  position:absolute;
+  margin-left:4px;
+  margin-top:55px;
+}
+
+#content_dp_select .model_select #deploy_2{
+  position:absolute;
+  margin-left:628px;
+  margin-top:55px;
+}
+
+#content_dp_select .model_select #durchsuchen{
+  position:absolute;
+  z-index: 1;
+  margin-left:628px;
+  margin-top:5px;
+}
+
+#content_dp_select .model_select #selected_file_name{
+  width:290px;
+  padding-top:7px;
+  height:42px;
+  position:absolute;
+  z-index: 3;
+  margin-left:797px;
+  margin-top:6px;
+}
+
+#content_dp_select .model_select #file{
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  font-size:23px;
+  position:absolute;
+  margin-left:628px;
+  margin-top:4px;
+  height:44px;
+}
+
+#content_info{
+    background-color: #FFFFFF;
+    width: 440px;
+    height: auto;
+    text-align: center;
+}
+
+#content_info .info{
+    width: 400px;
+    height: 300px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align:center;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#content_info .bewerten_bewerten {
+    display: inline-block;
+	width: auto;
+	height: auto;
+	text-align:left;
+    margin-left: 10px;
+    margin-right: 10px;
+    border:2px solid;
+    margin-bottom: 10px;
+}
+
+#content_info .bewerten_sterne_line {
+	display: inline-block;
+    margin-left: 10px;
+    margin-top: 10px;
+	height:50px;
+	width:250px;
+}
+
+#content_info .bewerten_frage {
+    color: #000000;
+	display: inline-block;
+}
+
+#content_info .star_bewerten {
+    cursor: pointer;
+	height: 50px;
+	width: 50px;
+	float: left;
+	display: inline-block;
+	background: url("img/Stern_leer.png");
+}
+
+#content_info .star_hell {
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	margin:0;
+	display: inline-block;
+	background: url("img/Stern_voll.png");
+}
+
+#content_info .bewerten_frage_comment {
+    color: #000000;
+	display: inline-block;
+}
+
+@media (max-width: 1199px) {
+  .main .content h1 {
+    font-size: 45px;
+  }
+  .main .content h1 .smaller {
+    font-size: 30px;
+  }
+  .main .content .lead {
+    font-size: 20px;
+  }
+}
+@media (max-width: 991px) {
+   #content_dp_select .model_select #select {
+    margin-left:-270px;
+   }
+   #content_dp_select .model_select #deploy_1{
+    margin-left:-262px;
+   }
+   #content_dp_select .model_select #deploy_2{
+    margin-left:20px;
+   }
+   #content_dp_select .model_select #durchsuchen{
+    margin-left:20px;
+   }
+   #content_dp_select .model_select #file{
+    margin-left:380px;
+   }
+   #content_dp_select .model_select #selected_file_name{
+    margin-left:186px;
+    text-align:left;
+   }
+   #content_o .model_select {
+    margin-top:10px;
+   }
+   #content_o .model_select #select{
+    margin-left:-210px;
+   }
+   #content_o .model_select #deploy{
+    margin-left:58px;
+   }
+   #content_o .model_select #submit{
+    margin-left:-151px;
+    margin-top:51px;
+   }
+   #content_o .model_select #title{
+    positon:relative;
+    margin-left:-110px;
+    margin-top:160px;
+   }
+   #content_o .model_select #p2{
+    margin-top:160px;
+   }
+   #content_dp #deploy{
+    margin-left: -73px;
+   }
+  .main {
+    margin-top: 0;
+  }
+  .main .logo {
+    margin: 40px auto;
+  }
+  .main .content {
+    margin-left: 0;
+    text-align: center;
+  }
+  .main .content h1 {
+    margin-bottom: 20px;
+  }
+  .main .links {
+    float: none;
+    text-align: center;
+    margin-top: 60px;
+  }
+  .main .copyright {
+    float: none;
+    text-align: center;
+  }
+}
+@media (max-width: 767px) {
+   #content_dp_select .model_select #select {
+    margin-left:-250px;
+   }
+   #content_dp_select .model_select #deploy_1{
+    margin-left:-171px;
+   }
+   #content_dp_select .model_select #selected_file_name{
+    margin-left:150px;
+    text-align:left;
+   }
+   .main .content h1 .smaller {
+    font-size: 25px;
+    display: block;
+  }
+  .main .content .lead {
+    font-size: 16px;
+  }
+  .main .links {
+    margin-top: 40px;
+  }
+  .main .links ul li {
+    display: block;
+    margin: 0;
+  }
+  .main .links ul li .icon-muted {
+    display: none;
+  }
+  .main .copyright {
+    margin-top: 20px;
+  }
+}

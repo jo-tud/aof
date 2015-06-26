@@ -1,0 +1,104 @@
+# AOF PREFIXES
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+
+# USED ONTOLOGIES
+@prefix bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Namespaces for THIS App-Ensemble
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix play: <http://play.google.com/store/apps/details?id=> .
+@prefix android: <http://schemas.android.com/apk/res/android/> .
+
+# Unique prefix for THIS App-Ensemble
+@prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/5G_Example_v2#> .
+
+# Creator
+<dummyterm>    a foaf:Person .
+
+<mailto:max@mustermann.de>    a foaf:Person ;
+        foaf:name "Mustermann";
+        foaf:mbox <mailto:max@mustermann.de>;
+        foaf:homepage <http://www.mustermann.de> .
+
+# MaxApp
+<http://mustermann.de/maxApp>
+    a aof:App, aof:AndroidApp ;
+    aof:hasAppEnsembleRole aof:Conductor ;
+
+    aof:hasInstallableArtifact	<http://mustermann.de/maxApp/res/install.apk> ;
+
+    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
+    aof:version "1"^^xsd:integer ;
+    
+    aof:hasMainScreenshot [
+        foaf:depiction <http://mustermann.de/maxApp/res/mainScreenshot.jpg>
+    ] ;
+    aof:hasScreenshot [
+        foaf:depiction <http://mustermann.de/maxApp/res/otherScreenshot1.jpg> ;
+        rdfs:comment "Main Screenshot"
+     ] ;
+    aof:hasScreenshot [
+        foaf:depiction <http://mustermann.de/maxApp/res/otherScreenshot2.jpg>
+     ] ;
+
+    aof:hasIcon <http://mustermann.de/maxApp/res/icon.jpg> ;
+
+    dc:creator <mailto:max@mustermann.de> ;
+
+    rdfs:label "MaxApp" ;
+    rdfs:comment "App with all objects of the specification" ;
+    ### Entry points
+    aof:hasEntryPoint [
+        a aof:EntryPoint, android:action ;
+        android:name "org.aof.action.START_WORKFLOW" ;
+        rdfs:label "Start Workflow" ;
+        rdfs:comment
+"""
+When called with no extras, the *StartWorkflow* action brings up an activity that enables the user to choose an App-Ensemble from the file system. When the *org.aof.extra.AE_FILE* extra is provided, the App-Ensemble is loaded immediately.
+""" ;
+        aof:hasInput [
+            a aof:Input, android:extra ;
+            aof:isRequired "False";
+            android:name "org.aof.extra.AE_FILE";
+            aof:hasDatatype xsd:anyURI ;
+            rdfs:comment "**Testkommentar**"
+         ];
+        aof:hasInput [
+            a aof:Input, android:extra ;
+            aof:isRequired "False";
+            android:name "org.aof.extra.AE_FILE";
+            aof:hasDatatype xsd:anyURI
+         ]
+     ] ;
+
+    aof:hasEntryPoint [
+        a aof:EntryPoint, android:action ;
+        android:name "android.intent.action.MAIN" ;
+        rdfs:label "Main entry point" ;
+        rdfs:comment
+"""
+This activity is the entry point for the application when it is used stand-alone. It does not expect to receive data.
+""" ;
+     ] ;
+
+
+    # Exit points
+    aof:hasExitPoint [
+    a aof:ExitPoint;
+    rdfs:label "Main_exit_point" ;
+    rdfs:comment "DescriptionExitPoint" ;
+    aof:hasOutput [
+      a aof:Output, android:extra ;
+      rdfs:comment "output2" ;
+      aof:isGuaranteed "False" ;
+      android:name "org.aof.extra.POI" ;
+      aof:hasDatatype xsd:anyURI
+    ]
+    ] .

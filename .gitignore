@@ -15,3 +15,7 @@ env*
 *.egg*
 
 aof.conf
+
+
+aof/tmp/qrcodes/*
+!aof/tmp/qrcodes/__init__.py
