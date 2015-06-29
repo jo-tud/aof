@@ -246,8 +246,8 @@ class IntegrationViewTests(unittest.TestCase):
 
     def test_api_ap_json_view(self):
         response = AppPoolViews(self.context, self.request).api_json()
-        self.assertTrue('json' in response)
-        response=json.loads(response['json'])['results']['bindings']
+        self.assertTrue('MaxApp' in response)
+        response=json.loads(response)['results']['bindings']
         self.assertTrue(response[0]['name']['value']==('MaxApp' or 'MinApp'))
 
 
@@ -300,9 +300,7 @@ class IntegrationViewTests(unittest.TestCase):
 
     def test_api_ae_json_view(self):
         response = AppEnsembleViews(self.context, self.request).api_json()
-        del(response['json']['5G-Demo'])
-        self.assertTrue('json' in response)
-        response=response['json']
+        del(response['5G-Demo'])
         self.assertTrue('testAppEnsemble' in response)
         response=response['testAppEnsemble']
         self.assertEqual(response['uri'],'testAppEnsemble')

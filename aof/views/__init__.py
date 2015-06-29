@@ -41,9 +41,14 @@ class AbstractViews():
             return None
         else:
             introspector = self.request.registry.introspector
-            uri = str(introspector.get('routes', route)['pattern'])
-            uri= urljoin(self.request.application_url,uri)
-            return uri
+            uri = introspector.get('routes', route)
+            if uri != None:
+                uri=str(uri['pattern'])
+                uri= urljoin(self.request.application_url,uri)
+                return uri
+            else:
+                log.info("Routes are not available for URI-Generation")
+                return ""
 
     def build_URI(self,route,replace_from, replace_with):
         uri=self.get_URI(route)

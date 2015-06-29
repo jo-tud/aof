@@ -83,12 +83,12 @@ class FunctionalTests(unittest.TestCase):
         self._status_code_test(res)
 
     def test_app_ensemble_details_html(self):
-        res=self.testapp.get('/app-ensembles/details.html?URI=testAppEnsemble')
+        res=self.testapp.get('/app-ensembles/testAppEnsemble/details.html')
         self._status_code_test(res)
         self.assertTrue(b'<h1>testAppEnsemble</h1>' in res.body)
 
     def test_app_ensemble_bpmn(self):
-        res=self.testapp.get('/app-ensembles/visualize-bpm.html?URI=testAppEnsemble')
+        res=self.testapp.get('/app-ensembles/testAppEnsemble/bpm.html')
         self._status_code_test(res)
         self._body_title_test(res,"App-Ensemble Details | BPMN")
 
@@ -96,7 +96,7 @@ class FunctionalTests(unittest.TestCase):
         aem=AppEnsemblePool.Instance()
         aem.pool.clear()
         num=len(aem)
-        res =self.testapp.get('/api/actions/update-app-ensembles')
+        res =self.testapp.get('/api/actions/app-ensembles/update')
         self.assertGreater(int(res.body),num)
 
     def test_app_pool(self):
@@ -105,32 +105,27 @@ class FunctionalTests(unittest.TestCase):
         self._body_title_test(res,"App-Pool")
 
     def test_app_pool_details(self):
-        res =self.testapp.get('/apps/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/html'})
+        res =self.testapp.get('/apps/http%3A%2F%2Fmustermann.de%2FmaxApp/details.html', headers={"accept":'text/html'})
         self._status_code_test(res)
         self._body_title_test(res,"App-Details")
         self.assertTrue(b'max@mustermann.de' in res.body)
 
-    def test_app_pool_details_no_params(self):
-        res =self.testapp.get('/apps/details.html')
-        self._status_code_test(res)
-        self.assertTrue(b'The parameter "URI" was not supplied' in res.body)
-
     def test_app_pool_details_no_uri_param(self):
-        res =self.testapp.get('/apps/details.html?URI=')
+        res =self.testapp.get('/apps//details.html')
         self._status_code_test(res)
         self.assertTrue(b'-parameter was empty' in res.body)
 
     def test_app_pool_details_wrong_uri_param(self):
         from webtest import AppError
-        self.assertRaises(AppError,self.testapp.get,'/apps/details.html?URI=http://abc')
+        self.assertRaises(AppError,self.testapp.get,'/apps/URI%3Dhttp%3A%2F%2Fabc%2F/details.html')
 
     def test_app_pool_details_rdf(self):
-        res = self.testapp.get('/apps/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'application/rdf+xml'})
+        res = self.testapp.get('/apps/http%3A%2F%2Fmustermann.de%2FmaxApp/details.html', headers={"accept":'application/rdf+xml'})
         self._status_code_test(res)
         self.assertTrue(b'<rdf:RDF' in res.body)
 
     def test_app_pool_details_turtle(self):
-        res = self.testapp.get('/apps/details.html?URI=http://mustermann.de/maxApp', headers={"accept":'text/turtle'})
+        res = self.testapp.get('/apps/http%3A%2F%2Fmustermann.de%2FmaxApp/details.html', headers={"accept":'text/turtle'})
         self._status_code_test(res)
         self.assertTrue(b'@prefix' in res.body)
 
@@ -138,5 +133,5 @@ class FunctionalTests(unittest.TestCase):
         ap=AppPool.Instance()
         ap.clear_app_pool()
         num=ap.get_number_of_apps()
-        res =self.testapp.get('/api/actions/update-app-pool')
+        res =self.testapp.get('/api/actions/app-pool/update')
         self.assertGreater(int(res.body),num)
