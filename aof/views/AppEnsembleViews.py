@@ -42,7 +42,7 @@ class AppEnsembleViews(PageViews):
             ae_info[key] = {'uri': key, 'path': path, 'apps': {}}
         return ae_info
 
-    @view_config(route_name='action-update-ap-ensembles')
+    @view_config(route_name='api-action-appensembles-update')
     def action_update(self):
         """
         Action: Update the AppEnsemblePool from current AppEnsemble-directory

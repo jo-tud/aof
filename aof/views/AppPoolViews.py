@@ -105,8 +105,7 @@ class AppPoolViews(PageViews):
         custom_args = {'apps': apps}
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='action-update-app-pool')
-    @view_config(route_name='api-apps-update')
+    @view_config(route_name='api-action-apps-update')
     def action_update(self):
         """
         Action: Update the AppPool from current AppPool definition

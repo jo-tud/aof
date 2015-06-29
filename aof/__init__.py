@@ -39,8 +39,8 @@ def main(global_config, **settings):
     # API
 
     ## Actions
-    config.add_route('action-update-app-pool', '/api/actions/app-pool/update')
-    config.add_route('action-update-ap-ensembles', '/api/actions/app-ensembles/update')
+    config.add_route('api-action-apps-update', '/api/actions/app-pool/update')
+    config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
 
     # API NEW
     config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
@@ -51,7 +51,6 @@ def main(global_config, **settings):
     # Todo complexe Property wird mit node ausgegeben
     config.add_route(pattern='/api/apps/{URI:.*}/properties/{property:.*}', name='api-apps-app-property')
     # TODO: jquery put ermöglichen
-    config.add_route(pattern='/api/apps', request_method='put', name='api-apps-update') #update
     config.add_route(pattern='/api/app-ensembles', name='api-appensembles')
     #config.add_route(pattern='/api/app-ensembles/{URI:.*}/details', name='api-appensembles-ae')
     #config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
