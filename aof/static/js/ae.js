@@ -23,11 +23,11 @@ $(function() {
     get_updates();
 
     function get_updates () {
-        $.getJSON('/api/app-ensembles.json', function(data) {
+        $.getJSON('/api/app-ensembles', function(data) {
             var target = $('div#ae_tables');
             target.empty();
             // console.log(data.json);
-            $.each(data.json, function (key, ae) {
+            $.each(data, function (key, ae) {
                 target.append('<div class="small-12 medium-4 large-3 columns"></div>');
                 main_div = target.children().last();
                 main_div.attr('id',ae.uri);
