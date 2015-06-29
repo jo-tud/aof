@@ -131,7 +131,7 @@ class PageViews(AbstractViews):
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
                        'unique_triples': unique_triples,
-                       'ae_inst_uri' : ae_inst_uri,
+                       'ae_inst_uri' : self.build_URI('app-details','{URI:.*}',ap._hash_value(ae_inst_uri)),
                        'ae_inst_qrcode':ae_inst_qrcode,
                        'app_pool_uri':self.get_URI('apps'),
                        'app_ensemble_pool_uri':self.get_URI('app-ensembles')

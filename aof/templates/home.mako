@@ -17,7 +17,7 @@
         </ul>
         <div class="row">
             <div class="small-12 columns">To be able to install App-Ensembles you must download and install the
-                <a href="/apps/details.html?URI=${ae_inst_uri}">App-Ensemble installer</a>.
+                <a href="${ae_inst_uri}">App-Ensemble installer</a>.
             </div>
 
 
