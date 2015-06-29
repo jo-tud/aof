@@ -120,8 +120,10 @@ class PageViews(AbstractViews):
         aem = AppEnsemblePool.Instance()
         number_of_apps = str(ap.get_number_of_apps())
         number_of_ae = str(len(aem))
-        g = AOFGraph.Instance()
-        unique_triples = str(g.__len__())
+        # TODO
+        #g = AOFGraph.Instance()
+        #unique_triples = str(g.__len__())
+        unique_triples="1"
 
         ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
         ae_inst_arifact=ap.get_install_uri(ae_inst_uri)

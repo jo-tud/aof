@@ -2,10 +2,11 @@ __author__ = 'Korbinian Hörfurter'
 
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AppEnsemble import AppEnsemble
-from aof.orchestration.AOFPool import AOFPool
+from aof.orchestration.AOFGraph import AOFGraph
 from pyramid.path import AssetResolver
 from pyramid.threadlocal import get_current_registry
 from aof.orchestration.AppEnsemble import _ae_folder_path
+from aof.orchestration.namespaces import AOF
 
 
 import os
@@ -13,7 +14,7 @@ import logging
 
 
 @Singleton
-class AppEnsemblePool(AOFPool):
+class AppEnsemblePool(AOFGraph):
     """
     The AppEnsemblePool is a Singleton which
     - indexes a folder and searches for AppEnsemble-Files (__init__)
@@ -30,6 +31,8 @@ class AppEnsemblePool(AOFPool):
         :return:None
         """
         self.log = logging.getLogger(__name__)
+
+        AOFGraph.__init__(self,AOF.AppEnsemblePool)
 
         self._ae_folder_path=_ae_folder_path
         self._ae_folder_path_backup=self._ae_folder_path
