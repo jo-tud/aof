@@ -55,5 +55,6 @@
 <%block name="local_js">
     <script src="static/js/jquery.liveFilter.js"></script>
     <script src="static/js/jquery.loader-0.3.js"></script>
+    <script src="/static/js/jquery.methodOverride.js"></script>
     <script src="static/js/app-pool.js"></script>
 </%block>
