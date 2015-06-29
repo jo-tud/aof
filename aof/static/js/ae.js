@@ -60,7 +60,7 @@ $(function() {
     }
 
         function updateAppEnsembles () {
-        $.get('/api/actions/update-app-ensembles', function(data) {
+        $.get('/api/actions/app-ensembles/update', function(data) {
             get_updates();
             var alertHTML = $(
                     '<div data-alert class="alert-box info radius" style="margin-top:5px">' +

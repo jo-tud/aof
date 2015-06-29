@@ -23,7 +23,7 @@ $(function() {
     );
 
     $('#action_update').click(function () {
-        $.get('/api/actions/update-app-pool', function(data) {
+        $.get('/api/actions/app-pool/update', function(data) {
         window.location.reload()
         });
     });

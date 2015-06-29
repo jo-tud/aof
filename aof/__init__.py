@@ -39,8 +39,8 @@ def main(global_config, **settings):
     # API
 
     ## Actions
-    config.add_route('action-update-app-pool', '/api/actions/update-app-pool')
-    config.add_route('action-update-ap-ensembles', '/api/actions/update-app-ensembles')
+    config.add_route('action-update-app-pool', '/api/actions/app-pool/update')
+    config.add_route('action-update-ap-ensembles', '/api/actions/app-ensembles/update')
 
     # API NEW
     config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
