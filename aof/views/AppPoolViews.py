@@ -93,7 +93,7 @@ class AppPoolViews(PageViews):
         for app_uri in app_uris:
             app = {
                 'uri': app_uri,
-                'details_uri':self.build_URI('app-details',"{URI:.*}",quote_plus(app_uri)),#/apps/"+quote_plus(app_uri)+"/details",
+                'details_uri':self.build_URI('app-details',"{URI:.*}",self.pool._hash_value(app_uri)),#/apps/"+quote_plus(app_uri)+"/details",
                 'name': self.pool.get_name(app_uri),
                 'icon': self.pool.get_icon_uri(app_uri),
                 'binary': self.pool.get_install_uri(app_uri)

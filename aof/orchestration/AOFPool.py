@@ -13,6 +13,17 @@ class AOFPool():
     def __init__(self):
         pass
 
+    def _hash_value(self,value):
+        """
+        Makes an md5-Hash of an value
+        :param value: string (value to hash)
+        :return: string
+        """
+        hash=md5()
+        hash.update(value.encode('utf-8'))
+        return str(hash.hexdigest())
+
+
     def get_QRCode(self,url,size=4):
         """
         Generates an QR-Code-SVG into the directory "static/img/qrcodes"
@@ -22,9 +33,8 @@ class AOFPool():
 
         valid_url=urlparse(url)
         if bool(valid_url.scheme):
-            hash=md5()
-            hash.update(url.encode('utf-8'))
-            target=AssetResolver().resolve(os.path.join('aof:tmp','qrcodes',str(hash.hexdigest())+".svg")).abspath()
+            hash=self._hash_value(url)
+            target=AssetResolver().resolve(os.path.join('aof:tmp','qrcodes',hash+".svg")).abspath()
             if not os.path.exists(target):
                 qrcode = pyqrcode.create(url)
                 qrcode.svg(target,size)

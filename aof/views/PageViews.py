@@ -44,10 +44,15 @@ class RequestPoolURI_Decorator(object):
                         uri = self.request.params.getone('URI')
                     if uri == "":
                         return Response(
-                            'Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
+                            'Value of the "URI"-parameter was empty. Please provide the URI of the resource.')
                     else:
                         self.uri = URIRef(unquote_plus(uri))
                         if isinstance(self.pool, AppPool):
+                            if "://" not in self.uri and len(self.uri)==32:
+                                for app in self.pool.get_app_uris():
+                                    if str(self.uri) == self.pool._hash_value(app):
+                                        self.uri=app
+                                        break
                             if self.pool.in_pool(self.uri):
                                 return f(self, *args, **kwargs)
                             else:
