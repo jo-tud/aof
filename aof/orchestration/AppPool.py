@@ -21,7 +21,7 @@ __all__ = [
 class AppPool(AOFGraph):
     init_source = "aof:resources/App-Pool/pool.ttl"
     init_format="turtle"
-
+    #TODO
     def __init__(self):
 
         #g = AOFGraph.Instance()
@@ -83,13 +83,13 @@ class AppPool(AOFGraph):
                 self.log.error(detail)
 
 
-
+    #TODO
     def clear_app_pool(self):
         ''' Clear the App-Pool
         '''
         self.remove((None, None, None))
         self.log.info("Cleared the App-Pool.")
-
+    #TODO
     def get_number_of_apps(self):
         q = """
         SELECT DISTINCT ?app
@@ -99,7 +99,7 @@ class AppPool(AOFGraph):
         }
         """
         return len(self.query(q).bindings)
-
+    #TODO
     def get_app_uris(self):
         """
         List of URI resources as URIRefs for all apps in the pool
@@ -111,39 +111,39 @@ class AppPool(AOFGraph):
         for app_uri in self.subjects(AOF.hasInstallableArtifact):
             app_uris.append(app_uri)
         return app_uris
-
+    #TODO
     def get_name(self, resource):
         """
         Returns the of an app identified by a given resource.
         """
         app_name = self.value(resource, RDFS.label)
         return app_name.__str__()
-
+    #TODO
     def get_description(self, resource):
         """
         Returns the of an app identified by a given resource.
         """
         return self.value(resource, RDFS.comment).__str__()
-
+    #TODO
     def get_icon_uri(self, resource):
         """
         Returns the icon URI for a an app identified by a given resource.
         """
         return self.value(resource, AOF.hasIcon).__str__()
-
+    #TODO
     def get_install_uri(self, resource):
         """
         Returns the binary URI for a an app identified by a given resource.
         """
         return self.value(resource, AOF.hasInstallableArtifact).__str__()
-
+    #TODO
     def has_role(self,resource):
         """
         Returns True if app has a specified role, otherwise returns False.
         """
         q = ("ASK WHERE {<%(uri)s> aof:hasAppEnsembleRole ?role .}") % {'uri': resource}
         return self.query(q).askAnswer
-
+    #TODO
     def get_roles(self, resource):
         """
         Returns a list of roles the app has
@@ -153,7 +153,7 @@ class AppPool(AOFGraph):
         for role in roles_iter:
             roles.append(role.__str__())
         return roles
-
+    #TODO
     def in_pool(self, resource):
         """
         Searches for an specific AppEnsemble.
@@ -163,20 +163,20 @@ class AppPool(AOFGraph):
         q = ("ASK WHERE {<%(uri)s> ?p ?o .}")% {'uri': URIRef(resource)}
         return self.query(q).askAnswer
 
-
+    #TODO
     def is_android_app(self, resource):
         """
         Returns True if app is an Android app, otherwise returns False.
         """
         q = ("ASK WHERE {<%(uri)s> a aof:AndroidApp .}") % {'uri': resource}
         return self.query(q).askAnswer
-
+    #TODO
     def has_main_screenshot(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
         return ((resource, AOF.hasMainScreenshot, None) in self)
-
+    #TODO
     def get_main_screenshot(self, resource):
         """
         Returns a dictionary of the main screenshot URI thumbnail URI and comment
@@ -186,7 +186,7 @@ class AppPool(AOFGraph):
             'uri': self.value(main_screenshot, FOAF.depiction).__str__(),
             'comment': self.value(main_screenshot, RDFS.comment).__str__()
         }
-
+    #TODO
     def has_other_screenshots(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
@@ -195,7 +195,7 @@ class AppPool(AOFGraph):
             return True
         else:
             return False
-
+    #TODO
     def get_other_screenshots(self, resource):
         """
         Returns a list of dictionaries of screenshot URI thumbnail URI and comment.
@@ -209,13 +209,13 @@ class AppPool(AOFGraph):
                 }
             )
         return screenshots
-
+    #TODO
     def has_creator(self, resource):
         """
         Returns True if app has at least one creator, otherwise returns False.
         """
         return ((resource, DC.creator, None) in self)
-
+    #TODO
     def get_creators(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
@@ -231,13 +231,13 @@ class AppPool(AOFGraph):
                 }
             )
         return creators
-
+    #TODO
     def has_entry_points(self, resource):
         """
         Returns True if app has at least one entry point, otherwise returns False.
         """
         return ((resource, AOF.hasEntryPoint, None) in self)
-
+    #TODO
     def get_entry_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
@@ -255,13 +255,13 @@ class AppPool(AOFGraph):
                ep_details['inputs'] = self.get_inputs(ep)
             entry_points.append(ep_details)
         return entry_points
-
+    #TODO
     def has_inputs(self, entry_point):
         """
         Returns True if app has at least one input, otherwise returns False.
         """
         return ((entry_point, AOF.hasInput, None) in self)
-
+    #TODO
     def get_inputs(self, entry_point):
         """
         Returns a list of inputs for a given entry point.
@@ -278,13 +278,13 @@ class AppPool(AOFGraph):
                 'comment': self.value(input, RDFS.comment).__str__()
                 })
         return inputs
-
+    #TODO
     def has_exit_points(self, resource):
         """
         Returns True if app has at least one exit point, otherwise returns False.
         """
         return (resource, AOF.hasExitPoint, None) in self
-
+    #TODO
     def get_exit_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
@@ -301,13 +301,13 @@ class AppPool(AOFGraph):
                ep_details['outputs'] = self.get_outputs(ep)
             exit_points.append(ep_details)
         return exit_points
-
+    #TODO
     def has_outputs(self, exit_point):
         """
         Returns True if app has at least one output, otherwise returns False.
         """
         return ((exit_point, AOF.hasOutput, None) in self)
-
+    #TODO
     def get_outputs(self, exit_point):
         """
         Returns a list of inputs for a given exit point.
@@ -326,7 +326,7 @@ class AppPool(AOFGraph):
                 }
             )
         return inputs
-
+    #TODO
     def get_build_number(self,resource):
         build_number_uri = self.value(resource, AOF.hasVersion)
         build_number_doc=build_number=self.value(resource,AOF.version)
