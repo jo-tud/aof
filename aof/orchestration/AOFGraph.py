@@ -1,4 +1,5 @@
 from rdflib import Dataset, Namespace
+from rdflib import  util
 from rdflib.plugins.memory import IOMemory
 from aof.orchestration.namespaces import AOF
 from rdflib import ConjunctiveGraph
@@ -22,6 +23,8 @@ This class extends Dataset which in turn extends ConjunctiveGraph, initializes a
 
 class AOFGraph(ConjunctiveGraph):
 
+    init_format="turtle"
+
     def __init__(self,identifier):
         pass
         store = IOMemory() # TODO: Change the storage mechanism to a persistent one and implement caching
@@ -33,6 +36,19 @@ class AOFGraph(ConjunctiveGraph):
         self.bind('aof', AOF)
 
 
+    def load(self, source, format=None):
+        """
+        Loads  the source into the Graph
+        :param source:
+        :param format:
+        :return:
+        """
+        if format==None:
+            format=self.init_format
+
+        super().load(source, format=format)
+
+    #TODO move into helper class
     def _hash_value(self,value):
         """
         Makes an md5-Hash of an value
@@ -43,7 +59,7 @@ class AOFGraph(ConjunctiveGraph):
         hash.update(value.encode('utf-8'))
         return str(hash.hexdigest())
 
-
+    #TODO move into helper class
     def get_QRCode(self,url,size=4):
         """
         Generates an QR-Code-SVG into the directory "static/img/qrcodes"

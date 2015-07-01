@@ -7,7 +7,7 @@ from pyramid.path import AssetResolver
 from pyramid.threadlocal import get_current_registry
 from aof.orchestration.AppEnsemble import _ae_folder_path
 from aof.orchestration.namespaces import AOF
-
+from zipfile import ZipFile
 
 import os
 import logging
@@ -44,7 +44,7 @@ class AppEnsemblePool(AOFGraph):
 
         self.pool=dict()
         self.a = AssetResolver()
-        self._load_AppEnsembles()
+        self.load()
 
         self.itemtype=URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#AppEnsemble")
 
@@ -85,7 +85,7 @@ class AppEnsemblePool(AOFGraph):
         return '___AppPoolManager-Details:___\nAppEnsemble-Location: {}\nAppEnsemble-List ({}): {}'.format(self.get_ae_folder_path(),self.__len__(),ae_list)
 
     #TODO
-    def _load_AppEnsembles(self):
+    def load(self):
         """
         Indexes the AppEnsemble-Directory for files with the AppEnsemble-Extension and ADDs them to the AppEnsemblePool.
         :return:None
@@ -97,8 +97,12 @@ class AppEnsemblePool(AOFGraph):
                     identifier=file.replace(AppEnsemble.ae_extension,'')
                     ae_tmp=AppEnsemble(identifier)
                     self.pool[identifier]=ae_tmp
-            ###########################################################  Hier weitermache... prüfen ob das wirklich eingelesen wird... etc.
-            self.parse(source=os.path.join(self.get_ae_folder_path(),'testAppEnsemble','ae.ttl'), format="turtle")
+                    filepath=os.path.join(self.get_ae_folder_path(),file)
+                    a=ZipFile(filepath)
+                    for name in a.namelist():
+                        if ".ttl" in name:
+                            a.extract(name)
+                            super().load(os.path.join(self.get_ae_folder_path(),name))
             return None
         except FileNotFoundError as detail:
             if self._ae_folder_path != self._ae_folder_path_backup:
@@ -122,7 +126,7 @@ class AppEnsemblePool(AOFGraph):
         :return: None
         """
         self._ae_folder_path=path
-        self._load_AppEnsembles()
+        self.load()
         return None
     #TODO
     def reload(self):
@@ -131,7 +135,7 @@ class AppEnsemblePool(AOFGraph):
         :return:None
         """
         self.pool.clear()
-        self._load_AppEnsembles()
+        self.load()
         return None
 
     def has_AppEnsemble(self,identifier):

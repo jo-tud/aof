@@ -36,9 +36,10 @@ class AppPool(AOFGraph):
 
 
 
-        self.add_apps_from_app_pool_definition(source=self.init_source, format=self.init_format)
+        self.load(source=self.init_source, format=self.init_format)
 
-    def add_apps_from_app_pool_definition(self, source=None, format=None):
+
+    def load(self, source=None, format=None):
         """
         Adds apps to the pool from a given app-pool definition source which contains statements in the form:
         [] aof:hasAppDescription "[URI to app-description]" .
@@ -73,7 +74,7 @@ class AppPool(AOFGraph):
                 if not (o.startswith('http://') or o.startswith('/')):
                     o=a.resolve(os.path.abspath(basedir+o)).abspath()
 
-                self.parse(source=o, format=util.guess_format(o))
+                super().load(source=o, format=util.guess_format(o))
             except SyntaxError as detail:
                 self.log.error("There was a syntax error reading %s." %o)
                 self.log.error(detail)

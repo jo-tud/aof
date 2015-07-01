@@ -21,7 +21,7 @@ class FunctionalTests(unittest.TestCase):
         a = AssetResolver()
         path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         ap = AppPool.Instance()
-        ap.add_apps_from_app_pool_definition(source=path,format="turtle")
+        ap.load(source=path,format="turtle")
 
         self.aeTests=AppEnsembleTests()
         aof.tests._create_test_AppEnsemble()
