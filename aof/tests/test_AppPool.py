@@ -77,7 +77,7 @@ class AppPoolTests(unittest.TestCase):
         maxRoles=self.ap.get_roles(self.maxApp)
         minRoles=self.ap.get_roles(self.minApp)
 
-        self.assertListEqual(maxRoles,["http://eatld.et.tu-dresden.de/aof/Conductor"],"App roles were not correct loaded!")
+        self.assertListEqual(maxRoles,[URIRef("http://eatld.et.tu-dresden.de/aof/Conductor")],"App roles were not correct loaded!")
         self.assertListEqual(minRoles,[],"App without roles seems to have some!")
 
     def test_is_android_app_maxminApp(self):
@@ -93,8 +93,8 @@ class AppPoolTests(unittest.TestCase):
         maxScreenshots=self.ap.get_main_screenshot(self.maxApp)
         minScreenshots=self.ap.get_main_screenshot(self.minApp)
 
-        self.assertDictEqual(maxScreenshots,{'comment': 'None', 'uri': 'http://mustermann.de/maxApp/res/mainScreenshot.jpg'},"App roles were not correct loaded!")
-        self.assertDictEqual(minScreenshots,{'comment': 'None', 'uri': 'None'},"App without roles seems to have some!")
+        self.assertDictEqual(maxScreenshots,{'comment': 'None', 'image_uri': 'http://mustermann.de/maxApp/res/mainScreenshot.jpg'},"App roles were not correct loaded!")
+        self.assertDictEqual(minScreenshots,{'comment': 'None', 'image_uri': 'None'},"App without roles seems to have some!")
 
     def test_hasget_other_screenshot_maxminApp(self):
         # Tests if other Screenshots are loaded correctly

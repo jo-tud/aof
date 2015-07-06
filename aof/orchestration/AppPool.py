@@ -89,7 +89,8 @@ class AppPool(AOFGraph):
         '''
         self.remove((None, None, None))
         self.log.info("Cleared the App-Pool.")
-    #TODO
+
+
     def get_number_of_apps(self):
         q = """
         SELECT DISTINCT ?app
@@ -99,7 +100,8 @@ class AppPool(AOFGraph):
         }
         """
         return len(self.query(q).bindings)
-    #TODO
+
+
     def get_app_uris(self):
         """
         List of URI resources as URIRefs for all apps in the pool
@@ -111,221 +113,176 @@ class AppPool(AOFGraph):
         for app_uri in self.subjects(AOF.hasInstallableArtifact):
             app_uris.append(app_uri)
         return app_uris
-    #TODO
+
     def get_name(self, resource):
         """
         Returns the of an app identified by a given resource.
         """
-        app_name = self.value(resource, RDFS.label)
-        return app_name.__str__()
-    #TODO
+        return self.get_tuple(resource, RDFS.label,to_string=True)
+
+
     def get_description(self, resource):
         """
         Returns the of an app identified by a given resource.
         """
-        return self.value(resource, RDFS.comment).__str__()
-    #TODO
+        return self.get_tuple(resource, RDFS.comment,to_string=True)
+
     def get_icon_uri(self, resource):
         """
         Returns the icon URI for a an app identified by a given resource.
         """
-        return self.value(resource, AOF.hasIcon).__str__()
-    #TODO
+        return self.get_tuple(resource, AOF.hasIcon,to_string=True)
+
     def get_install_uri(self, resource):
         """
         Returns the binary URI for a an app identified by a given resource.
         """
-        return self.value(resource, AOF.hasInstallableArtifact).__str__()
-    #TODO
+        return self.get_tuple(resource, AOF.hasInstallableArtifact,to_string=True)
+
     def has_role(self,resource):
         """
         Returns True if app has a specified role, otherwise returns False.
         """
-        q = ("ASK WHERE {<%(uri)s> aof:hasAppEnsembleRole ?role .}") % {'uri': resource}
-        return self.query(q).askAnswer
-    #TODO
+        return self.has_tuple(resource,AOF.hasAppEnsembleRole ,use_sparql=False)
+
     def get_roles(self, resource):
         """
         Returns a list of roles the app has
         """
-        roles_iter = self.objects(resource, AOF.hasAppEnsembleRole)
-        roles = list()
-        for role in roles_iter:
-            roles.append(role.__str__())
-        return roles
-    #TODO
-    def in_pool(self, resource):
-        """
-        Searches for an specific AppEnsemble.
-        :param resource: String (Name of the App
-        :return:Boolean
-        """
-        q = ("ASK WHERE {<%(uri)s> ?p ?o .}")% {'uri': URIRef(resource)}
-        return self.query(q).askAnswer
+        return self.get_tuples(resource, AOF.hasAppEnsembleRole)
 
-    #TODO
     def is_android_app(self, resource):
         """
         Returns True if app is an Android app, otherwise returns False.
         """
-        q = ("ASK WHERE {<%(uri)s> a aof:AndroidApp .}") % {'uri': resource}
-        return self.query(q).askAnswer
-    #TODO
+        return self.is_resource_of_type(resource,AOF.AndroidApp)
+
     def has_main_screenshot(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        return ((resource, AOF.hasMainScreenshot, None) in self)
-    #TODO
+        return self.has_tuple(resource, AOF.hasMainScreenshot)
+
     def get_main_screenshot(self, resource):
         """
         Returns a dictionary of the main screenshot URI thumbnail URI and comment
         """
-        main_screenshot = self.value(resource, AOF.hasMainScreenshot)
-        return {
-            'uri': self.value(main_screenshot, FOAF.depiction).__str__(),
-            'comment': self.value(main_screenshot, RDFS.comment).__str__()
-        }
-    #TODO
+        main_screenshot = self.get_tuple(resource, AOF.hasMainScreenshot)
+
+        predicate_dict= {'image_uri': FOAF.depiction, 'comment': RDFS.comment}
+        return self.get_tuple_list(main_screenshot, predicate_dict, to_string=True)
+
     def has_other_screenshots(self, resource):
         """
         Returns True if app has at least one screenshot, otherwise returns False
         """
-        if (resource, AOF.hasScreenshot, None) in self:
-            return True
-        else:
-            return False
-    #TODO
+        return self.has_tuple(resource, AOF.hasScreenshot)
+
     def get_other_screenshots(self, resource):
         """
         Returns a list of dictionaries of screenshot URI thumbnail URI and comment.
         """
-        screenshots = list()
-        for screenshot in self.objects(resource, AOF.hasScreenshot):
-            screenshots.append(
-                {
-                    'uri': self.value(screenshot, FOAF.depiction).__str__(),
-                    'comment': self.value(screenshot, RDFS.comment).__str__()
-                }
-            )
-        return screenshots
-    #TODO
+        sub_predicate_dict= {'image_uri': FOAF.depiction, 'comment': RDFS.comment}
+
+        return self.get_tuples_with_subtuples_list(resource,AOF.hasScreenshot,sub_predicate_dict,to_string=True)
+
     def has_creator(self, resource):
         """
         Returns True if app has at least one creator, otherwise returns False.
         """
-        return ((resource, DC.creator, None) in self)
-    #TODO
+        return self.has_tuple(resource, DC.creator)
+
+    # TODO (None,None,None) nicht anzeigen
     def get_creators(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
-        creators = list()
-        for creator in self.objects(resource, DC.creator):
-            creators.append(
-                {
-                    'uri': creator.__str__(),
-                    'name': self.value(creator, FOAF.name).__str__(),
-                    'mbox': self.value(creator, FOAF.mbox).__str__(),
-                    'homepage': self.value(creator, FOAF.homepage).__str__()
-                }
-            )
-        return creators
-    #TODO
+        sub_predicate_dict= {'name': FOAF.name, 'mbox': FOAF.mbox, 'homepage': FOAF.homepage}
+
+        return self.get_tuples_with_subtuples_list(resource,DC.creator,sub_predicate_dict,to_string=True)
+
+
     def has_entry_points(self, resource):
         """
         Returns True if app has at least one entry point, otherwise returns False.
         """
-        return ((resource, AOF.hasEntryPoint, None) in self)
-    #TODO
+        return self.has_tuple(resource, AOF.hasEntryPoint)
+
+
     def get_entry_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
-        entry_points = list()
-        for ep in self.objects(resource, AOF.hasEntryPoint):
-            ep_details = {
-                'uri': ep.__str__(),
-                'types': self.objects(ep, RDF.type),
-                'android_name': self.value(ep, ANDROID.name).__str__(),
-                'label': self.value(ep, RDFS.label).__str__(),
-                'comment': self.value(ep, RDFS.comment).__str__()
-                }
-            if self.has_inputs(ep):
-               ep_details['inputs'] = self.get_inputs(ep)
-            entry_points.append(ep_details)
-        return entry_points
-    #TODO
+        return self._get_entry_exit_points(resource,AOF.hasEntryPoint,'inputs')
+
     def has_inputs(self, entry_point):
         """
         Returns True if app has at least one input, otherwise returns False.
         """
-        return ((entry_point, AOF.hasInput, None) in self)
-    #TODO
+        return self.has_tuple(entry_point, AOF.hasInput)
+
     def get_inputs(self, entry_point):
         """
         Returns a list of inputs for a given entry point.
         :return: List of inputs as dictionaries
         """
-        inputs = list()
-        for input in self.objects(entry_point, AOF.hasInput):
-            inputs.append({
-                'uri': input.__str__(),
-                'types': self.objects(input, RDF.type),
-                'android_name': self.value(input, ANDROID.name).__str__(),
-                'is_required': self.value(input, AOF.isRequired),
-                'has_datatype': self.value(input, AOF.hasDatatype).__str__(),
-                'comment': self.value(input, RDFS.comment).__str__()
-                })
-        return inputs
-    #TODO
+
+        sub_predicate_dict= {'types': RDF.type, 'android_name': ANDROID.name, 'is_required': AOF.isRequired,'has_datatype': AOF.hasDatatype,'comment':RDFS.comment}
+
+        return self.get_tuples_with_subtuples_list(entry_point,AOF.hasInput,sub_predicate_dict,to_string=True)
+
     def has_exit_points(self, resource):
         """
         Returns True if app has at least one exit point, otherwise returns False.
         """
-        return (resource, AOF.hasExitPoint, None) in self
-    #TODO
+        return self.has_tuple(resource, AOF.hasExitPoint)
+
     def get_exit_points(self, resource):
         """
         Returns a list of dictionaries of creator uri, name, mbox and homepage..
         """
-        exit_points = list()
-        for ep in self.objects(resource, AOF.hasExitPoint):
-            ep_details ={
-                    'uri': ep.__str__(),
-                    'types': self.objects(ep, RDF.type),
-                    'label': self.value(ep, RDFS.label).__str__(),
-                    'comment': self.value(ep, RDFS.comment).__str__()
-                }
-            if self.has_outputs(ep):
-               ep_details['outputs'] = self.get_outputs(ep)
-            exit_points.append(ep_details)
-        return exit_points
-    #TODO
+        return self._get_entry_exit_points(resource,AOF.hasExitPoint,'outputs')
+
     def has_outputs(self, exit_point):
         """
         Returns True if app has at least one output, otherwise returns False.
         """
-        return ((exit_point, AOF.hasOutput, None) in self)
-    #TODO
+
+        return self.has_tuple(exit_point, AOF.hasOutput)
+
     def get_outputs(self, exit_point):
         """
         Returns a list of inputs for a given exit point.
         :return: List of outputs as dictionaries
         """
-        inputs = list()
-        for output in self.objects(exit_point, AOF.hasOutput):
-            inputs.append(
-                {
-                    'uri': output.__str__(),
-                    'types': self.objects(output, RDF.type),
-                    'android_name': self.value(output, ANDROID.name).__str__(),
-                    'is_guaranteed': self.value(output, AOF.isGuaranteed),
-                    'has_datatype': self.value(output, AOF.hasDatatype).__str__(),
-                    'comment': self.value(output, RDFS.comment).__str__()
-                }
-            )
-        return inputs
+        sub_predicate_dict= {'types': RDF.type, 'android_name': ANDROID.name, 'is_guaranteed': AOF.isGuaranteed,'has_datatype': AOF.hasDatatype,'comment':RDFS.comment}
+
+        return self.get_tuples_with_subtuples_list(exit_point,AOF.hasOutput,sub_predicate_dict,to_string=True)
+
+    def _get_entry_exit_points(self,resource,predicate,dict_key):
+        """
+        functionality for get_entry_points and get_exit_points
+        :param resource:
+        :param predicate:
+        :param dict_key: String: 'inputs' or 'outputs'
+        :return:
+        """
+        sub_predicate_dict= {'types': RDF.type, 'android_name': ANDROID.name, 'label': RDFS.label, 'comment':RDFS.comment}
+        sub_predicate_cardinality_greater_one=['types']
+
+        points = list()
+        for p in self.get_tuples(resource, predicate):
+            p_details = self.get_tuple_list(p, sub_predicate_dict,sub_predicate_cardinality_greater_one, to_string=True)
+
+            if dict_key=="inputs" and self.has_inputs(p):
+               p_details[dict_key] = self.get_inputs(p)
+            elif dict_key=="outputs" and self.has_outputs(p):
+                p_details[dict_key] = self.get_outputs(p)
+
+            points.append(p_details)
+            print(points)
+        return points
+
     #TODO
     def get_build_number(self,resource):
         build_number_uri = self.value(resource, AOF.hasVersion)
