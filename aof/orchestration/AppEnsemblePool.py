@@ -1,5 +1,5 @@
 __author__ = 'Korbinian Hörfurter'
-from rdflib import  URIRef,Literal
+from rdflib import  URIRef,Literal,util
 from aof.orchestration.Singleton import Singleton
 from aof.orchestration.AppEnsemble import AppEnsemble
 from aof.orchestration.AOFGraph import AOFGraph
@@ -11,6 +11,7 @@ from zipfile import ZipFile
 
 import os
 import logging
+import fnmatch
 
 
 @Singleton
@@ -63,7 +64,7 @@ class AppEnsemblePool(AOFGraph):
             """.format(self.itemtype,URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#Name"),Literal(identifier))
 
         #return self.query(q).askAnswer
-        return identifier in self.pool
+        return str(identifier) in self.pool
 
     def __len__(self):
         """
@@ -99,12 +100,13 @@ class AppEnsemblePool(AOFGraph):
                     identifier=file.replace(AppEnsemble.ae_extension,'')
                     ae_tmp=AppEnsemble(identifier)
                     self.pool[identifier]=ae_tmp
-                    filepath=os.path.join(self.get_ae_folder_path(),file)
-                    a=ZipFile(filepath)
-                    #for name in a.namelist():
-                    #    if ".ttl" in name:
-                    #        data=a.read(name)
-                    #        super().parse(data=data)
+                    """filepath=os.path.join(self.get_ae_folder_path(),file)
+                    with ZipFile(filepath, "r") as ae_pkg:
+                        for name in ae_pkg.namelist():
+                            if fnmatch.fnmatch(name, AppEnsemble.ae_filename):
+                                ae_model = ae_pkg.read(AppEnsemble.ae_filename).decode()
+                                self.parse(data=ae_model, format=util.guess_format(name))
+                        ae_pkg.close()"""
             return None
         except FileNotFoundError as detail:
             if self._ae_folder_path != self._ae_folder_path_backup:
