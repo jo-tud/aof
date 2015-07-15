@@ -34,7 +34,7 @@ class AppEnsemblePool(AOFGraph):
         """
         self.log = logging.getLogger(__name__)
 
-        AOFGraph.__init__(self,AOF.AppEnsemblePool)
+        super().__init__(AOF.AppEnsemblePool)
 
         self._ae_folder_path=_ae_folder_path
         self._ae_folder_path_backup=self._ae_folder_path
@@ -51,6 +51,7 @@ class AppEnsemblePool(AOFGraph):
 
 
 
+
     def __contains__(self, identifier):
         """
         Searches for an specific AppEnsemble.
@@ -60,23 +61,23 @@ class AppEnsemblePool(AOFGraph):
         q ="""
             ASK
             WHERE
-            {{?s  a <{0}>.?s  <{1}> "{2}".}}
+            {{?s  a <{0}>.?s  <{1}> "{2}"}}
             """.format(self.itemtype,URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#Name"),Literal(identifier))
 
-        #return self.query(q).askAnswer
-        return str(identifier) in self.pool
+        return self.query(q).askAnswer
+
 
     def __len__(self):
         """
         Counts the number of AppEnsembles.
         :return:Integer
         """
-        #q = """
-        #SELECT DISTINCT ?app
-        #WHERE {{?app a <{0}> .}}
-        #""".format(self.itemtype)
-        #return len(self.query(q).bindings)
-        return len(self.pool)
+        q = """
+        SELECT DISTINCT ?app
+        WHERE {{?app a <{0}> .}}
+        """.format(self.itemtype)
+
+        return len(self.query(q).bindings)
 
     #TODO
     def __str__(self):
@@ -100,13 +101,13 @@ class AppEnsemblePool(AOFGraph):
                     identifier=file.replace(AppEnsemble.ae_extension,'')
                     ae_tmp=AppEnsemble(identifier)
                     self.pool[identifier]=ae_tmp
-                    """filepath=os.path.join(self.get_ae_folder_path(),file)
+                    filepath=os.path.join(self.get_ae_folder_path(),file)
                     with ZipFile(filepath, "r") as ae_pkg:
                         for name in ae_pkg.namelist():
                             if fnmatch.fnmatch(name, AppEnsemble.ae_filename):
                                 ae_model = ae_pkg.read(AppEnsemble.ae_filename).decode()
                                 self.parse(data=ae_model, format=util.guess_format(name))
-                        ae_pkg.close()"""
+                        ae_pkg.close()
             return None
         except FileNotFoundError as detail:
             if self._ae_folder_path != self._ae_folder_path_backup:
@@ -132,13 +133,14 @@ class AppEnsemblePool(AOFGraph):
         self._ae_folder_path=path
         self.load()
         return None
-    #TODO
+    #TODO perspektivisch muss self.pool.clear raus, weil es dann nicht mehr in Datein drin ist
     def reload(self):
         """
         CLEARs the AppEnsemble-Pool and reloads the AppEnsembles into the pool.
         :return:None
         """
         self.pool.clear()
+        self.clear()
         self.load()
         return None
 
