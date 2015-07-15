@@ -31,7 +31,7 @@ class AppPoolTests(unittest.TestCase):
 
     def test_clear_and_update_app_pool(self):
         # Clears AppPool and checks whether there are no items left. Then updates the AppPool with the test_pool.ttl and checks if there are two items again
-        self.ap.clear_app_pool()
+        self.ap.clear()
         self.assertIs(self.ap.get_number_of_apps(), 0, "AppPool's Clear-Method is broken!")
 
         self.ap.load(source=self.path, format="turtle")

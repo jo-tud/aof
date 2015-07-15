@@ -21,11 +21,9 @@ __all__ = [
 class AppPool(AOFGraph):
     init_source = "aof:resources/App-Pool/pool.ttl"
     init_format="turtle"
-    #TODO
-    def __init__(self):
 
-        #g = AOFGraph.Instance()
-        #ConjunctiveGraph.__init__(self, store=g.store, identifier=AOF.AppPool)
+
+    def __init__(self):
         AOFGraph.__init__(self,AOF.AppPool)
 
         self.log = logging.getLogger(__name__)
@@ -33,8 +31,6 @@ class AppPool(AOFGraph):
         registry = get_current_registry()
         if (registry.settings is not None) and ('app_pool_path' in registry.settings):
             self.init_source=registry.settings['app_pool_path']
-
-
 
         self.load(source=self.init_source, format=self.init_format)
 
@@ -47,7 +43,7 @@ class AppPool(AOFGraph):
         @param string source: An InputSource, file-like object, or string. In the case of a string the string is the location of the source.
         @param string format: Must be given if format can not be determined from source, 'xml', 'n3', 'nt', 'trix', 'turtle' and 'rdfa' are built in.
         """
-        self.clear_app_pool()
+        self.clear()
 
         if source==None:
             source=self.init_source
@@ -81,14 +77,6 @@ class AppPool(AOFGraph):
             except Exception as detail:
                 self.log.error("There was a problem reading %s." %o)
                 self.log.error(detail)
-
-
-    #TODO
-    def clear_app_pool(self):
-        ''' Clear the App-Pool
-        '''
-        self.remove((None, None, None))
-        self.log.info("Cleared the App-Pool.")
 
 
     def get_number_of_apps(self):
@@ -280,7 +268,7 @@ class AppPool(AOFGraph):
                 p_details[dict_key] = self.get_outputs(p)
 
             points.append(p_details)
-            print(points)
+
         return points
 
     #TODO

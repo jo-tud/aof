@@ -34,6 +34,7 @@ class AOFGraph(ConjunctiveGraph):
         #d=Dataset(self, store=store,default_union=True)
 
         ConjunctiveGraph.__init__(self, store=store, identifier=identifier)
+        self.id=identifier
 
         # Make sure the aof namespace is always known to AOFGraph
         self.bind('aof', AOF)
@@ -59,6 +60,11 @@ class AOFGraph(ConjunctiveGraph):
             format=self.init_format
 
         super().load(source, format=format)
+
+    def clear(self):
+        self.remove((None, None, None))
+        self.log.info("Cleared the Pool: "+str(self.id))
+
 
     def is_resource_of_type(self,resource,type,use_sparql=False):
         if use_sparql:
