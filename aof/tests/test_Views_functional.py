@@ -131,7 +131,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_app_pool_update(self):
         ap=AppPool.Instance()
-        ap.clear_app_pool()
+        ap.clear()
         num=ap.get_number_of_apps()
         res =self.testapp.get('/api/actions/app-pool/update')
         self.assertGreater(int(res.body),num)

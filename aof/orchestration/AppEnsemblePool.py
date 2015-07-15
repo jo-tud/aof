@@ -62,18 +62,20 @@ class AppEnsemblePool(AOFGraph):
             {{?s  a <{0}>.?s  <{1}> "{2}".}}
             """.format(self.itemtype,URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#Name"),Literal(identifier))
 
-        return self.query(q).askAnswer
+        #return self.query(q).askAnswer
+        return identifier in self.pool
 
     def __len__(self):
         """
         Counts the number of AppEnsembles.
         :return:Integer
         """
-        q = """
-        SELECT DISTINCT ?app
-        WHERE {{?app a <{0}> .}}
-        """.format(self.itemtype)
-        return len(self.query(q).bindings)
+        #q = """
+        #SELECT DISTINCT ?app
+        #WHERE {{?app a <{0}> .}}
+        #""".format(self.itemtype)
+        #return len(self.query(q).bindings)
+        return len(self.pool)
 
     #TODO
     def __str__(self):
@@ -99,10 +101,10 @@ class AppEnsemblePool(AOFGraph):
                     self.pool[identifier]=ae_tmp
                     filepath=os.path.join(self.get_ae_folder_path(),file)
                     a=ZipFile(filepath)
-                    for name in a.namelist():
-                        if ".ttl" in name:
-                            a.extract(name)
-                            super().load(os.path.join(self.get_ae_folder_path(),name))
+                    #for name in a.namelist():
+                    #    if ".ttl" in name:
+                    #        data=a.read(name)
+                    #        super().parse(data=data)
             return None
         except FileNotFoundError as detail:
             if self._ae_folder_path != self._ae_folder_path_backup:
