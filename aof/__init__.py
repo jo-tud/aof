@@ -46,8 +46,7 @@ def main(global_config, **settings):
     config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
     config.add_route(pattern='/api/apps/{URI:.*}/details', name='api-apps-app-details')
     config.add_route(pattern='/api/apps/{URI:.*}/version', name='api-apps-app-version')
-    # TODO
-    #config.add_route(pattern='/api/apps/{URI:.*}/apk', name='api-apps-app-apk')
+    config.add_route(pattern='/api/apps/{URI:.*}/apk', name='api-apps-app-apk')
     # Todo complexe Property wird mit node ausgegeben
     config.add_route(pattern='/api/apps/{URI:.*}/properties/{property:.*}', name='api-apps-app-property')
     config.add_route(pattern='/api/app-ensembles', name='api-appensembles')

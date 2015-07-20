@@ -251,11 +251,19 @@ class AppPoolViews(PageViews):
 
     @view_config(route_name='api-apps-app-property', renderer='json')
     @RequestPoolURI_Decorator()
-    def api_app_param(self):
+    def api_app_param(self, param = None):
+        if param == None:
+            param=self.request.matchdict['property']
         response=list()
-        for s, p, o in self.pool.triples((self.uri,URIRef(self.request.matchdict['property']),None)):
+        for s, p, o in self.pool.triples((self.uri,URIRef(param),None)):
             response.append(o)
         return response
+
+    @view_config(route_name='api-apps-app-apk', renderer='json')
+    @RequestPoolURI_Decorator()
+    def api_app_apk(self):
+        result={'apk_uri':self.pool.get_tuple(self.uri, AOF.hasInstallableArtifact,to_string=True)}
+        return result
 
 
 
