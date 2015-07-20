@@ -39,21 +39,22 @@ def main(global_config, **settings):
     # API
 
     ## Actions
-    config.add_route('api-action-apps-update', '/api/actions/apps/update')
-    config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
+    1config.add_route('api-action-apps-update', '/api/actions/apps/update')
+    1config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
 
     # API NEW
-    config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
+    1config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
     config.add_route(pattern='/api/apps/{URI:.*}/details', name='api-apps-app-details')
     config.add_route(pattern='/api/apps/{URI:.*}/version', name='api-apps-app-version')
     config.add_route(pattern='/api/apps/{URI:.*}/apk', name='api-apps-app-apk')
     # Todo complexe Property wird mit node ausgegeben
-    config.add_route(pattern='/api/apps/{URI:.*}/properties/{property:.*}', name='api-apps-app-property')
-    config.add_route(pattern='/api/app-ensembles', name='api-appensembles')
+    #config.add_route(pattern='/api/apps/{URI:.*}/properties/{property:.*}', name='api-apps-app-property')
 
-    config.add_route(pattern='/api/app-ensembles/{URI:.*}/details', name='api-appensembles-ae')
-    config.add_route(pattern='/api/app-ensembles/{URI:.*}/package', name='api-appensembles-ae-package')
-    config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
+    1config.add_route(pattern='/api/app-ensembles', name='api-appensembles')
+
+    1config.add_route(pattern='/api/app-ensembles/{URI:.*}/details', name='api-appensembles-ae')
+    1config.add_route(pattern='/api/app-ensembles/{URI:.*}/package', name='api-appensembles-ae-package')
+    1config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
 
 
 
