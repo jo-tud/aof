@@ -5,7 +5,7 @@ from aof.orchestration.namespaces import AOF
 from aof.orchestration.Singleton import Singleton
 import zipfile
 import fnmatch
-
+from rdflib.plugins.memory import IOMemory
 import os # os abstraction (e.g. listdir)
 import logging
 
@@ -24,9 +24,8 @@ class AppEnsemble(Graph):
     ae_folder_path=_ae_folder_path
 
     def __init__(self,identifier=None):
-
+        #AOFGraph.__init__(self)
         type(self).counter += 1
-        g = AOFGraph.Instance()
         self.log = logging.getLogger(__name__)
         self.a = AssetResolver()
 
@@ -35,7 +34,8 @@ class AppEnsemble(Graph):
         if identifier:
             assert isinstance(identifier, str)
             id = identifier
-            Graph.__init__(self, store=g.store, identifier=id)
+            store = IOMemory()
+            Graph.__init__(self, store=store, identifier=id)
             self.ae_pkg_path = self.a.resolve(_ae_folder_path + identifier + self.ae_extension).abspath()
 
             if os.path.isfile(self.ae_pkg_path):

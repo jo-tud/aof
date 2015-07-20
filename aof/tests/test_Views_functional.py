@@ -21,7 +21,7 @@ class FunctionalTests(unittest.TestCase):
         a = AssetResolver()
         path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         ap = AppPool.Instance()
-        ap.add_apps_from_app_pool_definition(source=path,format="turtle")
+        ap.load(source=path,format="turtle")
 
         self.aeTests=AppEnsembleTests()
         aof.tests._create_test_AppEnsemble()
@@ -131,7 +131,7 @@ class FunctionalTests(unittest.TestCase):
 
     def test_app_pool_update(self):
         ap=AppPool.Instance()
-        ap.clear_app_pool()
+        ap.clear()
         num=ap.get_number_of_apps()
         res =self.testapp.get('/api/actions/app-pool/update')
         self.assertGreater(int(res.body),num)

@@ -35,7 +35,7 @@ class IntegrationViewTests(unittest.TestCase):
         a = AssetResolver()
         self.path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         self.ap = AppPool.Instance()
-        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
+        self.ap.load(source=self.path, format="turtle")
 
         #Setting up Test-AppEnsemble
         self.ae=AppEnsemblePool.Instance()

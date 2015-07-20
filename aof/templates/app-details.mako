@@ -13,9 +13,9 @@
                     <div class="row">
                         <div class="small-12 medium-4 columns collapse">
                             <div class="imgLiquidFill imgLiquid" style="width:320px; height:320px; margin-bottom: 10px">
-                                <a class="th" href="${main_screenshot['uri']}">
+                                <a class="th" href="${main_screenshot['image_uri']}">
                                     <img class="" data-caption="${main_screenshot['comment']}"
-                                         src="${main_screenshot['uri']}">
+                                         src="${main_screenshot['image_uri']}">
                                 </a>
                             </div>
                         </div>
@@ -27,9 +27,9 @@
                             <div class="row">
                                 <div class="small-12 medium-1 columns">
                                     <div class="imgLiquidFill imgLiquid" style="width:100px; height:100px; margin-bottom: 10px">
-                                        <a class="th" href="${screenshot['uri']}">
+                                        <a class="th" href="${screenshot['image_uri']}">
                                             <img data-caption="${screenshot['comment']} "
-                                                 src="${screenshot['uri']}"/>
+                                                 src="${screenshot['image_uri']}"/>
                                         </a>
                                     </div>
                                 </div>

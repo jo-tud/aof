@@ -111,7 +111,7 @@ class AppPoolViews(PageViews):
         Action: Update the AppPool from current AppPool definition
         :return: Response Object with number of Apps
         """
-        self.pool.add_apps_from_app_pool_definition(source=None, format='turtle')
+        self.pool.load(source=None, format='turtle')
         res = str(self.pool.get_number_of_apps())
         return Response(res,)
 
