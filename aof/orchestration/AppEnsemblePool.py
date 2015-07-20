@@ -67,7 +67,7 @@ class AppEnsemblePool(AOFGraph):
         #return self.query(q).askAnswer
         return (str(identifier) in self.pool)
 
-
+    #TODO morph to sparql
     def __len__(self):
         """
         Counts the number of AppEnsembles.
@@ -78,7 +78,9 @@ class AppEnsemblePool(AOFGraph):
         WHERE {{?app a <{0}> .}}
         """.format(self.itemtype)
 
-        return len(self.query(q).bindings)
+        #return len(self.query(q).bindings)
+
+        return len(self.pool)
 
     #TODO
     def __str__(self):
