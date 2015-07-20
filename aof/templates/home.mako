@@ -13,7 +13,7 @@
         <ul>
             <li>There are currently <a href="${app_pool_uri}">${number_of_apps} Apps</a> in the App-Pool.</li>
             <li>We have <a href="${app_ensemble_pool_uri}">${number_of_ae} App-Ensembles</a> available.</li>
-            <li>The model currently consists of ${unique_triples} unique triples!</li>
+
         </ul>
         <div class="row">
             <div class="small-12 columns">To be able to install App-Ensembles you must download and install the

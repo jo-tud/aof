@@ -120,10 +120,10 @@ class PageViews(AbstractViews):
         aem = AppEnsemblePool.Instance()
         number_of_apps = str(ap.get_number_of_apps())
         number_of_ae = str(len(aem))
-        # TODO
+        # TODO: are unique triples important
         #g = AOFGraph.Instance()
-        #unique_triples = str(g.__len__())
-        unique_triples="1"
+        #unique_triples = str(ap.__len__()+aep.__len()__)
+        #unique_triples="1" HTML-code: <li>The model currently consists of ${unique_triples} unique triples!</li>
 
         ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
         ae_inst_arifact=ap.get_install_uri(ae_inst_uri)
@@ -132,7 +132,7 @@ class PageViews(AbstractViews):
 
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
-                       'unique_triples': unique_triples,
+                       #'unique_triples': unique_triples,
                        'ae_inst_uri' : self.build_URI('app-details','{URI:.*}',ap._hash_value(ae_inst_uri)),
                        'ae_inst_qrcode':ae_inst_qrcode,
                        'app_pool_uri':self.get_URI('apps'),
