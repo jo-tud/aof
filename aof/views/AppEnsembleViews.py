@@ -60,12 +60,16 @@ class AppEnsembleViews(PageViews):
         :return: dictionary
         """
         self._setTitle('App-Ensemble Details')
+
+        return self._returnCustomDict(self.api_page_details())
+
+    @view_config(route_name='api-appensembles-ae', renderer='json')
+    @RequestPoolURI_Decorator()
+    def api_page_details(self):
         ae = self.pool.get_AppEnsemble(self.uri)
-
-
         api_ae_uri=self.build_URI('api-appensembles-ae-package','{URI:.*}',self.uri)
 
-        ae_apps = ae.getRequiredApps().bindings
+        ae_apps = ae.getRequiredApps(use_json=True)
         custom_args = {
             'ae_uri': self.uri,
             'ae_api_path':api_ae_uri,
@@ -74,7 +78,8 @@ class AppEnsembleViews(PageViews):
             'ae_apps': ae_apps,
             'bpmn_uri':self.build_URI('ae-visualize-bpm',"{URI}",self.uri)
         }
-        return self._returnCustomDict(custom_args)
+        return custom_args
+
 
     @view_config(route_name='ae-visualize-bpm', renderer='aof:templates/ae-visualize-bpm.mako')
     @RequestPoolURI_Decorator()

@@ -94,8 +94,9 @@ class AppEnsemble(Graph):
             else:
                 raise IOError('File "%s" not found in AppEnsemble' % filename)
 
-    def getRequiredApps(self):
+    def getRequiredApps(self,use_json=False):
         #TODO: Adapt to new ontology
+
         res = self.query("""
             PREFIX o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#>
             SELECT DISTINCT ?app_uri ?name
@@ -104,4 +105,12 @@ class AppEnsemble(Graph):
                    o:Name ?name .
             }
         """)
+        if use_json:
+            result=list()
+            for row in res.bindings:
+                tmp=dict()
+                for col in row:
+                    tmp[str(col)]=str(row[col])
+                result.append(tmp)
+            res=result
         return res

@@ -28,9 +28,9 @@
                 <td>
                     % for app in ae_apps:
                         % if not loop.last:
-                            <a href="${app['?app_uri'].__str__()}">${app['?name'].__str__()}</a>,
+                            <a href="${app['app_uri'].__str__()}">${app['name'].__str__()}</a>,
                         % else:
-                            <a href="${app['?app_uri'].__str__()}">${app['?name'].__str__()}</a>
+                            <a href="${app['app_uri'].__str__()}">${app['name'].__str__()}</a>
                         % endif
                     % endfor
 
