@@ -14,6 +14,7 @@ class AppEnsembleManagerTests(unittest.TestCase):
         aof.tests._create_test_AppEnsemble()
         # Load AppEnsembles
         self.aem=AppEnsemblePool.Instance()
+        self.aem.reload()
 
     def tearDown(self):
         testing.tearDown()

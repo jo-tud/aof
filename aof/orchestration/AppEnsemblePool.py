@@ -51,7 +51,7 @@ class AppEnsemblePool(AOFGraph):
 
 
 
-
+    #TODO morph to sparql
     def __contains__(self, identifier):
         """
         Searches for an specific AppEnsemble.
@@ -64,7 +64,8 @@ class AppEnsemblePool(AOFGraph):
             {{?s  a <{0}>.?s  <{1}> "{2}"}}
             """.format(self.itemtype,URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#Name"),Literal(identifier))
 
-        return self.query(q).askAnswer
+        #return self.query(q).askAnswer
+        return (str(identifier) in self.pool)
 
 
     def __len__(self):
@@ -171,3 +172,8 @@ class AppEnsemblePool(AOFGraph):
         :return: dictionary
         """
         return self.pool
+
+    #TODO delete when sparql is implemented
+    def clear(self):
+        self.pool.clear()
+        return None
