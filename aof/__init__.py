@@ -39,7 +39,7 @@ def main(global_config, **settings):
     # API
 
     ## Actions
-    config.add_route('api-action-apps-update', '/api/actions/app-pool/update')
+    config.add_route('api-action-apps-update', '/api/actions/apps/update')
     config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
 
     # API NEW
@@ -50,10 +50,9 @@ def main(global_config, **settings):
     #config.add_route(pattern='/api/apps/{URI:.*}/apk', name='api-apps-app-apk')
     # Todo complexe Property wird mit node ausgegeben
     config.add_route(pattern='/api/apps/{URI:.*}/properties/{property:.*}', name='api-apps-app-property')
-    # TODO: jquery put ermöglichen
     config.add_route(pattern='/api/app-ensembles', name='api-appensembles')
+
     #config.add_route(pattern='/api/app-ensembles/{URI:.*}/details', name='api-appensembles-ae')
-    #config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
     config.add_route(pattern='/api/app-ensembles/{URI:.*}/package', name='api-appensembles-ae-package')
     config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
 
