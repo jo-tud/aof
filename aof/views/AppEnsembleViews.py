@@ -97,6 +97,15 @@ class AppEnsembleViews(PageViews):
         }
         return self._returnCustomDict(custom_args)
 
+    @view_config(route_name='ae-create-bpm', renderer='aof:templates/ae-create-bpm.mako')
+    def page_create_bpm(self):
+        """
+        Generates the BPMN-Visualisation Page
+        :return: dictionary
+        """
+        self._setTitle('Create App-Ensemble')
+        return self._returnCustomDict()
+
     @view_config(route_name='api-appensembles-ae-bpmn')
     @RequestPoolURI_Decorator()
     def action_get_bpmn_data(self):

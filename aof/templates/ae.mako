@@ -8,6 +8,7 @@
     </li>
     <li class="divider"></li>
     <li><a href="#" id="action_update">UPDATE POOL</a></li>
+    <li><a href="app-ensembles/create.html" id="action_update">CREATE APPENSEMBLE</a></li>
 </%block>
 
 <div class="row">
