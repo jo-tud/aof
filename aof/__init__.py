@@ -45,6 +45,7 @@ def main(global_config, **settings):
 
     # API NEW
     config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
+    config.add_route(pattern='/api/appuris', name='api-apps-uris')
     config.add_route(pattern='/api/apps/{URI:.*}/details', name='api-apps-app-details')
     config.add_route(pattern='/api/apps/{URI:.*}/version', name='api-apps-app-version')
     config.add_route(pattern='/api/apps/{URI:.*}/apk', name='api-apps-app-apk')

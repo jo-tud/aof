@@ -141,6 +141,34 @@ class AppPoolViews(PageViews):
         # log.debug(json)
         return json
 
+    #TODO: write Documentation
+    @view_config(route_name='api-apps-uris', renderer='json')
+    def api_uri_json(self):
+        """
+        Generates the pool in Json
+        :return: json-representation of the AppPool
+        """
+        # log.debug("called view: ap_get_app_pool_json()")
+        query = """
+        PREFIX aof: <%(AOF)s>
+        SELECT DISTINCT ?label ?uri
+        WHERE {
+        ?uri rdfs:label ?label ;
+            aof:hasInstallableArtifact ?binary .
+            OPTIONAL {
+            ?uri aof:hasIcon ?icon
+            }
+
+        }
+        ORDER BY ?name
+        """ % {'AOF': str(AOF)}
+        res = self.pool.query(query)
+        json = res.serialize(format="json").decode()
+
+        # log.debug(json)
+        return json
+
+
     @view_config(route_name='app-details', renderer='aof:templates/app-details.mako', accept='text/html')
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
