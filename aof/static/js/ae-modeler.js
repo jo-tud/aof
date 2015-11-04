@@ -1406,8 +1406,8 @@ var container = $('#js-drop-zone');
 var canvas = $('#js-canvas');
 
 // Reference to the custom Modules
-var AofCustomizationModules=require('./aof-customization'), // affects activities
-    aofModdleExtention = require('./aof-customization/moddleExtensions/aof');
+var AofCustomizationModules=require('./../aof-customization/index'), // affects activities
+    aofModdleExtention = require('./../aof-customization/moddleExtensions/aof');
 
 
 // Load the Modeler
@@ -1510,6 +1510,7 @@ $(document).on('ready', function() {
 
   var downloadLink = $('#js-download-diagram');
   var downloadSvgLink = $('#js-download-svg');
+  var saveLink = $('#js-save-appensemble');
 
   $('.buttons a').click(function(e) {
     if (!$(this).is('.active')) {
@@ -1518,7 +1519,25 @@ $(document).on('ready', function() {
     }
   });
 
-  function setEncoded(link, name, data) {
+  $('#js-save-appensemble').click(function(e) {
+    if ($(this).is('.active')) {
+      e.preventDefault();
+      e.stopPropagation();
+      var request = $.ajax($(this).attr('href'), {
+        success: function (data, status, jqXHR) {
+          container.append('<div data-alert class="alert-box">'+data+'<a href="#" class="close">&times;</a></div>');
+        },
+        method: "GET",
+        async: false,
+        timeout: 1000,
+        error: function (jqXHR, status, error) {
+          alert(status+" - "+error);
+        }
+      });
+    }
+  });
+
+  function setEncoded_dl(link, name, data) {
     var encodedData = encodeURIComponent(data);
 
     if (data) {
@@ -1531,23 +1550,41 @@ $(document).on('ready', function() {
     }
   }
 
+  function setEncoded(link, name, data) {
+    var encodedData = encodeURIComponent(data);
+
+    if (data) {
+      link.addClass('active').attr({
+        'href': '../api/actions/app-ensembles/add?data=' + encodedData,
+        'download':name
+      });
+    } else {
+      link.removeClass('active');
+    }
+  }
+
   var _ = require('lodash');
 
   var exportArtifacts = _.debounce(function() {
 
     saveSVG(function(err, svg) {
-      setEncoded(downloadSvgLink, 'diagram.svg', err ? null : svg);
+      setEncoded_dl(downloadSvgLink, 'diagram.svg', err ? null : svg);
     });
 
     saveDiagram(function(err, xml) {
-      setEncoded(downloadLink, 'diagram.bpmn', err ? null : xml);
+      setEncoded_dl(downloadLink, 'diagram.bpmn', err ? null : xml);
     });
+
+    saveDiagram(function(err, xml) {
+      setEncoded(saveLink, 'diagram.bpmn', err ? null : xml);
+    });
+
   }, 500);
 
   renderer.on('commandStack.changed', exportArtifacts);
 
 });
-},{"./aof-customization":5,"./aof-customization/moddleExtensions/aof":6,"bpmn-js/lib/Modeler":13,"jquery":253,"lodash":277,"lodash/object/assign":386}],13:[function(require,module,exports){
+},{"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js/lib/Modeler":13,"jquery":253,"lodash":277,"lodash/object/assign":386}],13:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
