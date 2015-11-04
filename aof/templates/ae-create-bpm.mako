@@ -42,6 +42,11 @@
         SVG image
       </a>
     </li>
+      <li>
+      <a id="js-save-appensemble" href title="save the AppEnsemble">
+        SAVE APPENSEMBLE
+      </a>
+    </li>
   </ul>
 
 <%block name="local_js">
