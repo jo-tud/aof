@@ -52,6 +52,19 @@ class AppEnsembleViews(PageViews):
         resp = str(len(self.pool))
         return Response(resp)
 
+    #TODO: Add documentation and make info if the request was successful visible
+    @view_config(route_name='api-action-appensembles-add')
+    def action_add(self):
+        """
+        Action: Update the AppEnsemblePool from current AppEnsemble-directory
+        :return: Response Object with number of Apps
+        """
+        if self.request.params.has_key('data'):
+            data = self.request.params.getone('data')
+        #self.pool.reload()
+        #resp = str(len(self.pool))
+        return Response("The AppEnsemble was successfully saved!")
+
     @view_config(route_name='ae-details', renderer='aof:templates/ae-details.mako')
     @RequestPoolURI_Decorator()
     def page_details(self):

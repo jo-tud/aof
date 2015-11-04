@@ -42,6 +42,7 @@ def main(global_config, **settings):
     ## Actions
     config.add_route('api-action-apps-update', '/api/actions/apps/update')
     config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
+    config.add_route('api-action-appensembles-add', '/api/actions/app-ensembles/add')
 
     # API NEW
     config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
