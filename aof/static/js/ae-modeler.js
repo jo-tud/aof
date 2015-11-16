@@ -1413,7 +1413,7 @@ var AofCustomizationModules=require('./../aof-customization/index'), // affects 
 // Load the Modeler
 var renderer = new BpmnModeler({ container: canvas , additionalModules: [AofCustomizationModules], moddleExtensions:{aof:aofModdleExtention} });
 
-var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\">\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:startEvent id=\"StartEvent_1\"/>\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Process_1\">\r\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\r\n        <dc:Bounds height=\"36.0\" width=\"36.0\" x=\"412.0\" y=\"240.0\"/>\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>";
+var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:aof=\"http://eatld.et.tu-dresden.de/aof/\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\r\n  <bpmn2:collaboration id=\"Collaboration_1hs12oq\">\r\n    <bpmn2:participant id=\"Participant_0sq20zh\" name=\"New AppEnsemble Name\" processRef=\"Process_1\" aof:isAppEnsemble=\"true\" />\r\n  </bpmn2:collaboration>\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:startEvent id=\"StartEvent_1\" />\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_1hs12oq\">\r\n      <bpmndi:BPMNShape id=\"Participant_0sq20zh_di\" bpmnElement=\"Participant_0sq20zh\">\r\n        <dc:Bounds x=\"348\" y=\"133\" width=\"600\" height=\"250\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\r\n        <dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" />\r\n        <bpmndi:BPMNLabel>\r\n          <dc:Bounds x=\"385\" y=\"276\" width=\"90\" height=\"20\" />\r\n        </bpmndi:BPMNLabel>\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>\r\n";
 
 function createNewDiagram() {
   openDiagram(newDiagramXML);
@@ -1525,13 +1525,13 @@ $(document).on('ready', function() {
       e.stopPropagation();
       var request = $.ajax($(this).attr('href'), {
         success: function (data, status, jqXHR) {
-          container.append('<div data-alert class="alert-box">'+data+'<a href="#" class="close">&times;</a></div>');
+          container.before('<div data-alert class="alert-box success ">'+data+'<a href="#" class="close">&times;</a></div>');
         },
         method: "GET",
         async: false,
         timeout: 1000,
         error: function (jqXHR, status, error) {
-          alert(status+" - "+error);
+          container.before('<div data-alert class="alert-box warning">There was a Problem saving the Appensemble<a href="#" class="close">&times;</a></div>');
         }
       });
     }
