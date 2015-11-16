@@ -19,7 +19,7 @@ _ae_folder_path='aof:resources/App-Ensembles/'
 class AppEnsemble(Graph):
     counter = 0
     ae_extension='.ae'
-    ae_filename = 'ae.ttl'
+    ae_filename = 'ae.(ttl|trig)'
     bpmn_filename= 'ae.bpmn'
     ae_folder_path=_ae_folder_path
 
