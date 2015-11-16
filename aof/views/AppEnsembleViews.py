@@ -1,8 +1,9 @@
 from pyramid.response import Response, FileResponse
 from pyramid.view import view_config
+from pyramid.path import AssetResolver
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.views.PageViews import PageViews,RequestPoolURI_Decorator
-import logging
+import logging,os
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -59,11 +60,79 @@ class AppEnsembleViews(PageViews):
         Action: Update the AppEnsemblePool from current AppEnsemble-directory
         :return: Response Object with number of Apps
         """
+        from xml.dom.minidom import parseString, Node
+        from rdflib import ConjunctiveGraph, URIRef, BNode, Literal, RDF, RDFS, Namespace
+        from rdflib.plugins.memory import IOMemory
+
         if self.request.params.has_key('data'):
             data = self.request.params.getone('data')
-        #self.pool.reload()
-        #resp = str(len(self.pool))
-        return Response("The AppEnsemble was successfully saved!")
+
+            AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
+            BPMN2 = Namespace ('http://dkm.fbk.eu/index.php/BPMN2_Ontology#')
+
+            AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/test/")
+
+            dom = parseString(data)
+
+            participants=dom.getElementsByTagName('bpmn2:participant')
+            name="unnamed"
+            for p in participants:
+                if(p.getAttribute('aof:isAppEnsemble')):
+                    try:
+                        name=p.getAttribute('name').replace(" ","-")
+                        break
+                    except:
+                        pass
+
+
+            processes = dom.getElementsByTagName('bpmn2:process')
+
+            if processes.__len__() > 1:
+                print("There is more than one process (" + processes.__len__().__str__() + ")")
+                if serialisation == "turtle":
+                    print("Please note that the 'turtle' output format doesn't make sense.")
+
+            store = IOMemory()
+            graph=ConjunctiveGraph(store=store)
+
+            for p in processes:
+                id=p.attributes['id'].nodeValue
+                g = ConjunctiveGraph(store=store,identifier=URIRef(AE[id]))
+                g.bind("aof", AOF)
+                g.bind("bpmn2", BPMN2)
+                g.bind("ae",AE)
+
+                g.add((AE[name],RDF.type,BPMN2['process']))
+                g.add((AE[name],RDF.type,AOF['AppEnsemble']))
+
+                for attrName, attrValue in p.attributes.items():
+                    g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
+
+                for element in p.childNodes:
+                    if element.nodeType == Node.ELEMENT_NODE:
+                        id = element.attributes['id'].nodeValue
+
+                        g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
+
+                        for attrName, attrValue in element.attributes.items():
+                            g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
+
+                        for sub_element in element.childNodes:
+                            if sub_element.nodeType == Node.ELEMENT_NODE:
+                                g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
+
+            output=graph.serialize(format="trig")
+
+            file = open(AssetResolver().resolve('{}/{}.ttl'.format(self.request.registry.settings['app_ensemble_folder'],name)).abspath(), 'wb')
+            file.write(output);
+            file.close()
+
+            resp="The AppEnsemble was successfully saved!"
+        else:
+            resp="There was no data attached!";
+
+        self.pool.reload()
+        return Response(resp)
 
     @view_config(route_name='ae-details', renderer='aof:templates/ae-details.mako')
     @RequestPoolURI_Decorator()
