@@ -63,6 +63,7 @@ class AppEnsembleViews(PageViews):
         from xml.dom.minidom import parseString, Node
         from rdflib import ConjunctiveGraph, URIRef, BNode, Literal, RDF, RDFS, Namespace
         from rdflib.plugins.memory import IOMemory
+        from zipfile import ZipFile
 
         if self.request.params.has_key('data'):
             data = self.request.params.getone('data')
@@ -123,16 +124,33 @@ class AppEnsembleViews(PageViews):
 
             output=graph.serialize(format="trig")
 
-            file = open(AssetResolver().resolve('{}/{}.ttl'.format(self.request.registry.settings['app_ensemble_folder'],name)).abspath(), 'wb')
-            file.write(output);
-            file.close()
+
+
+            try:
+                filepath=AssetResolver().resolve('aof:tmp/{}'.format(name)).abspath()
+                file = open(filepath+".trig", 'wb')
+                file.write(output);
+                file.close()
+                file = open(filepath+".bpmn", 'wb')
+                file.write(bytes(data,"utf-8"));
+                file.close()
+                with ZipFile(AssetResolver().resolve('{}/{}.ae'.format(self.request.registry.settings['app_ensemble_folder'],name)).abspath(), 'w') as myzip:
+                    myzip.write(filepath+".trig","ae.trig")
+                    myzip.write(filepath+".bpmn","ae.bpmn")
+                myzip.close()
+
+            except IOError as e:
+                resp="Could not save AppEnsemble!"
+                stat="500 Internal Server Error"
 
             resp="The AppEnsemble was successfully saved!"
+            stat="201 Created"
         else:
-            resp="There was no data attached!";
+            resp="There was no data attached!"
+            stat="400 Bad Request"
 
         self.pool.reload()
-        return Response(resp)
+        return Response(resp,stat)
 
     @view_config(route_name='ae-details', renderer='aof:templates/ae-details.mako')
     @RequestPoolURI_Decorator()
