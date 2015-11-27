@@ -39,9 +39,14 @@
 
                 %if ae_has_bpm:
                     <tr>
-                        <td>BPM</td>
+                        <td rowspan="2">BPM</td>
                         <td>
-                            <a class="button" href="${bpmn_uri}">Visualize BPM</a>
+                            <a class="button" href="${bpmn_view_uri}">Visualize BPM</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a class="button" href="${bpmn_edit_uri}">Edit BPM</a>
                         </td>
                     </tr>
                 %endif

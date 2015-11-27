@@ -177,7 +177,8 @@ class AppEnsembleViews(PageViews):
             'qrcode': self.pool.get_QRCode(api_ae_uri),
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps,
-            'bpmn_uri':self.build_URI('ae-view-bpm',"{URI}",self.uri)
+            'bpmn_view_uri':self.build_URI('ae-view-bpm',"{URI}",self.uri),
+            'bpmn_edit_uri':self.build_URI('ae-edit-bpm',"{URI}",self.uri)
         }
         return custom_args
 
@@ -194,6 +195,7 @@ class AppEnsembleViews(PageViews):
         self._setTitle('Create App-Ensemble')
         return self._returnCustomDict(custom_args)
 
+    #TODO: Edit overright the BPM with same ae-name.... check that
     @view_config(route_name='ae-edit-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
     @RequestPoolURI_Decorator()
     def page_edit_bpm(self):
