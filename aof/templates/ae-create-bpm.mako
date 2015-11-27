@@ -10,7 +10,7 @@
 
     <div class="message intro">
       <div class="note">
-        Drop BPMN diagram from your desktop or <a id="js-create-diagram" href>create a new diagram</a> to get started.
+        BPMN-Modeler should start immediately!
       </div>
     </div>
 

@@ -1399,7 +1399,8 @@ var assign = require('lodash/object/assign');
 
 
 var $ = require('jquery'),
-    BpmnModeler = require('bpmn-js/lib/Modeler');
+    BpmnModeler = require('bpmn-js/lib/Modeler'),
+    BpmnViewer = require('bpmn-js/lib/Viewer');
 
 var container = $('#js-drop-zone');
 
@@ -1409,18 +1410,9 @@ var canvas = $('#js-canvas');
 var AofCustomizationModules=require('./../aof-customization/index'), // affects activities
     aofModdleExtention = require('./../aof-customization/moddleExtensions/aof');
 
+// Helper Functions
 
-// Load the Modeler
-var renderer = new BpmnModeler({ container: canvas , additionalModules: [AofCustomizationModules], moddleExtensions:{aof:aofModdleExtention} });
-
-var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:aof=\"http://eatld.et.tu-dresden.de/aof/\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\r\n  <bpmn2:collaboration id=\"Collaboration_1hs12oq\">\r\n    <bpmn2:participant id=\"Participant_0sq20zh\" name=\"New AppEnsemble Name\" processRef=\"Process_1\" aof:isAppEnsemble=\"true\" />\r\n  </bpmn2:collaboration>\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:startEvent id=\"StartEvent_1\" />\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_1hs12oq\">\r\n      <bpmndi:BPMNShape id=\"Participant_0sq20zh_di\" bpmnElement=\"Participant_0sq20zh\">\r\n        <dc:Bounds x=\"348\" y=\"133\" width=\"600\" height=\"250\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\r\n        <dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" />\r\n        <bpmndi:BPMNLabel>\r\n          <dc:Bounds x=\"385\" y=\"276\" width=\"90\" height=\"20\" />\r\n        </bpmndi:BPMNLabel>\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>\r\n";
-
-function createNewDiagram() {
-  openDiagram(newDiagramXML);
-}
-
-function openDiagram(xml) {
-
+function openDiagram(renderer,xml) {
   renderer.importXML(xml, function(err) {
 
     if (err) {
@@ -1441,75 +1433,45 @@ function openDiagram(xml) {
   });
 }
 
-function saveSVG(done) {
-  renderer.saveSVG(done);
-}
-
 function saveDiagram(done) {
-
   renderer.saveXML({ format: true }, function(err, xml) {
     done(err, xml);
   });
 }
 
-function registerFileDrop(container, callback) {
-
-  function handleFileSelect(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    var files = e.dataTransfer.files;
-
-    var file = files[0];
-
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-
-      var xml = e.target.result;
-
-      callback(xml);
-    };
-
-    reader.readAsText(file);
+function urlParam(name){
+  var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  if (results==null){
+    return null;
   }
-
-  function handleDragOver(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  else{
+    return results[1] || 0;
   }
-
-  container.get(0).addEventListener('dragover', handleDragOver, false);
-  container.get(0).addEventListener('drop', handleFileSelect, false);
 }
+// Mode and data processing
 
-
-////// file drag / drop ///////////////////////
-
-// check file api availability
-if (!window.FileList || !window.FileReader) {
-  window.alert(
-    'Looks like you use an older browser that does not support drag and drop. ' +
-    'Try using Chrome, Firefox or the Internet Explorer > 10.');
-} else {
-  registerFileDrop(container, openDiagram);
+var mode=urlParam('mode');
+var data=urlParam('diagramXML');
+if(mode=="view"){
+  var renderer =new BpmnViewer({ container: canvas });
+}
+else{
+  var renderer = new BpmnModeler({ container: canvas , additionalModules: [AofCustomizationModules], moddleExtensions:{aof:aofModdleExtention} });
+}
+if(mode=="view" || mode=="edit"){
+  var newDiagramXML=decodeURIComponent(data);
+}
+else{
+  var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:aof=\"http://eatld.et.tu-dresden.de/aof/\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\r\n  <bpmn2:collaboration id=\"Collaboration_1hs12oq\">\r\n    <bpmn2:participant id=\"Participant_0sq20zh\" name=\"New AppEnsemble Name\" processRef=\"Process_1\" aof:isAppEnsemble=\"true\" />\r\n  </bpmn2:collaboration>\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:startEvent id=\"StartEvent_1\" />\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_1hs12oq\">\r\n      <bpmndi:BPMNShape id=\"Participant_0sq20zh_di\" bpmnElement=\"Participant_0sq20zh\">\r\n        <dc:Bounds x=\"348\" y=\"133\" width=\"600\" height=\"250\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\r\n        <dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" />\r\n        <bpmndi:BPMNLabel>\r\n          <dc:Bounds x=\"385\" y=\"276\" width=\"90\" height=\"20\" />\r\n        </bpmndi:BPMNLabel>\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>\r\n";
 }
 
 // bootstrap diagram functions
 
 $(document).on('ready', function() {
+  openDiagram(renderer,newDiagramXML);
 
-  $('#js-create-diagram').click(function(e) {
-    e.stopPropagation();
-    e.preventDefault();
+  // Saving and lifetime behavior
 
-    createNewDiagram();
-  });
-
-  var downloadLink = $('#js-download-diagram');
-  var downloadSvgLink = $('#js-download-svg');
   var saveLink = $('#js-save-appensemble');
 
   $('.buttons a').click(function(e) {
@@ -1537,19 +1499,6 @@ $(document).on('ready', function() {
     }
   });
 
-  function setEncoded_dl(link, name, data) {
-    var encodedData = encodeURIComponent(data);
-
-    if (data) {
-      link.addClass('active').attr({
-        'href': 'data:application/bpmn20-xml;charset=UTF-8,' + encodedData,
-        'download': name
-      });
-    } else {
-      link.removeClass('active');
-    }
-  }
-
   function setEncoded(link, name, data) {
     var encodedData = encodeURIComponent(data);
 
@@ -1566,15 +1515,6 @@ $(document).on('ready', function() {
   var _ = require('lodash');
 
   var exportArtifacts = _.debounce(function() {
-
-    saveSVG(function(err, svg) {
-      setEncoded_dl(downloadSvgLink, 'diagram.svg', err ? null : svg);
-    });
-
-    saveDiagram(function(err, xml) {
-      setEncoded_dl(downloadLink, 'diagram.bpmn', err ? null : xml);
-    });
-
     saveDiagram(function(err, xml) {
       setEncoded(saveLink, 'diagram.bpmn', err ? null : xml);
     });
@@ -1584,7 +1524,7 @@ $(document).on('ready', function() {
   renderer.on('commandStack.changed', exportArtifacts);
 
 });
-},{"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js/lib/Modeler":13,"jquery":253,"lodash":277,"lodash/object/assign":386}],13:[function(require,module,exports){
+},{"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js/lib/Modeler":13,"bpmn-js/lib/Viewer":14,"jquery":253,"lodash":277,"lodash/object/assign":386}],13:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -13071,11 +13011,13 @@ module.exports={
         {
           "name": "inMessageRef",
           "type": "Message",
+          "isAttr": true,
           "isReference": true
         },
         {
           "name": "outMessageRef",
           "type": "Message",
+          "isAttr": true,
           "isReference": true
         },
         {
@@ -16775,16 +16717,6 @@ Ids.prototype.claim = function(id, element) {
 Ids.prototype.assigned = function(id) {
   return this._seed.get(id) || false;
 };
-
-/**
- * Unclaim an id.
- *
- * @param  {String} id the id to unclaim
- */
-Ids.prototype.unclaim = function(id) {
-  delete this._seed.hats[id];
-};
-
 },{"hat":89}],89:[function(require,module,exports){
 var hat = module.exports = function (bits, base) {
     if (!base) base = 16;
@@ -19534,6 +19466,7 @@ EventBus.prototype.fire = function(type, data) {
 
   listeners = this._listeners[type];
 
+
   if (!listeners) {
     return;
   }
@@ -19571,6 +19504,11 @@ EventBus.prototype.fire = function(type, data) {
       try {
         // returning false prevents the default action
         returnValue = event.returnValue = listener.callback.apply(null, args);
+        console.log(type+"="+returnValue);
+        if(type=="commandStack.shape.resize.canExecute"){
+          var a=1;
+
+        }
 
         // stop propagation on return value
         if (returnValue !== undefined) {
