@@ -181,23 +181,6 @@ class AppEnsembleViews(PageViews):
         }
         return custom_args
 
-
-    @view_config(route_name='ae-visualize-bpm', renderer='aof:templates/ae-visualize-bpm.mako')
-    @RequestPoolURI_Decorator()
-    def page_visualize_bpm(self):
-        """
-        Generates the BPMN-Visualisation Page
-        :return: dictionary
-        """
-        self._setTitle('App-Ensemble Details | BPMN')
-        ae = self.pool.get_AppEnsemble(self.uri)
-        custom_args = {
-            'ae_path': ae.ae_pkg_path,
-            'ae_uri': self.uri,
-            'ae_has_bpmn': ae.has_bpm()
-        }
-        return self._returnCustomDict(custom_args)
-
     @view_config(route_name='ae-create-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
     def page_create_bpm(self):
         """
@@ -206,14 +189,14 @@ class AppEnsembleViews(PageViews):
         """
         custom_args={
             'mode':"",
-            'data':""
+            'urlencodedXML':""
         }
         self._setTitle('Create App-Ensemble')
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='ae-edit-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
     @RequestPoolURI_Decorator()
-    def page_create_bpm(self):
+    def page_edit_bpm(self):
         """
         Generates the BPMN-Visualisation Page
         :return: dictionary
@@ -223,7 +206,7 @@ class AppEnsembleViews(PageViews):
             'mode':"edit",
             'urlencodedXML':quote(ae.get_bpm())
         }
-        self._setTitle('Create App-Ensemble')
+        self._setTitle('App-Ensemble Details | Edit BPMN')
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='ae-view-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
@@ -238,7 +221,7 @@ class AppEnsembleViews(PageViews):
             'mode':"view",
             'urlencodedXML':quote(ae.get_bpm())
         }
-        self._setTitle('View App-Ensemble')
+        self._setTitle('App-Ensemble Details | BPMN')
         return self._returnCustomDict(custom_args)
 
     @view_config(route_name='api-appensembles-ae-bpmn')

@@ -25,7 +25,6 @@ def main(global_config, **settings):
     # App-Ensembles
     config.add_route('app-ensembles', '/app-ensembles.html')
     config.add_route('ae-details', '/app-ensembles/{URI}/details.html')
-    config.add_route('ae-visualize-bpm', '/app-ensembles/{URI}/bpm.html')
     config.add_route('ae-view-bpm', '/app-ensembles/{URI}/view.html')
     config.add_route('ae-edit-bpm', '/app-ensembles/{URI}/edit.html')
     config.add_route('ae-create-bpm', '/app-ensembles/create.html')
