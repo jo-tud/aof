@@ -3,6 +3,7 @@ from pyramid.view import view_config
 from pyramid.path import AssetResolver
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.views.PageViews import PageViews,RequestPoolURI_Decorator
+from urllib.parse import quote
 import logging,os
 
 __author__ = 'khoerfurter'
@@ -176,7 +177,7 @@ class AppEnsembleViews(PageViews):
             'qrcode': self.pool.get_QRCode(api_ae_uri),
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps,
-            'bpmn_uri':self.build_URI('ae-visualize-bpm',"{URI}",self.uri)
+            'bpmn_uri':self.build_URI('ae-view-bpm',"{URI}",self.uri)
         }
         return custom_args
 
@@ -197,14 +198,48 @@ class AppEnsembleViews(PageViews):
         }
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='ae-create-bpm', renderer='aof:templates/ae-create-bpm.mako')
+    @view_config(route_name='ae-create-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
     def page_create_bpm(self):
         """
         Generates the BPMN-Visualisation Page
         :return: dictionary
         """
+        custom_args={
+            'mode':"",
+            'data':""
+        }
         self._setTitle('Create App-Ensemble')
-        return self._returnCustomDict()
+        return self._returnCustomDict(custom_args)
+
+    @view_config(route_name='ae-edit-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
+    @RequestPoolURI_Decorator()
+    def page_create_bpm(self):
+        """
+        Generates the BPMN-Visualisation Page
+        :return: dictionary
+        """
+        ae = self.pool.get_AppEnsemble(self.uri)
+        custom_args={
+            'mode':"edit",
+            'urlencodedXML':quote(ae.get_bpm())
+        }
+        self._setTitle('Create App-Ensemble')
+        return self._returnCustomDict(custom_args)
+
+    @view_config(route_name='ae-view-bpm', renderer='aof:templates/ae-bpm-modeler.mako')
+    @RequestPoolURI_Decorator()
+    def page_view_bpm(self):
+        """
+        Generates the BPMN-Visualisation Page
+        :return: dictionary
+        """
+        ae = self.pool.get_AppEnsemble(self.uri)
+        custom_args={
+            'mode':"view",
+            'urlencodedXML':quote(ae.get_bpm())
+        }
+        self._setTitle('View App-Ensemble')
+        return self._returnCustomDict(custom_args)
 
     @view_config(route_name='api-appensembles-ae-bpmn')
     @RequestPoolURI_Decorator()

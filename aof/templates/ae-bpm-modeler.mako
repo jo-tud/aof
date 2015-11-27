@@ -50,10 +50,10 @@
   </ul>
 
 <%block name="local_js">
-
-    <!-- viewer dependencies -->
-
-
+     <script type="text/javascript">
+        var urlencodedXML = "${urlencodedXML}";
+        var mode = "${mode}";
+    </script>
     <!-- viewer -->
     <script src="/static/js/ae-modeler.js"></script>
 

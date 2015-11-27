@@ -1392,6 +1392,10 @@ module.exports.getBusinessObject = getBusinessObject;
 },{}],12:[function(require,module,exports){
 'use strict';
 
+if(window.mode)var mode=window.mode;
+else var mode=urlParam('mode');
+if(window.urlencodedXML) var urlencodedXML=window.urlencodedXML;
+else var urlencodedXML=urlParam('diagramXML');
 
 // replace ende
 var assign = require('lodash/object/assign');
@@ -1449,9 +1453,6 @@ function urlParam(name){
   }
 }
 // Mode and data processing
-
-var mode=urlParam('mode');
-var data=urlParam('diagramXML');
 if(mode=="view"){
   var renderer =new BpmnViewer({ container: canvas });
 }
@@ -1459,7 +1460,7 @@ else{
   var renderer = new BpmnModeler({ container: canvas , additionalModules: [AofCustomizationModules], moddleExtensions:{aof:aofModdleExtention} });
 }
 if(mode=="view" || mode=="edit"){
-  var newDiagramXML=decodeURIComponent(data);
+  var newDiagramXML=decodeURIComponent(urlencodedXML);
 }
 else{
   var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:aof=\"http://eatld.et.tu-dresden.de/aof/\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\r\n  <bpmn2:collaboration id=\"Collaboration_1hs12oq\">\r\n    <bpmn2:participant id=\"Participant_0sq20zh\" name=\"New AppEnsemble Name\" processRef=\"Process_1\" aof:isAppEnsemble=\"true\" />\r\n  </bpmn2:collaboration>\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:startEvent id=\"StartEvent_1\" />\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_1hs12oq\">\r\n      <bpmndi:BPMNShape id=\"Participant_0sq20zh_di\" bpmnElement=\"Participant_0sq20zh\">\r\n        <dc:Bounds x=\"348\" y=\"133\" width=\"600\" height=\"250\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\r\n        <dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" />\r\n        <bpmndi:BPMNLabel>\r\n          <dc:Bounds x=\"385\" y=\"276\" width=\"90\" height=\"20\" />\r\n        </bpmndi:BPMNLabel>\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>\r\n";
@@ -19504,7 +19505,6 @@ EventBus.prototype.fire = function(type, data) {
       try {
         // returning false prevents the default action
         returnValue = event.returnValue = listener.callback.apply(null, args);
-        console.log(type+"="+returnValue);
         if(type=="commandStack.shape.resize.canExecute"){
           var a=1;
 
