@@ -71,8 +71,6 @@ class AppEnsembleViews(PageViews):
             AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
             BPMN2 = Namespace ('http://dkm.fbk.eu/index.php/BPMN2_Ontology#')
 
-            AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/test/")
-
             dom = parseString(data)
 
             participants=dom.getElementsByTagName('bpmn2:participant')
@@ -81,46 +79,48 @@ class AppEnsembleViews(PageViews):
                 if(p.getAttribute('aof:isAppEnsemble')):
                     try:
                         name=p.getAttribute('name').replace(" ","-")
+                        appEnsembleId=p.getAttribute('processRef')
                         break
                     except:
                         pass
 
+            AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/"+name+"/")
+
 
             processes = dom.getElementsByTagName('bpmn2:process')
 
-            if processes.__len__() > 1:
-                print("There is more than one process (" + processes.__len__().__str__() + ")")
-                if serialisation == "turtle":
-                    print("Please note that the 'turtle' output format doesn't make sense.")
+            #if processes.__len__() > 1:
+                #print("There is more than one process (" + processes.__len__().__str__() + ")")
 
             store = IOMemory()
             graph=ConjunctiveGraph(store=store)
 
             for p in processes:
                 id=p.attributes['id'].nodeValue
-                g = ConjunctiveGraph(store=store,identifier=URIRef(AE[id]))
-                g.bind("aof", AOF)
-                g.bind("bpmn2", BPMN2)
-                g.bind("ae",AE)
+                if id==appEnsembleId:
+                    g = ConjunctiveGraph(store=store,identifier=URIRef(AE[id]))
+                    g.bind("aof", AOF)
+                    g.bind("bpmn2", BPMN2)
+                    g.bind("ae",AE)
 
-                g.add((AE[name],RDF.type,BPMN2['process']))
-                g.add((AE[name],RDF.type,AOF['AppEnsemble']))
+                    g.add((AE[name],RDF.type,BPMN2['process']))
+                    g.add((AE[name],RDF.type,AOF['AppEnsemble']))
 
-                for attrName, attrValue in p.attributes.items():
-                    g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
+                    for attrName, attrValue in p.attributes.items():
+                        g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
 
-                for element in p.childNodes:
-                    if element.nodeType == Node.ELEMENT_NODE:
-                        id = element.attributes['id'].nodeValue
+                    for element in p.childNodes:
+                        if element.nodeType == Node.ELEMENT_NODE:
+                            id = element.attributes['id'].nodeValue
 
-                        g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
+                            g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
 
-                        for attrName, attrValue in element.attributes.items():
-                            g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
+                            for attrName, attrValue in element.attributes.items():
+                                g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
 
-                        for sub_element in element.childNodes:
-                            if sub_element.nodeType == Node.ELEMENT_NODE:
-                                g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
+                            for sub_element in element.childNodes:
+                                if sub_element.nodeType == Node.ELEMENT_NODE:
+                                    g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
 
             output=graph.serialize(format="trig")
 
