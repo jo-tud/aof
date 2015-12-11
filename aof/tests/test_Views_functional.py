@@ -8,7 +8,7 @@ from aof.tests.test_AppEnsemble import AppEnsembleTests
 from webtest import TestApp,TestRequest
 import ast
 from aof import main
-
+from webtest import AppError
 import aof.tests
 
 
@@ -61,7 +61,6 @@ class FunctionalTests(unittest.TestCase):
         self._body_title_test(res,"AOF Home")
 
     def test_not_existing_page(self):
-        from webtest import AppError
         self.assertRaises(AppError,self.testapp.get,'/i-do-not-exist-test')
 
     def test_documentation(self):
@@ -75,7 +74,6 @@ class FunctionalTests(unittest.TestCase):
         self.assertTrue(bytes('<testtag>HTML-Test</testtag>', 'utf-8') in res.body,"Test-Documentation Document} is not found")
 
     def test_documentation_doc_not_exists(self):
-        from webtest import AppError
         self.assertRaises(AppError,self.testapp.get,'/docs/i-do-not-exist.html')
 
     def test_app_ensembles(self):
@@ -87,10 +85,23 @@ class FunctionalTests(unittest.TestCase):
         self._status_code_test(res)
         self.assertTrue(b'<h1>testAppEnsemble</h1>' in res.body)
 
-    def test_app_ensemble_bpmn(self):
-        res=self.testapp.get('/app-ensembles/testAppEnsemble/bpm.html')
+    def test_app_ensemble_view_bpmn(self):
+        res=self.testapp.get('/app-ensembles/testAppEnsemble/view.html')
         self._status_code_test(res)
         self._body_title_test(res,"App-Ensemble Details | BPMN")
+
+    def test_app_ensemble_edit_bpmn(self):
+        res=self.testapp.get('/app-ensembles/testAppEnsemble/edit.html')
+        self._status_code_test(res)
+        self._body_title_test(res,"App-Ensemble Details | Edit BPMN")
+
+    def test_app_ensemble_create(self):
+        res=self.testapp.get('/app-ensembles/create.html')
+        self._status_code_test(res)
+        self._body_title_test(res,"Create App-Ensemble")
+
+    def test_api_app_ensemble_add(self):
+        self.assertRaises(AppError,self.testapp.get,'/api/actions/app-ensembles/add')
 
     def test_app_ensemble_update(self):
         aem=AppEnsemblePool.Instance()
@@ -116,7 +127,6 @@ class FunctionalTests(unittest.TestCase):
         self.assertTrue(b'-parameter was empty' in res.body)
 
     def test_app_pool_details_wrong_uri_param(self):
-        from webtest import AppError
         self.assertRaises(AppError,self.testapp.get,'/apps/URI%3Dhttp%3A%2F%2Fabc%2F/details.html')
 
     def test_app_pool_details_rdf(self):
