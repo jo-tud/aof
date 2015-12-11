@@ -66,7 +66,7 @@ class AppEnsembleViews(PageViews):
         from rdflib.plugins.memory import IOMemory
         from zipfile import ZipFile
 
-        if self.request.params.has_key('data'):
+        if self.request.params.has_key('data') and self.request.params.getone('data')!="":
             data = self.request.params.getone('data')
 
             AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
