@@ -41,7 +41,7 @@ def _create_test_AppEnsemble():
     # Creation of the zip archive
     zip_ae = zipfile.ZipFile(destTestArchive, mode='w')
     try:
-        zip_ae.write(os.path.join(originsPath,'test_ae.ttl'),AppEnsemble.ae_filename)
+        zip_ae.write(os.path.join(originsPath,'test_ae.ttl'),'ae.ttl')
         zip_ae.write(os.path.join(originsPath,'test_ae.bpmn'),AppEnsemble.bpmn_filename)
         zip_ae.write(os.path.join(originsPath,'max_test.ttl'),'apps/max_test.ttl')
         zip_ae.write(os.path.join(originsPath,'min_test.ttl'),'apps/min_test.ttl')
