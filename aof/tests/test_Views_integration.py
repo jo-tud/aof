@@ -20,6 +20,7 @@ from aof.views.DocumentationViews import DocumentationViews
 import aof.tests
 from aof.tests.test_AppEnsemble import AppEnsembleTests
 from aof.orchestration.AppPool import AppPool
+from aof.orchestration.AppEnsemble import AppEnsemble
 
 
 
@@ -282,7 +283,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = AppEnsembleViews(self.context, self.request).page_visualize_bpm()
+        response = AppEnsembleViews(self.context, self.request).page_view_bpm()
         self.assertEqual(response['ae_uri'], URIRef('testAppEnsemble'))
         self.assertEqual(response['ae_has_bpmn'], True)
         self._standard_tests(response)
@@ -306,6 +307,24 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertEqual(response['uri'],'testAppEnsemble')
         self.assertTrue(len(response['apps'])>1000)
 
+    def test_api_ae_save_without_params(self):
+        self.request.params = MultiDict()
+        response = AppEnsembleViews(self.context, self.request).action_add()
+        self.assertEqual(response.status_code,400,'Error: AppEnsemble save-procedure could be initialized without url-parameters!')
+
+    def test_api_ae_save_without_data(self):
+        self.request.params = MultiDict()
+        self.request.params.add('data','')
+        response = AppEnsembleViews(self.context, self.request).action_add()
+        self.assertEqual(response.status_code,400,'Error: AppEnsemble save-procedure could be initialized without data!')
+
+    def test_api_ae_save_correct(self):
+        self.request.params = MultiDict()
+        self.request.params.add('data','<?xml version="1.0" encoding="UTF-8"?>\n<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:aof="http://eatld.et.tu-dresden.de/aof/" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">\n<bpmn2:collaboration id="Collaboration_1hs12oq">\n<bpmn2:participant id="Participant_0sq20zh" name="APTest" processRef="Process_1" aof:isAppEnsemble="true" />\n</bpmn2:collaboration>\n<bpmn2:process id="Process_1" isExecutable="false">\n<bpmn2:startEvent id="StartEvent_1" />\n</bpmn2:process>\n<bpmndi:BPMNDiagram id="BPMNDiagram_1">\n<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1hs12oq">\n<bpmndi:BPMNShape id="Participant_0sq20zh_di" bpmnElement="Participant_0sq20zh">\n<dc:Bounds x="348" y="133" width="600" height="250" />\n</bpmndi:BPMNShape>\n<bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">\n<dc:Bounds x="412" y="240" width="36" height="36" />\n<bpmndi:BPMNLabel>\n<dc:Bounds x="385" y="276" width="90" height="20" />\n</bpmndi:BPMNLabel>\n</bpmndi:BPMNShape>\n</bpmndi:BPMNPlane>\n</bpmndi:BPMNDiagram>\n</bpmn2:definitions>')
+        response = AppEnsembleViews(self.context, self.request).action_add()
+        self.assertEqual(response.status_code,201,'Error: AppEnsemble was not saved with correct request!')
+        destTestArchive= os.path.join(AssetResolver().resolve(aof.tests.settings['app_ensemble_folder']).abspath(), 'APTest' + AppEnsemble.ae_extension)
+        os.remove(destTestArchive)
 
 
     def test_ae_get_ae_pkg_view(self):
