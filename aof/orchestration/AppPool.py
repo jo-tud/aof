@@ -274,7 +274,7 @@ class AppPool(AOFGraph):
     #TODO
     def get_build_number(self,resource):
         build_number_uri = self.value(resource, AOF.hasVersion)
-        build_number_doc=build_number=self.value(resource,AOF.version)
+        build_number_doc=self.value(resource,AOF.version)
         if build_number_uri != None:
             try:
                 r = requests.get(build_number_uri,timeout=0.1) # timeout 100ms
