@@ -1476,6 +1476,7 @@ else{
 
 $(document).on('ready', function() {
   openDiagram(renderer,newDiagramXML);
+  window.onbeforeunload=function(){return "Do you really want to leave this page? There might be a loss of unsaved data!"}
   });
 
   var downloadSvgLink = $('#js-download-svg');
@@ -1485,6 +1486,8 @@ $(document).on('ready', function() {
 
   if(mode=="view") {
     saveLink.remove();
+    saveandCloseLink.remove();
+    downloadSvgLink.remove();
   }
   else{
     saveLink.click(function (e) {
@@ -1494,6 +1497,12 @@ $(document).on('ready', function() {
         var request = $.ajax($(this).attr('href'), {
           success: function (data, status, jqXHR) {
             container.before('<div data-alert class="alert-box success ">' + data + '<a href="#" class="close">&times;</a></div>');
+            setTimeout(function() {
+              $.when($('.alert-box').fadeOut(500))
+                  .done(function () {
+                    $('.alert-box').remove();
+                  });
+            },3000);
           },
           method: "GET",
           async: false,
