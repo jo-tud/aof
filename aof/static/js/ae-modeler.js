@@ -1479,6 +1479,7 @@ $(document).on('ready', function() {
   });
 
   var downloadSvgLink = $('#js-download-svg');
+  var saveandCloseLink=$('#js-save-appensemble-and-close');
   var saveLink = $('#js-save-appensemble');
   var closeLink=$('#close-modeler');
 
@@ -1486,13 +1487,34 @@ $(document).on('ready', function() {
     saveLink.remove();
   }
   else{
-    $('#js-save-appensemble').click(function (e) {
+    saveLink.click(function (e) {
       if ($(this).is('.active')) {
         e.preventDefault();
         e.stopPropagation();
         var request = $.ajax($(this).attr('href'), {
           success: function (data, status, jqXHR) {
             container.before('<div data-alert class="alert-box success ">' + data + '<a href="#" class="close">&times;</a></div>');
+          },
+          method: "GET",
+          async: false,
+          timeout: 1000,
+          error: function (jqXHR, status, error) {
+            container.before('<div data-alert class="alert-box warning">There was a Problem saving the Appensemble<a href="#" class="close">&times;</a></div>');
+          }
+        });
+      }
+    });
+
+    saveandCloseLink.click(function (e) {
+      if ($(this).is('.active')) {
+        e.preventDefault();
+        e.stopPropagation();
+        var request = $.ajax($(this).attr('href'), {
+          success: function (data, status, jqXHR) {
+            container.before('<div data-alert class="alert-box success ">' + data + '<br /> Closing Modeler in <span id="close-seconds">3</span> seconds.<a href="#" class="close">&times;</a></div>');
+            setTimeout(function(){$('#close-seconds').text("2")},1000);
+            setTimeout(function(){$('#close-seconds').text("1")},2000);
+            setTimeout(function(){window.location.href = document.referrer},3000);
           },
           method: "GET",
           async: false,
@@ -1549,6 +1571,9 @@ $(document).on('ready', function() {
   var exportArtifacts = _.debounce(function() {
     saveDiagram(function(err, xml) {
       setEncoded(saveLink, 'diagram.bpmn', err ? null : xml);
+    });
+    saveDiagram(function(err, xml) {
+      setEncoded(saveandCloseLink, 'diagram.bpmn', err ? null : xml);
     });
     saveSVG(function(err, svg) {
       setEncoded_dl(downloadSvgLink, 'diagram.svg', err ? null : svg);

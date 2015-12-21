@@ -2,6 +2,7 @@
 <%inherit file="layout.mako"/>
 <%block name="top_bar_actions">
    <li class="defaultinactive"><a id="js-save-appensemble" href title="save the AppEnsemble">SAVE APPENSEMBLE</a></li>
+   <li class="defaultinactive"><a id="js-save-appensemble-and-close" href title="save the AppEnsemble">SAVE & CLOSE</a></li>
    <li class="defaultinactive"><a id="js-download-svg" href title="download as SVG image">DOWNLOAD SVG</a></li>
    <li><a id="close-modeler" href title="Close Modeler">CLOSE MODELER</a></li>
 </%block>
