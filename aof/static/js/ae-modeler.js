@@ -505,6 +505,7 @@ CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
                     click: function(event,element){
                         //appAssigner.openChooser(getReplaceMenuPosition(element), element);
                         modeling.updateProperties(element,{'aof:isAppEnsembleApp':true});
+                        canvas.addMarker(element.id, 'color-appensembleapp');
                     }
                 }
             }
@@ -524,7 +525,7 @@ CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
                         var result=window.confirm('Do you really like to mark the Participant ('+ participant.id+') as App-Ensemble?');
                         if(result){
                             modeling.updateProperties(element,{'aof:isAppEnsemble':true});
-                            canvas.addMarker(element.id, 'appensemble');
+                            canvas.addMarker(element.id, 'color-appensemble');
 
                         }
                     }
@@ -1757,6 +1758,8 @@ var $ = require('jquery'),
     BpmnViewer = require('bpmn-js/lib/Viewer'),
     AppAssigner=require('./../aof-customization/extensionModules/AppAssigner');
 
+var forEach = require('lodash/collection/forEach');
+
 var container = $('#js-drop-zone');
 
 var canvas = $('#js-canvas');
@@ -1782,6 +1785,29 @@ function openDiagram(renderer,xml) {
       container
         .removeClass('with-error')
         .addClass('with-diagram');
+
+      var elementRegistry = renderer.get('elementRegistry');
+      var canvasObject=renderer.get('canvas');
+
+      // Mark AppEnsembleApps grey
+      forEach(elementRegistry.filter(
+          function(element,gfx){
+            return (element.type=="bpmn:UserTask" && element.businessObject.$attrs['aof:isAppEnsembleApp'] && element.businessObject.$attrs['aof:isAppEnsembleApp']=="true" && element.businessObject.$attrs['aof:realizedBy'] && element.businessObject.$attrs['aof:realizedBy']!="")
+          }),
+          function(element){
+            canvasObject.addMarker(element.id,'color-appensembleapp');
+          }
+      );
+
+      // Mark AppEnsembles
+      forEach(elementRegistry.filter(
+              function(element,gfx){
+                return (element.type=="bpmn:Participant" && (element.businessObject.$attrs['aof:isAppEnsemble'] && element.businessObject.$attrs['aof:isAppEnsemble']=="true") || (element.businessObject.isAppEnsemble==true))
+              }),
+          function(element){
+            canvasObject.addMarker(element.id,'color-appensemble');
+          }
+      );
     }
 
 
@@ -1825,7 +1851,10 @@ else{
 $(document).on('ready', function() {
   openDiagram(renderer,newDiagramXML);
   window.onbeforeunload=function(){return "Do you really want to leave this page? There might be a loss of unsaved data!"}
+
   });
+
+
 
   var downloadSvgLink = $('#js-download-svg');
   var saveandCloseLink=$('#js-save-appensemble-and-close');
@@ -1869,6 +1898,7 @@ $(document).on('ready', function() {
         var request = $.ajax($(this).attr('href'), {
           success: function (data, status, jqXHR) {
             container.before('<div data-alert class="alert-box success ">' + data + '<br /> Closing Modeler in <span id="close-seconds">3</span> seconds.<a href="#" class="close">&times;</a></div>');
+            window.onbeforeunload=function(){}
             setTimeout(function(){$('#close-seconds').text("2")},1000);
             setTimeout(function(){$('#close-seconds').text("1")},2000);
             setTimeout(function(){window.location.href = document.referrer},3000);
@@ -1939,7 +1969,7 @@ $(document).on('ready', function() {
 
 
   renderer.on('commandStack.changed', exportArtifacts);
-},{"./../aof-customization/extensionModules/AppAssigner":1,"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js/lib/Modeler":13,"bpmn-js/lib/Viewer":14,"jquery":269,"lodash":294,"lodash/object/assign":404}],13:[function(require,module,exports){
+},{"./../aof-customization/extensionModules/AppAssigner":1,"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js/lib/Modeler":13,"bpmn-js/lib/Viewer":14,"jquery":269,"lodash":294,"lodash/collection/forEach":281,"lodash/object/assign":404}],13:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');

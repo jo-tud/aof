@@ -78,16 +78,17 @@ a:link {
 }
 
 /* Markers*/
-.appensemble:not(.djs-connection) .djs-visual > * {
-  stroke:  #0B2A51 !important; /* color elements as green */
-  fill: #CDD4E2 !important;
+.color-appensemble:not(.djs-connection) .djs-visual > * {
+  stroke:  #426188 !important; /* color elements as green */
+  stroke-width: 1px !important;
+  fill:rgba(66, 97, 136, 0.13) !important;
 }
 
-.no-app-assigned:not(.djs-connection) .djs-visual rect{
+.color-appensembleapp:not(.djs-connection) .djs-visual rect{
   stroke:  #000 !important;
-  fill: #CCC !important;
+  fill: #eee !important;
 }
-.no-app-assigned:not(.djs-connection) .djs-visual path{
+.color-appensembleapp:not(.djs-connection) .djs-visual path{
   fill: #fff !important;
 }
 
