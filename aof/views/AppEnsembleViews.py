@@ -175,6 +175,7 @@ class AppEnsembleViews(PageViews):
             'ae_uri': self.uri,
             'ae_api_path':api_ae_uri,
             'qrcode': self.pool.get_QRCode(api_ae_uri),
+            'direct_download_uri':self.build_URI('api-appensembles-ae-package',"{URI:.*}",self.uri),
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps,
             'bpmn_view_uri':self.build_URI('ae-view-bpm',"{URI}",self.uri),
