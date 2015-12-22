@@ -60,20 +60,24 @@ $(function() {
     }
 
         function updateAppEnsembles () {
-        $.get('/api/actions/app-ensembles/update', function(data) {
-            get_updates();
-            var alertHTML = $(
-                    '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
-                    'App-Ensembles updated. Number of App-Ensembles: ' + data.toString() +
-                    '</div>'
-                    ).hide().fadeToggle().delay(2000).slideToggle();
-            $('#alerts').append(alertHTML);
+            $.get('/api/actions/app-ensembles/update', function(data) {
+                get_updates();
+                var alertHTML = $(
+                        '<div data-alert class="alert-box info radius" style="margin-top:5px">' +
+                        'App-Ensembles updated. Number of App-Ensembles: ' + data.toString() +
+                        '</div>'
+                        ).hide().fadeToggle().delay(2000).slideToggle();
+                $('#alerts').append(alertHTML);
             });
-    }
+        }
+
+
 
     $('#action_update').click(function () {
         updateAppEnsembles()
     });
+
+    setInterval(get_updates, 5000);
 
     $('div#ae_tables').on('click','.cta-button.deploy',(function (e) {
         var ae_uri = $(this).attr('uri');
