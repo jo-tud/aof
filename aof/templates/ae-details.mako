@@ -39,7 +39,7 @@
 
                 %if ae_has_bpm:
                     <tr>
-                        <td rowspan="2">BPM</td>
+                        <td rowspan="3">BPM</td>
                         <td>
                             <a class="button" href="${bpmn_view_uri}">Visualize BPM</a>
                         </td>
@@ -47,6 +47,11 @@
                     <tr>
                         <td>
                             <a class="button" href="${bpmn_edit_uri}">Edit BPM</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a class="button" id="delete-ae" href="${bpmn_delete_uri}">Delete AppEnsemble</a>
                         </td>
                     </tr>
                 %endif

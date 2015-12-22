@@ -44,6 +44,7 @@ def main(global_config, **settings):
     config.add_route('api-action-apps-update', '/api/actions/apps/update')
     config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
     config.add_route('api-action-appensembles-add', '/api/actions/app-ensembles/add')
+    config.add_route(pattern='/api/app-ensembles/{URI}/delete', name='api-appensembles-delete')
 
     # API NEW
     config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
@@ -58,7 +59,6 @@ def main(global_config, **settings):
     config.add_route(pattern='/api/app-ensembles/{URI:.*}/details', name='api-appensembles-ae')
     config.add_route(pattern='/api/app-ensembles/{URI:.*}/package', name='api-appensembles-ae-package')
     config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
-
 
 
     config.scan()

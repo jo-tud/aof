@@ -4,7 +4,7 @@ from pyramid.path import AssetResolver
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.views.PageViews import PageViews,RequestPoolURI_Decorator
 from urllib.parse import quote
-import logging,os
+import logging,shutil,os
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -56,7 +56,7 @@ class AppEnsembleViews(PageViews):
 
     #TODO: Add documentation and make info if the request was successful visible
     @view_config(route_name='api-action-appensembles-add')
-    def action_add(self):
+    def api_action_add(self):
         """
         Action: Update the AppEnsemblePool from current AppEnsemble-directory
         :return: Response Object with number of Apps
@@ -178,7 +178,8 @@ class AppEnsembleViews(PageViews):
             'ae_has_bpm': ae.has_bpm(),
             'ae_apps': ae_apps,
             'bpmn_view_uri':self.build_URI('ae-view-bpm',"{URI}",self.uri),
-            'bpmn_edit_uri':self.build_URI('ae-edit-bpm',"{URI}",self.uri)
+            'bpmn_edit_uri':self.build_URI('ae-edit-bpm',"{URI}",self.uri),
+            'bpmn_delete_uri':self.build_URI('api-appensembles-delete',"{URI}",self.uri)
         }
         return custom_args
 
@@ -228,7 +229,7 @@ class AppEnsembleViews(PageViews):
 
     @view_config(route_name='api-appensembles-ae-bpmn')
     @RequestPoolURI_Decorator()
-    def action_get_bpmn_data(self):
+    def api_action_get_bpmn_data(self):
         """
         Generates the BPMN-Data for visulisation
         :return: Response with the BPMN-xml
@@ -258,3 +259,22 @@ class AppEnsembleViews(PageViews):
         )
         response.content_disposition = 'attachement; filename="' + str(self.uri) + ".ae"
         return response
+
+    @view_config(route_name='api-appensembles-delete', renderer='aof:templates/ae-bpm-modeler.mako')
+    @RequestPoolURI_Decorator()
+    def api_action_ae_delete(self):
+        """
+        Moves the App-Ensemble into tmp-folder
+        :return: Response-Object
+        """
+        a=AssetResolver()
+        ae_filename='{}.ae'.format(self.uri)
+        source=a.resolve(os.path.join(self.request.registry.settings['app_ensemble_folder'],ae_filename)).abspath()
+        dest=a.resolve(os.path.join('aof:tmp','ae-trash',ae_filename)).abspath()
+        i=0
+        while(os.path.isfile(dest)):
+            i+=1
+            dest=a.resolve(os.path.join('aof:tmp','ae-trash','{}-{}.ae'.format(self.uri,i))).abspath()
+        shutil.move(source,dest)
+        resp="The App-Ensemble was moved into the trash and will be deleted at next System startup."
+        return Response(resp)
