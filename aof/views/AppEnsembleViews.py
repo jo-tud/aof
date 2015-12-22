@@ -277,4 +277,5 @@ class AppEnsembleViews(PageViews):
             dest=a.resolve(os.path.join('aof:tmp','ae-trash','{}-{}.ae'.format(self.uri,i))).abspath()
         shutil.move(source,dest)
         resp="The App-Ensemble was moved into the trash and will be deleted at next System startup."
+        self.pool.reload()
         return Response(resp)
