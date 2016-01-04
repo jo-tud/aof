@@ -1841,7 +1841,7 @@ if (mode == "view") {
 else {
 
     var propertiesPanelModule = require('bpmn-js-properties-panel');
-    var propertiesProviderModule = require('bpmn-js-properties-panel/lib/provider/bpmn');
+    var propertiesProviderModule = require('bpmn-js-properties-panel/lib/provider/aof');
 
     var renderer = new BpmnModeler({
         container: canvas,
@@ -1991,7 +1991,7 @@ var exportArtifacts = _.debounce(function () {
 
 
 renderer.on('commandStack.changed', exportArtifacts);
-},{"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js-properties-panel":13,"bpmn-js-properties-panel/lib/provider/bpmn":33,"bpmn-js/lib/Modeler":61,"bpmn-js/lib/Viewer":62,"jquery":324,"lodash":352,"lodash/collection/forEach":338}],13:[function(require,module,exports){
+},{"./../aof-customization/index":5,"./../aof-customization/moddleExtensions/aof":6,"bpmn-js-properties-panel":13,"bpmn-js-properties-panel/lib/provider/aof":33,"bpmn-js/lib/Modeler":61,"bpmn-js/lib/Viewer":62,"jquery":324,"lodash":352,"lodash/collection/forEach":338}],13:[function(require,module,exports){
 module.exports = require('./lib');
 
 },{"./lib":30}],14:[function(require,module,exports){
@@ -4533,6 +4533,13 @@ function Provider(eventBus, bpmnFactory, elementRegistry) {
     linkProps(detailsGroup, element);
     eventProps(detailsGroup, element, bpmnFactory);
 
+    var aofGroup={
+      id: 'aof',
+      label: 'AOF - Settings',
+      entries: []
+    };
+    documentationProps(aofGroup, element, bpmnFactory);
+
     var documentationGroup = {
       id: 'documentation',
       label: 'Documentation',
@@ -4544,6 +4551,7 @@ function Provider(eventBus, bpmnFactory, elementRegistry) {
     return[
       generalGroup,
       detailsGroup,
+      aofGroup,
       documentationGroup
     ];
   };
@@ -4556,9 +4564,9 @@ module.exports = Provider;
 },{"../../PropertiesActivator":14,"./parts/DocumentationProps":34,"./parts/EventProps":35,"./parts/IdProps":36,"./parts/LinkProps":37,"./parts/ProcessProps":38,"inherits":323}],33:[function(require,module,exports){
 module.exports = {
   __init__: [ 'propertiesProvider' ],
-  propertiesProvider: [ 'type', require('./BpmnPropertiesProvider') ]
+  propertiesProvider: [ 'type', require('./AofPropertiesProvider') ]
 };
-},{"./BpmnPropertiesProvider":32}],34:[function(require,module,exports){
+},{"./AofPropertiesProvider":32}],34:[function(require,module,exports){
 'use strict';
 
 var entryFactory = require('../../../factory/EntryFactory'),

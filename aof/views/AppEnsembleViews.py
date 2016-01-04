@@ -71,6 +71,7 @@ class AppEnsembleViews(PageViews):
 
             AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
             BPMN2 = Namespace ('http://dkm.fbk.eu/index.php/BPMN2_Ontology#')
+            ORCHESTRATION = Namespace ('http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#')
 
             dom = parseString(data)
 
@@ -103,48 +104,70 @@ class AppEnsembleViews(PageViews):
                     g.bind("aof", AOF)
                     g.bind("bpmn2", BPMN2)
                     g.bind("ae",AE)
+                    g.bind("o",ORCHESTRATION)
 
-                    g.add((AE[name],RDF.type,BPMN2['process']))
-                    g.add((AE[name],RDF.type,AOF['AppEnsemble']))
+                    # init Blank nodes
+                    orchestration=BNode()
+                    appensemble=BNode()
+                    #add Orchestration
+                    g.add((orchestration,RDF.type,ORCHESTRATION['Orchestration']))
+                    # add App-Ensemble
+                    g.add((orchestration,ORCHESTRATION.hasAppEnsemble,appensemble))
+                    g.add((appensemble,RDF.type,AOF['isAppEnsemble']))
+                    g.add((appensemble,ORCHESTRATION.Name,Literal(name)))
 
-                    for attrName, attrValue in p.attributes.items():
-                        g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
+                    g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
+                    g.add((appensemble,ORCHESTRATION.hasEntryPoint,URIRef("http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant")))
+                    g.add((appensemble,ORCHESTRATION.requiresApp,URIRef("http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant")))
+                    g.add((appensemble,ORCHESTRATION.requiresApp,URIRef("http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant2")))
 
-                    for element in p.childNodes:
-                        if element.nodeType == Node.ELEMENT_NODE:
-                            id = element.attributes['id'].nodeValue
 
-                            g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
+                    # go on
+                    # g.add((AE[name],RDF.type,BPMN2['process']))
+                    #
+                    #
+                    # for attrName, attrValue in p.attributes.items():
+                    #     g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
+                    #
+                    # for element in p.childNodes:
+                    #     if element.nodeType == Node.ELEMENT_NODE:
+                    #         id = element.attributes['id'].nodeValue
+                    #
+                    #         g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
+                    #
+                    #         for attrName, attrValue in element.attributes.items():
+                    #             g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
+                    #
+                    #         for sub_element in element.childNodes:
+                    #             if sub_element.nodeType == Node.ELEMENT_NODE:
+                    #                 g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
 
-                            for attrName, attrValue in element.attributes.items():
-                                g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
-
-                            for sub_element in element.childNodes:
-                                if sub_element.nodeType == Node.ELEMENT_NODE:
-                                    g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
-
-            output=graph.serialize(format="trig")
+            output=graph.serialize(format="turtle")
 
 
 
             try:
-                filepath=AssetResolver().resolve('aof:tmp/{}'.format(name)).abspath()
-                file = open(filepath+".trig", 'wb')
+                filepath=AssetResolver().resolve('aof:tmp/ae-trash/{}'.format(name)).abspath()
+                file = open(filepath+".ttl", 'wb')
                 file.write(output);
                 file.close()
                 file = open(filepath+".bpmn", 'wb')
                 file.write(bytes(data,"utf-8"));
                 file.close()
                 with ZipFile(AssetResolver().resolve('{}/{}.ae'.format(self.request.registry.settings['app_ensemble_folder'],name)).abspath(), 'w') as myzip:
-                    myzip.write(filepath+".trig","ae.trig")
+                    myzip.write(filepath+".ttl","ae.ttl")
                     myzip.write(filepath+".bpmn","ae.bpmn")
                 myzip.close()
 
             except IOError as e:
-                resp="Could not save AppEnsemble!"
+                resp="Could not save App-Ensemble!"
                 stat="500 Internal Server Error"
 
-            resp="The AppEnsemble was successfully saved!"
+            except OSError as e:
+                resp="Filepath doesn't exist!"
+                stat="500 Internal Server Error"
+
+            resp="The App-Ensemble was successfully saved!"
             stat="201 Created"
         else:
             resp="There was no data attached!"
