@@ -31,6 +31,7 @@
     </div>
 
     <div class="canvas" id="js-canvas"></div>
+    <div id="js-properties-panel"></div>
   </div>
 
 <%block name="local_js">
