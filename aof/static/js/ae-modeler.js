@@ -183,7 +183,7 @@ module.exports = CustomRules;
 CustomRules.prototype.init = function() {
 
 
-    this.addRule('shapes.move',2000, function(context) {
+    this.addRule('elements.move',2000, function(context) {
 
         var target = context.target;
         if(!!target){   // !!=cast in boolean
@@ -525,26 +525,46 @@ CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
     }
 
     if(is(bpmnElement,'bpmn:Participant')){
+        if(bpmnElement.isAppEnsemble && bpmnElement.isAppEnsemble==true) {
+            assign(actions, {
+                'partnerRole': {
+                    group: 'edit',
+                    className: 'bpmn-icon-appensemble-remove',
+                    title: 'Unmark App-Ensemble',
+                    action: {
+                        click: function (event, element) {
+                            var participant = element.businessObject, inputtext;
+                            var result = window.confirm('Do you really like remove the App-Ensemble property? There might be problems!');
+                            if (result) {
+                                modeling.updateProperties(element, {'aof:isAppEnsemble': false});
+                                canvas.removeMarker(element.id, 'color-appensemble');
 
-        assign(actions, {
-            'partnerRole': {
-                group: 'edit',
-                className: 'bpmn-icon-appensemble',
-                title: 'Mark as App-Ensemble',
-                action: {
-                    click: function(event,element){
-                        var participant=element.businessObject, inputtext;
-                        var result=window.confirm('Do you really like to mark the Participant ('+ participant.id+') as App-Ensemble?');
-                        if(result){
-                            modeling.updateProperties(element,{'aof:isAppEnsemble':true});
-                            canvas.addMarker(element.id, 'color-appensemble');
-
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
+        else{
+            assign(actions, {
+                'partnerRole': {
+                    group: 'edit',
+                    className: 'bpmn-icon-appensemble',
+                    title: 'Mark as App-Ensemble',
+                    action: {
+                        click: function (event, element) {
+                            var participant = element.businessObject, inputtext;
+                            var result = window.confirm('Do you really like to mark the Participant as App-Ensemble?');
+                            if (result) {
+                                modeling.updateProperties(element, {'aof:isAppEnsemble': true});
+                                canvas.addMarker(element.id, 'color-appensemble');
 
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 
     // Delete Element Entry
@@ -1900,7 +1920,35 @@ else {
         if ($(this).is('.active')) {
             e.preventDefault();
             e.stopPropagation();
-            var request = $.ajax($(this).attr('href'), {
+            /*$.ajax({
+                url: '/api/app-ensembles/Test-1/details',
+                statusCode: {
+                    404: function() {
+                        $.ajax($(this).attr('href'), {
+                            success: function (data, status, jqXHR) {
+                                container.before('<div data-alert class="alert-box success ">' + data + '</div>');
+                                setTimeout(function () {
+                                    $.when($('.alert-box').fadeOut(500))
+                                        .done(function () {
+                                            $('.alert-box').remove();
+                                        });
+                                }, 2000);
+                            },
+                            method: "GET",
+                            async: false,
+                            timeout: 1000,
+                            error: function (jqXHR, status, error) {
+                                container.before('<div data-alert class="alert-box warning">There was a Problem saving the Appensemble<a href="#" class="close">&times;</a></div>');
+                            }
+                        });
+                    },
+                    200: function(){
+                        alert("File already exists... choose another name!")
+                    }
+                }
+            });*/
+
+            $.ajax($(this).attr('href'), {
                 success: function (data, status, jqXHR) {
                     container.before('<div data-alert class="alert-box success ">' + data + '</div>');
                     setTimeout(function () {
@@ -1917,6 +1965,7 @@ else {
                     container.before('<div data-alert class="alert-box warning">There was a Problem saving the Appensemble<a href="#" class="close">&times;</a></div>');
                 }
             });
+
         }
     });
 

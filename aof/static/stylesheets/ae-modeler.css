@@ -74,31 +74,35 @@ a:link {
   content: url('../img/AppEnsemble.svg');
 }
 /* line 74, app/stylesheets/app.less */
+.bpmn-icon-appensemble-remove:before {
+  content: url('../img/AppEnsemble-remove.svg');
+}
+/* line 77, app/stylesheets/app.less */
 .bpmn-icon-app-remove:before {
   content: url('../img/App-remove.svg');
 }
-/* line 77, app/stylesheets/app.less */
+/* line 80, app/stylesheets/app.less */
 .bpmn-icon-app:before {
   content: url('../img/App.svg');
 }
 /* Markers*/
-/* line 82, app/stylesheets/app.less */
+/* line 85, app/stylesheets/app.less */
 .color-appensemble:not(.djs-connection) .djs-visual > * {
   stroke: #426188 !important;
   /* color elements as green */
   stroke-width: 1px !important;
   fill: rgba(66, 97, 136, 0.13) !important;
 }
-/* line 88, app/stylesheets/app.less */
+/* line 91, app/stylesheets/app.less */
 .color-appensembleapp:not(.djs-connection) .djs-visual rect {
   stroke: #000 !important;
   fill: #eee !important;
 }
-/* line 92, app/stylesheets/app.less */
+/* line 95, app/stylesheets/app.less */
 .color-appensembleapp:not(.djs-connection) .djs-visual path {
   fill: #fff !important;
 }
-/* line 96, app/stylesheets/app.less */
+/* line 99, app/stylesheets/app.less */
 #js-save-appensemble,
 #close-modeler,
 #js-download-svg,
@@ -108,24 +112,24 @@ a:link {
   background-repeat: no-repeat;
   padding-left: 40px;
 }
-/* line 103, app/stylesheets/app.less */
+/* line 106, app/stylesheets/app.less */
 #js-save-appensemble-and-close {
   background-image: url('../img/iconmonstr-save-2-icon.svg');
 }
-/* line 106, app/stylesheets/app.less */
+/* line 109, app/stylesheets/app.less */
 #js-save-appensemble {
   background-image: url('../img/iconmonstr-save-5-icon.svg');
 }
-/* line 109, app/stylesheets/app.less */
+/* line 112, app/stylesheets/app.less */
 #js-download-svg {
   background-image: url('../img/iconmonstr-picture-multi-2-icon.svg');
 }
-/* line 112, app/stylesheets/app.less */
+/* line 115, app/stylesheets/app.less */
 #close-modeler {
   background-image: url('../img/iconmonstr-x-mark-4-icon.svg');
 }
 /* Properties Panel */
-/* line 117, app/stylesheets/app.less */
+/* line 120, app/stylesheets/app.less */
 #js-properties-panel {
   position: absolute;
   top: 0;
@@ -137,11 +141,11 @@ a:link {
   border-top: 1px solid #ccc;
   overflow: auto;
 }
-/* line 127, app/stylesheets/app.less */
+/* line 130, app/stylesheets/app.less */
 #js-properties-panel:empty {
   display: none;
 }
-/* line 130, app/stylesheets/app.less */
+/* line 133, app/stylesheets/app.less */
 #js-properties-panel > .djs-properties-panel {
   padding-bottom: 70px;
   min-height: 100%;
