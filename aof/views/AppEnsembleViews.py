@@ -2,6 +2,7 @@ from pyramid.response import Response, FileResponse
 from pyramid.view import view_config
 from pyramid.path import AssetResolver
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
+from aof.orchestration.AppPool import AppPool
 from aof.views.PageViews import PageViews,RequestPoolURI_Decorator
 from urllib.parse import quote
 import logging,shutil,os
@@ -65,6 +66,11 @@ class AppEnsembleViews(PageViews):
         from rdflib import ConjunctiveGraph, URIRef, BNode, Literal, RDF, RDFS, Namespace
         from rdflib.plugins.memory import IOMemory
         from zipfile import ZipFile
+        import time
+        from urllib.request import urlretrieve
+        from urllib.error import URLError
+
+
 
         if self.request.params.has_key('data') and self.request.params.getone('data')!="":
             data = self.request.params.getone('data')
@@ -87,15 +93,44 @@ class AppEnsembleViews(PageViews):
                         pass
 
             AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/"+name+"/")
+            filepath=AssetResolver().resolve('aof:tmp/ae-trash/{}'.format(name)).abspath() # tmp-path for all ae-files
+
+            logfile = open(filepath+'.log', 'w')
+            logfile.writelines(['##### Creation Logfile for '+name+' App-Ensemble #####\n', 'Date: '+time.strftime('%Y-%m-%d %H:%M:%S'), '\n'])
+
+            linked_apps=[];
+            for e in dom.getElementsByTagName('bpmn2:userTask'):
+                if e.getAttribute('aof:isAppEnsembleApp')== 'true':
+                    uri=e.getAttribute('aof:realizedBy')
+                    if uri!="":
+                        linked_apps.append(uri)
+
+            logfile.writelines(['\n\n### Downloading the Apps\n'])
+            ap=AppPool.Instance()
+            filepathes=[]
+            for app in linked_apps:
+                uri=ap.get_install_uri(URIRef(app))
+                appname=uri.rsplit('/', 1)[-1]
+                logfile.writelines(['\n# App "'+app+'"\n','> install uri: '+uri+'\n'])
+                try:
+                    tmp_path=tuple([appname])
+                    tmp_path+=urlretrieve(uri)
+                    filepathes.append(tmp_path)
+                    logfile.writelines(['> App was succesfully downloaded\n'])
+                except URLError:
+                    logfile.writelines(['!! App could not be downloaded\n'])
 
 
-            processes = dom.getElementsByTagName('bpmn2:process')
 
             #if processes.__len__() > 1:
                 #print("There is more than one process (" + processes.__len__().__str__() + ")")
 
             store = IOMemory()
             graph=ConjunctiveGraph(store=store)
+
+            logfile.writelines(['\n\n### Creating the ttl-data out of XML\n'])
+
+            processes = dom.getElementsByTagName('bpmn2:process')
 
             for p in processes:
                 id=p.attributes['id'].nodeValue
@@ -145,30 +180,45 @@ class AppEnsembleViews(PageViews):
             output=graph.serialize(format="turtle")
 
 
-
+            logfile.writelines(['\n\n### Creating the zip-file\n'])
             try:
-                filepath=AssetResolver().resolve('aof:tmp/ae-trash/{}'.format(name)).abspath()
                 file = open(filepath+".ttl", 'wb')
                 file.write(output);
                 file.close()
                 file = open(filepath+".bpmn", 'wb')
                 file.write(bytes(data,"utf-8"));
                 file.close()
+                logfile.writelines(['> ttl-file successfully created\n','> bpmn-file successfully created\n'])
+
                 with ZipFile(AssetResolver().resolve('{}/{}.ae'.format(self.request.registry.settings['app_ensemble_folder'],name)).abspath(), 'w') as myzip:
                     myzip.write(filepath+".ttl","ae.ttl")
+                    logfile.writelines(['> ttl-file successfully written\n'])
+
                     myzip.write(filepath+".bpmn","ae.bpmn")
+                    logfile.writelines(['> bpmn-file successfully written\n'])
+
+                    logfile.writelines(['\n# Copying the Apps\n'])
+                    for fp in filepathes:
+                        myzip.write(fp[1],os.path.join('apps',fp[0]))
+                        logfile.writelines(['> '+fp[0]+' successfully copied\n'])
+
+                    logfile.close()
+                    myzip.write(filepath+".log","log.txt")
                 myzip.close()
 
+                resp="The App-Ensemble was successfully saved!"
+                stat="201 Created"
+
             except IOError as e:
-                resp="Could not save App-Ensemble!"
+                resp="App-Ensemble-File is not writeable!"
                 stat="500 Internal Server Error"
 
             except OSError as e:
                 resp="Filepath doesn't exist!"
                 stat="500 Internal Server Error"
-
-            resp="The App-Ensemble was successfully saved!"
-            stat="201 Created"
+            except:
+                resp="Unknown error while creating the App-Ensemble"
+                stat="500 Internal Server Error"
         else:
             resp="There was no data attached!"
             stat="400 Bad Request"

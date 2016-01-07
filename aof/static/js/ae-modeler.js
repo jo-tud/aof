@@ -1961,8 +1961,8 @@ else {
                 method: "GET",
                 async: false,
                 timeout: 1000,
-                error: function (jqXHR, status, error) {
-                    container.before('<div data-alert class="alert-box warning">There was a Problem saving the Appensemble<a href="#" class="close">&times;</a></div>');
+                error: function (responseObject, status, error) {
+                    container.before('<div data-alert class="alert-box warning">There was a Problem saving the App-Ensemble: '+responseObject.responseText +' ('+responseObject.statusText+') <a href="#" class="close">&times;</a></div>');
                 }
             });
 
@@ -1991,8 +1991,8 @@ else {
                 method: "GET",
                 async: false,
                 timeout: 1000,
-                error: function (jqXHR, status, error) {
-                    container.before('<div data-alert class="alert-box warning">There was a Problem saving the Appensemble<a href="#" class="close">&times;</a></div>');
+                error: function (responseObject, status, error) {
+                    container.before('<div data-alert class="alert-box warning">There was a Problem saving the App-Ensemble: '+responseObject.responseText +' ('+responseObject.statusText+') <a href="#" class="close">&times;</a></div>');
                 }
             });
         }
