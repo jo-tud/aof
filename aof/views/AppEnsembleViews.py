@@ -62,13 +62,20 @@ class AppEnsembleViews(PageViews):
         Action: Update the AppEnsemblePool from current AppEnsemble-directory
         :return: Response Object with number of Apps
         """
-        from xml.dom.minidom import parseString, Node
+        from xml.dom.minidom import parseString, NodeList
         from rdflib import ConjunctiveGraph, URIRef, BNode, Literal, RDF, RDFS, Namespace
         from rdflib.plugins.memory import IOMemory
         from zipfile import ZipFile
         import time
         from urllib.request import urlretrieve
         from urllib.error import URLError
+        from aof.views.AppPoolViews import fill_graph_by_subject
+
+        class InconsistentAE(Exception):
+            def __init__(self, value):
+                self.value = value
+            def __str__(self):
+                return repr(self.value)
 
 
 
@@ -97,19 +104,108 @@ class AppEnsembleViews(PageViews):
 
             logfile = open(filepath+'.log', 'w')
             logfile.writelines(['##### Creation Logfile for '+name+' App-Ensemble #####\n', 'Date: '+time.strftime('%Y-%m-%d %H:%M:%S'), '\n'])
+            warnings = {}
 
             linked_apps=[];
             for e in dom.getElementsByTagName('bpmn2:userTask'):
                 if e.getAttribute('aof:isAppEnsembleApp')== 'true':
                     uri=e.getAttribute('aof:realizedBy')
                     if uri!="":
-                        linked_apps.append(uri)
+                        linked_apps.append(URIRef(uri))
+
+
+            #if processes.__len__() > 1:
+                #print("There is more than one process (" + processes.__len__().__str__() + ")")
+
+            store = IOMemory()
+            graph=ConjunctiveGraph(store=store)
+            ap=AppPool.Instance()
+
+            logfile.writelines(['\n\n### Creating the ttl-data out of XML\n'])
+            try:
+                processes = dom.getElementsByTagName('bpmn2:process')
+
+                for p in processes:
+                    id=p.attributes['id'].nodeValue
+                    if id==appEnsembleId:
+                        g = ConjunctiveGraph(store=store,identifier=URIRef(AE[id]))
+                        g.bind("aof", AOF)
+                        g.bind("bpmn2", BPMN2)
+                        g.bind("ae",AE)
+                        g.bind("o",ORCHESTRATION)
+
+                        # init Blank nodes
+                        orchestration=BNode()
+                        appensemble=BNode()
+                        #add Orchestration
+                        g.add((orchestration,RDF.type,ORCHESTRATION['Orchestration']))
+                        # add App-Ensemble
+                        g.add((orchestration,ORCHESTRATION.hasAppEnsemble,appensemble))
+                        g.add((appensemble,RDF.type,AOF['isAppEnsemble']))
+                        g.add((appensemble,ORCHESTRATION.Name,Literal(name)))
+
+                        #g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
+
+                        # Load app descriptions into graph
+                        for app in linked_apps:
+                            g.add((appensemble,ORCHESTRATION.requiresApp,app))
+                            g = fill_graph_by_subject(ap, g, app)
+
+                        # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
+                        sf_in=dom.getElementsByTagName('bpmn2:incoming')
+                        sf_out=dom.getElementsByTagName('bpmn2:outgoing')
+                        sf = {}
+                        sf_tmp={}
+
+                        for flow in sf_out:
+                            sf_tmp[flow.firstChild.nodeValue]=flow
+                        for flow in sf_in:
+                            sf[sf_tmp[flow.firstChild.nodeValue]]=flow.parentNode
+
+                        # Determining the Entry Point and binding to the graph otherwise raise exceptions
+                        start=dom.getElementsByTagName('bpmn2:startEvent')
+                        for child in start[0].childNodes:       # TODO: what if there are more starts?
+                            if child.nodeName=='bpmn2:outgoing':
+                                if sf[child].nodeName=='bpmn2:userTask':
+                                    entryPoint=sf[child]
+                                    if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
+                                        if entryPoint.attributes.__contains__('aof:realizedBy'):
+                                            g.add((appensemble,ORCHESTRATION.hasEntryPoint,URIRef(entryPoint.attributes.__contains__('aof:realizedBy'))))
+                                        else:
+                                            raise InconsistentAE("EntryPoint-App has no URI!")
+                                    else:
+                                        raise InconsistentAE("EntryPoint is no App!")
+
+                        # TODO go through the graph
+                        # TODO move to an own class out of views
+
+                        # go on
+                        # g.add((AE[name],RDF.type,BPMN2['process']))
+                        #
+                        #
+                        # for attrName, attrValue in p.attributes.items():
+                        #     g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
+                        #
+                        # for element in p.childNodes:
+                        #     if element.nodeType == Node.ELEMENT_NODE:
+                        #         id = element.attributes['id'].nodeValue
+                        #
+                        #         g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
+                        #
+                        #         for attrName, attrValue in element.attributes.items():
+                        #             g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
+                        #
+                        #         for sub_element in element.childNodes:
+                        #             if sub_element.nodeType == Node.ELEMENT_NODE:
+                        #                 g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
+            except InconsistentAE as e:
+                logfile.writelines(['!! ttl-file could not be finished because of: '+str(e)+'\n'])
+                warnings["ttl"]="TTL-File could not be finished!"
 
             logfile.writelines(['\n\n### Downloading the Apps\n'])
-            ap=AppPool.Instance()
             filepathes=[]
             for app in linked_apps:
-                uri=ap.get_install_uri(URIRef(app))
+                uri=ap.get_install_uri(app)
                 appname=uri.rsplit('/', 1)[-1]
                 logfile.writelines(['\n# App "'+app+'"\n','> install uri: '+uri+'\n'])
                 try:
@@ -119,63 +215,7 @@ class AppEnsembleViews(PageViews):
                     logfile.writelines(['> App was succesfully downloaded\n'])
                 except URLError:
                     logfile.writelines(['!! App could not be downloaded\n'])
-
-
-
-            #if processes.__len__() > 1:
-                #print("There is more than one process (" + processes.__len__().__str__() + ")")
-
-            store = IOMemory()
-            graph=ConjunctiveGraph(store=store)
-
-            logfile.writelines(['\n\n### Creating the ttl-data out of XML\n'])
-
-            processes = dom.getElementsByTagName('bpmn2:process')
-
-            for p in processes:
-                id=p.attributes['id'].nodeValue
-                if id==appEnsembleId:
-                    g = ConjunctiveGraph(store=store,identifier=URIRef(AE[id]))
-                    g.bind("aof", AOF)
-                    g.bind("bpmn2", BPMN2)
-                    g.bind("ae",AE)
-                    g.bind("o",ORCHESTRATION)
-
-                    # init Blank nodes
-                    orchestration=BNode()
-                    appensemble=BNode()
-                    #add Orchestration
-                    g.add((orchestration,RDF.type,ORCHESTRATION['Orchestration']))
-                    # add App-Ensemble
-                    g.add((orchestration,ORCHESTRATION.hasAppEnsemble,appensemble))
-                    g.add((appensemble,RDF.type,AOF['isAppEnsemble']))
-                    g.add((appensemble,ORCHESTRATION.Name,Literal(name)))
-
-                    g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
-                    g.add((appensemble,ORCHESTRATION.hasEntryPoint,URIRef("http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant")))
-                    g.add((appensemble,ORCHESTRATION.requiresApp,URIRef("http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant")))
-                    g.add((appensemble,ORCHESTRATION.requiresApp,URIRef("http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant2")))
-
-
-                    # go on
-                    # g.add((AE[name],RDF.type,BPMN2['process']))
-                    #
-                    #
-                    # for attrName, attrValue in p.attributes.items():
-                    #     g.add((AE[name], BPMN2[attrName], Literal(attrValue)))
-                    #
-                    # for element in p.childNodes:
-                    #     if element.nodeType == Node.ELEMENT_NODE:
-                    #         id = element.attributes['id'].nodeValue
-                    #
-                    #         g.add((AE[id], RDFS.subClassOf, URIRef(BPMN2[element.localName])))
-                    #
-                    #         for attrName, attrValue in element.attributes.items():
-                    #             g.add((AE[id], BPMN2[attrName], Literal(attrValue)))
-                    #
-                    #         for sub_element in element.childNodes:
-                    #             if sub_element.nodeType == Node.ELEMENT_NODE:
-                    #                 g.add((AE[id], BPMN2[sub_element.localName], AE[sub_element.firstChild.nodeValue]))
+                    warnings["apps"]="Not all Apps could be downloaded!"
 
             output=graph.serialize(format="turtle")
 
@@ -207,6 +247,11 @@ class AppEnsembleViews(PageViews):
                 myzip.close()
 
                 resp="The App-Ensemble was successfully saved!"
+                if len(warnings)>0:
+                    resp +="<br><br><strong>Warnings:</strong><ul>"
+                    for w in warnings:
+                        resp +="<li>"+warnings[w]+"</li>"
+                    resp +="</ul>Please watch the Logfile stored in the AppEnsemble!"
                 stat="201 Created"
 
             except IOError as e:
