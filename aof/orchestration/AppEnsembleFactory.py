@@ -129,6 +129,8 @@ class GraphFactory():
         self.g = ConjunctiveGraph(store=IOMemory(), identifier=self.factory.name)
         self.stat=0
         self.resp=""
+        self.AENode=URIRef("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
+        self.sf = {}
 
     def _saveGraph(self):
         output=self.g.serialize(format="turtle")
@@ -143,29 +145,26 @@ class GraphFactory():
     def _bindRequiredApps(self):
         ap = AppPool.Instance()
         for app in self.factory.required_apps:
-            self.g.add((appensemble, ORCHESTRATION.requiresApp, app))
+            self.g.add((self.AENode, ORCHESTRATION.requiresApp, app))
             self.g = fill_graph_by_subject(ap, self.g, app)
 
     def _determineSequenceFlows(self):
         sf_in = self.factory.dom.getElementsByTagName('bpmn2:incoming')
         sf_out = self.factory.dom.getElementsByTagName('bpmn2:outgoing')
-        sf = {}
         sf_tmp = {}
-
         for flow in sf_out:
             sf_tmp[flow.firstChild.nodeValue] = flow
         for flow in sf_in:
-            sf[sf_tmp[flow.firstChild.nodeValue]] = flow.parentNode
+            self.sf[sf_tmp[flow.firstChild.nodeValue]] = flow.parentNode
 
-        return sf
 
     # TODO: what if there are more starts?
-    def _determineEntryPoint(self):
+    def _getEntryPoint(self):
         start = self.factory.dom.getElementsByTagName('bpmn2:startEvent')
         for child in start[0].childNodes:
             if child.nodeName == 'bpmn2:outgoing':
-                if sf[child].nodeName == 'bpmn2:userTask':
-                    entryPoint = sf[child]
+                if self.sf[child].nodeName == 'bpmn2:userTask':
+                    entryPoint = self.sf[child]
                     if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
                         if entryPoint.attributes.__contains__('aof:realizedBy'):
                             return URIRef(entryPoint.attributes.__contains__('aof:realizedBy'))
@@ -184,15 +183,14 @@ class GraphFactory():
 
         # init nodes
         orchestration = BNode()
-        appensemble = URIRef("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
 
         # add Orchestration
         self.g.add((orchestration, RDF.type, ORCHESTRATION['Orchestration']))
 
         # add App-Ensemble
-        self.g.add((orchestration, ORCHESTRATION.hasAppEnsemble, appensemble))
-        self.g.add((appensemble, RDF.type, AOF['isAppEnsemble']))
-        self.g.add((appensemble, ORCHESTRATION.Name, Literal(self.factory.name)))
+        self.g.add((orchestration, ORCHESTRATION.hasAppEnsemble, self.AENode))
+        self.g.add((self.AENode, RDF.type, AOF['isAppEnsemble']))
+        self.g.add((self.AENode, ORCHESTRATION.Name, Literal(self.factory.name)))
 
         self.factory.registerLogEntry('##### Creation Logfile for ' + self.factory.name + ' App-Ensemble #####\n Date: ' + time.strftime(
                 '%Y-%m-%d %H:%M:%S') + '\n')
@@ -202,12 +200,12 @@ class GraphFactory():
         self._bindRequiredApps()
 
         # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
-        sf=self._determineSequenceFlows()
+        self._determineSequenceFlows()
 
         try:
             # Determining the Entry Point and binding to the graph otherwise raise exceptions
-            entryPoint=self._determineEntryPoint()
-            self.g.add((appensemble, ORCHESTRATION.hasEntryPoint,entryPoint))
+            entryPoint=self._getEntryPoint()
+            self.g.add((self.AENode, ORCHESTRATION.hasEntryPoint,entryPoint))
 
             # TODO go through the graph
 
