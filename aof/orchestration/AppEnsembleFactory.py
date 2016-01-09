@@ -140,20 +140,55 @@ class GraphFactory():
             self.resp = "ttl-File is not writeable!"
             self.stat = 1
 
+    def _bindRequiredApps(self):
+        ap = AppPool.Instance()
+        for app in self.factory.required_apps:
+            self.g.add((appensemble, ORCHESTRATION.requiresApp, app))
+            self.g = fill_graph_by_subject(ap, self.g, app)
+
+    def _determineSequenceFlows(self):
+        sf_in = self.factory.dom.getElementsByTagName('bpmn2:incoming')
+        sf_out = self.factory.dom.getElementsByTagName('bpmn2:outgoing')
+        sf = {}
+        sf_tmp = {}
+
+        for flow in sf_out:
+            sf_tmp[flow.firstChild.nodeValue] = flow
+        for flow in sf_in:
+            sf[sf_tmp[flow.firstChild.nodeValue]] = flow.parentNode
+
+        return sf
+
+    # TODO: what if there are more starts?
+    def _determineEntryPoint(self):
+        start = self.factory.dom.getElementsByTagName('bpmn2:startEvent')
+        for child in start[0].childNodes:
+            if child.nodeName == 'bpmn2:outgoing':
+                if sf[child].nodeName == 'bpmn2:userTask':
+                    entryPoint = sf[child]
+                    if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
+                        if entryPoint.attributes.__contains__('aof:realizedBy'):
+                            return URIRef(entryPoint.attributes.__contains__('aof:realizedBy'))
+                        else:
+                            raise InconsistentAE("EntryPoint-App has no URI!")
+                    else:
+                        raise InconsistentAE("EntryPoint is no App!")
 
     def create(self):
         #AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
-        ap = AppPool.Instance()
+
         self.g.bind("aof", AOF)
         self.g.bind("bpmn2", BPMN2)
         #self.g.bind("ae", AE)
         self.g.bind("o", ORCHESTRATION)
 
-        # init Blank nodes
+        # init nodes
         orchestration = BNode()
         appensemble = URIRef("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
+
         # add Orchestration
         self.g.add((orchestration, RDF.type, ORCHESTRATION['Orchestration']))
+
         # add App-Ensemble
         self.g.add((orchestration, ORCHESTRATION.hasAppEnsemble, appensemble))
         self.g.add((appensemble, RDF.type, AOF['isAppEnsemble']))
@@ -162,42 +197,19 @@ class GraphFactory():
         self.factory.registerLogEntry('##### Creation Logfile for ' + self.factory.name + ' App-Ensemble #####\n Date: ' + time.strftime(
                 '%Y-%m-%d %H:%M:%S') + '\n')
         self.factory.registerLogEntry('### Creating the ttl-data out of XML')
+
+        # Load app descriptions into graph
+        self._bindRequiredApps()
+
+        # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
+        sf=self._determineSequenceFlows()
+
         try:
-            # self.g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
-
-            # Load app descriptions into graph
-            for app in self.factory.required_apps:
-                self.g.add((appensemble, ORCHESTRATION.requiresApp, app))
-                self.g = fill_graph_by_subject(ap, self.g, app)
-
-            # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
-            sf_in = self.factory.dom.getElementsByTagName('bpmn2:incoming')
-            sf_out = self.factory.dom.getElementsByTagName('bpmn2:outgoing')
-            sf = {}
-            sf_tmp = {}
-
-            for flow in sf_out:
-                sf_tmp[flow.firstChild.nodeValue] = flow
-            for flow in sf_in:
-                sf[sf_tmp[flow.firstChild.nodeValue]] = flow.parentNode
-
             # Determining the Entry Point and binding to the graph otherwise raise exceptions
-            start = self.factory.dom.getElementsByTagName('bpmn2:startEvent')
-            for child in start[0].childNodes:  # TODO: what if there are more starts?
-                if child.nodeName == 'bpmn2:outgoing':
-                    if sf[child].nodeName == 'bpmn2:userTask':
-                        entryPoint = sf[child]
-                        if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
-                            if entryPoint.attributes.__contains__('aof:realizedBy'):
-                                self.g.add((appensemble, ORCHESTRATION.hasEntryPoint,
-                                       URIRef(entryPoint.attributes.__contains__('aof:realizedBy'))))
-                            else:
-                                raise InconsistentAE("EntryPoint-App has no URI!")
-                        else:
-                            raise InconsistentAE("EntryPoint is no App!")
+            entryPoint=self._determineEntryPoint()
+            self.g.add((appensemble, ORCHESTRATION.hasEntryPoint,entryPoint))
 
-                            # TODO go through the graph
-                            # TODO move to an own class out of views
+            # TODO go through the graph
 
             self.factory.registerLogEntry('> ttl-file successfully created\n> bpmn-file successfully created\n')
 
@@ -206,6 +218,9 @@ class GraphFactory():
             self.factory.registerWarning("ttl","TTL-File could not be finished!")
             self.stat=1
         self._saveGraph()
+
+
+                    # self.g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
 
 
         return statusReport(self.stat,self.factory.name+": "+self.resp)
@@ -220,6 +235,7 @@ class ZipFactory():
         self.stat=0
         self.resp=""
 
+    # TODO What if same appname but other content?
     def _downloadApps(self):
         self.factory.registerLogEntry('### Downloading the Apps\n')
         for app in self.factory.required_apps:
