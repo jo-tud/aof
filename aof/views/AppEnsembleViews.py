@@ -63,23 +63,7 @@ class AppEnsembleViews(PageViews):
         :return: Response Object with number of Apps
         """
 
-        # from xml.dom.minidom import parseString, NodeList
-        # from rdflib import ConjunctiveGraph, URIRef, BNode, Literal, RDF, RDFS, Namespace
-        # from rdflib.plugins.memory import IOMemory
-        # from zipfile import ZipFile
-        # import time
-        # from urllib.request import urlretrieve
-        # from urllib.error import URLError
-        # from aof.views.AppPoolViews import fill_graph_by_subject
-        #
-        # class InconsistentAE(Exception):
-        #     def __init__(self, value):
-        #         self.value = value
-        #     def __str__(self):
-        #         return repr(self.value)
         from aof.orchestration.AppEnsembleFactory import OrchestrationFactory
-
-
 
         if self.request.params.has_key('data') and self.request.params.getone('data')!="":
             response=OrchestrationFactory(self.request.params.getone('data')).create()
