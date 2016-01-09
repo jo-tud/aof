@@ -17,10 +17,6 @@ AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
 BPMN2 = Namespace('http://dkm.fbk.eu/index.php/BPMN2_Ontology#')
 ORCHESTRATION = Namespace('http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#')
 
-# logfile = open(filepath + '.log', 'w')
-        # logging.basicConfig(format='%(asctime)s %(message)s',filename='myapp.log')
-        # logging.warning('is when this event was logged.')
-
 class OrchestrationFactory():
     def __init__(self, bpmnxml):
         self.bpmn = bpmnxml
@@ -57,15 +53,21 @@ class OrchestrationFactory():
             pass
 
     def create(self):
-        responses=[]
+        text=""
+        status=0
         resp=Response("Orchestration sucessfully created!","201 Created")
         for ae in self.appEnsembles:
             self._saveBpmn(self.appEnsembles[ae]["tmp_path"])
-            responses.append(AppEnsembleFactory(self.appEnsembles[ae]).create())
-        for res in responses:
-            if(res.status_code!=201):
-                resp=res
-        return resp
+            response=AppEnsembleFactory(self.appEnsembles[ae]).create()
+            text+=response.response+"\n"
+            status +=response.status
+
+        if(status==0):
+            return Response("Orchestration sucessfully created!","201 Created")
+        if (status<=len(self.appEnsembles)):
+            return Response("Orchestration sucessfully created!"+text,"201 Created")
+        else:
+            return Response(text,"500 Internal Server Error")
 
 
 
@@ -108,21 +110,25 @@ class AppEnsembleFactory():
                     self.required_apps.append(URIRef(uri))
 
     def create(self):
-        graphResponse=GraphFactory(self).create()
-        zipResponse=ZipFactory(self).create()
-        if(graphResponse.status_code==201):
-            return zipResponse
+        graphStatus=GraphFactory(self).create()
+        zipStatus=ZipFactory(self).create()
+        Status=graphStatus.status+zipStatus.status
+        if(Status==0):
+            return statusReport(0)
+        elif(Status<=2):
+            return statusReport(1,self.returnWarnings())
+        elif(graphStatus==3):
+            return graphStatus
         else:
-            return graphResponse
-
+            return zipStatus
 
 
 class GraphFactory():
     def __init__(self,factory):
         self.factory = factory
         self.g = ConjunctiveGraph(store=IOMemory(), identifier=self.factory.name)
-        self.stat="201 Created"
-        self.resp="Sucessfully created!"
+        self.stat=0
+        self.resp=""
 
     def _saveGraph(self):
         output=self.g.serialize(format="turtle")
@@ -132,7 +138,7 @@ class GraphFactory():
             file.close()
         except:
             self.resp = "ttl-File is not writeable!"
-            self.stat = "500 Internal Server Error"
+            self.stat = 1
 
 
     def create(self):
@@ -198,10 +204,11 @@ class GraphFactory():
         except InconsistentAE as e:
             self.factory.registerLogEntry('!! ttl-file could not be finished because of: ' + str(e) + '\n')
             self.factory.registerWarning("ttl","TTL-File could not be finished!")
+            self.stat=1
         self._saveGraph()
 
-        return Response(self.factory.name+": "+self.resp,self.stat)
 
+        return statusReport(self.stat,self.factory.name+": "+self.resp)
 
 class ZipFactory():
     def __init__(self, factory):
@@ -210,8 +217,8 @@ class ZipFactory():
         self.app_tmp_path=[]
         registry = get_current_registry()
         self.destination=AssetResolver().resolve('{}/{}.ae'.format(registry.settings['app_ensemble_folder'],self.factory.name)).abspath()
-        self.stat="201 Created"
-        self.resp="Sucessfully created!"
+        self.stat=0
+        self.resp=""
 
     def _downloadApps(self):
         self.factory.registerLogEntry('### Downloading the Apps\n')
@@ -228,9 +235,11 @@ class ZipFactory():
             except URLError:
                 self.factory.registerLogEntry('!! App could not be downloaded')
                 self.factory.registerWarning("apps","Not all Apps could be downloaded!")
+                self.stat=1
             except ValueError:
                 self.factory.registerLogEntry('!! App could not be found')
                 self.factory.registerWarning("apps","Not all Apps could be downloaded!")
+                self.stat=1
 
     def create(self):
         self.factory.registerLogEntry('### Creating the zip-file')
@@ -251,17 +260,16 @@ class ZipFactory():
             myzip.close()
         except IOError as e:
             self.resp = "App-Ensemble-File is not writeable!"
-            self.stat = "500 Internal Server Error"
+            self.stat = 3
 
         except OSError as e:
             self.resp = "Filepath doesn't exist!"
-            self.stat = "500 Internal Server Error"
+            self.stat = 3
         except:
             self.resp = "Unknown error while creating the App-Ensemble"
-            self.stat = "500 Internal Server Error"
+            self.stat = 3
 
-        return Response(self.factory.name+": "+self.resp,self.stat)
-
+        return statusReport(self.stat,self.factory.name+": "+self.resp)
 
 class InconsistentAE(Exception):
     def __init__(self, value):
@@ -269,3 +277,14 @@ class InconsistentAE(Exception):
 
     def __str__(self):
         return repr(self.value)
+
+"""
+    0: OK
+    1: Warning
+    3: Error
+"""
+class statusReport():
+    def __init__(self,stat,resp=""):
+        self.status=stat
+        self.response=resp
+
