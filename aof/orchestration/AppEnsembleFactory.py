@@ -153,25 +153,30 @@ class GraphFactory():
         sf_out = self.factory.dom.getElementsByTagName('bpmn2:outgoing')
         sf_tmp = {}
         for flow in sf_out:
-            sf_tmp[flow.firstChild.nodeValue] = flow
+            sf_tmp[flow.firstChild.nodeValue] = flow.parentNode
         for flow in sf_in:
-            self.sf[sf_tmp[flow.firstChild.nodeValue]] = flow.parentNode
+            self.sf[self._getNodeId(sf_tmp[flow.firstChild.nodeValue])] = flow.parentNode
+
+    def _getNodeId(self,node):
+        return node._attrs['id'].nodeValue
 
 
     # TODO: what if there are more starts?
     def _getEntryPoint(self):
-        start = self.factory.dom.getElementsByTagName('bpmn2:startEvent')
-        for child in start[0].childNodes:
-            if child.nodeName == 'bpmn2:outgoing':
-                if self.sf[child].nodeName == 'bpmn2:userTask':
-                    entryPoint = self.sf[child]
-                    if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
-                        if entryPoint.attributes.__contains__('aof:realizedBy'):
-                            return URIRef(entryPoint.attributes.__contains__('aof:realizedBy'))
-                        else:
-                            raise InconsistentAE("EntryPoint-App has no URI!")
-                    else:
-                        raise InconsistentAE("EntryPoint is no App!")
+        start = self._getNodeId(self.factory.dom.getElementsByTagName('bpmn2:startEvent')[0])
+        #for child in start[0].childNodes:
+            #if child.nodeName == 'bpmn2:outgoing':
+        if self.sf[start].nodeName == 'bpmn2:userTask':
+            entryPoint = self.sf[start]
+            if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
+                if entryPoint.attributes.__contains__('aof:realizedBy'):
+                    return URIRef(entryPoint.attributes['aof:realizedBy'].value)
+                else:
+                    raise InconsistentAE("EntryPoint-App has no URI!")
+            else:
+                raise InconsistentAE("EntryPoint is no App!")
+
+
 
     def create(self):
         #AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
@@ -208,6 +213,11 @@ class GraphFactory():
             self.g.add((self.AENode, ORCHESTRATION.hasEntryPoint,entryPoint))
 
             # TODO go through the graph
+            # maybe switch the sf-dict from sf[from]=to to sf[to]=from and then iter over sf and add the corresponding successor... but waht if successor is not task?
+
+
+            for key in self.sf.iterkeys():
+                pass
 
             self.factory.registerLogEntry('> ttl-file successfully created\n> bpmn-file successfully created\n')
 
