@@ -96,12 +96,22 @@ class AppEnsembleFactory():
             resp += "</ul>Please watch the Logfile stored in the AppEnsemble!"
         return resp
 
-    def registerLogEntry(self, message):
-        self.log.append({'time':time.strftime('%Y-%m-%d %H:%M:%S'),'msg':message})
+    def registerLogEntry(self, type, message):
+        # type 0=item, 1=sub-message, 2=sub-warning
+        self.log.append({'time':time.strftime('%Y-%m-%d %H:%M:%S'),'type':type, 'msg':message})
 
     # TODO
     def saveLog(self,destination):
         logfile = open(destination, 'w')
+        logfile.write('##### Creation Logfile for ' + self.name + ' App-Ensemble #####\n Date: ' + time.strftime('%Y-%m-%d %H:%M:%S') + '\n\n')
+        for line in self.log:
+            if line['type']==1:
+                logfile.write('\t > '+line['msg']+'\n')
+            elif line['type']==2:
+                logfile.write('\t ! '+line['msg']+'\n')
+            else:
+                logfile.write(line['time']+'\t'+line['msg']+'\n')
+        logfile.close()
 
     def _extractRequiredApps(self):
         for e in self.dom.getElementsByTagName('bpmn2:userTask'):
@@ -247,9 +257,8 @@ class GraphFactory():
         self.g.add((self.AENode, RDF.type, AOF['isAppEnsemble']))
         self.g.add((self.AENode, ORCHESTRATION.Name, Literal(self.factory.name)))
 
-        self.factory.registerLogEntry('##### Creation Logfile for ' + self.factory.name + ' App-Ensemble #####\n Date: ' + time.strftime(
-                '%Y-%m-%d %H:%M:%S') + '\n')
-        self.factory.registerLogEntry('### Creating the ttl-data out of XML')
+
+        self.factory.registerLogEntry(0,'Creating the ttl-data out of XML')
 
 
         try:
@@ -266,10 +275,10 @@ class GraphFactory():
             entryPoint=self._getEntryPoint()
             self.g.add((self.AENode, ORCHESTRATION.hasEntryPoint,entryPoint))
 
-            self.factory.registerLogEntry('> ttl-file successfully created\n> bpmn-file successfully created\n')
+            self.factory.registerLogEntry(1,'ttl-file successfully created\n> bpmn-file successfully created\n')
 
         except InconsistentAE as e:
-            self.factory.registerLogEntry('!! ttl-file could not be finished because of: ' + str(e) + '\n')
+            self.factory.registerLogEntry(2,'ttl-file could not be finished because of: ' + str(e))
             self.factory.registerWarning("ttl","TTL-File could not be finished!")
             self.stat=1
         self._saveGraph()
@@ -292,42 +301,44 @@ class ZipFactory():
 
     # TODO What if same appname but other content?
     def _downloadApps(self):
-        self.factory.registerLogEntry('### Downloading the Apps\n')
+        self.factory.registerLogEntry(0,'Downloading the Apps')
         for app in self.factory.required_apps:
             uri = self.ap.get_install_uri(app)
             appname = uri.rsplit('/', 1)[-1]
-            self.factory.registerLogEntry('# App "' + app + '"\n> install uri: ' + uri)
+            self.factory.registerLogEntry(0,'App "' + app + '"')
+            self.factory.registerLogEntry(1,'install uri: ' + uri)
             try:
                 tmp_path = tuple([appname])
                 tmp_path += urlretrieve(uri)
                 self.app_tmp_path.append(tmp_path)
 
-                self.factory.registerLogEntry('> App was succesfully downloaded')
+                self.factory.registerLogEntry(1,'App was succesfully downloaded')
             except URLError:
-                self.factory.registerLogEntry('!! App could not be downloaded')
+                self.factory.registerLogEntry(2,'App could not be downloaded')
                 self.factory.registerWarning("apps","Not all Apps could be downloaded!")
                 self.stat=1
             except ValueError:
-                self.factory.registerLogEntry('!! App could not be found')
+                self.factory.registerLogEntry(2,'App could not be found')
                 self.factory.registerWarning("apps","Not all Apps could be downloaded!")
                 self.stat=1
 
     def create(self):
-        self.factory.registerLogEntry('### Creating the zip-file')
+        self.factory.registerLogEntry(0,'Creating the zip-file')
         self._downloadApps()
         try:
             with ZipFile(self.destination,'w') as myzip:
                 myzip.write(self.factory.tmp_path + ".ttl", "ae.ttl")
-                self.factory.registerLogEntry('> ttl-file successfully written\n')
+                self.factory.registerLogEntry(0,'ttl-file successfully written')
 
                 myzip.write(self.factory.tmp_path + ".bpmn", "ae.bpmn")
-                self.factory.registerLogEntry('> bpmn-file successfully written\n')
+                self.factory.registerLogEntry(0,'bpmn-file successfully written')
 
-                self.factory.registerLogEntry('\n# Copying the Apps\n')
+                self.factory.registerLogEntry(0,'Copying the Apps')
                 for fp in self.app_tmp_path:
                     myzip.write(fp[1], os.path.join('apps', fp[0]))
-                    self.factory.registerLogEntry('> ' + fp[0] + ' successfully copied\n')
-                #myzip.write(filepath + ".log", "log.txt")
+                    self.factory.registerLogEntry(1,fp[0] + ' successfully copied')
+                self.factory.saveLog(self.factory.tmp_path + ".log")
+                myzip.write(self.factory.tmp_path + ".log", "log.txt")
             myzip.close()
         except IOError as e:
             self.resp = "App-Ensemble-File is not writeable!"
