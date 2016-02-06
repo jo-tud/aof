@@ -158,28 +158,28 @@ a:link {
   font-weight: normal;
   font-style: normal;
 }
-/* line 96, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 16, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel {
   background-color: #f8f8f8;
   position: relative;
 }
-/* line 100, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 20, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel:empty {
   display: none;
 }
-/* line 104, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 24, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel label,
 .djs-properties-panel input {
   vertical-align: middle;
 }
-/* line 113, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel input.invalid,
-.djs-properties-panel button.invalid,
-.djs-properties-panel textarea.invalid {
-  border-color: red;
-  background: #ffd1d1;
+/* line 30, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.djs-properties-panel input,
+.djs-properties-panel button,
+.djs-properties-panel textarea {
+  padding: 3px 6px;
+  border: 1px solid #ccc;
 }
-/* line 117, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 36, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel input:focus,
 .djs-properties-panel button:focus,
 .djs-properties-panel textarea:focus {
@@ -187,36 +187,42 @@ a:link {
   border-color: #52B415;
   box-shadow: 0 0 1px 2px rgba(82, 180, 21, 0.2);
 }
-/* line 123, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel input,
-.djs-properties-panel button,
-.djs-properties-panel textarea {
-  padding: 3px 6px;
-  border: 1px solid #ccc;
+/* line 40, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.djs-properties-panel input.invalid,
+.djs-properties-panel button.invalid,
+.djs-properties-panel textarea.invalid {
+  border-color: #cc3333;
+  background: #f0c2c2;
 }
-/* line 131, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 42, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.djs-properties-panel input.invalid:focus,
+.djs-properties-panel button.invalid:focus,
+.djs-properties-panel textarea.invalid:focus {
+  box-shadow: 0 0 1px 2px rgba(204, 51, 51, 0.2);
+}
+/* line 49, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel [type=text],
 .djs-properties-panel textarea,
 .djs-properties-panel select {
   width: 100%;
 }
-/* line 137, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 55, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel textarea {
   min-height: 45px;
   resize: vertical;
 }
-/* line 142, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 60, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel label {
   font-weight: bolder;
   display: inline-block;
   vertical-align: middle;
   color: #666;
 }
-/* line 91, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 71, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
 .djs-properties-panel label[for] {
   cursor: pointer;
 }
-/* line 146, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 64, node_modules\bpmn-js-properties-panel\styles\properties.less */
 .djs-properties-panel button {
   position: absolute;
   top: 0;
@@ -227,11 +233,11 @@ a:link {
   background-color: #f8f8f8;
   border: 1px solid #ccc;
 }
-/* line 71, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 44, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
 .djs-properties-panel button > span {
   display: none;
 }
-/* line 75, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 48, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
 .djs-properties-panel button:before {
   font-family: "bpmn-io-pp";
   font-style: normal;
@@ -239,8 +245,6 @@ a:link {
   speak: none;
   display: inline-block;
   text-decoration: inherit;
-  width: 1em;
-  margin-right: .2em;
   text-align: center;
   font-variant: normal;
   text-transform: none;
@@ -248,232 +252,142 @@ a:link {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  left: -2px;
 }
-/* line 81, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 53, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
+.djs-properties-panel button.add:before {
+  content: '\E803';
+}
+/* line 57, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
+.djs-properties-panel button.clear:before {
+  content: '\E802';
+}
+/* line 61, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
 .djs-properties-panel button:hover {
   color: #52B415;
 }
-/* line 150, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .error-message {
-  color: red;
+/* line 69, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-error-message {
+  color: #cc3333;
 }
-/* line 154, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .hidden {
-  display: none;
-}
-/* line 158, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .pp-row {
+/* line 73, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-row {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-/* line 161, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .pp-row:first-of-type {
+/* line 76, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-row:first-of-type {
   margin-top: 0;
 }
-/* line 164, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .pp-row:last-of-type {
+/* line 79, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-row:last-of-type {
   margin-bottom: 0;
 }
-/* line 169, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .textfield label,
-.djs-properties-panel .textarea label,
-.djs-properties-panel .combobox label {
+/* line 84, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-textfield,
+.pp-textarea {
   margin-bottom: 3px;
 }
-/* line 175, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .radios-group {
+/* line 89, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-radios-group {
   list-style: none;
   padding: 0;
   margin: 0 0 9px 0;
 }
-/* line 180, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .radios-group li {
+/* line 94, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-radios-group .pp-radio-wrapper {
   margin: 6px 0;
 }
-/* line 184, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .radios-group input,
-.djs-properties-panel .radios-group label {
+/* line 98, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-radios-group input,
+.pp-radios-group label {
   vertical-align: middle;
 }
-/* line 189, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .radios-group input {
+/* line 103, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-radios-group input {
   margin-top: 0;
   margin-left: 0;
 }
-/* line 197, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .radios-group input,
-.djs-properties-panel .checkbox input {
+/* line 111, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-radios-group input,
+.pp-checkbox input {
   margin-left: 0;
 }
-/* line 202, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .radios-group label:after,
-.djs-properties-panel .checkbox label:after {
+/* line 116, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-radios-group label:after,
+.pp-checkbox label:after {
   display: none;
 }
-/* line 210, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .textfield [data-action*="clear"],
-.djs-properties-panel .textarea [data-action*="clear"] {
-  top: -22px;
-  right: 0;
+/* line 123, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-textfield input {
+  padding-right: 28px;
 }
-/* line 213, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .textfield [data-action*="clear"]:before,
-.djs-properties-panel .textarea [data-action*="clear"]:before {
-  content: '\E802';
-}
-/* line 220, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox > div > div {
-  overflow: visible;
-  position: relative;
-}
-/* line 225, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox input {
-  position: relative;
-}
-/* line 229, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=toggleOptions] {
-  right: 0;
-}
-/* line 231, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=toggleOptions]:before {
-  transition: transform 0.218s linear;
-  content: '\E801';
-}
-/* line 237, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=clear],
-.djs-properties-panel .combobox [data-action=createNew],
-.djs-properties-panel .combobox [data-action=popUp] {
-  top: -22px;
-}
-/* line 243, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=popUp] {
-  right: 0;
-}
-/* line 245, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=popUp]:before {
-  content: '\E800';
-}
-/* line 250, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=clear] {
-  right: 0px;
-}
-/* line 252, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=clear]:before {
-  content: '\E802';
-}
-/* line 257, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=createNew] {
-  right: 23px;
-}
-/* line 259, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox [data-action=createNew]:before {
-  content: '\E803';
-}
-/* line 264, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox .no-options {
-  margin-top: 3px;
-  color: #666;
-  font-style: italic;
-}
-/* line 270, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox input {
-  width: calc(100% - 23px);
-}
-/* line 274, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: #fff;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.218s linear;
-}
-/* line 284, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox li {
-  display: block;
-  padding: 3px 7px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-top: 0;
-  border-bottom: 1px dotted #ccc;
-  color: #52B415;
-}
-/* line 294, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox li:last-child {
-  border-bottom: 1px solid #ccc;
-}
-/* line 301, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox.open [data-action=toggleOptions]:before {
-  transform: rotateX(180deg);
-}
-/* line 304, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .combobox.open ul {
-  max-height: 200px;
-  overflow: auto;
-}
-/* line 311, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel .djs-properties-group:last-child {
-  padding-bottom: 9px;
-}
-/* line 316, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel > .panel-toggle {
-  position: absolute;
+/* line 127, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-textfield .clear {
+  background: transparent;
+  border: none;
   top: 0;
+  right: 0;
+}
+/* line 136, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-select select {
+  height: 23px;
+}
+/* line 139, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-select button.add {
+  top: -22px;
+  right: 0;
+}
+/* line 145, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.djs-properties-entry {
+  margin-bottom: 9px;
+}
+/* line 147, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.djs-properties-entry .pp-field-wrapper {
+  position: relative;
+}
+/* line 152, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.pp-hidden {
+  display: none;
+}
+/* line 156, node_modules\bpmn-js-properties-panel\styles\properties.less */
+label.pp-hidden {
+  display: none;
+}
+/* line 161, node_modules\bpmn-js-properties-panel\styles\properties.less */
+.djs-properties-static {
+  margin-bottom: 0;
+  margin-top: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  padding: 3px 6px;
+  font: 13.3333px Arial;
   width: 100%;
-  height: 10px;
-  cursor: pointer;
-  z-index: 2;
 }
-/* line 325, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel:hover > .panel-toggle {
-  background-color: #8fc071;
-}
-/* line 330, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel.panel-closed .djs-properties-header {
-  border-bottom: none;
-}
-/* line 333, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel.panel-closed .djs-properties-group {
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  border-top: 0;
-}
-/* line 338, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel.panel-closed .djs-properties-group > div {
-  visibility: hidden;
-}
-/* line 341, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel.panel-closed .djs-properties-group:last-child {
-  padding-bottom: 0;
-}
-/* line 348, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 1, node_modules\bpmn-js-properties-panel\styles\header.less */
 .djs-properties-header {
   padding: 15px;
   padding-bottom: 14px;
   border-bottom: 1px solid #ccc;
 }
-/* line 353, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 6, node_modules\bpmn-js-properties-panel\styles\header.less */
 .djs-properties-header > .label {
   font-size: 120%;
   font-weight: bolder;
 }
-/* line 358, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 11, node_modules\bpmn-js-properties-panel\styles\header.less */
 .djs-properties-header > .search {
   display: none;
   margin-top: 5px;
   position: relative;
 }
-/* line 363, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 16, node_modules\bpmn-js-properties-panel\styles\header.less */
 .djs-properties-header > .search input {
   position: relative;
   border-radius: 15px;
   width: 100%;
   z-index: 1;
 }
-/* line 370, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 23, node_modules\bpmn-js-properties-panel\styles\header.less */
 .djs-properties-header > .search button {
   position: absolute;
   top: 0;
@@ -483,11 +397,11 @@ a:link {
   background-color: transparent;
   z-index: 2;
 }
-/* line 378, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 31, node_modules\bpmn-js-properties-panel\styles\header.less */
 .djs-properties-header > .search button:before {
   content: '\E805';
 }
-/* line 385, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 1, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group {
   padding: 6px 15px 6px 15px;
   position: relative;
@@ -495,11 +409,11 @@ a:link {
   overflow: hidden;
   transition: max-height 0.218s ease-in-out, padding-top 0.218s ease-in-out, padding-bottom 0.218s ease-in-out;
 }
-/* line 394, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 10, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group:empty {
   display: none;
 }
-/* line 398, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 14, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group > .group-toggle {
   position: absolute;
   top: 0;
@@ -509,11 +423,11 @@ a:link {
   cursor: pointer;
   transition: background-color 0.218s linear;
 }
-/* line 406, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 22, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group > .group-toggle:hover {
   background-color: #8fc071;
 }
-/* line 411, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 27, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group > .group-label {
   font-weight: bolder;
   display: inline-block;
@@ -525,19 +439,19 @@ a:link {
   transition: margin 0.218s linear;
   font-style: italic;
 }
-/* line 91, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 71, node_modules\bpmn-js-properties-panel\styles\_mixins.less */
 .djs-properties-group > .group-label[for] {
   cursor: pointer;
 }
-/* line 420, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 36, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group:hover > .group-toggle {
   background-color: #ccc;
 }
-/* line 422, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 38, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group:hover > .group-toggle:hover {
   background-color: #8fc071;
 }
-/* line 427, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 43, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group.group-closed {
   max-height: 20px;
   border-top: none;
@@ -546,226 +460,114 @@ a:link {
   padding-top: 0;
   padding-bottom: 0;
 }
-/* line 435, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 51, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group.group-closed > div {
   visibility: hidden;
 }
-/* line 439, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 55, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group.group-closed > .group-label {
   margin-top: 2px;
   margin-bottom: 2px;
 }
-/* line 444, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 60, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group.group-closed:hover > .group-label {
   color: #52B415;
 }
-/* line 450, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 65, node_modules\bpmn-js-properties-panel\styles\groups.less */
 .djs-properties-group + .djs-properties-group {
   border-top: 1px dotted #ccc;
 }
-/* line 454, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-entry {
-  margin-bottom: 9px;
+/* line 69, node_modules\bpmn-js-properties-panel\styles\groups.less */
+.djs-properties-group:last-child {
+  padding-bottom: 9px;
 }
-/* line 456, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-entry .field-wrapper {
-  position: relative;
-}
-/* line 461, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-hide,
-label.djs-properties-hide {
-  display: none;
-}
-/* line 467, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 2, node_modules\bpmn-js-properties-panel\styles\listeners.less */
 .cam-add-listener > button {
   position: relative;
   margin-left: 10px;
 }
-/* line 470, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.cam-add-listener > button:before {
-  content: '\E803';
-}
-/* line 476, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 8, node_modules\bpmn-js-properties-panel\styles\listeners.less */
 [data-list-entry-container] > .djs-listener-area {
   border: 1px solid #ccc;
   margin: 10px 1px;
   padding: 10px;
 }
-/* line 482, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 14, node_modules\bpmn-js-properties-panel\styles\listeners.less */
 .djs-listener-area {
   position: relative;
 }
-/* line 484, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 16, node_modules\bpmn-js-properties-panel\styles\listeners.less */
 .djs-listener-area > button {
   position: absolute;
-  top: -12px;
-  right: -12px;
+  right: 0;
+  top: 0;
+  border: none;
+  background: none;
 }
-/* line 488, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-listener-area > button:before {
-  content: '\E802';
-}
-/* line 493, node_modules\bpmn-js-properties-panel\styles\properties.less */
+/* line 25, node_modules\bpmn-js-properties-panel\styles\listeners.less */
 .djs-listener-area + .djs-listener-area {
   margin-top: 20px;
 }
-/* line 497, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-static {
-  margin-bottom: 0;
-  margin-top: 0;
-  border: 1px solid #ccc;
-  background-color: white;
-  padding: 3px 6px;
-  font: 13.3333px Arial;
-  width: 100%;
-}
-/* line 1, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  overflow: hidden;
-  z-index: 99;
-  transition: height 0.218s linear;
-}
-/* line 11, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup > .popup,
-.djs-properties-panel-popup > .underlay {
-  display: block;
-}
-/* line 16, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup > .popup {
-  background-color: #f8f8f8;
-  border: none;
-  position: absolute;
-  background-color: #fff;
-  top: 20px;
-  left: 50%;
-  width: 450px;
-  margin-left: -225px;
-}
-@media screen and (min-width: 700px) {
-  /* line 27, node_modules\bpmn-js-properties-panel\styles\popup.less */
-  .djs-properties-panel-popup > .popup {
-    width: 600px;
-    margin-left: -300px;
-  }
-}
-@media screen and (min-width: 1000px) {
-  /* line 32, node_modules\bpmn-js-properties-panel\styles\popup.less */
-  .djs-properties-panel-popup > .popup {
-    width: 900px;
-    margin-left: -450px;
-  }
-}
-/* line 38, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup > .underlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(127, 127, 127, 0.5);
-}
-/* line 47, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup.open {
-  width: 100%;
-  height: 100%;
-}
-/* line 52, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup .popup-header,
-.djs-properties-panel-popup .popup-body,
-.djs-properties-panel-popup .popup-footer {
+/* line 1, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links {
+  margin: 0;
+  padding: 4px 4px 0 4px;
   position: relative;
-  padding: 15px;
+  border-bottom: 1px solid #ccc;
+  background: #ebebeb;
+  height: 31px;
 }
-/* line 58, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup .popup-header:empty,
-.djs-properties-panel-popup .popup-body:empty,
-.djs-properties-panel-popup .popup-footer:empty {
-  /*display: none;*/
-}
-/* line 63, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup .popup-close {
-  position: absolute;
-  top: 0;
-  height: 23px;
-  width: 24px;
+/* line 9, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links > li {
+  display: inline-block;
+  padding: 0;
   overflow: hidden;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: #f8f8f8;
-  top: -12px;
-  right: -12px;
-  border-radius: 50%;
-  z-index: 10;
-  outline: none;
+  margin: 0 4px 0 0;
+  position: relative;
+  bottom: -1px;
 }
-/* line 71, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel-popup .popup-close > span {
+/* line 17, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links > li.pp-hidden {
   display: none;
 }
-/* line 75, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel-popup .popup-close:before {
-  font-family: "bpmn-io-pp";
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
-  display: inline-block;
-  text-decoration: inherit;
-  width: 1em;
-  margin-right: .2em;
-  text-align: center;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  left: -2px;
+/* line 21, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links > li:last-of-type {
+  margin: 0;
 }
-/* line 81, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel-popup .popup-close:hover {
+/* line 26, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links a {
+  display: block;
+  float: left;
+  font-size: 14px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px 3px 0 0;
+  color: #666;
+  background-color: #f8f8f8;
+}
+/* line 36, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links a:hover {
+  color: #4d4d4d;
+  background-color: #f8f8f8;
+}
+/* line 43, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links > li.pp-active a {
+  border-top: 2px solid #52B415;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  border-bottom: none;
   color: #52B415;
 }
-/* line 73, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup .popup-close:before {
-  font-family: "bpmn-io-pp";
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
-  display: inline-block;
-  text-decoration: inherit;
-  width: 1em;
-  margin-right: .2em;
-  text-align: center;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  content: '\E802';
+/* line 49, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+ul.djs-properties-tabs-links > li.pp-active a:hover {
+  color: #3d8610;
 }
-/* line 79, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup .popup-header {
-  font-weight: bolder;
-  display: inline-block;
-  vertical-align: middle;
-  color: #666;
+/* line 56, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+.djs-properties-tab,
+.djs-properties-tab.pp-hidden {
+  display: none;
+}
+/* line 61, node_modules\bpmn-js-properties-panel\styles\tabs.less */
+.djs-properties-tab.pp-active {
   display: block;
-  font-size: 18px;
-  font-weight: bold;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ccc;
-}
-/* line 91, node_modules\bpmn-js-properties-panel\styles\properties.less */
-.djs-properties-panel-popup .popup-header[for] {
-  cursor: pointer;
-}
-/* line 91, node_modules\bpmn-js-properties-panel\styles\popup.less */
-.djs-properties-panel-popup .popup-footer {
-  border-top: 1px solid #ccc;
-  background-color: #f8f8f8;
 }
