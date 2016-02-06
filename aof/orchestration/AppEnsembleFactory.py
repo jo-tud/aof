@@ -74,12 +74,13 @@ class OrchestrationFactory():
 class AppEnsembleFactory():
     def __init__(self,ae):
         #self.participantName=ae["participantName"]
-        self.name=ae["name"]
+        self.name=ae["participantName"]
         self.dom=ae["dom"]
         self.required_apps = []
         self.warnings = {}
         self.log = [];
         self.tmp_path =ae["tmp_path"]   # tmp-path for all ae-files
+
 
         self._extractRequiredApps()
 
@@ -130,7 +131,8 @@ class GraphFactory():
         self.stat=0
         self.resp=""
         self.AENode=URIRef("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
-        self.sf = {}
+        self.sfIn={}
+        self.sfOut={}
 
     def _saveGraph(self):
         output=self.g.serialize(format="turtle")
@@ -148,38 +150,86 @@ class GraphFactory():
             self.g.add((self.AENode, ORCHESTRATION.requiresApp, app))
             self.g = fill_graph_by_subject(ap, self.g, app)
 
-    def _determineSequenceFlows(self):
+    def _analyseStructure(self):
         sf_in = self.factory.dom.getElementsByTagName('bpmn2:incoming')
         sf_out = self.factory.dom.getElementsByTagName('bpmn2:outgoing')
-        sf_tmp = {}
         for flow in sf_out:
-            sf_tmp[flow.firstChild.nodeValue] = flow.parentNode
+            key=self._getNodeId(flow.parentNode)
+            if key not in self.sfOut:
+                self.sfOut[key]=list()
+            self.sfOut[key].append(flow.firstChild.nodeValue)
         for flow in sf_in:
-            self.sf[self._getNodeId(sf_tmp[flow.firstChild.nodeValue])] = flow.parentNode
+            self.sfIn[flow.firstChild.nodeValue]=flow.parentNode
 
     def _getNodeId(self,node):
         return node._attrs['id'].nodeValue
 
-
     # TODO: what if there are more starts?
-    def _getEntryPoint(self):
+    def _getEntryPoint(self,type='url'):
         start = self._getNodeId(self.factory.dom.getElementsByTagName('bpmn2:startEvent')[0])
         #for child in start[0].childNodes:
             #if child.nodeName == 'bpmn2:outgoing':
-        if self.sf[start].nodeName == 'bpmn2:userTask':
-            entryPoint = self.sf[start]
+        if self.sfIn[self.sfOut[start][0]].nodeName == 'bpmn2:userTask':
+            entryPoint = self.sfIn[self.sfOut[start][0]]
             if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
-                if entryPoint.attributes.__contains__('aof:realizedBy'):
-                    return URIRef(entryPoint.attributes['aof:realizedBy'].value)
+                if type=='id':
+                    return self._getNodeId(entryPoint)
+                elif type=='node':
+                    return entryPoint
                 else:
-                    raise InconsistentAE("EntryPoint-App has no URI!")
+                    return self._getTaskUri(entryPoint)
+                    #if entryPoint.attributes.__contains__('aof:realizedBy'):
+                     #   return URIRef(entryPoint.attributes['aof:realizedBy'].value)
+                    #else:
+                     #   raise InconsistentAE("EntryPoint-App has no URI!")
             else:
                 raise InconsistentAE("EntryPoint is no App!")
 
+    def _getTaskUri(self,node,string=False):
+        if node.attributes.__contains__('aof:isAppEnsembleApp'):
+            if node.attributes.__contains__('aof:realizedBy'):
+                if string:
+                    return node.attributes['aof:realizedBy'].value
+                else:
+                    return URIRef(node.attributes['aof:realizedBy'].value)
+            else:
+                raise InconsistentAE("Task has no URI!")
+        else:
+            raise InconsistentAE("Task is no App!")
 
+    def _getInstanceUri(self,node):
+        return URIRef(self._getTaskUri(node,string=True)+"-"+node._attrs['name'].nodeValue.replace(" ","_"))
+
+    def _addAppInstances(self):
+        tasks = self.factory.dom.getElementsByTagName('bpmn2:userTask')
+        for task in tasks:
+            uri=self._getInstanceUri(task)
+            instanceURI=self._getTaskUri(task)
+            self.g.add((uri,RDF.type, ORCHESTRATION.App))
+            self.g.add((uri,RDF.type, ORCHESTRATION.AppRequest))
+            self.g.add((uri,RDF.type, ORCHESTRATION.SelectedApp))
+            self.g.add((uri,RDF.type, instanceURI))
+            self.g.add((uri,ORCHESTRATION.AppRequestName, Literal("")))             # What in here?
+            self.g.add((uri,ORCHESTRATION.DisplayName, Literal(task._attrs['name'].nodeValue)))
+            self.g.add((uri,ORCHESTRATION.Name, Literal(task._attrs['name'].nodeValue)))
+            self.g.add((uri,ORCHESTRATION.instanceOf, instanceURI))
+
+            currentNodeId = self._getNodeId(task)
+            sf_list = self.sfOut[currentNodeId]
+            for sf in sf_list:
+                nextNode = self.sfIn[sf]
+                if 'Task' in nextNode.tagName:
+                    self.g.add((uri, ORCHESTRATION.hasSuccessionType, ORCHESTRATION.OR))
+                    self.g.add((uri, ORCHESTRATION.hasSuccessor, self._getInstanceUri(nextNode)))
+                elif 'Gateway' in nextNode.tagName:
+                    if 'parallelGateway' in nextNode.tagName:
+                        self.g.add((uri, ORCHESTRATION.hasSuccessionType, ORCHESTRATION.AND))
+                    sf_list.extend(self.sfOut[self._getNodeId(nextNode)])
 
     def create(self):
         #AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
+
+        #self.elements=self.factory.dom.getElementsByTagName('bpmn2:startEvent')
 
         self.g.bind("aof", AOF)
         self.g.bind("bpmn2", BPMN2)
@@ -201,23 +251,20 @@ class GraphFactory():
                 '%Y-%m-%d %H:%M:%S') + '\n')
         self.factory.registerLogEntry('### Creating the ttl-data out of XML')
 
-        # Load app descriptions into graph
-        self._bindRequiredApps()
-
-        # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
-        self._determineSequenceFlows()
 
         try:
+             # Load app descriptions into graph
+            self._bindRequiredApps()
+
+            # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
+            self._analyseStructure()
+
+            # Add App instances
+            self._addAppInstances()
             # Determining the Entry Point and binding to the graph otherwise raise exceptions
+
             entryPoint=self._getEntryPoint()
             self.g.add((self.AENode, ORCHESTRATION.hasEntryPoint,entryPoint))
-
-            # TODO go through the graph
-            # maybe switch the sf-dict from sf[from]=to to sf[to]=from and then iter over sf and add the corresponding successor... but waht if successor is not task?
-
-
-            for key in self.sf.iterkeys():
-                pass
 
             self.factory.registerLogEntry('> ttl-file successfully created\n> bpmn-file successfully created\n')
 
@@ -228,7 +275,7 @@ class GraphFactory():
         self._saveGraph()
 
 
-                    # self.g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
+        # self.g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
 
 
         return statusReport(self.stat,self.factory.name+": "+self.resp)
