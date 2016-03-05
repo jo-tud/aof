@@ -208,18 +208,19 @@ class GraphFactory():
             raise InconsistentAE("Task is no App!")
 
     def _getInstanceUri(self,node):
-        return URIRef(self._getTaskUri(node,string=True)+"-"+node._attrs['name'].nodeValue.replace(" ","_"))
+        return URIRef(self._getTaskUri(node,string=True).rstrip('/')+"-"+node._attrs['name'].nodeValue.replace(" ","_"))
 
     def _addAppInstances(self):
         tasks = self.factory.dom.getElementsByTagName('bpmn2:userTask')
+        typeSupportFeature=URIRef('http://www.comvantage.eu/mm#Mobile_IT_support_feature_G')
         for task in tasks:
             uri=self._getInstanceUri(task)
             instanceURI=self._getTaskUri(task)
             self.g.add((uri,RDF.type, ORCHESTRATION.App))
             self.g.add((uri,RDF.type, ORCHESTRATION.AppRequest))
             self.g.add((uri,RDF.type, ORCHESTRATION.SelectedApp))
-            self.g.add((uri,RDF.type, instanceURI))
-            self.g.add((uri,ORCHESTRATION.AppRequestName, Literal("")))             # What in here?
+            self.g.add((uri,RDF.type, typeSupportFeature))
+            self.g.add((uri,ORCHESTRATION.AppRequestName, Literal(task._attrs['name'].nodeValue)))      # What in here?
             self.g.add((uri,ORCHESTRATION.DisplayName, Literal(task._attrs['name'].nodeValue)))
             self.g.add((uri,ORCHESTRATION.Name, Literal(task._attrs['name'].nodeValue)))
             self.g.add((uri,ORCHESTRATION.instanceOf, instanceURI))
