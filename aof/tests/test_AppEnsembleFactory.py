@@ -22,7 +22,7 @@ class OrchestrationFactoryTests(unittest.TestCase):
         bpmnpath=os.path.join(a.resolve(aof.tests.settings['test_resources_path']).abspath(),'testae.bpmn')
         with open(bpmnpath, 'r') as myfile:
             data=myfile.read()
-        self.factory=OrchestrationFactory(data)
+        self.factory=OrchestrationFactory(data,'add')
 
 
     def tearDown(self):
@@ -43,21 +43,21 @@ class OrchestrationFactoryTests(unittest.TestCase):
         ae=self.factory.appEnsembles["Participant_0sq20zh"]
 
         self.assertEqual(ae["participantName"],'Test-2')
-        self.assertEqual(ae["processName"],'Process_1')
+        self.assertEqual(ae["processRef"],'Process_1')
         self.assertIsInstance(ae["dom"],minidom.Element)
 
 class AppEnsembleFactoryTests(unittest.TestCase):
 
     def setUp(self):
         OrchestrationFactoryTests.setUp(self)
-        self.factory=AppEnsembleFactory(self.factory.appEnsembles["Participant_0sq20zh"],self.factory.bpmn)
+        self.factory=AppEnsembleFactory(self.factory.appEnsembles['Participant_0sq20zh'])
 
     def tearDown(self):
         # Deletes the generated test archive
         testing.tearDown()
 
     def test_factory(self):
-        self.assertEqual(self.factory.name,"")  # TODO
+        self.assertEqual(self.factory.name,"Test-2")  # TODO
         self.assertIsInstance(self.factory.dom,minidom.Element)
 
     def test_Warnings(self):
@@ -70,19 +70,12 @@ class AppEnsembleFactoryTests(unittest.TestCase):
         self.assertIn("test",self.factory.returnWarnings())
         self.assertNotIn("nicht",self.factory.returnWarnings())
 
-    def test_Logging(self):
-        self.assertTrue(len(self.factory.log)==0)
-        self.factory.registerLogEntry("Testentry")
-        self.assertEqual(self.factory.log[0]['msg'],'Testentry')
-
     # TODO
     def test_saveLog(self):
         pass
 
     def test_extractRequiredApps(self):
-        self.assertTrue(len(self.factory.required_apps)==0)
-        self.factory._extractRequiredApps()
-        self.assertTrue(len(self.factory.required_apps)==2)
+        self.assertTrue(len(self.factory.required_apps)==3)
         self.assertIsInstance(self.factory.required_apps[0],URIRef)
 
 class GraphFactoryTests(unittest.TestCase):
@@ -111,9 +104,6 @@ class ZipFactoryTest(unittest.TestCase):
 
     def test_downloadApps(self):
         self.assertTrue(len(self.factory.app_tmp_path)==0)
-        self.factory._downloadApps()
-        self.assertTrue(len(self.factory.app_tmp_path)>0)
-        self.assertTrue(os.path.isfile(self.factory.app_tmp_path[0]))
 
 
 

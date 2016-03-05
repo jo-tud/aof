@@ -144,9 +144,6 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertTrue(int(response['number_of_ae']) > 0, 'Home View:AppEnsembles are not initialized correctly!')
         self.assertIsInstance(response['number_of_ae'], str, 'Home View: Number of AppEnsembles is not a string!')
 
-        self.assertTrue(int(response['unique_triples']) > 0, 'Home View:Unique Triples are not initialized correctly!')
-        self.assertIsInstance(response['unique_triples'], str, 'Home View: Number of Unique Triples is not a string!')
-
         self._standard_tests(response)
 
 
@@ -180,7 +177,7 @@ class IntegrationViewTests(unittest.TestCase):
         test_views["AppPoolViews"]=list()
 
         test_views["AppEnsembleViews"].append({'view': "page_details", 'ignore_test': []})
-        test_views["AppEnsembleViews"].append({'view': "page_visualize_bpm", 'ignore_test': []})
+        test_views["AppEnsembleViews"].append({'view': "page_view_bpm", 'ignore_test': []})
         test_views["AppEnsembleViews"].append({'view': "action_get_bpmn_data", 'ignore_test': ["_tooMuchURI_butOK_test"]})
         test_views["AppEnsembleViews"].append({'view': "action_get_ae_pkg", 'ignore_test': ["_tooMuchURI_butOK_test"]})
 
@@ -284,8 +281,8 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params.add('URI', 'testAppEnsemble')
 
         response = AppEnsembleViews(self.context, self.request).page_view_bpm()
-        self.assertEqual(response['ae_uri'], URIRef('testAppEnsemble'))
-        self.assertEqual(response['ae_has_bpmn'], True)
+        self.assertEqual(response['mode'], 'view')
+        self.assertNotEqual(response['urlencodedXML'], '')
         self._standard_tests(response)
 
     def test_ae_get_bpmn_view(self):
