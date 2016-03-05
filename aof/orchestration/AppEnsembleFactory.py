@@ -12,35 +12,44 @@ from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from pyramid.response import Response
 from pyramid.threadlocal import get_current_registry
+import random,string
 
 AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
 BPMN2 = Namespace('http://dkm.fbk.eu/index.php/BPMN2_Ontology#')
 ORCHESTRATION = Namespace('http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#')
 
 class OrchestrationFactory():
-    def __init__(self, bpmnxml):
+    def __init__(self, bpmnxml,mode):
+        self.mode=mode
         self.bpmn = bpmnxml
         self.dom = parseString(bpmnxml)
         self.appEnsembles = {}
         self._extractAppEnsembles()
+
+
 
     def _extractAppEnsembles(self):
         participants = self.dom.getElementsByTagName('bpmn2:participant')
         for p in participants:
             if (p.getAttribute('aof:isAppEnsemble')):
                 try:
-                    self.appEnsembles[p.getAttribute('id')] = {}
-                    self.appEnsembles[p.getAttribute('id')]["participantName"] = p.getAttribute('name').replace(" ","-")
-                    name=p.getAttribute('processRef')
-                    self.appEnsembles[p.getAttribute('id')]["name"] = name
-                    self.appEnsembles[p.getAttribute('id')]["tmp_path"]=AssetResolver().resolve('aof:tmp/ae-trash/'+name).abspath()
+                    id=p.getAttribute('id')
+                    self.appEnsembles[id] = {}
+                    self.appEnsembles[id]["participantName"] = p.getAttribute('name').replace(" ","-")
+                    registry = get_current_registry()
+                    self.appEnsembles[id]["destination"]=AssetResolver().resolve('{}/{}.ae'.format(registry.settings['app_ensemble_folder'],self.appEnsembles[id]["participantName"])).abspath()
+                    rand=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+                    self.appEnsembles[id]["processRef"] = p.getAttribute('processRef')
+                    self.appEnsembles[id]["tmp_path"]=AssetResolver().resolve('aof:tmp/ae-trash/'+self.appEnsembles[id]["participantName"]+'-'+rand).abspath()
+                    if os.path.isfile(self.appEnsembles[id]["destination"]) and self.mode !='edit':
+                        self.appEnsembles[id]["destination"]=AssetResolver().resolve('{}/{}-{}.ae'.format(registry.settings['app_ensemble_folder'],self.appEnsembles[id]["participantName"],rand)).abspath()
                 except:
                     pass
         processes = self.dom.getElementsByTagName('bpmn2:process')
         for p in processes:
             id = p.attributes['id'].nodeValue
             for ae in self.appEnsembles:
-                if self.appEnsembles[ae]["name"] == id:
+                if self.appEnsembles[ae]["processRef"] == id:
                     self.appEnsembles[ae]["dom"] = p
 
     def _saveBpmn(self,path):
@@ -80,6 +89,7 @@ class AppEnsembleFactory():
         self.warnings = {}
         self.log = [];
         self.tmp_path =ae["tmp_path"]   # tmp-path for all ae-files
+        self.destination=ae["destination"]
 
 
         self._extractRequiredApps()
@@ -100,7 +110,6 @@ class AppEnsembleFactory():
         # type 0=item, 1=sub-message, 2=sub-warning
         self.log.append({'time':time.strftime('%Y-%m-%d %H:%M:%S'),'type':type, 'msg':message})
 
-    # TODO
     def saveLog(self,destination):
         logfile = open(destination, 'w')
         logfile.write('##### Creation Logfile for ' + self.name + ' App-Ensemble #####\n Date: ' + time.strftime('%Y-%m-%d %H:%M:%S') + '\n\n')
@@ -208,21 +217,27 @@ class GraphFactory():
             raise InconsistentAE("Task is no App!")
 
     def _getInstanceUri(self,node):
-        return URIRef(self._getTaskUri(node,string=True).rstrip('/')+"-"+node._attrs['name'].nodeValue.replace(" ","_"))
+        uriref=self._getTaskUri(node,string=True).rstrip('/')+"-"+node._attrs['name'].nodeValue.replace(" ","_")
+        return URIRef(uriref)
 
     def _addAppInstances(self):
         tasks = self.factory.dom.getElementsByTagName('bpmn2:userTask')
         typeSupportFeature=URIRef('http://www.comvantage.eu/mm#Mobile_IT_support_feature_G')
         for task in tasks:
+            try:
+                nodename=task._attrs['name'].nodeValue
+            except:
+                nodename=task._attrs['id'].nodeValue
+                task._attrs['name']=task._attrs['id']
             uri=self._getInstanceUri(task)
             instanceURI=self._getTaskUri(task)
             self.g.add((uri,RDF.type, ORCHESTRATION.App))
             self.g.add((uri,RDF.type, ORCHESTRATION.AppRequest))
             self.g.add((uri,RDF.type, ORCHESTRATION.SelectedApp))
             self.g.add((uri,RDF.type, typeSupportFeature))
-            self.g.add((uri,ORCHESTRATION.AppRequestName, Literal(task._attrs['name'].nodeValue)))      # What in here?
-            self.g.add((uri,ORCHESTRATION.DisplayName, Literal(task._attrs['name'].nodeValue)))
-            self.g.add((uri,ORCHESTRATION.Name, Literal(task._attrs['name'].nodeValue)))
+            self.g.add((uri,ORCHESTRATION.AppRequestName, Literal(nodename)))      # What in here?
+            self.g.add((uri,ORCHESTRATION.DisplayName, Literal(nodename)))
+            self.g.add((uri,ORCHESTRATION.Name, Literal(nodename)))
             self.g.add((uri,ORCHESTRATION.instanceOf, instanceURI))
 
             currentNodeId = self._getNodeId(task)
@@ -295,8 +310,6 @@ class ZipFactory():
         self.factory = factory
         self.ap=AppPool.Instance()
         self.app_tmp_path=[]
-        registry = get_current_registry()
-        self.destination=AssetResolver().resolve('{}/{}.ae'.format(registry.settings['app_ensemble_folder'],self.factory.name)).abspath()
         self.stat=0
         self.resp=""
 
@@ -327,7 +340,7 @@ class ZipFactory():
         self.factory.registerLogEntry(0,'Creating the zip-file')
         self._downloadApps()
         try:
-            with ZipFile(self.destination,'w') as myzip:
+            with ZipFile(self.factory.destination,'w') as myzip:
                 myzip.write(self.factory.tmp_path + ".ttl", "ae.ttl")
                 self.factory.registerLogEntry(0,'ttl-file successfully written')
 

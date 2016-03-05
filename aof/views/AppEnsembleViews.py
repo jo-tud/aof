@@ -65,11 +65,17 @@ class AppEnsembleViews(PageViews):
 
         from aof.orchestration.AppEnsembleFactory import OrchestrationFactory
 
+        if self.request.params.has_key('mode') and self.request.params.getone('mode')!="":
+            mode=self.request.params.getone('mode')
+        else:
+            mode=''
+
         if self.request.params.has_key('data') and self.request.params.getone('data')!="":
-            response=OrchestrationFactory(self.request.params.getone('data')).create()
+            response=OrchestrationFactory(self.request.params.getone('data'),mode).create()
             self.pool.reload()
         else:
             response=Response("There was no data attached!","400 Bad Request")
+
 
         return response
 
