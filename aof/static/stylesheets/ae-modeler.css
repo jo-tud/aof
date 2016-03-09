@@ -150,6 +150,10 @@ a:link {
   padding-bottom: 70px;
   min-height: 100%;
 }
+/* line 139, app/stylesheets/app.less */
+.djs-palette div[data-group="aof"] {
+  background-color: rgba(31, 35, 131, 0.1);
+}
 /* Imports */
 @font-face {
   font-family: 'bpmn-js-pp';
@@ -718,4 +722,8 @@ ul.djs-properties-tabs-links > li.pp-active a {
 /* line 88, node_modules\bpmn-js-properties-panel\styles\tabs.less */
 .djs-properties-tab.pp-active {
   display: block;
+}
+
+#js-drop-zone{
+  height:90%;
 }

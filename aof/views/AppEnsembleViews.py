@@ -69,8 +69,11 @@ class AppEnsembleViews(PageViews):
             mode=self.request.params.getone('mode')
         else:
             mode=''
+        if self.request.params.has_key('del') and self.request.params.getone('del')!="":
+            self.helper_delete_ae(self.request.params.getone('del'))
 
         if self.request.params.has_key('data') and self.request.params.getone('data')!="":
+            self.api_action_ae_delete();
             response=OrchestrationFactory(self.request.params.getone('data'),mode).create()
             self.pool.reload()
         else:
@@ -118,7 +121,8 @@ class AppEnsembleViews(PageViews):
         """
         custom_args={
             'mode':"",
-            'urlencodedXML':""
+            'urlencodedXML':"",
+            'uri':""
         }
         self._setTitle('Create App-Ensemble')
         return self._returnCustomDict(custom_args)
@@ -134,7 +138,8 @@ class AppEnsembleViews(PageViews):
         ae = self.pool.get_AppEnsemble(self.uri)
         custom_args={
             'mode':"edit",
-            'urlencodedXML':quote(ae.get_bpm())
+            'urlencodedXML':quote(ae.get_bpm()),
+            'uri':self.uri
         }
         self._setTitle('App-Ensemble Details | Edit BPMN')
         return self._returnCustomDict(custom_args)
@@ -194,15 +199,25 @@ class AppEnsembleViews(PageViews):
         Moves the App-Ensemble into tmp-folder
         :return: Response-Object
         """
+        resp=self.helper_delete_ae(self.uri)
+        self.pool.reload()
+        return Response(resp)
+
+    def helper_delete_ae(self,uri):
         a=AssetResolver()
-        ae_filename='{}.ae'.format(self.uri)
+        ae_filename='{}.ae'.format(uri)
         source=a.resolve(os.path.join(self.request.registry.settings['app_ensemble_folder'],ae_filename)).abspath()
         dest=a.resolve(os.path.join('aof:tmp','ae-trash',ae_filename)).abspath()
         i=0
         while(os.path.isfile(dest)):
             i+=1
-            dest=a.resolve(os.path.join('aof:tmp','ae-trash','{}-{}.ae'.format(self.uri,i))).abspath()
-        shutil.move(source,dest)
-        resp="The App-Ensemble was moved into the trash and will be deleted at next System startup."
-        self.pool.reload()
-        return Response(resp)
+            dest=a.resolve(os.path.join('aof:tmp','ae-trash','{}-{}.ae'.format(uri,i))).abspath()
+        try:
+            shutil.move(source,dest)
+            resp="The App-Ensemble was moved into the trash and will be deleted at next System startup."
+            stat="0"
+        except:
+            resp="The Name of the App-Ensembe has changed. Please close the current App-Ensemble!"
+            stat="1"
+
+        return {'resp':resp,'stat':stat}

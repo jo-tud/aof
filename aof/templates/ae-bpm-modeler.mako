@@ -38,6 +38,7 @@
      <script type="text/javascript">
         var urlencodedXML = "${urlencodedXML}";
         var mode = "${mode}";
+        var del="${uri}";
     </script>
     <!-- viewer -->
     <script src="/static/js/ae-modeler.js"></script>
