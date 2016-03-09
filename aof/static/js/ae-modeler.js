@@ -73536,7 +73536,7 @@ module.exports = {
 
 var  forEach = require('lodash/collection/forEach');
 
-function UserTaskCreationListener(eventBus,canvas,elementRegistry) {
+function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
 
 
 // you may hook into any of the following events
@@ -73594,6 +73594,48 @@ function UserTaskCreationListener(eventBus,canvas,elementRegistry) {
 
     });
 
+    eventBus.on('element.hover', function(event) {
+        var shape = elementRegistry.get(event.element.id);
+        if(event.element.businessObject.$type=="bpmn:UserTask") {
+            if (!!event.element.businessObject['$attrs']['aof:realizedBy']) {
+                var html=buildTooptip('This is a UserTask realized by an App')
+            }
+            else{
+                var html=buildTooptip('This is a UserTask without an App. Please assign an App!')
+            }
+            overlays.add(event.element, {
+                id:'overlay-'+shape.id,
+                position: {
+                    top: shape.height+15,
+                    right: 20
+                },
+                html: html
+            });
+        }
+        else if(event.element.businessObject.$type=="bpmn:Participant"){
+            if(event.element.businessObject['isAppEnsemble']){
+                overlays.add(event.element, {
+                    id:'overlay-'+shape.id,
+                    position: {
+                        top: shape.height+15,
+                        right: 20
+                    },
+                    html: buildTooptip('This is an Participant marked as AppEnsemble!')
+                });
+            }
+        }
+    });
+    eventBus.on('element.out', function(event) {
+        var shape = elementRegistry.get(event.element.id);
+        if(event.element.businessObject.$type=="bpmn:UserTask" || (event.element.businessObject.$type=="bpmn:Participant" && event.element.businessObject['isAppEnsemble'])) {
+            overlays.remove({element:shape.id});
+        }
+    });
+
+    function buildTooptip(text){
+         return '<span class="tooltip" style="display: block; min-width: 150px;">'+text+'<span class="nub"></span></span>';
+    }
+
     function markAsAppEnsemble(element){
         canvas.addMarker(element.id, 'color-appensemble');
     }
@@ -73601,7 +73643,7 @@ function UserTaskCreationListener(eventBus,canvas,elementRegistry) {
 
 
 
-UserTaskCreationListener.$inject = [ 'eventBus','canvas','elementRegistry'];
+UserTaskCreationListener.$inject = [ 'eventBus','canvas','elementRegistry','overlays'];
 
 module.exports = UserTaskCreationListener;
 
@@ -88841,8 +88883,7 @@ function RealizedByProps(group, element, eventBus,appManager) {
                 link.id="realizedByLink";
                 link.target="_blank";
                 domClasses(link).remove('pp-error-message');
-
-                if(link.href=="custom" || link.href=="" || link.href==link.baseUrl) return true;
+                if(link.href=="custom" || link.href=="" || link.href==link.baseURI) return true;
                 else return false;
             }
         });
