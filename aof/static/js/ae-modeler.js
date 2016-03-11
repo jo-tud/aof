@@ -73594,7 +73594,7 @@ function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
 
     });
 
-    eventBus.on('element.hover', function(event) {
+    eventBus.on('element.changed', function(event) {
         var shape = elementRegistry.get(event.element.id);
         if(event.element.businessObject.$type=="bpmn:UserTask") {
             if (!!event.element.businessObject['$attrs']['aof:realizedBy']) {
@@ -73603,7 +73603,7 @@ function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
             else{
                 var html=buildTooptip('This is a UserTask without an App. Please assign an App!')
             }
-            overlays.add(event.element, {
+            overlays.add(event.element,'aofTooltip', {
                 id:'overlay-'+shape.id,
                 position: {
                     top: shape.height+15,
@@ -73614,7 +73614,7 @@ function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
         }
         else if(event.element.businessObject.$type=="bpmn:Participant"){
             if(event.element.businessObject['isAppEnsemble']){
-                overlays.add(event.element, {
+                overlays.add(event.element,'aofTooltip', {
                     id:'overlay-'+shape.id,
                     position: {
                         top: shape.height+15,
@@ -73624,13 +73624,18 @@ function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
                 });
             }
         }
+
     });
-    eventBus.on('element.out', function(event) {
+
+    eventBus.on('element.out',removeOverlay);
+
+    function removeOverlay (event) {
         var shape = elementRegistry.get(event.element.id);
         if(event.element.businessObject.$type=="bpmn:UserTask" || (event.element.businessObject.$type=="bpmn:Participant" && event.element.businessObject['isAppEnsemble'])) {
-            overlays.remove({element:shape.id});
+            overlays.remove({type:'aofTooltip'});//element:shape.id});
         }
-    });
+    }
+
 
     function buildTooptip(text){
          return '<span class="tooltip" style="display: block; min-width: 150px;">'+text+'<span class="nub"></span></span>';
