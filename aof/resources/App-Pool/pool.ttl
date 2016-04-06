@@ -21,7 +21,7 @@
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDNFCTagReader/lastSuccessfulBuild/artifact/TUDNFCTagReader.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPlantSelector/lastSuccessfulBuild/artifact/TUDPlantSelector.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDPOIMap/lastSuccessfulBuild/artifact/TUDPOIMap/TUDPOIMap.ttl" ;
-	aof:hasAppDescription "apps/TUDRoutingApp.ttl" ;
+	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDRoutingApp/lastSuccessfulBuild/artifact/TUDRoutingApp/TUDRoutingApp.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSensorSelection/lastSuccessfulBuild/artifact/TUDSensorSelection.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/TUDSimpleList.ttl" ;
 	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/TUDSimpleMessage.ttl" ;
