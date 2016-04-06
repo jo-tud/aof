@@ -127,8 +127,10 @@ else {
                         $.when($('.alert-box').fadeOut(500))
                             .done(function () {
                                 $('.alert-box').remove();
-                                window.onbeforeunload=null;
-                                window.location.href = window.location.href.replace(/app-ensembles\/(.*$)/i,"app-ensembles/"+$('#js-save-appensemble').attr('reload')+"/edit.html")
+                                if(!!$('#js-save-appensemble').attr('reload')) {
+                                    window.onbeforeunload = null;
+                                    window.location.href = window.location.href.replace(/app-ensembles\/(.*$)/i, "app-ensembles/" + $('#js-save-appensemble').attr('reload') + "/edit.html")
+                                }
                             });
                     }, 2000);
                 },
