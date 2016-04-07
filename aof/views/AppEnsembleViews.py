@@ -201,7 +201,7 @@ class AppEnsembleViews(PageViews):
         """
         resp=self.helper_delete_ae(self.uri)
         self.pool.reload()
-        return Response(resp)
+        return Response(resp["resp"])
 
     def helper_delete_ae(self,uri):
         a=AssetResolver()

@@ -23,8 +23,12 @@ class OrchestrationFactory():
         self.bpmn = bpmnxml
         self.dom = parseString(bpmnxml)
         self.appEnsembles = {}
+        self.required_apps = []
+        self.warnings = {}
+        self.log = [];
+        self.rand=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+        self.tmp_path=AssetResolver().resolve('aof:tmp/ae-trash/'+self.rand).abspath()
         self._extractAppEnsembles()
-
 
 
     def _extractAppEnsembles(self):
@@ -34,22 +38,25 @@ class OrchestrationFactory():
                 try:
                     id=p.getAttribute('id')
                     self.appEnsembles[id] = {}
-                    self.appEnsembles[id]["participantName"] = p.getAttribute('name').replace(" ","-")
-                    registry = get_current_registry()
-                    self.appEnsembles[id]["destination"]=AssetResolver().resolve('{}/{}.ae'.format(registry.settings['app_ensemble_folder'],self.appEnsembles[id]["participantName"])).abspath()
-                    rand=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+                    self.appEnsembles[id]["name"] = p.getAttribute('name').replace(" ","-")
                     self.appEnsembles[id]["processRef"] = p.getAttribute('processRef')
-                    self.appEnsembles[id]["tmp_path"]=AssetResolver().resolve('aof:tmp/ae-trash/'+self.appEnsembles[id]["participantName"]+'-'+rand).abspath()
-                    if os.path.isfile(self.appEnsembles[id]["destination"]) and self.mode !='edit':
-                        self.appEnsembles[id]["destination"]=AssetResolver().resolve('{}/{}-{}.ae'.format(registry.settings['app_ensemble_folder'],self.appEnsembles[id]["participantName"],rand)).abspath()
+                    rand=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
+                    self.appEnsembles[id]["tmp_path"]=AssetResolver().resolve('aof:tmp/ae-trash/'+rand).abspath()
                 except:
                     pass
+        ks = list(self.appEnsembles)
+        self.name=self.appEnsembles[ks[0]]["name"]
+        self.AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.name)
         processes = self.dom.getElementsByTagName('bpmn2:process')
         for p in processes:
             id = p.attributes['id'].nodeValue
             for ae in self.appEnsembles:
                 if self.appEnsembles[ae]["processRef"] == id:
                     self.appEnsembles[ae]["dom"] = p
+                    self.appEnsembles[ae]["requiredApps"]=self._extractRequiredApps(p)
+        for id in self.appEnsembles:
+            self.appEnsembles[id]["aenode"]=URIRef("ae:"+self.appEnsembles[id]["name"])
+            self.appEnsembles[id]["graph"] = ConjunctiveGraph(store=IOMemory(), identifier=self.appEnsembles[id]["aenode"])
 
     def _saveBpmn(self,path):
         try:
@@ -62,13 +69,40 @@ class OrchestrationFactory():
 
     def create(self):
         text=""
-        status=0
-        resp=Response("Orchestration sucessfully created!","201 Created")
+        graphStatus=statusReport(0)
+        store=IOMemory()
+
         for ae in self.appEnsembles:
-            self._saveBpmn(self.appEnsembles[ae]["tmp_path"])
-            response=AppEnsembleFactory(self.appEnsembles[ae]).create()
-            text+=response.response+"\n"
-            status +=response.status
+            self._saveBpmn(self.tmp_path)
+            gf=GraphFactory(self,self.appEnsembles[ae])
+            graphStatustmp=gf.create()
+            graphStatus=statusReport(graphStatus.status+graphStatustmp.status,graphStatus.response+graphStatustmp.response)
+            store.add_graph(gf.g)
+        if len(self.appEnsembles)>1:
+            trigGraph=ConjunctiveGraph(store=store)
+            output=trigGraph.serialize(format="trig")
+            try:
+                file = open((self.tmp_path+".trig"), 'wb')
+                file.write(output)
+                file.close()
+            except:
+                self.resp = "trig-File is not writeable!"
+                self.stat = 1
+
+        zipStatus=ZipFactory(self).create(len(self.appEnsembles))
+        Status=graphStatus.status+zipStatus.status
+
+        if(Status==0):
+            response= statusReport(0)
+        elif(Status<=2):
+            response= statusReport(1,self.returnWarnings())
+        elif(graphStatus==3):
+            response= graphStatus
+        else:
+            response= zipStatus
+
+        text+=response.response+"\n"
+        status =response.status
 
         if(status==0):
             return Response("Orchestration sucessfully created!","201 Created")
@@ -76,19 +110,6 @@ class OrchestrationFactory():
             return Response("Orchestration sucessfully created!"+text,"201 Created")
         else:
             return Response(text,"500 Internal Server Error")
-
-class AppEnsembleFactory():
-    def __init__(self,ae):
-        #self.participantName=ae["participantName"]
-        self.name=ae["participantName"]
-        self.dom=ae["dom"]
-        self.required_apps = []
-        self.warnings = {}
-        self.log = [];
-        self.tmp_path =ae["tmp_path"]   # tmp-path for all ae-files
-        self.destination=ae["destination"]
-
-        self._extractRequiredApps()
 
     def registerWarning(self, part, message):
         self.warnings[part] = message
@@ -118,42 +139,31 @@ class AppEnsembleFactory():
                 logfile.write(line['time']+'\t'+line['msg']+'\n')
         logfile.close()
 
-    def _extractRequiredApps(self):
-        for e in self.dom.getElementsByTagName('bpmn2:userTask'):
+    def _extractRequiredApps(self,dom):
+        required_apps=[]
+        for e in dom.getElementsByTagName('bpmn2:userTask'):
             if e.getAttribute('aof:isAppEnsembleApp') == 'true':
                 uri = e.getAttribute('aof:realizedBy')
                 if uri != "":
-                    self.required_apps.append(URIRef(uri))
+                    required_apps.append(URIRef(uri))
+        return required_apps
 
-    def create(self):
-        graphStatus=GraphFactory(self).create()
-        zipStatus=ZipFactory(self).create()
-        Status=graphStatus.status+zipStatus.status
-        if(Status==0):
-            return statusReport(0)
-        elif(Status<=2):
-            return statusReport(1,self.returnWarnings())
-        elif(graphStatus==3):
-            return graphStatus
-        else:
-            return zipStatus
+
 
 class GraphFactory():
-    def __init__(self,factory):
+    def __init__(self,factory,appEnsemble):
         self.factory = factory
-        self.g = ConjunctiveGraph(store=IOMemory(), identifier=self.factory.name)
+        self.ae=appEnsemble
+        self.g = self.ae["graph"]
         self.stat=0
         self.resp=""
-        self.AENode=URIRef("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
-        self.sfIn={}
-        self.sfOut={}
-        self.AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
-        self.elements = self.factory.dom.getElementsByTagName('*')
+        self.AENode=self.ae["aenode"]
+        self.elements = self.ae["dom"].getElementsByTagName('*')
 
     def _saveGraph(self):
         output=self.g.serialize(format="turtle")
         try:
-            file = open((self.factory.tmp_path+".ttl"), 'wb')
+            file = open((self.ae["tmp_path"]+".ttl"), 'wb')
             file.write(output)
             file.close()
         except:
@@ -162,12 +172,12 @@ class GraphFactory():
 
     def _bindRequiredApps(self):
         ap = AppPool.Instance()
-        for app in self.factory.required_apps:
+        for app in self.ae["requiredApps"]:
             self.g.add((self.AENode, AOF.requiresApp, app))
             self.g = fill_graph_by_subject(ap, self.g, app)
 
     def _setEntryPoints(self,type='url'):
-        starts = self.factory.dom.getElementsByTagName('bpmn2:startEvent')
+        starts = self.ae["dom"].getElementsByTagName('bpmn2:startEvent')
         for start in starts:
              self.g.add((self.AENode, AOF.hasEntryPoint,URIRef('ae:'+start._attrs['id'].nodeValue)))
 
@@ -186,7 +196,7 @@ class GraphFactory():
 
     def _addAppInstances(self):
 
-        tasks = self.factory.dom.getElementsByTagName('bpmn2:userTask')
+        tasks = self.ae["dom"].getElementsByTagName('bpmn2:userTask')
 
         for task in tasks:
             nid=task._attrs['id'].nodeValue
@@ -232,7 +242,7 @@ class GraphFactory():
             self.g.add((node,RDF.type, URIRef(BPMN2+gateway.localName)))
             children=gateway.getElementsByTagName('*')
             for child in children:
-                self.g.add((node,URIRef(child.nodeName), URIRef("ae:"+child.firstChild.nodeValue) ))
+                self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
 
     def _addSequenceFlowInstances(self):
         regex=re.compile("^(.*sequenceFlow.*)$")
@@ -261,11 +271,11 @@ class GraphFactory():
 
         self.g.bind("aof", AOF)
         self.g.bind("bpmn2", BPMN2)
-        self.g.bind("ae", self.AE)
+        self.g.bind("ae", self.factory.AE)
 
         # add App-Ensemble
         self.g.add((self.AENode, RDF.type, AOF.isAppEnsemble))
-        self.g.add((self.AENode, AOF.Name, Literal(self.factory.name)))
+        self.g.add((self.AENode, AOF.Name, Literal(self.ae["name"])))
 
         self.factory.registerLogEntry(0,'Creating the ttl-data out of XML')
 
@@ -290,7 +300,7 @@ class GraphFactory():
             self.stat=1
         self._saveGraph()
 
-        return statusReport(self.stat,self.factory.name+": "+self.resp)
+        return statusReport(self.stat,self.ae["name"]+": "+self.resp)
 
 class ZipFactory():
     def __init__(self, factory):
@@ -303,33 +313,49 @@ class ZipFactory():
     # TODO What if same appname but other content?
     def _downloadApps(self):
         self.factory.registerLogEntry(0,'Downloading the Apps')
-        for app in self.factory.required_apps:
-            uri = self.ap.get_install_uri(app)
-            appname = uri.rsplit('/', 1)[-1]
-            self.factory.registerLogEntry(0,'App "' + app + '"')
-            self.factory.registerLogEntry(1,'install uri: ' + uri)
-            try:
-                tmp_path = tuple([appname])
-                tmp_path += urlretrieve(uri)
-                self.app_tmp_path.append(tmp_path)
+        for ae in self.factory.appEnsembles:
+            for app in self.factory.appEnsembles[ae]["requiredApps"]:
+                uri = self.ap.get_install_uri(app)
+                appname = uri.rsplit('/', 1)[-1]
+                self.factory.registerLogEntry(0,'App "' + app + '"')
+                self.factory.registerLogEntry(1,'install uri: ' + uri)
+                try:
+                    tmp_path = tuple([appname])
+                    tmp_path += urlretrieve(uri)
+                    self.app_tmp_path.append(tmp_path)
 
-                self.factory.registerLogEntry(1,'App was succesfully downloaded')
-            except URLError:
-                self.factory.registerLogEntry(2,'App could not be downloaded')
-                self.factory.registerWarning("apps","Not all Apps could be downloaded!")
-                self.stat=1
-            except ValueError:
-                self.factory.registerLogEntry(2,'App could not be found')
-                self.factory.registerWarning("apps","Not all Apps could be downloaded!")
-                self.stat=1
+                    self.factory.registerLogEntry(1,'App was succesfully downloaded')
+                except URLError:
+                    self.factory.registerLogEntry(2,'App could not be downloaded')
+                    self.factory.registerWarning("apps","Not all Apps could be downloaded!")
+                    self.stat=1
+                except ValueError:
+                    self.factory.registerLogEntry(2,'App could not be found')
+                    self.factory.registerWarning("apps","Not all Apps could be downloaded!")
+                    self.stat=1
 
-    def create(self):
+    def create(self,len=1):
         self.factory.registerLogEntry(0,'Creating the zip-file')
         self._downloadApps()
+        registry = get_current_registry()
+        destination=AssetResolver().resolve('{}/{}.ae'.format(registry.settings['app_ensemble_folder'],self.factory.name)).abspath()
+        if os.path.isfile(destination) and self.factory.mode !='edit':
+            destination=AssetResolver().resolve('{}/{}-{}.ae'.format(registry.settings['app_ensemble_folder'],self.factory.name,self.factory.rand)).abspath()
         try:
-            with ZipFile(self.factory.destination,'w') as myzip:
-                myzip.write(self.factory.tmp_path + ".ttl", "ae.ttl")
-                self.factory.registerLogEntry(0,'ttl-file successfully written')
+
+
+            with ZipFile(destination,'w') as myzip:
+                if len>1:
+                    multiplier=0
+                    myzip.write(self.factory.tmp_path + ".trig", "ae.trig")
+                    self.factory.registerLogEntry(0,'ttl-file successfully written')
+                else:
+                    multiplier=""
+                for ae in self.factory.appEnsembles:
+                    if len>1:
+                        multiplier+=1
+                    myzip.write(self.factory.appEnsembles[ae]["tmp_path"] + ".ttl", "ae"+str(multiplier)+".ttl")
+                    self.factory.registerLogEntry(0,'ttl-file successfully written')
 
                 myzip.write(self.factory.tmp_path + ".bpmn", "ae.bpmn")
                 self.factory.registerLogEntry(0,'bpmn-file successfully written')
