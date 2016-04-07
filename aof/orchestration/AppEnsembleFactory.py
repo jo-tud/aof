@@ -12,11 +12,10 @@ from pyramid.path import AssetResolver
 from aof.orchestration.AppPool import AppPool
 from pyramid.response import Response
 from pyramid.threadlocal import get_current_registry
-import random,string
+import random,string,re
 
 AOF = Namespace('http://eatld.et.tu-dresden.de/aof/')
 BPMN2 = Namespace('http://dkm.fbk.eu/index.php/BPMN2_Ontology#')
-ORCHESTRATION = Namespace('http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#')
 
 class OrchestrationFactory():
     def __init__(self, bpmnxml,mode):
@@ -78,8 +77,6 @@ class OrchestrationFactory():
         else:
             return Response(text,"500 Internal Server Error")
 
-
-
 class AppEnsembleFactory():
     def __init__(self,ae):
         #self.participantName=ae["participantName"]
@@ -90,7 +87,6 @@ class AppEnsembleFactory():
         self.log = [];
         self.tmp_path =ae["tmp_path"]   # tmp-path for all ae-files
         self.destination=ae["destination"]
-
 
         self._extractRequiredApps()
 
@@ -142,7 +138,6 @@ class AppEnsembleFactory():
         else:
             return zipStatus
 
-
 class GraphFactory():
     def __init__(self,factory):
         self.factory = factory
@@ -152,6 +147,8 @@ class GraphFactory():
         self.AENode=URIRef("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
         self.sfIn={}
         self.sfOut={}
+        self.AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
+        self.elements = self.factory.dom.getElementsByTagName('*')
 
     def _saveGraph(self):
         output=self.g.serialize(format="turtle")
@@ -166,43 +163,13 @@ class GraphFactory():
     def _bindRequiredApps(self):
         ap = AppPool.Instance()
         for app in self.factory.required_apps:
-            self.g.add((self.AENode, ORCHESTRATION.requiresApp, app))
+            self.g.add((self.AENode, AOF.requiresApp, app))
             self.g = fill_graph_by_subject(ap, self.g, app)
 
-    def _analyseStructure(self):
-        sf_in = self.factory.dom.getElementsByTagName('bpmn2:incoming')
-        sf_out = self.factory.dom.getElementsByTagName('bpmn2:outgoing')
-        for flow in sf_out:
-            key=self._getNodeId(flow.parentNode)
-            if key not in self.sfOut:
-                self.sfOut[key]=list()
-            self.sfOut[key].append(flow.firstChild.nodeValue)
-        for flow in sf_in:
-            self.sfIn[flow.firstChild.nodeValue]=flow.parentNode
-
-    def _getNodeId(self,node):
-        return node._attrs['id'].nodeValue
-
-    # TODO: what if there are more starts?
-    def _getEntryPoint(self,type='url'):
-        start = self._getNodeId(self.factory.dom.getElementsByTagName('bpmn2:startEvent')[0])
-        #for child in start[0].childNodes:
-            #if child.nodeName == 'bpmn2:outgoing':
-        if self.sfIn[self.sfOut[start][0]].nodeName == 'bpmn2:userTask':
-            entryPoint = self.sfIn[self.sfOut[start][0]]
-            if entryPoint.attributes.__contains__('aof:isAppEnsembleApp'):
-                if type=='id':
-                    return self._getNodeId(entryPoint)
-                elif type=='node':
-                    return entryPoint
-                else:
-                    return self._getTaskUri(entryPoint)
-                    #if entryPoint.attributes.__contains__('aof:realizedBy'):
-                     #   return URIRef(entryPoint.attributes['aof:realizedBy'].value)
-                    #else:
-                     #   raise InconsistentAE("EntryPoint-App has no URI!")
-            else:
-                raise InconsistentAE("EntryPoint is no App!")
+    def _setEntryPoints(self,type='url'):
+        starts = self.factory.dom.getElementsByTagName('bpmn2:startEvent')
+        for start in starts:
+             self.g.add((self.AENode, AOF.hasEntryPoint,URIRef('ae:'+start._attrs['id'].nodeValue)))
 
     def _getTaskUri(self,node,string=False):
         if node.attributes.__contains__('aof:isAppEnsembleApp'):
@@ -216,80 +183,104 @@ class GraphFactory():
         else:
             raise InconsistentAE("Task is no App!")
 
-    def _getInstanceUri(self,node):
-        uriref=self._getTaskUri(node,string=True).rstrip('/')+"-"+node._attrs['name'].nodeValue.replace(" ","_")
-        return URIRef(uriref)
 
     def _addAppInstances(self):
+
         tasks = self.factory.dom.getElementsByTagName('bpmn2:userTask')
-        typeSupportFeature=URIRef('http://www.comvantage.eu/mm#Mobile_IT_support_feature_G')
+
         for task in tasks:
+            nid=task._attrs['id'].nodeValue
             try:
                 nodename=task._attrs['name'].nodeValue
             except:
-                nodename=task._attrs['id'].nodeValue
-                task._attrs['name']=task._attrs['id']
-            uri=self._getInstanceUri(task)
-            instanceURI=self._getTaskUri(task)
-            self.g.add((uri,RDF.type, ORCHESTRATION.App))
-            self.g.add((uri,RDF.type, ORCHESTRATION.AppRequest))
-            self.g.add((uri,RDF.type, ORCHESTRATION.SelectedApp))
-            self.g.add((uri,RDF.type, typeSupportFeature))
-            self.g.add((uri,ORCHESTRATION.AppRequestName, Literal(nodename)))      # What in here?
-            self.g.add((uri,ORCHESTRATION.DisplayName, Literal(nodename)))
-            self.g.add((uri,ORCHESTRATION.Name, Literal(nodename)))
-            self.g.add((uri,ORCHESTRATION.instanceOf, instanceURI))
+                nodename=nid
+                task._attrs['name']=nid
+            node=URIRef('ae:'+nid)
+            self.g.add((node,BPMN2.id, Literal(task._attrs['id'].nodeValue) ))
+            self.g.add((node,BPMN2.Name, Literal(nodename)))
 
-            currentNodeId = self._getNodeId(task)
-            sf_list = self.sfOut[currentNodeId]
-            for sf in sf_list:
-                nextNode = self.sfIn[sf]
-                if 'Task' in nextNode.tagName:
-                    self.g.add((uri, ORCHESTRATION.hasSuccessionType, ORCHESTRATION.OR))
-                    self.g.add((uri, ORCHESTRATION.hasSuccessor, self._getInstanceUri(nextNode)))
-                elif 'Gateway' in nextNode.tagName:
-                    if 'parallelGateway' in nextNode.tagName:
-                        self.g.add((uri, ORCHESTRATION.hasSuccessionType, ORCHESTRATION.AND))
-                    sf_list.extend(self.sfOut[self._getNodeId(nextNode)])
+            self.g.add((node,RDF.type, AOF.userTask))
+            try:
+                instanceURI=self._getTaskUri(task)
+                self.g.add((node,AOF.assignedApp, instanceURI))
+            except:
+                pass
+
+        regex=re.compile("^(.*(t|manualT)ask.*)$")
+        tasks=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
+
+        for task in tasks:
+            nid=task._attrs['id'].nodeValue
+            try:
+                nodename=task._attrs['name'].nodeValue
+            except:
+                nodename=nid
+                task._attrs['name']=nid
+
+            node=URIRef('ae:'+nid)
+            self.g.add((node,BPMN2.id, Literal(task._attrs['id'].nodeValue) ))
+            self.g.add((node,BPMN2.Name, Literal(nodename)))
+            self.g.add((node,RDF.type, URIRef(BPMN2+task.localName)))
+
+    def _addGatewayInstances(self):
+        regex=re.compile("^(.*(G|g)ateway.*)$")
+        gateways=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
+
+        for gateway in gateways:
+            node=URIRef('ae:'+gateway._attrs['id'].nodeValue)
+            self.g.add((node,BPMN2.id, Literal(gateway._attrs['id'].nodeValue) ))
+            self.g.add((node,RDF.type, URIRef(BPMN2+gateway.localName)))
+            children=gateway.getElementsByTagName('*')
+            for child in children:
+                self.g.add((node,URIRef(child.nodeName), URIRef("ae:"+child.firstChild.nodeValue) ))
+
+    def _addSequenceFlowInstances(self):
+        regex=re.compile("^(.*sequenceFlow.*)$")
+        sfs=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
+
+        for sf in sfs:
+            node=URIRef('ae:'+sf._attrs['id'].nodeValue)
+            self.g.add((node,BPMN2.id, Literal(sf._attrs['id'].nodeValue) ))
+            self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
+            self.g.add((node,BPMN2.sourceRef, URIRef('ae:'+sf._attrs['sourceRef'].nodeValue) ))
+            self.g.add((node,BPMN2.targetRef, URIRef('ae:'+sf._attrs['targetRef'].nodeValue) ))
+
+    def _addEventInstances(self):
+        regex=re.compile("^(.*(E|e)vent.*)$")
+        sfs=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
+
+        for sf in sfs:
+            node=URIRef('ae:'+sf._attrs['id'].nodeValue)
+            self.g.add((node,BPMN2.id, Literal(sf._attrs['id'].nodeValue) ))
+            self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
+            children=sf.getElementsByTagName('*')
+            for child in children:
+                self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
 
     def create(self):
-        #AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.factory.name + "/")
-
-        #self.elements=self.factory.dom.getElementsByTagName('bpmn2:startEvent')
 
         self.g.bind("aof", AOF)
         self.g.bind("bpmn2", BPMN2)
-        #self.g.bind("ae", AE)
-        self.g.bind("o", ORCHESTRATION)
-
-        # init nodes
-        orchestration = BNode()
-
-        # add Orchestration
-        self.g.add((orchestration, RDF.type, ORCHESTRATION['Orchestration']))
+        self.g.bind("ae", self.AE)
 
         # add App-Ensemble
-        self.g.add((orchestration, ORCHESTRATION.hasAppEnsemble, self.AENode))
-        self.g.add((self.AENode, RDF.type, AOF['isAppEnsemble']))
-        self.g.add((self.AENode, ORCHESTRATION.Name, Literal(self.factory.name)))
-
+        self.g.add((self.AENode, RDF.type, AOF.isAppEnsemble))
+        self.g.add((self.AENode, AOF.Name, Literal(self.factory.name)))
 
         self.factory.registerLogEntry(0,'Creating the ttl-data out of XML')
 
-
         try:
-             # Load app descriptions into graph
+            # Load app descriptions into graph
             self._bindRequiredApps()
 
-            # create a mapping for sequenceFlows: f(outgoing-sequenceflow)=targetElement
-            self._analyseStructure()
-
-            # Add App instances
+            # Add Structure instances
             self._addAppInstances()
-            # Determining the Entry Point and binding to the graph otherwise raise exceptions
+            self._addGatewayInstances()
+            self._addEventInstances()
+            self._addSequenceFlowInstances()
 
-            entryPoint=self._getEntryPoint()
-            self.g.add((self.AENode, ORCHESTRATION.hasEntryPoint,entryPoint))
+            # Determining the Entry Point and binding to the graph otherwise raise exceptions
+            self._setEntryPoints()
 
             self.factory.registerLogEntry(1,'ttl-file successfully created\n> bpmn-file successfully created\n')
 
@@ -298,10 +289,6 @@ class GraphFactory():
             self.factory.registerWarning("ttl","TTL-File could not be finished!")
             self.stat=1
         self._saveGraph()
-
-
-        # self.g.add((appensemble,ORCHESTRATION.hasDefaultIntent,Literal("eu.comvantage.iaf.SIMPLE_MESSAGE")))
-
 
         return statusReport(self.stat,self.factory.name+": "+self.resp)
 
