@@ -125,15 +125,23 @@ class PageViews(AbstractViews):
         #unique_triples = str(ap.__len__()+aep.__len()__)
         #unique_triples="1" HTML-code: <li>The model currently consists of ${unique_triples} unique triples!</li>
 
-        ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
-        ae_inst_arifact=ap.get_install_uri(ae_inst_uri)
-        ae_inst_qrcode=ap.get_QRCode(ae_inst_arifact)
+        ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/job/AppEnsembleInstaller/lastSuccessfulBuild/")
+        ae_inst_artifact=ap.get_install_uri(ae_inst_uri)
+        ae_inst_qrcode=ap.get_QRCode(ae_inst_artifact)
+
+        if ae_inst_qrcode is None:
+            ae_inst_qrcode = "Not available"
+
+        if ae_inst_artifact is None:
+            ae_inst_uri = "#"
+        else:
+            ae_inst_uri = self.build_URI('app-details', '{URI:.*}', ap._hash_value(ae_inst_uri))
 
 
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
                        #'unique_triples': unique_triples,
-                       'ae_inst_uri' : self.build_URI('app-details','{URI:.*}',ap._hash_value(ae_inst_uri)),
+                       'ae_inst_uri' : ae_inst_uri,
                        'ae_inst_qrcode':ae_inst_qrcode,
                        'app_pool_uri':self.get_URI('apps'),
                        'app_ensemble_pool_uri':self.get_URI('app-ensembles')

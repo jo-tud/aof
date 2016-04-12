@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 <%inherit file="layout.mako"/>
-<%block name="top_bar_actions">
-</%block>
+<%block name="top_bar_actions"/>
 <div class="row">
     % if ae_inst_qrcode != "None":
-    <div class="small-12 large-9 columns">
+        <div class="small-12 large-9 columns">
     % else:
-    <div class="small-12 large-12 columns">
+        <div class="small-12 large-12 columns">
     % endif
         <h1>${meta['appname']}</h1>
 
@@ -23,12 +22,9 @@
 
         </div>
     </div>
-    % if ae_inst_qrcode != "None":
         <div class="small-12 large-3 columns panel pagination-centered end">
             <img src="${ae_inst_qrcode}" alt="${ae_inst_qrcode}"/>
-            <br /><span class="secondary label">Download App-Ensemble installer</span>
+            <br /><span class="secondary label">Scan to download App-Ensemble installer</span>
         </div>
-    % endif
 </div>
-<%block name="local_js">
-</%block>
+<%block name="local_js"/>
