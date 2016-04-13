@@ -1,8 +1,0 @@
-@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-## URI of the Generic App that is described
-<http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/>
-
-rdfs:label "TUD Simple List App" ;
-aof:hasInstallableArtifact <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/bin/TUDSimpleList-release.apk> .
