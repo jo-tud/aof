@@ -26,12 +26,18 @@ class AppEnsemblePool(AOFGraph):
     - returns a specific AppEnsemble-Object (get_AppEnsemble)
     - relaods the AppEnsemble-Pool with a new path (set_ae_folder_path)
     """
+
     #TODO
     def __init__(self):
         """
         Set up the AppEnsemblePool and load the AppEnsembles from the standard path
         :return:None
         """
+
+        # Ontology
+        self.ae_type = URIRef("http://eatld.et.tu-dresden.de/aof/isAppEnsemble")
+        self.ae_name = URIRef("http://eatld.et.tu-dresden.de/aof/Name")
+
         self.log = logging.getLogger(__name__)
 
         super().__init__(AOF.AppEnsemblePool)
@@ -47,11 +53,8 @@ class AppEnsemblePool(AOFGraph):
         self.a = AssetResolver()
         self.load()
 
-        self.itemtype=URIRef("http://eatld.et.tu-dresden.de/aof/isAppEnsemble")
+        self.itemtype = self.ae_type
 
-
-
-    #TODO morph to sparql
     def __contains__(self, identifier):
         """
         Searches for an specific AppEnsemble.
@@ -63,12 +66,11 @@ class AppEnsemblePool(AOFGraph):
             WHERE
             {{?s  a <{0}>.
             ?s  <{1}> "{2}".}}
-            """.format(self.itemtype,URIRef("http://eatld.et.tu-dresden.de/aof/Name"),Literal(identifier))
+            """.format(self.itemtype,self.ae_name,Literal(identifier))
 
         #return self.query(q).askAnswer
         return (str(identifier) in self.pool)
 
-    #TODO morph to sparql
     def __len__(self):
         """
         Counts the number of AppEnsembles.
