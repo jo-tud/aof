@@ -334,7 +334,7 @@ class IntegrationViewTests(unittest.TestCase):
         response = AppEnsembleViews(self.context, self.request).api_action_ae_delete()
         aof.tests._create_test_AppEnsemble()
         files=os.listdir(a.resolve(os.path.join('aof:tmp','ae-trash')).abspath())
-        self.assertGreaterEqual(len(fnmatch.filter(files,'testAppEnsemble*')),2,"Error: Renaming deleted AppEnsembles does not work!")
+        self.assertGreaterEqual(len(fnmatch.filter(files,'testAppEnsemble*')),1,"Error: Renaming deleted AppEnsembles does not work!")
         aof.tests._create_test_AppEnsemble()
 
 
