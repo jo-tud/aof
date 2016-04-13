@@ -104,7 +104,7 @@ class AppPool(AOFGraph):
 
     def get_name(self, resource):
         """
-        Returns the of an app identified by a given resource.
+        Returns the name of an app identified by a given resource.
         """
         return self.get_tuple(resource, RDFS.label,to_string=True)
 

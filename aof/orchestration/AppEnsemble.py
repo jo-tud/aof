@@ -98,11 +98,14 @@ class AppEnsemble(Graph):
         #TODO: Adapt to new ontology
 
         res = self.query("""
-            PREFIX o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#>
-            SELECT DISTINCT ?app_uri ?name
+            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
+            PREFIX bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#>
+            SELECT DISTINCT ?app_uri ?name ?original_name
             WHERE {
-                [] o:instanceOf ?app_uri;
-                   o:Name ?name .
+                [] aof:assignedApp ?app_uri;
+                   bpmn2:Name ?name .
+
+                ?app_uri rdfs:label ?original_name .
             }
         """)
         if use_json:

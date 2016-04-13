@@ -193,3 +193,10 @@ class AOFGraph(ConjunctiveGraph):
             log.error("QRCode for {} could not be created. Seems to be an invalid URL!".format(url))
             qrcode = None
         return qrcode
+
+    def get_app_pool_uri(self, resource):
+        """
+        Returns the App-Pool URI of an app identified by a given resource
+        """
+        uri = self.build_URI('app-details', "{URI:.*}", self.pool._hash_value(resource))
+        return uri

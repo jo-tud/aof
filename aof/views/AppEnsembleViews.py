@@ -100,6 +100,9 @@ class AppEnsembleViews(PageViews):
         api_ae_uri=self.build_URI('api-appensembles-ae-package','{URI:.*}',self.uri)
 
         ae_apps = ae.getRequiredApps(use_json=True)
+        for app in ae_apps:
+            app['app_details_uri'] = self.build_URI('app-details',"{URI:.*}",self.pool._hash_value(app['app_uri']))
+
         custom_args = {
             'ae_uri': self.uri,
             'ae_api_path':api_ae_uri,
