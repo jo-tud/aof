@@ -154,7 +154,8 @@ class AppEnsembleViews(PageViews):
         ae = self.pool.get_AppEnsemble(self.uri)
         custom_args={
             'mode':"view",
-            'urlencodedXML':quote(ae.get_bpm())
+            'urlencodedXML':quote(ae.get_bpm()),
+            'uri': self.uri
         }
         self._setTitle('App-Ensemble Details | BPMN')
         return self._returnCustomDict(custom_args)
