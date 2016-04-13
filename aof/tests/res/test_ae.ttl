@@ -1,261 +1,122 @@
-@prefix adl: <http://eatld.et.tu-dresden.de/ADL#> .
-@prefix o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ae: <http://eataof.et.tu-dresden.de/app-ensembles/AE2> .
+@prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
+@prefix bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#> .
+@prefix ns1: <http://xmlns.com/foaf/0.1/> .
+@prefix ns2: <http://purl.org/dc/elements/1.1/> .
+@prefix ns3: <http://schemas.android.com/apk/res/android/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-o:IAFLogin_Zvy4kvB-fH9T o:hasIntent [ o:intentPurpose "Login" ;
-            o:intentString "eu.comvantage.iaf.LOGIN" ],
-        [ o:intentPurpose "Logout" ;
-            o:intentString "eu.comvantage.iaf.LOGOUT" ] ;
-    o:requiresApp o:OIFileManager_uNSUZ7-rb3mm .
+<ae:AE2> a aof:isAppEnsemble ;
+    aof:Name "testAppEnsemble" ;
+    aof:hasEntryPoint <ae:StartEvent_1> ;
+    aof:requiresApp <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/>,
+        <http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/> .
 
-o:IAFManagementComponent_ZIRiErVxZHc- a o:ManagementApp ;
-    o:hasIntent [ o:intentPurpose "StartWorkflow" ;
-            o:intentString "eu.comvantage.iaf.START_WORKFLOW" ] ;
-    o:requiresApp o:OIFilEManager_uNSUZ7-rb3mm .
+<ae:SequenceFlow_0spylvf> a bpmn2:sequenceFlow ;
+    bpmn2:id "SequenceFlow_0spylvf" ;
+    bpmn2:sourceRef <ae:UserTask_1uqo61v> ;
+    bpmn2:targetRef <ae:ManualTask_1pm4q8u> .
 
-o:PlantSelection_Nov_06 o:hasIntent [ o:intentPurpose "PlantSelection" ;
-            o:intentString "eu.comvantage.kua.launch.PLANTSELECTION" ] .
+<ae:SequenceFlow_1bms0bj> a bpmn2:sequenceFlow ;
+    bpmn2:id "SequenceFlow_1bms0bj" ;
+    bpmn2:sourceRef <ae:UserTask_0qtoyuf> ;
+    bpmn2:targetRef <ae:UserTask_1uqo61v> .
 
-o:TUDBaracodaTagReader_O0IrefiXKpdX o:hasIntent [ o:intentPurpose "Read an RFID tag" ;
-            o:intentString "eu.comvantage.iaf.READ_TAG" ] ;
-    o:requiresApp o:BaracodaManager-9sfLOr .
+<ae:EndEvent_0tevndq> a bpmn2:endEvent ;
+    bpmn2:id "EndEvent_0tevndq" ;
+    bpmn2:incoming <ae:SequenceFlow_0i2fvfr> .
 
-o:TUDLiveDataViewer-55lckd o:hasIntent [ o:intentPurpose "ViewLiveData" ;
-            o:intentString "eu.comvantage.iaf.VIEW_LIVE_DATA" ] ;
-    adl:hasInput [ a adl:Input ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "sensorProperties" ] ;
-                            adl:hasParameterType xsd:IDREFS ] ] ] ;
-    adl:hasOutput [ a adl:Output ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "sensorProperties" ] ;
-                            adl:hasParameterType xsd:IDREFS ] ] ] ;
-    adl:hasSparqlTemplate [ a adl:SparqlTemplate ;
-            adl:hasPlaceholder [ a adl:TemplatePlaceholder ;
-                    rdfs:label "sensorURI" ] ;
-            adl:queryIndex 0 ;
-            adl:queryKey "sensorQuery" ;
-            adl:queryString """
-  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
-  PREFIX msem: <http://www.comvantage.eu/ontologies/mma/msem/> 
-  PREFIX nasa: <http://data.nasa.gov/qudt/owl/qudt#> 
+<ae:SequenceFlow_0bmi7bj> a bpmn2:sequenceFlow ;
+    bpmn2:id "SequenceFlow_0bmi7bj" ;
+    bpmn2:sourceRef <ae:StartEvent_1> ;
+    bpmn2:targetRef <ae:UserTask_0qtoyuf> .
 
-  SELECT ?uri 
-  WHERE 
-  { 
-	  %%%sensorURI%%%  msem:transientDataQueryUri ?uri .
-  }
-  """ ],
-        [ a adl:SparqlTemplate ;
-            adl:queryIndex 1 ;
-            adl:queryKey "dataQuery" ;
-            adl:queryString """
-  PREFIX voc: <http://www.comvantage.eu/ontologies/pec/voc/> 
+<ae:SequenceFlow_0i2fvfr> a bpmn2:sequenceFlow ;
+    bpmn2:id "SequenceFlow_0i2fvfr" ;
+    bpmn2:sourceRef <ae:ManualTask_1pm4q8u> ;
+    bpmn2:targetRef <ae:EndEvent_0tevndq> .
 
-  SELECT ?time ?value
-  WHERE 
-  {
-	  ?x voc:refTime ?time. ?x voc:value ?value. 
-  }
-  """ ] .
+<ae:ManualTask_1pm4q8u> a bpmn2:manualTask ;
+    bpmn2:Name "ff" ;
+    bpmn2:id "ManualTask_1pm4q8u" .
 
-o:TUDMultipleSensorSelector-638dd3 o:hasIntent [ o:intentPurpose "SelectSensors" ;
-            o:intentString "eu.comvantage.iaf.SELECT_MULTIPLE_SENSORS" ] ;
-    adl:hasInput [ a adl:Input ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "plantURI" ] ;
-                            adl:hasParameterType xsd:string ] ] ] ;
-    adl:hasOutput [ a adl:Output ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "sensorProperties" ] ;
-                            adl:hasParameterType xsd:IDREFS ] ] ] ;
-    adl:hasSparqlTemplate [ a adl:SparqlTemplate ;
-            adl:hasPlaceholder [ a adl:TemplatePlaceholder ;
-                    rdfs:label "plantURI" ;
-                    adl:isDeliveredBy [ ] ] ;
-            adl:queryIndex 0 ;
-            adl:queryKey "getSensors" ;
-            adl:queryString """
-  PREFIX  rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-  PREFIX  msem: <http://www.comvantage.eu/ontologies/mma/msem/>
-  PREFIX  nasa: <http://data.nasa.gov/qudt/owl/qudt#>
-  PREFIX  mso:  <http://eatld.et.tu-dresden.de/mso/>
-  PREFIX  sce:  <http://eatld.et.tu-dresden.de/sce/>
-  PREFIX  sensor:  <http://eatld.et.tu-dresden.de/sensor/>
+<ae:StartEvent_1> a bpmn2:startEvent ;
+    bpmn2:id "StartEvent_1" ;
+    bpmn2:outgoing <ae:SequenceFlow_0bmi7bj> .
 
-  SELECT DISTINCT  ?pv ?kennzeichen ?kennzeichen_txt ?label ?continous ?unit
-  WHERE
-    {   { %%%plantURI%%% mso:plantID ?kennzeichen
-	    { ?equipment mso:hasEquipment %%%plantURI%%% }
-	  UNION
-	    { ?device sce:hasEquipment %%%plantURI%%% }
-	}
-      UNION
-	{ ?device mso:plantID ?kennzeichen }
-      ?device mso:plantID ?kennzeichen .
-      ?device msem:hasSimulatedSensor ?pv .
-      ?device rdfs:comment ?kennzeichen_txt
-      FILTER ( ( lang(?kennzeichen) = "de" ) && ( lang(?kennzeichen_txt) = "de" ) )
-      ?pv rdfs:label ?label .
-      ?pv sensor:continousValues ?continous
-      OPTIONAL
-	{ ?pv msem:hasPhysicalUnit ?u .
-	  ?u nasa:abbreviation ?unit
-	}
-      OPTIONAL
-	{ ?device mso:plantID ?kennzeichen }
-      OPTIONAL
-	{ ?device rdfs:comment ?kennzeichen_txt }
-    }
-  ORDER BY DESC(?kennzeichen_txt)
-  """ ] .
+<ae:UserTask_0qtoyuf> a aof:userTask ;
+    bpmn2:Name "t1" ;
+    bpmn2:id "UserTask_0qtoyuf" ;
+    aof:assignedApp <http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/> .
 
-o:TUDPlantSelector-MuyHcC o:hasIntent [ o:intentPurpose "SelectPlant" ;
-            o:intentString "eu.comvantage.iaf.SELECT_PLANT" ] ;
-    adl:hasOutput [ a adl:Output ;
-            adl:hasSignature [ a adl:Signature ;
-                    adl:hasIOparameter [ a adl:IOparameter ;
-                            adl:hasParameterName [ a adl:ParameterName ;
-                                    rdfs:label "plantURI" ] ;
-                            adl:hasParameterType xsd:string ] ] ] .
+<ae:UserTask_1uqo61v> a aof:userTask ;
+    bpmn2:Name "52" ;
+    bpmn2:id "UserTask_1uqo61v" ;
+    aof:assignedApp <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/> .
 
-o:TUDSimpleList_NryuJDGzjNXl o:hasIntent [ o:intentPurpose "ShowSimpleList" ;
-            o:intentString "eu.comvantage.iaf.SIMPLE_LIST" ],
-        [ o:intentPurpose "ShowDecision" ;
-            o:intentString "eu.comvantage.iaf.DECISION" ] .
+<http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/> a aof:AndroidApp,
+        aof:App ;
+    rdfs:label "AOF Dummy: Aconite Root" ;
+    aof:hasExitPoint [ a aof:ExitPoint ;
+            rdfs:label "Exit point for AOF" ;
+            rdfs:comment """
+This exit point is the most simple form of a *Done*-Button.
+It does not provide any data but states *"I'm done here, please give me the next app"*!
+""" ] ;
+    aof:hasIcon <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/res/drawable-xxhdpi/ic_launcher.png> ;
+    aof:hasInstallableArtifact <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/bin/AOFDummyAconiteRoot-release.apk> ;
+    aof:hasMainScreenshot [ rdfs:comment "Portrait view" ;
+            ns1:depiction <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/screenshots/MainScreenshot.jpg> ] ;
+    aof:hasScreenshot [ rdfs:comment "Landscape view" ;
+            ns1:depiction <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/screenshots/OtherScreenshot_1.jpg> ] ;
+    aof:versionCodeReference <http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/buildNumber> ;
+    ns2:creator <mailto:johannes.pfeffer@tu-dresden.de> ;
+    rdfs:comment """
+This is a dummy app built only for the purpose to showcase AOF functionality.
+*Aconite root* has the following AOF specific features:
 
-o:TUDSimpleMessage_MBrh2UmSe3AP o:hasIntent [ o:intentPurpose "ShowSimpleMessage" ;
-            o:intentString "eu.comvantage.iaf.SIMPLE_MESSAGE" ] .
+-  A *Done*-button which is only displayed when the app is used in an App-Ensemble
+""" .
 
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477214-Choose_Sensors> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "Sensor selector" ;
-    o:DisplayName "Choose Sensors" ;
-    o:Name "Choose Sensors" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data>,
-        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> ;
-    o:instanceOf o:TUDMultipleSensorSelector-638dd3 .
+<http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/> a aof:AndroidApp,
+        aof:App ;
+    rdfs:label "TUD Simple Message " ;
+    aof:hasEntryPoint [ a aof:EntryPoint,
+                ns3:action ;
+            rdfs:label "Start app with message" ;
+            aof:hasInput [ a aof:Input,
+                        ns3:extra ;
+                    aof:hasDatatype xsd:string ;
+                    aof:isRequired "False" ;
+                    ns3:name "message" ;
+                    rdfs:comment "Message that will be displayed." ] ;
+            ns3:name "eu.comvantage.iaf.SIMPLE_MESSAGE" ;
+            rdfs:comment """
+Start the app with the possibility to provide a message to display.
+""" ],
+        [ a aof:EntryPoint,
+                ns3:action ;
+            rdfs:label "Main entry point" ;
+            ns3:name "android.intent.action.MAIN" ;
+            rdfs:comment """
+This is the main entry point of the app if it is used stand-alone. You cannot provide a message and the app will always just display that there is no message to display.
+""" ] ;
+    aof:hasExitPoint [ a aof:ExitPoint ;
+            rdfs:label "Go to the next app" ;
+            rdfs:comment """
+This will exit the app and start the next app without passing on any information.
+""" ] ;
+    aof:hasIcon <http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/res/drawable-xhdpi/ic_launcher.png> ;
+    aof:hasInstallableArtifact <http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/bin/TUDSimpleMessage-release.apk> ;
+    aof:hasMainScreenshot [ rdfs:comment "Portrait view" ;
+            ns1:depiction <http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/screenshots/MainScreenshot.jpg> ] ;
+    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/buildNumber> ;
+    rdfs:comment "App that will display a message if it has received one. Otherwise it just tells the user that there is no message to display." .
 
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477223-Write_historical_data_report> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "Report sender" ;
-    o:DisplayName "Write historical data report" ;
-    o:Name "Write historical data report" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> ;
-    o:instanceOf o:TUDTaskReport-KuoLzZ .
-
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477226-Write_live_data_report> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "Report sender" ;
-    o:DisplayName "Write live data report" ;
-    o:Name "Write live data report" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> ;
-    o:instanceOf o:TUDTaskReport-KuoLzZ .
-
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477229-Choose_Sensors_with_NBB> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "NBB" ;
-    o:DisplayName "Choose Sensors with NBB" ;
-    o:Name "Choose Sensors with NBB" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data>,
-        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> ;
-    o:instanceOf o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy .
-
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477232-Browse_Neighbourhood> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "NBB" ;
-    o:DisplayName "Browse Neighbourhood" ;
-    o:Name "Browse Neighbourhood" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data> ;
-    o:instanceOf o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy .
-
-o:OIFileManager_uNSUZ7-rb3mm a o:ExternalApp ;
-    o:hasIntent [ o:intentPurpose "OpenFile" ;
-            o:intentString "eu.comvantage.iaf.START_WORKFLOW" ] .
-
-o:TUDNeighbourhoodBrowser_vLrNh8IcwZcy o:hasIntent [ o:intentPurpose "Browse neighbourhood of POI" ;
-            o:intentString "eu.comvantage.iaf.NEW_TAG" ],
-        [ o:intentPurpose "Browse neighbourhood of POI" ;
-            o:intentString "eu.comvantage.iaf.NEW_TAG" ] ;
-    o:requiresApp o:TUDBaracodaTagReader_O0IrefiXKpdX .
-
-o:TUDTaskReport-KuoLzZ o:hasIntent [ o:intentPurpose "Send task report" ;
-            o:intentString "eu.comvantage.iaf.SEND_REPORT" ],
-        [ o:intentPurpose "Send task report" ;
-            o:intentString "eu.comvantage.iaf.SEND_REPORT" ] .
-
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477220-View_historical_data> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "Historical data viewer" ;
-    o:DisplayName "View historical data" ;
-    o:Name "View historical data" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant>,
-        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477223-Write_historical_data_report> ;
-    o:instanceOf o:PlantSelection_Nov_06 .
-
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477217-View_live_data> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "Live data viewer" ;
-    o:DisplayName "View live data" ;
-    o:Name "View live data" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant>,
-        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477226-Write_live_data_report>,
-        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477232-Browse_Neighbourhood> ;
-    o:instanceOf o:TUDLiveDataViewer-55lckd .
-
-<http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> a o:App,
-        o:AppRequest,
-        o:SelectedApp,
-        <http://www.comvantage.eu/mm#Mobile_IT_support_feature_G> ;
-    o:AppRequestName "Plant Browser" ;
-    o:DisplayName "Choose Plant" ;
-    o:Name "Choose Plant" ;
-    o:hasSuccessionType o:OR ;
-    o:hasSuccessor <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477214-Choose_Sensors>,
-        <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477229-Choose_Sensors_with_NBB> ;
-    o:instanceOf o:TUDPlantSelector-MuyHcC .
-
-[] a o:Orchestration ;
-    o:hasAppEnsemble [ a o:AppEnsemble ;
-            o:Name "TUD-Example_2014-10-30_14h55m23s" ;
-            o:hasDefaultIntent "eu.comvantage.iaf.SIMPLE_MESSAGE" ;
-            o:hasEntryPoint <http://www.comvantage.eu/models/Mobile_IT_support_feature_G-477207-Choose_Plant> ;
-            o:requiresApp o:IAFLogin_Zvy4kvB-fH9T,
-                o:IAFManagementComponent_ZIRiErVxZHc-,
-                o:OIFileManager_uNSUZ7-rb3mm,
-                o:TUDSimpleList_NryuJDGzjNXl,
-                o:TUDSimpleMessage_MBrh2UmSe3AP ] .
-
+<mailto:johannes.pfeffer@tu-dresden.de> a ns1:Person ;
+    ns1:homepage <http://www.et.tu-dresden.de/ifa/index.php?id=jp> ;
+    ns1:mbox <mailto:johannes.pfeffer@tu-dresden.de> ;
+    ns1:name "Johannes Pfeffer" .
