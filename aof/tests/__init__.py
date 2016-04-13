@@ -9,6 +9,7 @@ settings["documentation_docs_path"]="aof:resources/docs"
 settings["META"]="{'appname':'Application Orchestration Framework','acronym':'AOF'}"
 settings["test_resources_path"]="aof:tests/res"
 settings["ae_name"]='testAppEnsemble'
+settings["jenkins_python_api_url"] = ''
 
 
 # Helper-Functions
@@ -41,7 +42,7 @@ def _create_test_AppEnsemble():
     # Creation of the zip archive
     zip_ae = zipfile.ZipFile(destTestArchive, mode='w')
     try:
-        zip_ae.write(os.path.join(originsPath,'test_ae.ttl'),AppEnsemble.ae_filename)
+        zip_ae.write(os.path.join(originsPath,'test_ae.ttl'),'ae.ttl')
         zip_ae.write(os.path.join(originsPath,'test_ae.bpmn'),AppEnsemble.bpmn_filename)
         zip_ae.write(os.path.join(originsPath,'max_test.ttl'),'apps/max_test.ttl')
         zip_ae.write(os.path.join(originsPath,'min_test.ttl'),'apps/min_test.ttl')

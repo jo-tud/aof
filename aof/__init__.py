@@ -21,16 +21,17 @@ def main(global_config, **settings):
     
     # Routes
     config.add_route('home', '/')
-    config.add_route('orchestrate', '/orchestrate.html')
 
     # App-Ensembles
     config.add_route('app-ensembles', '/app-ensembles.html')
-    config.add_route('ae-details', '/app-ensembles/details.html')
-    config.add_route('ae-visualize-bpm', '/app-ensembles/visualize-bpm.html')
+    config.add_route('ae-details', '/app-ensembles/{URI}/details.html')
+    config.add_route('ae-view-bpm', '/app-ensembles/{URI}/view.html')
+    config.add_route('ae-edit-bpm', '/app-ensembles/{URI}/edit.html')
+    config.add_route('ae-create-bpm', '/app-ensembles/create.html')
 
     # App-Pool
-    config.add_route('app-pool', '/app-pool.html')
-    config.add_route('app-details','/app-pool/details.html')
+    config.add_route('apps', '/apps.html')
+    config.add_route('app-details','/apps/{URI:.*}/details.html')
 
     # Documentation
     config.add_route('documentation', '/docs/index.html')
@@ -38,25 +39,26 @@ def main(global_config, **settings):
     config.add_route('documentation-resource', '/resources/{document}')
 
     # API
-    ## JSON
-    config.add_route('api-ae-json', '/api/app-ensembles.json')
-    config.add_route('api-ap-json', '/api/app-pool.json')
-    config.add_route('api-app-version-json','/api/app-pool/version.json')
-
-    ## BPM
-    config.add_route('ae-bpmn', '/app-ensembles/get-bpmn')
 
     ## Actions
-    config.add_route('action-update-app-pool', '/api/actions/update-app-pool')
-    config.add_route('action-update-ap-ensembles', '/api/actions/update-app-ensembles')
+    config.add_route('api-action-apps-update', '/api/actions/apps/update')
+    config.add_route('api-action-appensembles-update', '/api/actions/app-ensembles/update')
+    config.add_route('api-action-appensembles-add', '/api/actions/app-ensembles/add')
+    config.add_route(pattern='/api/app-ensembles/{URI}/delete', name='api-appensembles-delete')
 
-    ## Downloads
-    config.add_route('api-get-ae-pkg', '/api/download/ae-package')
+    # API NEW
+    config.add_route(pattern='/api/apps', name='api-apps') # TODO  certain format
+    config.add_route(pattern='/api/appuris', name='api-apps-uris')
+    config.add_route(pattern='/api/apps/{URI:.*}/details', name='api-apps-app-details')
+    config.add_route(pattern='/api/apps/{URI:.*}/version', name='api-apps-app-version')
+    config.add_route(pattern='/api/apps/{URI:.*}/apk', name='api-apps-app-apk')
+    # Todo complexe Property wird mit node ausgegeben
+    config.add_route(pattern='/api/apps/{URI:.*}/properties/{property:.*}', name='api-apps-app-property')
+    config.add_route(pattern='/api/app-ensembles', name='api-appensembles')
 
-    ## TTL
-    config.add_route('api-app-details','/api/app-pool/details.html')
-    config.add_route('api-app-details-show','/api/app-pool/details-show.html')
-
+    config.add_route(pattern='/api/app-ensembles/{URI:.*}/details', name='api-appensembles-ae')
+    config.add_route(pattern='/api/app-ensembles/{URI:.*}/package', name='api-appensembles-ae-package')
+    config.add_route(pattern='/api/app-ensembles/{URI:.*}/bpmn', name='api-appensembles-ae-bpmn')
 
 
     config.scan()
@@ -66,5 +68,6 @@ def main(global_config, **settings):
 
     # Clear all temporary files
     aof.tmp.clear_all_tmp_files()
+    # for a cronjob: function located in aof/tmp/__init__.py -> clear_all_tmp_files()
 
     return config.make_wsgi_app()

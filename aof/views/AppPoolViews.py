@@ -11,6 +11,7 @@ from aof.orchestration.namespaces import AOF
 from aof.views import namespaces
 from aof.views.PageViews import PageViews, RequestPoolURI_Decorator
 from urllib.parse import urljoin
+from urllib.parse import quote_plus
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -80,7 +81,7 @@ class AppPoolViews(PageViews):
         super(AppPoolViews, self).__init__(context, request)
         self.pool = AppPool.Instance()
 
-    @view_config(route_name='app-pool', renderer='aof:templates/app-pool.mako')
+    @view_config(route_name='apps', renderer='aof:templates/app-pool.mako')
     def page_overview(self):
         """
         Generates the parameters for the AppPool-Homepage
@@ -92,6 +93,7 @@ class AppPoolViews(PageViews):
         for app_uri in app_uris:
             app = {
                 'uri': app_uri,
+                'details_uri':self.build_URI('app-details',"{URI:.*}",self.pool._hash_value(app_uri)),#/apps/"+quote_plus(app_uri)+"/details",
                 'name': self.pool.get_name(app_uri),
                 'icon': self.pool.get_icon_uri(app_uri),
                 'binary': self.pool.get_install_uri(app_uri)
@@ -103,17 +105,17 @@ class AppPoolViews(PageViews):
         custom_args = {'apps': apps}
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='action-update-app-pool')
+    @view_config(route_name='api-action-apps-update')
     def action_update(self):
         """
         Action: Update the AppPool from current AppPool definition
         :return: Response Object with number of Apps
         """
-        self.pool.add_apps_from_app_pool_definition(source=None, format='turtle')
+        self.pool.load(source=None, format='turtle')
         res = str(self.pool.get_number_of_apps())
         return Response(res,)
 
-    @view_config(route_name='api-ap-json', renderer='json')
+    @view_config(route_name='api-apps', renderer='json')
     def api_json(self):
         """
         Generates the pool in Json
@@ -137,7 +139,35 @@ class AppPoolViews(PageViews):
         json = res.serialize(format="json").decode()
 
         # log.debug(json)
-        return {'json': json}
+        return json
+
+    #TODO: write Documentation
+    @view_config(route_name='api-apps-uris', renderer='json')
+    def api_uri_json(self):
+        """
+        Generates the pool in Json
+        :return: json-representation of the AppPool
+        """
+        # log.debug("called view: ap_get_app_pool_json()")
+        query = """
+        PREFIX aof: <%(AOF)s>
+        SELECT DISTINCT ?label ?uri
+        WHERE {
+        ?uri rdfs:label ?label ;
+            aof:hasInstallableArtifact ?binary .
+            OPTIONAL {
+            ?uri aof:hasIcon ?icon
+            }
+
+        }
+        ORDER BY ?name
+        """ % {'AOF': str(AOF)}
+        res = self.pool.query(query)
+        json = res.serialize(format="json").decode()
+
+        # log.debug(json)
+        return json
+
 
     @view_config(route_name='app-details', renderer='aof:templates/app-details.mako', accept='text/html')
     @RequestPoolURI_Decorator()
@@ -190,17 +220,9 @@ class AppPoolViews(PageViews):
         else:
             exit_points = None
 
-        try:
-            introspector = self.request.registry.introspector
-            api_app_ttl_uri = str(introspector.get('routes', 'api-app-details-show')['pattern'])
-            api_app_ttl_uri= urljoin(self.request.application_url,api_app_ttl_uri+"?URI="+self.uri)
-        except:
-            api_app_ttl_uri="/api/app-pool/details.html?URI="+self.uri
-
-
         custom_args = {'namespaces': namespaces,
                        'uri': self.uri,
-                       'qrcode': self._generateQRCode(details['binary']),
+                       'qrcode': self.pool.get_QRCode(details['binary']),
                        'details': details,
                        'roles': roles,
                        'creators': creators,
@@ -208,24 +230,11 @@ class AppPoolViews(PageViews):
                        'screenshots': screenshots,
                        'entry_points': entry_points,
                        'exit_points': exit_points,
-                       'api_app_ttl_uri':api_app_ttl_uri
+                       'api_app_ttl_uri':self.build_URI('api-apps-app-details','{URI:.*}',self.uri)+"?format=turtle&content_type=text/plain"
                        # build number is loaded via ajax
                        }
         return self._returnCustomDict(custom_args)
 
-    @view_config(route_name='app-details', accept='text/turtle')
-    @view_config(route_name='api-app-details')
-    def api_details_turtle(self):
-        return self._api_details_return(format='turtle',content_type='text/turtle')
-
-    @view_config(route_name='api-app-details-show')
-    def api_details_turtle_display(self):
-        response=self._api_details_return(format='turtle',content_type='text/plain')
-        return response
-
-    @view_config(route_name='app-details', accept='application/rdf+xml')
-    def api_details_rdfxml(self):
-        return self._api_details_return(format='application/rdf+xml',content_type='application/rdf+xml')
 
     @RequestPoolURI_Decorator()
     @AppCheckDecorator()
@@ -242,10 +251,53 @@ class AppPoolViews(PageViews):
         return Response(ret,content_type=content_type)
 
     @RequestPoolURI_Decorator()
-    @view_config(route_name='api-app-version-json', renderer='json')
+    @view_config(route_name='api-apps-app-version', renderer='json')
     def api_app_version_json(self):
-        result={'json':{'build_number':self.pool.get_build_number(self.uri)}}
+        result={'build_number':self.pool.get_build_number(self.uri)}
         return result
+
+    @view_config(route_name='api-apps-app-details')
+    @view_config(route_name='app-details', accept='text/turtle')
+    @view_config(route_name='app-details', accept='application/rdf+xml')
+    @RequestPoolURI_Decorator()
+    def api_app_details(self):
+        if self.request.params.has_key('format') or self.request.params.has_key('content_type'):
+            format=None
+            content_type=None
+            if self.request.params.has_key('format'):
+                format=self.request.params.getone('format')
+            else:
+                format='application/rdf+xml'
+            if self.request.params.has_key('content_type'):
+                content_type=self.request.params.getone('content_type')
+            return self._api_details_return(format=format,content_type=content_type)
+        elif 'text/turtle' in str(self.request.accept):
+            return self._api_details_return(format='turtle',content_type='text/turtle')
+        else:
+            return self._api_details_return(format='application/rdf+xml',content_type='application/rdf+xml')
+
+
+    @view_config(route_name='api-apps-app-property', renderer='json')
+    @RequestPoolURI_Decorator()
+    def api_app_param(self, param = None):
+        if param == None:
+            param=self.request.matchdict['property']
+        response=list()
+        for s, p, o in self.pool.triples((self.uri,URIRef(param),None)):
+            response.append(o)
+        return response
+
+    @view_config(route_name='api-apps-app-apk', renderer='json')
+    @RequestPoolURI_Decorator()
+    def api_app_apk(self):
+        result={'apk_uri':self.pool.get_tuple(self.uri, AOF.hasInstallableArtifact,to_string=True)}
+        return result
+
+
+
+
+
+
 
 
 

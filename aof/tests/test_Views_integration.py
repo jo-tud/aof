@@ -1,7 +1,7 @@
 import unittest
 from pyramid import testing
 import json
-import os
+import os,fnmatch
 
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.orchestration.AppPool import AppPool
@@ -19,7 +19,8 @@ from aof.views.DocumentationViews import DocumentationViews
 
 import aof.tests
 from aof.tests.test_AppEnsemble import AppEnsembleTests
-
+from aof.orchestration.AppPool import AppPool
+from aof.orchestration.AppEnsemble import AppEnsemble
 
 
 
@@ -28,8 +29,6 @@ from aof.tests.test_AppEnsemble import AppEnsembleTests
 class IntegrationViewTests(unittest.TestCase):
     def setUp(self):
 
-        from aof.orchestration.AppPool import AppPool
-
         self.config = testing.setUp(settings=aof.tests.settings)
         aof.tests._create_test_AppEnsemble()
 
@@ -37,7 +36,7 @@ class IntegrationViewTests(unittest.TestCase):
         a = AssetResolver()
         self.path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         self.ap = AppPool.Instance()
-        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
+        self.ap.load(source=self.path, format="turtle")
 
         #Setting up Test-AppEnsemble
         self.ae=AppEnsemblePool.Instance()
@@ -145,9 +144,6 @@ class IntegrationViewTests(unittest.TestCase):
         self.assertTrue(int(response['number_of_ae']) > 0, 'Home View:AppEnsembles are not initialized correctly!')
         self.assertIsInstance(response['number_of_ae'], str, 'Home View: Number of AppEnsembles is not a string!')
 
-        self.assertTrue(int(response['unique_triples']) > 0, 'Home View:Unique Triples are not initialized correctly!')
-        self.assertIsInstance(response['unique_triples'], str, 'Home View: Number of Unique Triples is not a string!')
-
         self._standard_tests(response)
 
 
@@ -181,8 +177,8 @@ class IntegrationViewTests(unittest.TestCase):
         test_views["AppPoolViews"]=list()
 
         test_views["AppEnsembleViews"].append({'view': "page_details", 'ignore_test': []})
-        test_views["AppEnsembleViews"].append({'view': "page_visualize_bpm", 'ignore_test': []})
-        test_views["AppEnsembleViews"].append({'view': "action_get_bpmn_data", 'ignore_test': ["_tooMuchURI_butOK_test"]})
+        test_views["AppEnsembleViews"].append({'view': "page_view_bpm", 'ignore_test': []})
+        test_views["AppEnsembleViews"].append({'view': "api_action_get_bpmn_data", 'ignore_test': ["_tooMuchURI_butOK_test"]})
         test_views["AppEnsembleViews"].append({'view': "action_get_ae_pkg", 'ignore_test': ["_tooMuchURI_butOK_test"]})
 
         test_views["AppPoolViews"].append({'view': "page_details", 'ignore_test': ["_tooMuchURI_butOK_test","_wrongURI_test"]})
@@ -248,8 +244,8 @@ class IntegrationViewTests(unittest.TestCase):
 
     def test_api_ap_json_view(self):
         response = AppPoolViews(self.context, self.request).api_json()
-        self.assertTrue('json' in response)
-        response=json.loads(response['json'])['results']['bindings']
+        self.assertTrue('MaxApp' in response)
+        response=json.loads(response)['results']['bindings']
         self.assertTrue(response[0]['name']['value']==('MaxApp' or 'MinApp'))
 
 
@@ -284,9 +280,9 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = AppEnsembleViews(self.context, self.request).page_visualize_bpm()
-        self.assertEqual(response['ae_uri'], URIRef('testAppEnsemble'))
-        self.assertEqual(response['ae_has_bpmn'], True)
+        response = AppEnsembleViews(self.context, self.request).page_view_bpm()
+        self.assertEqual(response['mode'], 'view')
+        self.assertNotEqual(response['urlencodedXML'], '')
         self._standard_tests(response)
 
     def test_ae_get_bpmn_view(self):
@@ -294,7 +290,7 @@ class IntegrationViewTests(unittest.TestCase):
         self.request.params = MultiDict()
         self.request.params.add('URI', 'testAppEnsemble')
 
-        response = AppEnsembleViews(self.context, self.request).action_get_bpmn_data()
+        response = AppEnsembleViews(self.context, self.request).api_action_get_bpmn_data()
         self.assertIsInstance(response,Response)
         self.assertEqual(response.headers.get('Content-Type'), 'txt/xml')
         self.assertTrue(int(response.headers.get('Content-Length'))<100)
@@ -302,14 +298,44 @@ class IntegrationViewTests(unittest.TestCase):
 
     def test_api_ae_json_view(self):
         response = AppEnsembleViews(self.context, self.request).api_json()
-        del(response['json']['5G-Demo'])
-        self.assertTrue('json' in response)
-        response=response['json']
+        # del(response['testAppEnsemble'])
         self.assertTrue('testAppEnsemble' in response)
         response=response['testAppEnsemble']
         self.assertEqual(response['uri'],'testAppEnsemble')
-        self.assertTrue(len(response['apps'])>1000)
+        self.assertFalse(len(response['apps'])>1000)
 
+    def test_api_ae_save_without_params(self):
+        self.request.params = MultiDict()
+        response = AppEnsembleViews(self.context, self.request).api_action_add()
+        self.assertEqual(response.status_code,400,'Error: AppEnsemble save-procedure could be initialized without url-parameters!')
+
+    def test_api_ae_save_without_data(self):
+        self.request.params = MultiDict()
+        self.request.params.add('data','')
+        response = AppEnsembleViews(self.context, self.request).api_action_add()
+        self.assertEqual(response.status_code,400,'Error: AppEnsemble save-procedure could be initialized without data!')
+
+    def test_api_ae_save_correct(self):
+        self.request.params = MultiDict()
+        self.request.params.add('data','<?xml version="1.0" encoding="UTF-8"?>\n<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:aof="http://eatld.et.tu-dresden.de/aof/" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">\n<bpmn2:collaboration id="Collaboration_1hs12oq">\n<bpmn2:participant id="Participant_0sq20zh" name="APTest" processRef="Process_1" aof:isAppEnsemble="true" />\n</bpmn2:collaboration>\n<bpmn2:process id="Process_1" isExecutable="false">\n<bpmn2:startEvent id="StartEvent_1" />\n</bpmn2:process>\n<bpmndi:BPMNDiagram id="BPMNDiagram_1">\n<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1hs12oq">\n<bpmndi:BPMNShape id="Participant_0sq20zh_di" bpmnElement="Participant_0sq20zh">\n<dc:Bounds x="348" y="133" width="600" height="250" />\n</bpmndi:BPMNShape>\n<bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">\n<dc:Bounds x="412" y="240" width="36" height="36" />\n<bpmndi:BPMNLabel>\n<dc:Bounds x="385" y="276" width="90" height="20" />\n</bpmndi:BPMNLabel>\n</bpmndi:BPMNShape>\n</bpmndi:BPMNPlane>\n</bpmndi:BPMNDiagram>\n</bpmn2:definitions>')
+        response = AppEnsembleViews(self.context, self.request).api_action_add()
+        self.assertEqual(response.status_code,201,'Error: AppEnsemble was not saved with correct request!')
+        destTestArchive= os.path.join(AssetResolver().resolve(aof.tests.settings['app_ensemble_folder']).abspath(), 'APTest' + AppEnsemble.ae_extension)
+        os.remove(destTestArchive)
+
+    def test_api_ae_delete_correct(self):
+        a=AssetResolver()
+        self.request.params = MultiDict()
+        self.request.params.add('URI','testAppEnsemble')
+        response = AppEnsembleViews(self.context, self.request).api_action_ae_delete()
+        self.assertTrue(os.path.isfile(a.resolve(os.path.join('aof:tmp','ae-trash','testAppEnsemble.ae')).abspath()),"Error: App-Ensemble was not stored in the trash folder when delting")
+        self.assertEqual(response.status_code,200,'Error: AppEnsemble could not be deleted!')
+        aof.tests._create_test_AppEnsemble()
+        response = AppEnsembleViews(self.context, self.request).api_action_ae_delete()
+        aof.tests._create_test_AppEnsemble()
+        files=os.listdir(a.resolve(os.path.join('aof:tmp','ae-trash')).abspath())
+        self.assertGreaterEqual(len(fnmatch.filter(files,'testAppEnsemble*')),1,"Error: Renaming deleted AppEnsembles does not work!")
+        aof.tests._create_test_AppEnsemble()
 
 
     def test_ae_get_ae_pkg_view(self):
@@ -328,17 +354,7 @@ class IntegrationViewTests(unittest.TestCase):
         aem=AppEnsemblePool.Instance()
         self.assertTrue(int(response.body)==len(aem))
 
-    def test_QRCode_generate_valid(self):
-        response=PageViews(self.context,self.request)._generateQRCode("http://mustermann.de/minApp")
-        self.assertEqual("/tmp/qrcodes/6545b7b29202cbb09883dd0b4595a149.svg",response)
 
-    def test_QRCode_generate_notvalid(self):
-        response=PageViews(self.context,self.request)._generateQRCode("http://mustermann.de/maxApp")
-        self.assertNotEqual("/tmp/qrcodes/6545b7b29202cbb09883dd0b4595a149.svg",response)
-
-    def test_QRCode_generate_wrongURI(self):
-        response=PageViews(self.context,self.request)._generateQRCode("mustermann.de/maxApp")
-        self.assertIsNone(response)
 
     def test_fill_graph_by_subject(self):
         """

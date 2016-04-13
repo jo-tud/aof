@@ -17,7 +17,7 @@ class AppPoolTests(unittest.TestCase):
         a = AssetResolver()
         self.path = a.resolve(aof.tests.settings["app_pool_path"]).abspath()
         self.ap=AppPool.Instance()
-        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
+        self.ap.load(source=self.path, format="turtle")
         self.maxApp=URIRef("http://mustermann.de/maxApp")
         self.minApp=URIRef("http://mustermann.de/minApp")
 
@@ -31,10 +31,10 @@ class AppPoolTests(unittest.TestCase):
 
     def test_clear_and_update_app_pool(self):
         # Clears AppPool and checks whether there are no items left. Then updates the AppPool with the test_pool.ttl and checks if there are two items again
-        self.ap.clear_app_pool()
+        self.ap.clear()
         self.assertIs(self.ap.get_number_of_apps(), 0, "AppPool's Clear-Method is broken!")
 
-        self.ap.add_apps_from_app_pool_definition(source=self.path, format="turtle")
+        self.ap.load(source=self.path, format="turtle")
         self.assertIs(self.ap.get_number_of_apps(), 2, "AppPool's Update Method is broken!")
 
 
@@ -77,7 +77,7 @@ class AppPoolTests(unittest.TestCase):
         maxRoles=self.ap.get_roles(self.maxApp)
         minRoles=self.ap.get_roles(self.minApp)
 
-        self.assertListEqual(maxRoles,["http://eatld.et.tu-dresden.de/aof/Conductor"],"App roles were not correct loaded!")
+        self.assertListEqual(maxRoles,[URIRef("http://eatld.et.tu-dresden.de/aof/Conductor")],"App roles were not correct loaded!")
         self.assertListEqual(minRoles,[],"App without roles seems to have some!")
 
     def test_is_android_app_maxminApp(self):
@@ -93,8 +93,8 @@ class AppPoolTests(unittest.TestCase):
         maxScreenshots=self.ap.get_main_screenshot(self.maxApp)
         minScreenshots=self.ap.get_main_screenshot(self.minApp)
 
-        self.assertDictEqual(maxScreenshots,{'comment': 'None', 'uri': 'http://mustermann.de/maxApp/res/mainScreenshot.jpg'},"App roles were not correct loaded!")
-        self.assertDictEqual(minScreenshots,{'comment': 'None', 'uri': 'None'},"App without roles seems to have some!")
+        self.assertDictEqual(maxScreenshots,{'comment': 'None', 'image_uri': 'http://mustermann.de/maxApp/res/mainScreenshot.jpg'},"App roles were not correct loaded!")
+        self.assertDictEqual(minScreenshots,{'comment': 'None', 'image_uri': 'None'},"App without roles seems to have some!")
 
     def test_hasget_other_screenshot_maxminApp(self):
         # Tests if other Screenshots are loaded correctly

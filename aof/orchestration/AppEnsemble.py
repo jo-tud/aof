@@ -5,7 +5,7 @@ from aof.orchestration.namespaces import AOF
 from aof.orchestration.Singleton import Singleton
 import zipfile
 import fnmatch
-
+from rdflib.plugins.memory import IOMemory
 import os # os abstraction (e.g. listdir)
 import logging
 
@@ -24,9 +24,8 @@ class AppEnsemble(Graph):
     ae_folder_path=_ae_folder_path
 
     def __init__(self,identifier=None):
-
+        #AOFGraph.__init__(self)
         type(self).counter += 1
-        g = AOFGraph.Instance()
         self.log = logging.getLogger(__name__)
         self.a = AssetResolver()
 
@@ -35,7 +34,8 @@ class AppEnsemble(Graph):
         if identifier:
             assert isinstance(identifier, str)
             id = identifier
-            Graph.__init__(self, store=g.store, identifier=id)
+            store = IOMemory()
+            Graph.__init__(self, store=store, identifier=id)
             self.ae_pkg_path = self.a.resolve(_ae_folder_path + identifier + self.ae_extension).abspath()
 
             if os.path.isfile(self.ae_pkg_path):
@@ -94,14 +94,26 @@ class AppEnsemble(Graph):
             else:
                 raise IOError('File "%s" not found in AppEnsemble' % filename)
 
-    def getRequiredApps(self):
+    def getRequiredApps(self,use_json=False):
         #TODO: Adapt to new ontology
+
         res = self.query("""
-            PREFIX o: <http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#>
-            SELECT DISTINCT ?app_uri ?name
+            PREFIX aof: <http://eatld.et.tu-dresden.de/aof/>
+            PREFIX bpmn2: <http://dkm.fbk.eu/index.php/BPMN2_Ontology#>
+            SELECT DISTINCT ?app_uri ?name ?original_name
             WHERE {
-                [] o:instanceOf ?app_uri;
-                   o:Name ?name .
+                [] aof:assignedApp ?app_uri;
+                   bpmn2:Name ?name .
+
+                ?app_uri rdfs:label ?original_name .
             }
         """)
+        if use_json:
+            result=list()
+            for row in res.bindings:
+                tmp=dict()
+                for col in row:
+                    tmp[str(col)]=str(row[col])
+                result.append(tmp)
+            res=result
         return res

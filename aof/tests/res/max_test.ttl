@@ -12,7 +12,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 # Namespaces for THIS App-Ensemble
-@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/> .
+@prefix jenkins: <http://dev.plt.et.tu-dresden.de:8085/job/> .
 @prefix play: <http://play.google.com/store/apps/details?id=> .
 @prefix android: <http://schemas.android.com/apk/res/android/> .
 
@@ -34,7 +34,7 @@
 
     aof:hasInstallableArtifact	<http://mustermann.de/maxApp/res/install.apk> ;
 
-    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
+    aof:hasVersion <http://dev.plt.et.tu-dresden.de:8085/job/AppEnsembleInstaller/lastSuccessfulBuild/buildNumber> ;
     aof:version "1"^^xsd:integer ;
     
     aof:hasMainScreenshot [

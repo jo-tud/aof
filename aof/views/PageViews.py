@@ -7,6 +7,7 @@ from aof.orchestration.AOFGraph import AOFGraph
 from aof.orchestration.AppEnsemblePool import AppEnsemblePool
 from aof.orchestration.AppPool import AppPool
 from aof.views import AbstractViews
+from urllib.parse import unquote_plus
 
 import os
 import logging
@@ -29,20 +30,29 @@ class RequestPoolURI_Decorator(object):
     def __call__(self, f):
         @wraps(f)
         def wrapper(self, *args, **kwargs):
-            if not self.request.params.has_key('URI'):
+
+            if not self.request.params.has_key('URI') and 'URI' not in self.request.matchdict:
                 return Response(
                     'The parameter "URI" was not supplied. Please provide the URI of the App-Ensemble for which you want to display the details.')
             else:
-                if len(self.request.params.getall('URI')) > 1:
+                if len(self.request.params.getall('URI')) > 1  and 'URI' not in self.request.matchdict:
                     return Response('More than one URI was supplied. Please supply exactly 1 URI.')
                 else:
-                    uri = self.request.params.getone('URI')
+                    if 'URI' in self.request.matchdict:
+                        uri=self.request.matchdict['URI']
+                    else:
+                        uri = self.request.params.getone('URI')
                     if uri == "":
                         return Response(
-                            'Value of the "URI"-parameter was empty. Please provide the URI of the App-Ensemble.')
+                            'Value of the "URI"-parameter was empty. Please provide the URI of the resource.')
                     else:
-                        self.uri = URIRef(uri)
+                        self.uri = URIRef(unquote_plus(uri))
                         if isinstance(self.pool, AppPool):
+                            if "://" not in self.uri and len(self.uri)==32:
+                                for app in self.pool.get_app_uris():
+                                    if str(self.uri) == self.pool._hash_value(app):
+                                        self.uri=app
+                                        break
                             if self.pool.in_pool(self.uri):
                                 return f(self, *args, **kwargs)
                             else:
@@ -99,33 +109,6 @@ class PageViews(AbstractViews):
         self.page_title = str(value)
         return None
 
-    def _generateQRCode(self,url,size=4):
-        """
-        Generates an QR-Code-SVG into the directory "static/img/qrcodes"
-        Filename of the SVG is an md5-hash of the uri.
-        :return: relative URL or None if the url is not valid
-        """
-        import pyqrcode
-        from pyramid.path import AssetResolver
-        from urllib.parse import urlparse
-        from hashlib import md5
-
-        valid_url=urlparse(url)
-        if bool(valid_url.scheme):
-            hash=md5()
-            hash.update(url.encode('utf-8'))
-            target=AssetResolver().resolve(os.path.join('aof:tmp','qrcodes',str(hash.hexdigest())+".svg")).abspath()
-            if not os.path.exists(target):
-                qrcode = pyqrcode.create(url)
-                qrcode.svg(target,size)
-            target=target.replace(AssetResolver().resolve('aof:').abspath(),"")
-            target=target.replace('\\',"/")
-            qrcode=target
-        else:
-            log.error("QRCode for {} could not be created. Seems to be an invalid URL!".format(url))
-            qrcode = None
-        return qrcode
-
 
     @view_config(route_name='home', renderer='aof:templates/home.mako')
     def page_home(self):
@@ -137,22 +120,34 @@ class PageViews(AbstractViews):
         aem = AppEnsemblePool.Instance()
         number_of_apps = str(ap.get_number_of_apps())
         number_of_ae = str(len(aem))
-        g = AOFGraph.Instance()
-        unique_triples = str(g.__len__())
+        # TODO: are unique triples important
+        #g = AOFGraph.Instance()
+        #unique_triples = str(ap.__len__()+aep.__len()__)
+        #unique_triples="1" HTML-code: <li>The model currently consists of ${unique_triples} unique triples!</li>
 
-        ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/jenkins/job/AppEnsembleInstaller/lastSuccessfulBuild/")
-        ae_inst_arifact=ap.get_install_uri(ae_inst_uri)
-        ae_inst_qrcode=self._generateQRCode(ae_inst_arifact)
+        ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/job/AppEnsembleInstaller/lastSuccessfulBuild/")
+        ae_inst_artifact=ap.get_install_uri(ae_inst_uri)
+        ae_inst_qrcode=ap.get_QRCode(ae_inst_artifact)
+
+        if ae_inst_qrcode is None:
+            ae_inst_qrcode = "Not available"
+
+        if ae_inst_artifact is None:
+            ae_inst_uri = "#"
+        else:
+            ae_inst_uri = self.build_URI('app-details', '{URI:.*}', ap._hash_value(ae_inst_uri))
 
 
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
-                       'unique_triples': unique_triples,
+                       #'unique_triples': unique_triples,
                        'ae_inst_uri' : ae_inst_uri,
-                       'ae_inst_qrcode':ae_inst_qrcode
+                       'ae_inst_qrcode':ae_inst_qrcode,
+                       'app_pool_uri':self.get_URI('apps'),
+                       'app_ensemble_pool_uri':self.get_URI('app-ensembles')
                        }
         return self._returnCustomDict(custom_args)
 
 
 if __name__ == "__main__":
-    print(PageViews(1,2)._generateQRCode("http://www.cyt.de/test.html?a=b&c=d",1))
+    pass
