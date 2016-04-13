@@ -9,6 +9,7 @@ settings["documentation_docs_path"]="aof:resources/docs"
 settings["META"]="{'appname':'Application Orchestration Framework','acronym':'AOF'}"
 settings["test_resources_path"]="aof:tests/res"
 settings["ae_name"]='testAppEnsemble'
+settings["jenkins_python_api_url"] = ''
 
 
 # Helper-Functions
