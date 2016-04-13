@@ -9,6 +9,7 @@ from pyramid.threadlocal import get_current_registry
 
 import requests
 import requests.exceptions
+import ast
 
 import logging
 
@@ -19,9 +20,10 @@ __all__ = [
 
 @Singleton
 class AppPool(AOFGraph):
-    init_source = "aof:resources/App-Pool/pool.ttl"
-    init_format="turtle"
-
+    # There are two ways the App-Pool can be filled
+    # a) a Jenkins server using its python api
+    # b) an rdf-file, e.g. in turtle serialization of the following format: @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+    # both are set in the .ini startup files
 
     def __init__(self):
         AOFGraph.__init__(self,AOF.AppPool)
@@ -31,11 +33,17 @@ class AppPool(AOFGraph):
         registry = get_current_registry()
         if (registry.settings is not None) and ('app_pool_path' in registry.settings):
             self.init_source=registry.settings['app_pool_path']
+            self.jenkins_python_api_url = registry.settings['jenkins_python_api_url']
 
-        self.load(source=self.init_source, format=self.init_format)
-
+        self.addAppsFromRDF(source=self.init_source, format=self.init_format)
+        self.addAppsFromJenkins(source=self.jenkins_python_api_url)
 
     def load(self, source=None, format=None):
+        self.clear()
+        self.addAppsFromRDF(source=self.init_source, format=self.init_format)
+        self.addAppsFromJenkins(source=self.jenkins_python_api_url)
+
+    def addAppsFromRDF(self, source=None, format=None):
         """
         Adds apps to the pool from a given app-pool definition source which contains statements in the form:
         [] aof:hasAppDescription "[URI to app-description]" .
@@ -43,8 +51,6 @@ class AppPool(AOFGraph):
         @param string source: An InputSource, file-like object, or string. In the case of a string the string is the location of the source.
         @param string format: Must be given if format can not be determined from source, 'xml', 'n3', 'nt', 'trix', 'turtle' and 'rdfa' are built in.
         """
-        self.clear()
-
         if source==None:
             source=self.init_source
             if format==None:
@@ -78,6 +84,40 @@ class AppPool(AOFGraph):
                 self.log.error("There was a problem reading %s." %o)
                 self.log.error(detail)
 
+
+    def addAppsFromJenkins(self, source=None):
+        """
+        Adds apps to the pool from a Jenkins build server
+        """
+        if source == None:
+            source = self.jenkins_python_api_url
+        try:
+
+            j_jobs_request = requests.get(source, timeout=0.1)
+            jobs = ast.literal_eval(j_jobs_request.content.decode())
+
+            for job in jobs['jobs']:
+                job_url = job['url']
+
+                try:
+                    artifacts = ast.literal_eval(requests.get(job_url+"lastSuccessfulBuild/api/python", timeout=0.1).content.decode())['artifacts']
+                except Exception as e:
+                    self.log.exception(e)
+
+                for artifact in artifacts:
+                    if artifact['relativePath'].endswith('.ttl'):
+                        ttl_file = artifact['relativePath']
+                        break
+
+                if type(ttl_file) == None:
+                    raise Exception
+
+                ttl_url = job_url + "lastSuccessfulBuild/artifact/" + ttl_file
+                self.parse(source=ttl_url, format="turtle")
+
+            self.log.info("Added apps from %s." % source)
+        except Exception as e:
+            self.log.exception(e)
 
     def get_number_of_apps(self):
         q = """

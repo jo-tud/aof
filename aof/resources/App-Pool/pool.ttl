@@ -1,30 +1,5 @@
+# This file should contain statements in the form:
+# [] aof:hasAppDescription "[URI to app-description]" .
+
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix aof: <http://eatld.et.tu-dresden.de/aof/> .
-
-[]
-    aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyDioscoreaRoot/lastSuccessfulBuild/artifact/AOFDummyDioscoreaRoot/AOFDummyDioscoreaRoot.ttl" ;
-    aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyCayenne/lastSuccessfulBuild/artifact/AOFDummyCayenne/AOFDummyCayenne.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyBirthwort/lastSuccessfulBuild/artifact/AOFDummyBirthwort/AOFDummyBirthwort.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/AOFDummyAconiteRoot/lastSuccessfulBuild/artifact/AOFDummyAconiteRoot/AOFDummyAconiteRoot.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDNeighbourhoodBrowser2/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser2/TUDNeighbourhoodBrowser2.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/AppEnsembleInstaller/lastSuccessfulBuild/artifact/AppEnsembleInstaller/AppEnsembleInstaller.ttl" ;
-    aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/AOFConductor/lastSuccessfulBuild/artifact/AppEnsembleConductor/AppEnsembleConductor.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/IAFLogin/lastSuccessfulBuild/artifact/IAFLogin/IAFLogin.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/IAFManagementComponent/lastSuccessfulBuild/artifact/IAFManagementComponent.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/IAFSkeletonApp/lastSuccessfulBuild/artifact/IAFSkeletonApp/IAFSkeletonApp.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDBaracodaTagReader/lastSuccessfulBuild/artifact/TUDBaracodaTagReader.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDDeviceExplorer/lastSuccessfulBuild/artifact/TUDDeviceExplorer/TUDDeviceExplorer.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDLiveDataViewer/lastSuccessfulBuild/artifact/TUDLiveDataViewer.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDLogService/lastSuccessfulBuild/artifact/TUDLogService.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDMultipleSensorSelector/lastSuccessfulBuild/artifact/TUDMultipleSensorSelector.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDNeighbourhoodBrowser/lastSuccessfulBuild/artifact/TUDNeighbourhoodBrowser/TUDNeighbourhoodBrowser.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDNFCTagReader/lastSuccessfulBuild/artifact/TUDNFCTagReader.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDPlantSelector/lastSuccessfulBuild/artifact/TUDPlantSelector.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDPOIMap/lastSuccessfulBuild/artifact/TUDPOIMap/TUDPOIMap.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDRoutingApp/lastSuccessfulBuild/artifact/TUDRoutingApp/TUDRoutingApp.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDSensorSelection/lastSuccessfulBuild/artifact/TUDSensorSelection.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleList/lastSuccessfulBuild/artifact/TUDSimpleList/TUDSimpleList.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDSimpleMessage/lastSuccessfulBuild/artifact/TUDSimpleMessage.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDSparqlTest/lastSuccessfulBuild/artifact/TUDSparqlTest/TUDSparqlTest.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDTaskReport/lastSuccessfulBuild/artifact/TUDTaskReport.ttl" ;
-	aof:hasAppDescription "http://dev.plt.et.tu-dresden.de:8085/job/TUDTimeSeries/lastSuccessfulBuild/artifact/TUDTimeSeries/TUDTimeSeries.ttl" .
