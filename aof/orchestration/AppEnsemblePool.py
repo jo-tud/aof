@@ -47,7 +47,7 @@ class AppEnsemblePool(AOFGraph):
         self.a = AssetResolver()
         self.load()
 
-        self.itemtype=URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#AppEnsemble")
+        self.itemtype=URIRef("http://eatld.et.tu-dresden.de/aof/isAppEnsemble")
 
 
 
@@ -61,8 +61,9 @@ class AppEnsemblePool(AOFGraph):
         q ="""
             ASK
             WHERE
-            {{?s  a <{0}>.?s  <{1}> "{2}"}}
-            """.format(self.itemtype,URIRef("http://comvantage.eu/ontologies/iaf/2013/0/Orchestration.owl#Name"),Literal(identifier))
+            {{?s  a <{0}>.
+            ?s  <{1}> "{2}".}}
+            """.format(self.itemtype,URIRef("http://eatld.et.tu-dresden.de/aof/Name"),Literal(identifier))
 
         #return self.query(q).askAnswer
         return (str(identifier) in self.pool)
