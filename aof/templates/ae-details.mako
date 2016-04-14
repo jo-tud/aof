@@ -30,10 +30,12 @@
     </style>
   <div class="small-12 medium-12 columns">
       <h4>Actions</h4>
-      <a class="small success button fixed_size" href="${bpmn_view_uri}">Visualize </a>
+      <a class="small success button fixed_size" href="${bpmn_view_uri}">View </a>
       <a class="small warning button fixed_size" href="${bpmn_edit_uri}">Edit</a>
       <a class="small button fixed_size" href="${direct_download_uri}">Install</a>
-      <a class="small alert button right fixed_size" id="delete-ae" href="${bpmn_delete_uri}">Delete</a>
+  </div>
+  <div class="small-12 medium-12 columns">
+      <a class="small alert button fixed_size" id="delete-ae" href="${bpmn_delete_uri}">Delete</a>
   </div>
 </div>
 
