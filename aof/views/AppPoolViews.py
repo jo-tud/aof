@@ -3,6 +3,7 @@ import logging
 
 from pyramid.response import Response
 from pyramid.view import view_config
+from webhelpers2 import text
 
 from rdflib import ConjunctiveGraph,Graph, BNode, URIRef
 
@@ -96,7 +97,8 @@ class AppPoolViews(PageViews):
                 'details_uri':self.build_URI('app-details',"{URI:.*}",self.pool._hash_value(app_uri)),#/apps/"+quote_plus(app_uri)+"/details",
                 'name': self.pool.get_name(app_uri),
                 'icon': self.pool.get_icon_uri(app_uri),
-                'binary': self.pool.get_install_uri(app_uri)
+                'binary': self.pool.get_install_uri(app_uri),
+                'description': text.truncate(self.pool.get_description(app_uri), length=200, indicator='...', whole_word=True)
             }
             apps.append(app)
 

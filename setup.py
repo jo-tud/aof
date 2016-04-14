@@ -17,7 +17,8 @@ requires = [
     'rdflib',
     'webtest',
     'pyqrcode',
-    'requests'
+    'requests',
+    'WebHelpers2'
     ]
 
 setup(name='AOF',

@@ -120,14 +120,14 @@ class PageViews(AbstractViews):
         aem = AppEnsemblePool.Instance()
         number_of_apps = str(ap.get_number_of_apps())
         number_of_ae = str(len(aem))
-        # TODO: are unique triples important
-        #g = AOFGraph.Instance()
-        #unique_triples = str(ap.__len__()+aep.__len()__)
-        #unique_triples="1" HTML-code: <li>The model currently consists of ${unique_triples} unique triples!</li>
 
         ae_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/job/AppEnsembleInstaller/lastSuccessfulBuild/")
         ae_inst_artifact=ap.get_install_uri(ae_inst_uri)
         ae_inst_qrcode=ap.get_QRCode(ae_inst_artifact)
+
+        aofc_inst_uri=URIRef("http://dev.plt.et.tu-dresden.de:8085/job/AOFConductor/LastSuccessfulBuild")
+        aofc_inst_artifact=ap.get_install_uri(aofc_inst_uri)
+        aofc_inst_qrcode=ap.get_QRCode(aofc_inst_artifact)
 
         if ae_inst_qrcode is None:
             ae_inst_qrcode = "Not available"
@@ -138,11 +138,22 @@ class PageViews(AbstractViews):
             ae_inst_uri = self.build_URI('app-details', '{URI:.*}', ap._hash_value(ae_inst_uri))
 
 
+        if aofc_inst_qrcode is None:
+            aofc_inst_qrcode = "Not available"
+
+        if aofc_inst_artifact is None:
+            aofc_inst_uri = "#"
+        else:
+            aofc_inst_uri = self.build_URI('app-details', '{URI:.*}', ap._hash_value(aofc_inst_uri))
+
         custom_args = {'number_of_apps': number_of_apps,
                        'number_of_ae': number_of_ae,
-                       #'unique_triples': unique_triples,
                        'ae_inst_uri' : ae_inst_uri,
+                       'aofc_inst_uri': aofc_inst_uri,
                        'ae_inst_qrcode':ae_inst_qrcode,
+                       'aofc_inst_qrcode': aofc_inst_qrcode,
+                       'ae_inst_artifact': ae_inst_artifact,
+                       'aofc_inst_artifact': aofc_inst_artifact,
                        'app_pool_uri':self.get_URI('apps'),
                        'app_ensemble_pool_uri':self.get_URI('app-ensembles')
                        }

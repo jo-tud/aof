@@ -2,12 +2,12 @@
 <%inherit file="layout.mako"/>
 <%block name="header"></%block>
 <%block name="top_bar_actions">
-    <li><a href="${api_app_ttl_uri}">SHOW APP-DESCRIPTION</a></li>
-    <li><a href="${details['binary']}">DOWNLOAD APP</a></li>
+    <li><a href="${api_app_ttl_uri}">VIEW APP-DESCRIPTION</a></li>
+    <li><a href="${details['binary']}">DOWNLOAD</a></li>
 </%block>
 <div class="row">
     % if details['has_main_screenshot']:
-        <div class="small-12 columns">
+        <div class="small-12 medium-9 columns">
             <ul class="clearing-thumbs clearing-feature" data-clearing>
                 <li class="clearing-featured-img">
                     <div class="row">
@@ -41,6 +41,12 @@
             </ul>
         </div>
     % endif
+    % if qrcode != "None":
+    <div class="show-for-medium-up medium-3 columns panel pagination-centered">
+            <img src="${qrcode}" alt="${details['name']}"/>
+            <span class="secondary label"><a href="${details['binary']}">Download App</a></span>
+    </div>
+    % endif
     <div class="small-12 columns">
         <h1>${details['name']}</h1>
     </div>
@@ -50,11 +56,11 @@
     <div class="small-12 columns">
         <p class="markdown">${details['comment']}</p>
     </div>
-    % if qrcode != "None":
-        <div class="small-9 columns">
-    % else :
-        <div class="small-12 columns">
-    % endif
+    <div class="small-12 columns">
+        <a class="button small" href="${details['binary']}">Download</a>
+        <a class="button small" href="${api_app_ttl_uri}" target="_ttl">View textual App-Description</a>
+    </div>
+    <div class="small-12 columns">
         <table width="100%">
             <thead>
             <tr>
@@ -93,13 +99,6 @@
             </tbody>
         </table>
     </div>
-    % if qrcode != "None":
-    <div class="medium-3 columns panel pagination-centered">
-            <img src="${qrcode}" alt="${details['name']}"/>
-            <span class="secondary label">Download App</span>
-    </div>
-    </div>
-    % endif
 
 </div>
 

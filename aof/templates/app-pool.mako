@@ -17,14 +17,14 @@
         </li>
     </div>
 </div>
-<div class="row">
+<div class="row collapse">
     <div class="small-12 columns">
         <div id="app_table">
             <table width="100%">
                 <tbody>
                     % for app in apps:
                         <tr class="app_row">
-                            <td width="80px">
+                            <td>
                                 <a href="${app['details_uri']}">
                                     % if app['icon'] != "None":
                                         <img src="${app['icon']}" width="64px" height="64px">
@@ -33,16 +33,8 @@
                                     % endif
                                 </a>
                             </td>
-                            <td class="app_name">
-                                <a href="${app['details_uri']}">${app['name']}</a>
-                            </td>
-                            <td width="100px">
-                                <a class="button tiny secondary round" style="margin-bottom: 0px"
-                                   href="${app['details_uri']}">Details</a>
-                            </td>
-                            <td width="100px">
-                                <a class="button tiny secondary round" style="margin-bottom: 0px"
-                                   href="${app['binary']}">Download</a>
+                            <td class="app_name" width="100%">
+                                <h4><a href="${app['details_uri']}">${app['name']}</a><small><br/>${app['description']}</small></h4>
                             </td>
                         </tr>
                     % endfor
