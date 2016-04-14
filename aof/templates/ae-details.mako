@@ -23,12 +23,17 @@
         % endfor
       </p>
   </div>
+    <style>
+
+    .fixed_size { width: 130px; }
+
+    </style>
   <div class="small-12 medium-12 columns">
       <h4>Actions</h4>
-      <a class="small success button" href="${bpmn_view_uri}">Visualize </a>
-      <a class="small button" id="delete-ae" href="${direct_download_uri}">Install</a>
-      <a class="small warning button" href="${bpmn_edit_uri}">Edit</a>
-      <a class="small alert button" id="delete-ae" href="${bpmn_delete_uri}">Delete</a>
+      <a class="small success button fixed_size" href="${bpmn_view_uri}">Visualize </a>
+      <a class="small warning button fixed_size" href="${bpmn_edit_uri}">Edit</a>
+      <a class="small button fixed_size" href="${direct_download_uri}">Install</a>
+      <a class="small alert button right fixed_size" id="delete-ae" href="${bpmn_delete_uri}">Delete</a>
   </div>
 </div>
 
