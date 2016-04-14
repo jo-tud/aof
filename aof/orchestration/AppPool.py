@@ -94,31 +94,31 @@ class AppPool(AOFGraph):
         else:
             try:
 
-                j_jobs_request = requests.get(source, timeout=0.1)
+                j_jobs_request = requests.get(source, timeout=1.0)
                 jobs = ast.literal_eval(j_jobs_request.content.decode())
 
                 for job in jobs['jobs']:
                     job_url = job['url']
 
                     try:
-                        artifacts = ast.literal_eval(requests.get(job_url+"lastSuccessfulBuild/api/python", timeout=0.1).content.decode())['artifacts']
+                        artifacts = ast.literal_eval(requests.get(job_url+"lastSuccessfulBuild/api/python", timeout=0.5).content.decode())['artifacts']
+
+                        for artifact in artifacts:
+                            if artifact['relativePath'].endswith('.ttl'):
+                                ttl_file = artifact['relativePath']
+                                break
+
+                        if type(ttl_file) == None:
+                            raise Exception
+
+                        ttl_url = job_url + "lastSuccessfulBuild/artifact/" + ttl_file
+                        self.parse(source=ttl_url, format="turtle")
                     except Exception as e:
                         self.log.exception(e)
-
-                    for artifact in artifacts:
-                        if artifact['relativePath'].endswith('.ttl'):
-                            ttl_file = artifact['relativePath']
-                            break
-
-                    if type(ttl_file) == None:
-                        raise Exception
-
-                    ttl_url = job_url + "lastSuccessfulBuild/artifact/" + ttl_file
-                    self.parse(source=ttl_url, format="turtle")
-
-                self.log.info("Added apps from %s." % source)
             except Exception as e:
                 self.log.exception(e)
+
+            self.log.info("Added apps from %s." % source)
 
     def get_number_of_apps(self):
         q = """
