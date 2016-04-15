@@ -12,10 +12,10 @@
 
 <div class="row">
   <div class="large-12 columns">
-      <h4>Apps in this Ensemble</h4>
       <p>
           ${documentation.__str__()}
       </p>
+      <h4>Apps in this Ensemble</h4>
       <p>
         % for app in ae_apps:
             % if not loop.last:
