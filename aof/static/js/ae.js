@@ -36,21 +36,10 @@ $(function() {
                 pricing_table.append('<div class="eq" data-equalizer-watch></div>')
                 var eq_div=pricing_table.find('.eq')
                 eq_div.append('<li class="title">'+ ae.uri + '</li>');
-                $('<li class="bullet-item" id="app-path"></li>').appendTo(eq_div);
-                $('<span data-tooltip aria-haspopup="true" class="has-tip">Path<span>').attr('title',ae.path).appendTo($(eq_div.find('#app-path')))
-                var apps = JSON.parse(ae.apps).results.bindings;
-                //pricing_table.append('')
-                var app_list = "";
-                $.each(apps, function (key, app) {
-                    app_list = app_list.concat(", "+app.name.value);
-                    //.pricing_table.append('<li class="bullet-item">'+app.name.value+'</li>')
-                });
-                if (app_list != ""){
-                    $('<li class="bullet-item" id="app-list"></li>').appendTo(eq_div);
-                    $('<span data-tooltip aria-haspopup="true" class="has-tip">Apps<span>').attr('title',app_list.slice(2)).appendTo($(pricing_table.find('#app-list')))
-                }
-                $('<li class="cta-button details"><a class="button" href="/app-ensembles/'+encodeURI(ae.uri)+'/details.html">Details</a></li>').attr('id',ae.uri).appendTo(pricing_table);
-                $('<li class="cta-button deploy"><a class="button floor" href="#">Install</a></li>').attr('uri',ae.uri).appendTo(pricing_table);
+
+                $('<li class="bullet-item" id="documentation">' + ae.documentation + '</li>').appendTo(pricing_table);
+                $('<li class="cta-button details"><a style="width:140px" class="button success" href="/app-ensembles/'+encodeURI(ae.uri)+'/details.html">Details</a></li>').attr('id',ae.uri).appendTo(pricing_table);
+                $('<li class="cta-button deploy"><a style="width:140px" class="button floor" href="#">Install</a></li>').attr('uri',ae.uri).appendTo(pricing_table);
 
             });
             target.children().last().attr('class','small-12 medium-4 large-3 columns end')

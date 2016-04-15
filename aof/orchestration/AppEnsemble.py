@@ -1,8 +1,6 @@
-from rdflib import Graph, util
+from rdflib import Graph, util, URIRef, Namespace, RDF, RDFS
 from pyramid.path import AssetResolver
-from aof.orchestration.AOFGraph import AOFGraph
-from aof.orchestration.namespaces import AOF
-from aof.orchestration.Singleton import Singleton
+from aof.orchestration.namespaces import AOF, BPMN2
 import zipfile
 import fnmatch
 from rdflib.plugins.memory import IOMemory
@@ -117,3 +115,18 @@ class AppEnsemble(Graph):
                 result.append(tmp)
             res=result
         return res
+
+    def getDocumentation(self):
+        try:
+            a = self.identifier
+            doc = self.value(subject=self.getURI(), predicate=BPMN2.documentation, any=False)
+            return doc
+        except:
+            return " "
+
+    def getURI(self):
+        try:
+            uri = self.value(predicate=RDF.type, object=AOF.isAppEnsemble, any=False)
+            return uri
+        except:
+            return " "

@@ -6,6 +6,7 @@ from aof.orchestration.AppPool import AppPool
 from aof.views.PageViews import PageViews,RequestPoolURI_Decorator
 from urllib.parse import quote
 import logging,shutil,os
+from webhelpers2 import text
 
 __author__ = 'khoerfurter'
 log = logging.getLogger(__name__)
@@ -39,10 +40,11 @@ class AppEnsembleViews(PageViews):
             for key in self.pool.get_all_AppEnsembles():
                 ae = self.pool.get_AppEnsemble(key)
                 path = ae.ae_pkg_path
+                documentation = text.truncate(ae.getDocumentation(), length=100, indicator='...', whole_word=True)
                 apps = ae.getRequiredApps().serialize(format='json').decode()
-                ae_info[key] = {'uri': key, 'path': path, 'apps': apps}
+                ae_info[key] = {'uri': key, 'path': path, 'apps': apps, 'documentation': documentation}
         except AttributeError:
-            ae_info[key] = {'uri': key, 'path': path, 'apps': {}}
+            ae_info[key] = {'uri': key, 'path': path, 'apps': {}, 'documentation':''}
         return ae_info
 
     @view_config(route_name='api-action-appensembles-update')
@@ -105,6 +107,7 @@ class AppEnsembleViews(PageViews):
 
         custom_args = {
             'ae_uri': self.uri,
+            'documentation': text.truncate(ae.getDocumentation(), length=1000, indicator='...', whole_word=True),
             'ae_api_path':api_ae_uri,
             'qrcode': self.pool.get_QRCode(api_ae_uri),
             'direct_download_uri':self.build_URI('api-appensembles-ae-package',"{URI:.*}",self.uri),

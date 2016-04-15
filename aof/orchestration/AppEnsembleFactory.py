@@ -44,8 +44,18 @@ class OrchestrationFactory():
                     self.appEnsembles[id]["tmp_path"]=AssetResolver().resolve('aof:tmp/ae-trash/'+rand).abspath()
                 except:
                     pass
+
+                try:
+                    self.appEnsembles[id]["documentation"] = p.getElementsByTagName("bpmn2:documentation")[0].firstChild.nodeValue
+                except:
+                    pass
+
         ks = list(self.appEnsembles)
         self.name=self.appEnsembles[ks[0]]["name"]
+        try:
+            self.documentation=self.appEnsembles[ks[0]]["documentation"]
+        except:
+            self.documentation=""
         self.AE = Namespace("http://eataof.et.tu-dresden.de/app-ensembles/" + self.name)
         processes = self.dom.getElementsByTagName('bpmn2:process')
         for p in processes:
@@ -193,18 +203,26 @@ class GraphFactory():
         else:
             raise InconsistentAE("Task is no App!")
 
-
+    # Add id, name, type and documentation
     def _addAppInstances(self):
 
         tasks = self.ae["dom"].getElementsByTagName('bpmn2:userTask')
 
         for task in tasks:
             nid=task._attrs['id'].nodeValue
+
             try:
                 nodename=task._attrs['name'].nodeValue
             except:
                 nodename=nid
                 task._attrs['name']=nid
+
+            try:
+                doc = task.getElementsByTagName('bpmn2:documentation')[0].firstChild.nodeValue
+                self.g.add((node, BPMN2.documentation, Literal(doc)))
+            except:
+                pass
+
             node=URIRef('ae:'+nid)
             self.g.add((node,BPMN2.id, Literal(task._attrs['id'].nodeValue) ))
             self.g.add((node,BPMN2.Name, Literal(nodename)))
@@ -226,6 +244,12 @@ class GraphFactory():
             except:
                 nodename=nid
                 task._attrs['name']=nid
+
+            try:
+                doc = task.getElementsByTagName('bpmn2:documentation')[0].firstChild.nodeValue
+                self.g.add((node, BPMN2.documentation, Literal(doc)))
+            except:
+                pass
 
             node=URIRef('ae:'+nid)
             self.g.add((node,BPMN2.id, Literal(task._attrs['id'].nodeValue) ))
@@ -276,6 +300,10 @@ class GraphFactory():
         # add App-Ensemble
         self.g.add((self.AENode, RDF.type, AOF.isAppEnsemble))
         self.g.add((self.AENode, AOF.Name, Literal(self.ae["name"])))
+        try:
+            self.g.add((self.AENode, BPMN2.documentation, Literal(self.ae["documentation"])))
+        except:
+            pass
 
         self.factory.registerLogEntry(0,'Creating the ttl-data out of XML')
 

@@ -14,6 +14,9 @@
   <div class="large-12 columns">
       <h4>Apps in this Ensemble</h4>
       <p>
+          ${documentation.__str__()}
+      </p>
+      <p>
         % for app in ae_apps:
             % if not loop.last:
                 <a href="${app['app_details_uri'].__str__()}">${app['name'].__str__()}</a> (${app['original_name'].__str__()}),
