@@ -77,7 +77,8 @@ else {
         additionalModules: [AofCustomizationModule],
         moddleExtensions: aofModdleExtention,
         propertiesPanel: {
-            parent: '#js-properties-panel'
+            parent: '#js-properties-panel',
+            control: '#js-properties-panel-control'
         },
         appManager:{
             request_uri: "/api/appuris",
@@ -161,7 +162,7 @@ else {
                         $('#close-seconds').text("1")
                     }, 2000);
                     setTimeout(function () {
-                        window.location.href = document.referrer
+                        window.location.href = window.location.href.replace(/app-ensembles\/(.*$)/i, "app-ensembles/" + $('#js-save-appensemble').attr('reload') + "/details.html");
                     }, 3000);
                 },
                 method: "GET",
@@ -176,7 +177,7 @@ else {
 }
 
 closeLink.click(function () {
-    window.location.href = document.referrer;
+    window.location.href = window.location.href.replace(/(edit.html$)/i,"details.html");
 })
 
 $('.top-bar-section .right a').click(function (e) {
@@ -76159,6 +76160,11 @@ AppManager.prototype.init = function() {
                     var pushdata={name: data.results.bindings[i].label.value, value: data.results.bindings[i].uri.value};
                      apps.push(pushdata);
                 }
+                apps.sort(function(a,b){
+                    if(a.name< b.name)return -1;
+                    else return 1;
+
+                });
             }
         },
         method: "GET",
@@ -77382,6 +77388,7 @@ function PropertiesPanel(config, eventBus, modeling, propertiesProvider, command
   this._commandStack = commandStack;
   this._canvas = canvas;
   this._propertiesProvider = propertiesProvider;
+  this._config=config;
 
   this._init(config);
 }
@@ -78178,6 +78185,9 @@ PropertiesPanel.prototype._createPanel = function(element, tabs) {
   var self = this;
 
   var panelNode = domify('<div class="djs-properties"></div>'),
+      controlNode=domQuery(self._config.control),
+      closeNode=domify('<div class="close-properties-panel">close</div>'),
+      openNode=domify('<div class="open-properties-panel">open</div>'),
       headerNode = domify('<div class="djs-properties-header">' +
         '<div class="label" data-label-id></div>' +
         '<div class="search">' +
@@ -78190,6 +78200,27 @@ PropertiesPanel.prototype._createPanel = function(element, tabs) {
       tabContainerNode = domify('<div class="djs-properties-tabs-container"></div>');
 
   panelNode.appendChild(headerNode);
+  try {
+    while (controlNode.hasChildNodes()) {
+      controlNode.removeChild(controlNode.lastChild);
+     }
+    }
+  catch(err) {
+
+  }
+    controlNode.appendChild(closeNode);
+
+
+  closeNode.addEventListener('click', function (evt) {
+    self.detach();
+    controlNode.removeChild(closeNode);
+    controlNode.appendChild(openNode);
+  });
+  openNode.addEventListener('click', function (evt) {
+    self.attachTo(self._config.parent);
+    controlNode.removeChild(openNode);
+    controlNode.appendChild(closeNode);
+  });
 
   forEach(tabs, function(tab, tabIndex) {
 

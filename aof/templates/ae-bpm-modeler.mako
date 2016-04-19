@@ -31,6 +31,7 @@
     </div>
 
     <div class="canvas" id="js-canvas"></div>
+    <div id="js-properties-panel-control"></div>
     <div id="js-properties-panel"></div>
   </div>
 

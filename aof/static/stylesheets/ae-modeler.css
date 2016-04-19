@@ -130,7 +130,8 @@ a:link {
 }
 /* Properties Panel */
 /* line 34, node_modules\bpmn-js-aof\assets\styles.less */
-#js-properties-panel {
+#js-properties-panel,
+#js-properties-panel-control {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -139,22 +140,32 @@ a:link {
   z-index: 10;
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   overflow: auto;
 }
-/* line 44, node_modules\bpmn-js-aof\assets\styles.less */
-#js-properties-panel:empty {
+/* line 45, node_modules\bpmn-js-aof\assets\styles.less */
+#js-properties-panel:empty,
+#js-properties-panel-control:empty {
   display: none;
 }
-/* line 47, node_modules\bpmn-js-aof\assets\styles.less */
-#js-properties-panel > .djs-properties-panel {
+/* line 48, node_modules\bpmn-js-aof\assets\styles.less */
+#js-properties-panel > .djs-properties-panel,
+#js-properties-panel-control > .djs-properties-panel {
   padding-bottom: 70px;
   min-height: 100%;
 }
 /* line 53, node_modules\bpmn-js-aof\assets\styles.less */
+#js-properties-panel-control {
+  right: 0px;
+  width: auto;
+  height: 20px;
+  z-index: 1000;
+}
+/* line 60, node_modules\bpmn-js-aof\assets\styles.less */
 .djs-palette div[data-group="aof"] {
   background-color: rgba(31, 35, 131, 0.1);
 }
-/* line 57, node_modules\bpmn-js-aof\assets\styles.less */
+/* line 64, node_modules\bpmn-js-aof\assets\styles.less */
 #js-drop-zone {
   height: 90%;
 }
