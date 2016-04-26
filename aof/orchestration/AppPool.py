@@ -93,15 +93,18 @@ class AppPool(AOFGraph):
             self.log.info("No Jenkins url specified")
         else:
             try:
-
-                j_jobs_request = requests.get(source, timeout=1.0)
+                try:
+                    timeout = get_current_registry().settings['timeout_external_resources']
+                except:
+                    timeout = 2.0
+                j_jobs_request = requests.get(source, timeout=timeout)
                 jobs = ast.literal_eval(j_jobs_request.content.decode())
 
                 for job in jobs['jobs']:
                     job_url = job['url']
 
                     try:
-                        artifacts = ast.literal_eval(requests.get(job_url+"lastSuccessfulBuild/api/python", timeout=0.5).content.decode())['artifacts']
+                        artifacts = ast.literal_eval(requests.get(job_url+"lastSuccessfulBuild/api/python", timeout=timeout).content.decode())['artifacts']
 
                         for artifact in artifacts:
                             if artifact['relativePath'].endswith('.ttl'):
@@ -318,7 +321,7 @@ class AppPool(AOFGraph):
         build_number_doc=self.value(resource,AOF.version)
         if build_number_uri != None:
             try:
-                r = requests.get(build_number_uri,timeout=0.1) # timeout 100ms
+                r = requests.get(build_number_uri,timeout=0.5) # timeout 100ms
                 r.raise_for_status()
                 build_number=r.text
             except:
