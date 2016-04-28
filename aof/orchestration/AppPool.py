@@ -94,7 +94,7 @@ class AppPool(AOFGraph):
         else:
             try:
                 try:
-                    timeout = get_current_registry().settings['timeout_external_resources']
+                    timeout = float(get_current_registry().settings['timeout_external_resources'])
                 except:
                     timeout = 2.0
                 j_jobs_request = requests.get(source, timeout=timeout)
