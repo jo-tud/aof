@@ -33,7 +33,7 @@
                                     % endif
                                 </a>
                             </td>
-                            <td class="app_name" width="100%">
+                            <td class="app_name">
                                 <h4><a href="${app['details_uri']}">${app['name']}</a><small><br/>${app['description']}</small></h4>
                             </td>
                         </tr>
