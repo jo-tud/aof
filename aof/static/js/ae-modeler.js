@@ -90,7 +90,7 @@ if (mode == "view" || mode == "edit") {
     var newDiagramXML = decodeURIComponent(urlencodedXML);
 }
 else {
-    var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<bpmn2:definitions xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:aof=\"http://eatld.et.tu-dresden.de/aof/\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\r\n  <bpmn2:collaboration id=\"Collaboration_1hs12oq\">\r\n    <bpmn2:participant id=\"Participant_0sq20zh\" name=\"New AppEnsemble Name\" processRef=\"Process_1\" aof:isAppEnsemble=\"true\" />\r\n  </bpmn2:collaboration>\r\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\r\n    <bpmn2:startEvent id=\"StartEvent_1\" />\r\n  </bpmn2:process>\r\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\r\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_1hs12oq\">\r\n      <bpmndi:BPMNShape id=\"Participant_0sq20zh_di\" bpmnElement=\"Participant_0sq20zh\">\r\n        <dc:Bounds x=\"348\" y=\"133\" width=\"600\" height=\"250\" />\r\n      </bpmndi:BPMNShape>\r\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\r\n        <dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" />\r\n        <bpmndi:BPMNLabel>\r\n          <dc:Bounds x=\"385\" y=\"276\" width=\"90\" height=\"20\" />\r\n        </bpmndi:BPMNLabel>\r\n      </bpmndi:BPMNShape>\r\n    </bpmndi:BPMNPlane>\r\n  </bpmndi:BPMNDiagram>\r\n</bpmn2:definitions>\r\n";
+    var newDiagramXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<bpmn2:definitions xmlns:bpmn2=\"http://www.omg.org/spec/BPMN/20100524/MODEL\" xmlns:aof=\"http://eatld.et.tu-dresden.de/aof/\" xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\" xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\" xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" id=\"sample-diagram\" targetNamespace=\"http://bpmn.io/schema/bpmn\" xsi:schemaLocation=\"http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd\">\n  <bpmn2:collaboration id=\"Collaboration_1hs12oq\">\n    <bpmn2:participant id=\"Participant_0sq20zh\" name=\"New AppEnsemble Name\" processRef=\"Process_1\" aof:isAppEnsemble=\"true\" />\n  </bpmn2:collaboration>\n  <bpmn2:process id=\"Process_1\" isExecutable=\"false\">\n    <bpmn2:startEvent id=\"StartEvent_1\" />\n  </bpmn2:process>\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_1\">\n    <bpmndi:BPMNPlane id=\"BPMNPlane_1\" bpmnElement=\"Collaboration_1hs12oq\">\n      <bpmndi:BPMNShape id=\"Participant_0sq20zh_di\" bpmnElement=\"Participant_0sq20zh\">\n        <dc:Bounds x=\"348\" y=\"133\" width=\"600\" height=\"250\" />\n      </bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"_BPMNShape_StartEvent_2\" bpmnElement=\"StartEvent_1\">\n        <dc:Bounds x=\"412\" y=\"240\" width=\"36\" height=\"36\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"385\" y=\"276\" width=\"90\" height=\"20\" />\n        </bpmndi:BPMNLabel>\n      </bpmndi:BPMNShape>\n    </bpmndi:BPMNPlane>\n  </bpmndi:BPMNDiagram>\n</bpmn2:definitions>\n";
 }
 
 // bootstrap diagram functions
@@ -231,7 +231,7512 @@ var exportArtifacts = _.debounce(function () {
 
 
 renderer.on('commandStack.changed', exportArtifacts);
-},{"bpmn-js-aof":426,"bpmn-js-aof/moddle":445,"bpmn-js/lib/Modeler":2,"bpmn-js/lib/Viewer":3,"jquery":279,"lodash":304}],2:[function(require,module,exports){
+},{"bpmn-js-aof":2,"bpmn-js-aof/moddle":21,"bpmn-js/lib/Modeler":77,"bpmn-js/lib/Viewer":78,"jquery":354,"lodash":382}],2:[function(require,module,exports){
+module.exports = {
+    __init__: [ 'contextPadProvider','aofActionListener','aofPaletteProvider' ,'replaceMenuProvider','aofRules','appManager','propertiesPanel'],
+    contextPadProvider: [ 'type', require('./lib/aof-context-pad') ],
+    aofActionListener: [ 'type', require('./lib/aof-action-listener')],
+    aofPaletteProvider: [ 'type', require('./lib/aof-palette-provider') ],
+    replaceMenuProvider: [ 'type', require('./lib/aof-popup-menu') ],
+    aofRules: [ 'type', require('./lib/aof-rules') ],
+    appManager: [ 'type', require('./lib/app-manager') ],
+    propertiesPanel: [ 'type', require('bpmn-js-properties-panel/lib/PropertiesPanel') ],
+    propertiesProvider: [ 'type', require('bpmn-js-properties-panel/lib/provider/aof/AofPropertiesProvider') ]
+};
+},{"./lib/aof-action-listener":4,"./lib/aof-context-pad":6,"./lib/aof-palette-provider":8,"./lib/aof-popup-menu":11,"./lib/aof-rules":13,"./lib/app-manager":15,"bpmn-js-properties-panel/lib/PropertiesPanel":23,"bpmn-js-properties-panel/lib/provider/aof/AofPropertiesProvider":44}],3:[function(require,module,exports){
+'use strict';
+
+var  forEach = require('lodash/collection/forEach');
+
+function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
+
+
+// you may hook into any of the following events
+    var events = [
+        'element.changed'
+    ];
+
+    events.forEach(function (event) {
+
+        eventBus.on(event, function (e) {
+            // e.element = the model element
+            // e.gfx = the graphical element
+            if(e.element.businessObject.$type=="bpmn:UserTask"){
+                if(!e.element.businessObject['$attrs']['aof:realizedBy']){
+                    canvas.addMarker(e.element.id, 'no-app-assigned');
+                    canvas.removeMarker(e.element.id, 'color-appensembleapp');
+                }
+                else{
+                    canvas.removeMarker(e.element.id, 'no-app-assigned');
+                    canvas.addMarker(e.element.id, 'color-appensembleapp');
+                }
+            }
+            else if(e.element.businessObject.$type=="bpmn:Participant"){
+                if(e.element.businessObject['isAppEnsemble']){
+                    canvas.addMarker(e.element.id, 'color-appensemble');
+                }
+                else{
+                    canvas.removeMarker(e.element.id, 'color-appensemble');
+                }
+            }
+        });
+    });
+
+    eventBus.on('import.success',function(e){
+        // Mark AppEnsembleApps grey
+        forEach(elementRegistry.filter(
+                function (element, gfx) {
+                    return (element.type == "bpmn:UserTask" && element.businessObject.isAppEnsembleApp == true )//&& element.businessObject.$attrs['aof:realizedBy'] && element.businessObject.$attrs['aof:realizedBy'] != "")
+                }),
+            function (element) {
+                canvas.addMarker(element.id, 'color-appensembleapp');
+            }
+        );
+
+        // Mark AppEnsembles
+        forEach(elementRegistry.filter(
+                function (element, gfx) {
+                    return (element.type == "bpmn:Participant" && (element.businessObject.isAppEnsemble && element.businessObject.isAppEnsemble == "true") || (element.businessObject.isAppEnsemble == true))
+                }),
+            function (element) {
+                canvas.addMarker(element.id, 'color-appensemble');
+            }
+        );
+
+
+    });
+
+    eventBus.on('element.changed', function(event) {
+        var shape = elementRegistry.get(event.element.id);
+        if(event.element.businessObject.$type=="bpmn:UserTask") {
+            if (!!event.element.businessObject['$attrs']['aof:realizedBy']) {
+                var html=buildTooptip('This is a UserTask realized by an App')
+            }
+            else{
+                var html=buildTooptip('This is a UserTask without an App. Please assign an App!')
+            }
+            overlays.add(event.element,'aofTooltip', {
+                id:'overlay-'+shape.id,
+                position: {
+                    top: shape.height+15,
+                    right: 20
+                },
+                html: html
+            });
+        }
+        else if(event.element.businessObject.$type=="bpmn:Participant"){
+            if(event.element.businessObject['isAppEnsemble']){
+                overlays.add(event.element,'aofTooltip', {
+                    id:'overlay-'+shape.id,
+                    position: {
+                        top: shape.height+15,
+                        right: 20
+                    },
+                    html: buildTooptip('This is an Participant marked as AppEnsemble!')
+                });
+            }
+        }
+
+    });
+
+    eventBus.on('commandStack.element.updateProperties.preExecute', function(event) {
+        if(event.context.element.type=="bpmn:Participant"){
+            var name=event.context.element.businessObject.name;
+            eventBus.once('commandStack.element.updateProperties.postExecute', function(event) {
+                if(event.context.element.type=="bpmn:Participant") {
+                    if(event.context.element.businessObject.name!=name){
+                        $('#js-save-appensemble').attr({
+                            'reload': event.context.element.businessObject.name.replace(new RegExp(" ", "g"),'-')
+                        });
+                    }
+                }
+
+            });
+        }
+    });
+
+    eventBus.on('element.out',removeOverlay);
+
+    function removeOverlay (event) {
+        var shape = elementRegistry.get(event.element.id);
+        if(event.element.businessObject.$type=="bpmn:UserTask" || (event.element.businessObject.$type=="bpmn:Participant" && event.element.businessObject['isAppEnsemble'])) {
+            overlays.remove({type:'aofTooltip'});//element:shape.id});
+        }
+    }
+
+
+    function buildTooptip(text){
+         return '<span class="tooltip" style="display: block; min-width: 150px;">'+text+'<span class="nub"></span></span>';
+    }
+
+    function markAsAppEnsemble(element){
+        canvas.addMarker(element.id, 'color-appensemble');
+    }
+}
+
+
+
+UserTaskCreationListener.$inject = [ 'eventBus','canvas','elementRegistry','overlays'];
+
+module.exports = UserTaskCreationListener;
+
+},{"lodash/collection/forEach":368}],4:[function(require,module,exports){
+module.exports = require('./AofActionListener');
+},{"./AofActionListener":3}],5:[function(require,module,exports){
+'use strict';
+
+
+var assign = require('lodash/object/assign'),
+    forEach = require('lodash/collection/forEach'),
+    isArray = require('lodash/lang/isArray'),
+    is = require('../util/ModelUtil').is,
+    isAny = require('../util/ModelingUtil').isAny,
+    getChildLanes = require('../util/LaneUtil').getChildLanes,
+    isEventSubProcess = require('../util/DiUtil').isEventSubProcess;
+
+
+/**
+ * A provider for BPMN 2.0 elements context pad
+ */
+function CustomContextPadProvider(contextPad, modeling, elementFactory,
+                            connect, create, popupMenu,
+                            canvas, rules) {
+
+    contextPad.registerProvider(this);
+
+    this._contextPad = contextPad;
+
+    this._modeling = modeling;
+
+    this._elementFactory = elementFactory;
+    this._connect = connect;
+    this._create = create;
+    this._popupMenu = popupMenu;
+    this._canvas  = canvas;
+    this._rules = rules;
+}
+
+CustomContextPadProvider.$inject = [
+    'contextPad',
+    'modeling',
+    'elementFactory',
+    'connect',
+    'create',
+    'popupMenu',
+    'canvas',
+    'rules'
+];
+
+module.exports = CustomContextPadProvider;
+
+
+CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
+
+    var contextPad = this._contextPad,
+        modeling = this._modeling,
+
+        elementFactory = this._elementFactory,
+        connect = this._connect,
+        create = this._create,
+        popupMenu = this._popupMenu,
+        canvas = this._canvas,
+        rules = this._rules;
+
+    var actions = {};
+
+    if (element.type === 'label') {
+        return actions;
+    }
+
+    var businessObject = element.businessObject;
+
+    function startConnect(event, element, autoActivate) {
+        connect.start(event, element, autoActivate);
+    }
+
+    function removeElement(e) {
+        modeling.removeElements([ element ]);
+    }
+
+    function getReplaceMenuPosition(element) {
+
+        var Y_OFFSET = 5;
+
+        var diagramContainer = canvas.getContainer(),
+            pad = contextPad.getPad(element).html;
+
+        var diagramRect = diagramContainer.getBoundingClientRect(),
+            padRect = pad.getBoundingClientRect();
+
+        var top = padRect.top - diagramRect.top;
+        var left = padRect.left - diagramRect.left;
+
+        var pos = {
+            x: left,
+            y: top + padRect.height + Y_OFFSET
+        };
+
+        return pos;
+    }
+
+
+    /**
+     * Create an append action
+     *
+     * @param {String} type
+     * @param {String} className
+     * @param {String} [title]
+     * @param {Object} [options]
+     *
+     * @return {Object} descriptor
+     */
+    function appendAction(type, className, title, options) {
+
+        if (typeof title !== 'string') {
+            options = title;
+            title = 'Append ' + type.replace(/^bpmn\:/, '');
+        }
+
+        function appendListener(event, element) {
+
+            var shape = elementFactory.createShape(assign({ type: type }, options));
+            create.start(event, shape, element);
+        }
+
+        return {
+            group: 'model',
+            className: className,
+            title: title,
+            action: {
+                dragstart: appendListener,
+                click: appendListener
+            }
+        };
+    }
+
+    function splitLaneHandler(count) {
+
+        return function(event, element) {
+            // actual split
+            modeling.splitLane(element, count);
+
+            // refresh context pad after split to
+            // get rid of split icons
+            contextPad.open(element, true);
+        };
+    }
+
+    if (isAny(businessObject, [ 'bpmn:Lane', 'bpmn:Participant' ])) {
+
+        var childLanes = getChildLanes(element);
+
+        assign(actions, {
+            'lane-insert-above': {
+                group: 'lane-insert-above',
+                className: 'bpmn-icon-lane-insert-above',
+                title: 'Add Lane above',
+                action: {
+                    click: function(event, element) {
+                        modeling.addLane(element, 'top');
+                    }
+                }
+            }
+        });
+
+        if (childLanes.length < 2) {
+
+            if (element.height >= 120) {
+                assign(actions, {
+                    'lane-divide-two': {
+                        group: 'lane-divide',
+                        className: 'bpmn-icon-lane-divide-two',
+                        title: 'Divide into two Lanes',
+                        action: {
+                            click: splitLaneHandler(2)
+                        }
+                    }
+                });
+            }
+
+            if (element.height >= 180) {
+                assign(actions, {
+                    'lane-divide-three': {
+                        group: 'lane-divide',
+                        className: 'bpmn-icon-lane-divide-three',
+                        title: 'Divide into three Lanes',
+                        action: {
+                            click: splitLaneHandler(3)
+                        }
+                    }
+                });
+            }
+        }
+
+        assign(actions, {
+            'lane-insert-below': {
+                group: 'lane-insert-below',
+                className: 'bpmn-icon-lane-insert-below',
+                title: 'Add Lane below',
+                action: {
+                    click: function(event, element) {
+                        modeling.addLane(element, 'bottom');
+                    }
+                }
+            }
+        });
+
+    }
+    if(is(businessObject,'bpmn:Participant')){
+        if(businessObject.isAppEnsemble && businessObject.isAppEnsemble==true) {
+            assign(actions, {
+                'partnerRole': {
+                    group: 'edit',
+                    className: 'bpmn-icon-appensemble-remove',
+                    title: 'Unmark App-Ensemble',
+                    action: {
+                        click: function (event, element) {
+                            var participant = element.businessObject, inputtext;
+                            var result = window.confirm('Do you really like remove the App-Ensemble property? There might be problems!');
+                            if (result) {
+                                modeling.updateProperties(element, {'aof:isAppEnsemble': false});
+                                canvas.removeMarker(element.id, 'color-appensemble');
+
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        else{
+            assign(actions, {
+                'partnerRole': {
+                    group: 'edit',
+                    className: 'bpmn-icon-appensemble',
+                    title: 'Mark as App-Ensemble',
+                    action: {
+                        click: function (event, element) {
+                            var participant = element.businessObject, inputtext;
+                            var result = window.confirm('Do you really like to mark the Participant as App-Ensemble?');
+                            if (result) {
+                                modeling.updateProperties(element, {'aof:isAppEnsemble': true});
+                                canvas.addMarker(element.id, 'color-appensemble');
+
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    if (is(businessObject, 'bpmn:FlowNode')) {
+
+        if (is(businessObject, 'bpmn:EventBasedGateway')) {
+
+            assign(actions, {
+                'append.receive-task': appendAction('bpmn:ReceiveTask', 'bpmn-icon-receive-task'),
+                'append.message-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
+                    'bpmn-icon-intermediate-event-catch-message',
+                    { eventDefinitionType: 'bpmn:MessageEventDefinition'}),
+                'append.timer-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
+                    'bpmn-icon-intermediate-event-catch-timer',
+                    { eventDefinitionType: 'bpmn:TimerEventDefinition'}),
+                'append.condtion-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
+                    'bpmn-icon-intermediate-event-catch-condition',
+                    { eventDefinitionType: 'bpmn:ConditionalEventDefinition'}),
+                'append.signal-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
+                    'bpmn-icon-intermediate-event-catch-signal',
+                    { eventDefinitionType: 'bpmn:SignalEventDefinition'})
+            });
+        } else
+
+        if (isEventType(businessObject, 'bpmn:BoundaryEvent', 'bpmn:CompensateEventDefinition')) {
+
+            assign(actions, {
+                'append.compensation-activity':
+                    appendAction('bpmn:Task', 'bpmn-icon-task', 'Append compensation activity', {
+                        isForCompensation: true
+                    })
+            });
+        } else
+
+        if (!is(businessObject, 'bpmn:EndEvent') &&
+            !businessObject.isForCompensation &&
+            !isEventType(businessObject, 'bpmn:IntermediateThrowEvent', 'bpmn:LinkEventDefinition') &&
+            !isEventSubProcess(businessObject)) {
+
+            assign(actions, {
+                'append.end-event': appendAction('bpmn:EndEvent', 'bpmn-icon-end-event-none'),
+                'append.gateway': appendAction('bpmn:ExclusiveGateway', 'bpmn-icon-gateway-xor'),
+                'append.append-task': appendAction('bpmn:Task', 'bpmn-icon-task'),
+                'append.intermediate-event': appendAction('bpmn:IntermediateThrowEvent',
+                    'bpmn-icon-intermediate-event-none')
+            });
+        }
+        if (is(businessObject, 'bpmn:UserTask')) {
+            if(businessObject.isAppEnsembleApp && businessObject.isAppEnsembleApp==true){
+                assign(actions, {
+                    'removeapp':{
+                        group: 'edit',
+                        className: 'bpmn-icon-app-remove',
+                        title: 'Remove App-Uri',
+                        action: {
+                            click: function(event,element){
+                                modeling.updateProperties(element,{'aof:isAppEnsembleApp':false});
+                                modeling.updateProperties(element,{'aof:realizedBy':""});
+                            }
+                        }
+                    }
+                });
+            }
+            else {
+                assign(actions, {
+                    'setapp': {
+                        group: 'edit',
+                        className: 'bpmn-icon-app',
+                        title: 'Set App-Uri',
+                        action: {
+                            click: function (event, element) {
+                                modeling.updateProperties(element, {'aof:isAppEnsembleApp': true});
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    var replaceMenu;
+
+    if (popupMenu._providers['bpmn-replace']) {
+        replaceMenu = popupMenu.create('bpmn-replace', element);
+    }
+
+    if (replaceMenu && !replaceMenu.isEmpty()) {
+
+        // Replace menu entry
+        assign(actions, {
+            'replace': {
+                group: 'edit',
+                className: 'bpmn-icon-screw-wrench',
+                title: 'Change type',
+                action: {
+                    click: function(event, element) {
+                        replaceMenu.open(assign(getReplaceMenuPosition(element), {
+                            cursor: { x: event.x, y: event.y }
+                        }), element);
+                    }
+                }
+            }
+        });
+    }
+
+    if (isAny(businessObject, [ 'bpmn:FlowNode', 'bpmn:InteractionNode' ]) ) {
+
+        assign(actions, {
+            'append.text-annotation': appendAction('bpmn:TextAnnotation', 'bpmn-icon-text-annotation'),
+
+            'connect': {
+                group: 'connect',
+                className: 'bpmn-icon-connection-multi',
+                title: 'Connect using ' +
+                (businessObject.isForCompensation ? '' : 'Sequence/MessageFlow or ') +
+                'Association',
+                action: {
+                    click: startConnect,
+                    dragstart: startConnect
+                }
+            }
+        });
+    }
+
+    if (isAny(businessObject, [ 'bpmn:DataObjectReference', 'bpmn:DataStoreReference' ])) {
+        assign(actions, {
+            'connect': {
+                group: 'connect',
+                className: 'bpmn-icon-connection-multi',
+                title: 'Connect using DataInputAssociation',
+                action: {
+                    click: startConnect,
+                    dragstart: startConnect
+                }
+            }
+        });
+    }
+
+    // delete element entry, only show if allowed by rules
+    var deleteAllowed = rules.allowed('elements.delete', { elements: [ element ]});
+
+    if (isArray(deleteAllowed)) {
+        // was the element returned as a deletion candidate?
+        deleteAllowed = deleteAllowed[0] === element;
+    }
+
+    if (deleteAllowed) {
+        assign(actions, {
+            'delete': {
+                group: 'edit',
+                className: 'bpmn-icon-trash',
+                title: 'Remove',
+                action: {
+                    click: removeElement,
+                    dragstart: removeElement
+                }
+            }
+        });
+    }
+
+    return actions;
+};
+
+function isEventType(eventBo, type, definition) {
+
+    var isType = eventBo.$instanceOf(type);
+    var isDefinition = false;
+
+    var definitions = eventBo.eventDefinitions || [];
+    forEach(definitions, function(def) {
+        if (def.$type === definition) {
+            isDefinition = true;
+        }
+    });
+
+    return isType && isDefinition;
+}
+
+
+},{"../util/DiUtil":16,"../util/LaneUtil":17,"../util/ModelUtil":18,"../util/ModelingUtil":19,"lodash/collection/forEach":368,"lodash/lang/isArray":483,"lodash/object/assign":493}],6:[function(require,module,exports){
+module.exports =  require('./CustomContextPadProvider');
+},{"./CustomContextPadProvider":5}],7:[function(require,module,exports){
+'use strict';
+
+var assign = require('lodash/object/assign');
+
+/**
+ * A palette provider for BPMN 2.0 elements.
+ */
+function AOFPaletteProvider(palette, create, elementFactory,modeling,canvas,eventBus) {
+
+  this._palette = palette;
+  this._create = create;
+  this._elementFactory = elementFactory;
+  this._modeling=modeling;
+  this._canvas=canvas;
+  this._eventBus=eventBus;
+
+  palette.registerProvider(this);
+}
+
+module.exports = AOFPaletteProvider;
+
+AOFPaletteProvider.$inject = [
+  'palette',
+  'create',
+  'elementFactory',
+    'modeling',
+    'canvas',
+    'eventBus'
+];
+
+
+AOFPaletteProvider.prototype.getPaletteEntries = function(element) {
+
+  var actions  = {},
+      create = this._create,
+      elementFactory = this._elementFactory,
+      modeling=this._modeling,
+      canvas=this._canvas,
+      eventBus=this._eventBus;
+
+
+
+  function createAppUserTask(event, group, className, title, options) {
+
+      var shape = elementFactory.createShape(assign({ type: 'bpmn:UserTask' }, options));
+
+      create.start(event, shape);
+      eventBus.once('create.end',function(){
+        modeling.updateProperties(shape, {'aof:isAppEnsembleApp': true});
+        modeling.updateProperties(shape,{'aof:realizedBy':""});
+      });
+
+  }
+
+
+  function createAppEnsemble(event, collapsed) {
+    var shape=elementFactory.createParticipantShape(collapsed);
+    create.start(event, shape);
+    eventBus.once('create.end',function(){
+      modeling.updateProperties(shape, {'aof:isAppEnsemble': true});
+    });
+  }
+
+  assign(actions, {
+    'aof-separator': {
+      group: 'aof',
+      separator: true
+    },
+    'create.usertask': {
+      group: 'aof',
+      className: 'bpmn-icon-app',
+      title: 'Create App-UserTask',
+      action: {
+        dragstart: createAppUserTask,
+        click: createAppUserTask
+      }
+    },
+    'create.appensemble': {
+      group: 'aof',
+      className: 'bpmn-icon-appensemble',
+      title: 'Create AppEnsemble (Participant)',
+      action: {
+        dragstart: createAppEnsemble,
+        click: createAppEnsemble
+      }
+    }
+  });
+
+  return actions;
+};
+
+},{"lodash/object/assign":493}],8:[function(require,module,exports){
+module.exports = require('./AofPaletteProvider');
+},{"./AofPaletteProvider":7}],9:[function(require,module,exports){
+'use strict';
+
+var is = require('../util/ModelUtil').is,
+    isEventSubProcess = require('../util/DiUtil').isEventSubProcess,
+    getBusinessObject = require('../util/ModelUtil').getBusinessObject,
+    isExpanded = require('../util/DiUtil').isExpanded,
+    isDifferentType = require('../util/TypeUtil').isDifferentType;
+
+var forEach = require('lodash/collection/forEach'),
+    filter = require('lodash/collection/filter');
+
+var replaceOptions = require ('./ReplaceOptions');
+
+
+/**
+ * This module is an element agnostic replace menu provider for the popup menu.
+ */
+function ReplaceMenuProvider(popupMenu, modeling, moddle, bpmnReplace, rules,elementRegistry) {
+
+  this._popupMenu = popupMenu;
+  this._modeling = modeling;
+  this._moddle = moddle;
+  this._bpmnReplace = bpmnReplace;
+  this._rules = rules;
+  this._elementRegistry=elementRegistry;
+
+  this.register();
+}
+
+ReplaceMenuProvider.$inject = [ 'popupMenu', 'modeling', 'moddle', 'bpmnReplace', 'rules','elementRegistry' ];
+
+
+/**
+ * Register replace menu provider in the popup menu
+ */
+ReplaceMenuProvider.prototype.register = function() {
+  this._popupMenu.registerProvider('bpmn-replace', this);
+};
+
+
+/**
+ * Get all entries from replaceOptions for the given element and apply filters
+ * on them. Get for example only elements, which are different from the current one.
+ *
+ * @param {djs.model.Base} element
+ *
+ * @return {Array<Object>} a list of menu entry items
+ */
+ReplaceMenuProvider.prototype.getEntries = function(element) {
+
+  var businessObject = element.businessObject;
+
+  var rules = this._rules;
+
+  var entries;
+
+  if (!rules.allowed('shape.replace', { element: element })) {
+    return [];
+  }
+
+  var differentType = isDifferentType(element);
+
+  // start events outside event sub processes
+  if (is(businessObject, 'bpmn:StartEvent') && !isEventSubProcess(businessObject.$parent)) {
+
+    entries = filter(replaceOptions.START_EVENT, differentType);
+
+    return this._createEntries(element, entries);
+  }
+
+  // start events inside event sub processes
+  if (is(businessObject, 'bpmn:StartEvent') && isEventSubProcess(businessObject.$parent)) {
+
+    entries = filter(replaceOptions.EVENT_SUB_PROCESS_START_EVENT, function(entry) {
+
+      var target = entry.target;
+
+      var isInterrupting = target.isInterrupting !== false;
+
+      var isInterruptingEqual = getBusinessObject(element).isInterrupting === isInterrupting;
+
+      // filters elements which types and event definition are equal but have have different interrupting types
+      return differentType(entry) || !differentType(entry) && !isInterruptingEqual;
+
+    });
+
+    return this._createEntries(element, entries);
+  }
+
+  // end events
+  if (is(businessObject, 'bpmn:EndEvent')) {
+
+    entries = filter(replaceOptions.END_EVENT, function(entry) {
+      var target = entry.target;
+
+      // hide cancel end events outside transactions
+      if (target.eventDefinition == 'bpmn:CancelEventDefinition' && !is(businessObject.$parent, 'bpmn:Transaction')) {
+        return false;
+      }
+      return differentType(entry);
+    });
+
+    return this._createEntries(element, entries);
+  }
+
+  // boundary events
+  if (is(businessObject, 'bpmn:BoundaryEvent')) {
+
+    entries = filter(replaceOptions.BOUNDARY_EVENT, function(entry) {
+
+      var target = entry.target;
+
+      if (target.eventDefinition == 'bpmn:CancelEventDefinition' &&
+         !is(businessObject.attachedToRef, 'bpmn:Transaction')) {
+        return false;
+      }
+      var cancelActivity = target.cancelActivity !== false;
+
+      var isCancelActivityEqual = businessObject.cancelActivity == cancelActivity;
+
+      return differentType(entry) || !differentType(entry) && !isCancelActivityEqual;
+    });
+
+    return this._createEntries(element, entries);
+  }
+
+  // intermediate events
+  if (is(businessObject, 'bpmn:IntermediateCatchEvent') ||
+      is(businessObject, 'bpmn:IntermediateThrowEvent')) {
+
+    entries = filter(replaceOptions.INTERMEDIATE_EVENT, differentType);
+
+    return this._createEntries(element, entries);
+  }
+
+  // gateways
+  if (is(businessObject, 'bpmn:Gateway')) {
+
+    entries = filter(replaceOptions.GATEWAY, differentType);
+
+    return this._createEntries(element, entries);
+  }
+
+  // transactions
+  if (is(businessObject, 'bpmn:Transaction')) {
+
+    entries = filter(replaceOptions.TRANSACTION, differentType);
+
+    return this._createEntries(element, entries);
+  }
+
+  // expanded event sub processes
+  if (isEventSubProcess(businessObject) && isExpanded(businessObject)) {
+
+    entries = filter(replaceOptions.EVENT_SUB_PROCESS, differentType);
+
+    return this._createEntries(element, entries);
+  }
+
+  // expanded sub processes
+  if (is(businessObject, 'bpmn:SubProcess') && isExpanded(businessObject)) {
+
+    entries = filter(replaceOptions.SUBPROCESS_EXPANDED, differentType);
+
+    return this._createEntries(element, entries);
+  }
+
+  // collapsed ad hoc sub processes
+  if (is(businessObject, 'bpmn:AdHocSubProcess') && !isExpanded(businessObject)) {
+
+    entries = filter(replaceOptions.TASK, function(entry) {
+
+      var target = entry.target;
+
+      var isTargetSubProcess = target.type === 'bpmn:SubProcess';
+
+      return isDifferentType(element, target) && !isTargetSubProcess;
+    });
+
+    return this._createEntries(element, entries);
+  }
+
+  // sequence flows
+  if (is(businessObject, 'bpmn:SequenceFlow')) {
+    return this._createSequenceFlowEntries(element, replaceOptions.SEQUENCE_FLOW);
+  }
+
+  // flow nodes
+  if (is(businessObject, 'bpmn:FlowNode')) {
+    entries = filter(replaceOptions.TASK, differentType);
+
+    if (businessObject.isForCompensation) {
+
+      // can only replace to compensation activities
+      entries = filter(entries, function(entry) {
+        return !/CallActivity/.test(entry.target.type);
+      });
+    }
+
+    /* EDIT get the parent shape (for detecting if it is an AppEnsemble */
+    var inElement=false;
+    var containingElement;
+    this._elementRegistry.filter(function(element,gfx){
+      forEach(element.children,function(child){
+        if(child.id==businessObject.id){inElement=true;}
+      });
+      if(inElement){containingElement=element;inElement=false;}
+    });
+
+    if(containingElement.businessObject.isAppEnsemble) {
+      entries=filter(entries,function(entry){
+        return (entry.target.type=="bpmn:ManualTask" || entry.target.type=="bpmn:UserTask");
+      })
+    }
+    /* Don't exclude UserTasks from normal business processes*/
+    /*else{
+      entries=filter(entries,function(entry){
+        return (entry.target.type!="bpmn:UserTask");
+      });
+    }*/
+
+    /* EDIT END */
+
+    return this._createEntries(element, entries);
+  }
+
+  return [];
+};
+
+/**
+ * Get a list of header items for the given element. This includes buttons
+ * for multi instance markers and for the ad hoc marker.
+ *
+ * @param {djs.model.Base} element
+ *
+ * @return {Array<Object>} a list of menu entry items
+ */
+ReplaceMenuProvider.prototype.getHeaderEntries = function(element) {
+
+  var headerEntries = [];
+
+  if (is(element, 'bpmn:Activity') && !isEventSubProcess(element)) {
+    headerEntries = headerEntries.concat(this._getLoopEntries(element));
+  }
+
+  if (is(element, 'bpmn:SubProcess') &&
+      !is(element, 'bpmn:Transaction') &&
+      !isEventSubProcess(element)) {
+    headerEntries.push(this._getAdHocEntry(element));
+  }
+
+  return headerEntries;
+};
+
+
+/**
+ * Creates an array of menu entry objects for a given element and filters the replaceOptions
+ * according to a filter function.
+ *
+ * @param  {djs.model.Base} element
+ * @param  {Object} replaceOptions
+ *
+ * @return {Array<Object>} a list of menu items
+ */
+ReplaceMenuProvider.prototype._createEntries = function(element, replaceOptions) {
+  var menuEntries = [];
+
+  var self = this;
+
+  forEach(replaceOptions, function(definition) {
+    var entry = self._createMenuEntry(definition, element);
+
+    menuEntries.push(entry);
+  });
+
+  return menuEntries;
+};
+
+
+/**
+ * Creates an array of menu entry objects for a given sequence flow.
+ *
+ * @param  {djs.model.Base} element
+ * @param  {Object} replaceOptions
+
+ * @return {Array<Object>} a list of menu items
+ */
+ReplaceMenuProvider.prototype._createSequenceFlowEntries = function (element, replaceOptions) {
+
+  var businessObject = getBusinessObject(element);
+
+  var menuEntries = [];
+
+  var modeling = this._modeling,
+      moddle = this._moddle;
+
+  var self = this;
+
+  forEach(replaceOptions, function(entry) {
+
+    switch (entry.actionName) {
+      case 'replace-with-default-flow':
+        if (businessObject.sourceRef.default !== businessObject &&
+            (is(businessObject.sourceRef, 'bpmn:ExclusiveGateway') ||
+             is(businessObject.sourceRef, 'bpmn:InclusiveGateway') ||
+             is(businessObject.sourceRef, 'bpmn:Activity'))) {
+
+          menuEntries.push(self._createMenuEntry(entry, element, function() {
+            modeling.updateProperties(element.source, { default: businessObject });
+          }));
+        }
+        break;
+      case 'replace-with-conditional-flow':
+        if (!businessObject.conditionExpression && is(businessObject.sourceRef, 'bpmn:Activity')) {
+
+          menuEntries.push(self._createMenuEntry(entry, element, function() {
+            var conditionExpression = moddle.create('bpmn:FormalExpression', { body: '' });
+
+            modeling.updateProperties(element, { conditionExpression: conditionExpression });
+          }));
+        }
+        break;
+      default:
+        // default flows
+        if (is(businessObject.sourceRef, 'bpmn:Activity') && businessObject.conditionExpression) {
+          return menuEntries.push(self._createMenuEntry(entry, element, function() {
+            modeling.updateProperties(element, { conditionExpression: undefined });
+          }));
+        }
+        // conditional flows
+        if ((is(businessObject.sourceRef, 'bpmn:ExclusiveGateway') ||
+           is(businessObject.sourceRef, 'bpmn:InclusiveGateway') ||
+           is(businessObject.sourceRef, 'bpmn:Activity')) &&
+           businessObject.sourceRef.default === businessObject) {
+
+          return menuEntries.push(self._createMenuEntry(entry, element, function() {
+            modeling.updateProperties(element.source, { default: undefined });
+          }));
+        }
+    }
+  });
+
+  return menuEntries;
+};
+
+
+/**
+ * Creates and returns a single menu entry item.
+ *
+ * @param  {Object} definition a single replace options definition object
+ * @param  {djs.model.Base} element
+ * @param  {Function} [action] an action callback function which gets called when
+ *                             the menu entry is being triggered.
+ *
+ * @return {Object} menu entry item
+ */
+ReplaceMenuProvider.prototype._createMenuEntry = function(definition, element, action) {
+
+  var replaceElement = this._bpmnReplace.replaceElement;
+
+  var replaceAction = function() {
+    return replaceElement(element, definition.target);
+  };
+
+  action = action || replaceAction;
+
+  var menuEntry = {
+    label: definition.label,
+    className: definition.className,
+    id: definition.actionName,
+    action: action
+  };
+
+  return menuEntry;
+};
+
+/**
+ * Get a list of menu items containing buttons for multi instance markers
+ *
+ * @param  {djs.model.Base} element
+ *
+ * @return {Array<Object>} a list of menu items
+ */
+ReplaceMenuProvider.prototype._getLoopEntries = function(element) {
+
+  var self = this;
+
+  function toggleLoopEntry(event, entry) {
+    var loopCharacteristics;
+
+    if (entry.active) {
+      loopCharacteristics = undefined;
+    } else {
+      loopCharacteristics = self._moddle.create(entry.options.loopCharacteristics);
+
+      if (entry.options.isSequential) {
+        loopCharacteristics.isSequential = entry.options.isSequential;
+      }
+    }
+    self._modeling.updateProperties(element, { loopCharacteristics: loopCharacteristics });
+  }
+
+  var businessObject = getBusinessObject(element),
+      loopCharacteristics = businessObject.loopCharacteristics;
+
+  var isSequential,
+      isLoop,
+      isParallel;
+
+  if (loopCharacteristics) {
+    isSequential = loopCharacteristics.isSequential;
+    isLoop = loopCharacteristics.isSequential === undefined;
+    isParallel = loopCharacteristics.isSequential !== undefined && !loopCharacteristics.isSequential;
+  }
+
+
+  var loopEntries = [
+    {
+      id: 'toggle-parallel-mi',
+      className: 'bpmn-icon-parallel-mi-marker',
+      title: 'Parallel Multi Instance',
+      active: isParallel,
+      action: toggleLoopEntry,
+      options: {
+        loopCharacteristics: 'bpmn:MultiInstanceLoopCharacteristics',
+        isSequential: false
+      }
+    },
+    {
+      id: 'toggle-sequential-mi',
+      className: 'bpmn-icon-sequential-mi-marker',
+      title: 'Sequential Multi Instance',
+      active: isSequential,
+      action: toggleLoopEntry,
+      options: {
+        loopCharacteristics: 'bpmn:MultiInstanceLoopCharacteristics',
+        isSequential: true
+      }
+    },
+    {
+      id: 'toggle-loop',
+      className: 'bpmn-icon-loop-marker',
+      title: 'Loop',
+      active: isLoop,
+      action: toggleLoopEntry,
+      options: {
+        loopCharacteristics: 'bpmn:StandardLoopCharacteristics'
+      }
+    }
+  ];
+  return loopEntries;
+};
+
+
+/**
+ * Get the menu items containing a button for the ad hoc marker
+ *
+ * @param  {djs.model.Base} element
+ *
+ * @return {Object} a menu item
+ */
+ReplaceMenuProvider.prototype._getAdHocEntry = function(element) {
+  var businessObject = getBusinessObject(element);
+
+  var isAdHoc = is(businessObject, 'bpmn:AdHocSubProcess');
+
+  var replaceElement = this._bpmnReplace.replaceElement;
+
+  var adHocEntry = {
+    id: 'toggle-adhoc',
+    className: 'bpmn-icon-ad-hoc-marker',
+    title: 'Ad-hoc',
+    active: isAdHoc,
+    action: function(event, entry) {
+      if (isAdHoc) {
+        return replaceElement(element, { type: 'bpmn:SubProcess' });
+      } else {
+        return replaceElement(element, { type: 'bpmn:AdHocSubProcess' });
+      }
+    }
+  };
+
+  return adHocEntry;
+};
+
+module.exports = ReplaceMenuProvider;
+},{"../util/DiUtil":16,"../util/ModelUtil":18,"../util/TypeUtil":20,"./ReplaceOptions":10,"lodash/collection/filter":366,"lodash/collection/forEach":368}],10:[function(require,module,exports){
+'use strict';
+
+module.exports.START_EVENT = [
+  {
+    label: 'Start Event',
+    actionName: 'replace-with-none-start',
+    className: 'bpmn-icon-start-event-none',
+    target: {
+      type: 'bpmn:StartEvent'
+    }
+  },
+  {
+    label: 'Intermediate Throw Event',
+    actionName: 'replace-with-none-intermediate-throwing',
+    className: 'bpmn-icon-intermediate-event-none',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent'
+    }
+  },
+  {
+    label: 'End Event',
+    actionName: 'replace-with-none-end',
+    className: 'bpmn-icon-end-event-none',
+    target: {
+      type: 'bpmn:EndEvent'
+    }
+  },
+  {
+    label: 'Message Start Event',
+    actionName: 'replace-with-message-start',
+    className: 'bpmn-icon-start-event-message',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition'
+    }
+  },
+  {
+    label: 'Timer Start Event',
+    actionName: 'replace-with-timer-start',
+    className: 'bpmn-icon-start-event-timer',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:TimerEventDefinition'
+    }
+  },
+  {
+    label: 'Conditional Start Event',
+    actionName: 'replace-with-conditional-start',
+    className: 'bpmn-icon-start-event-condition',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
+    }
+  },
+  {
+    label: 'Signal Start Event',
+    actionName: 'replace-with-signal-start',
+    className: 'bpmn-icon-start-event-signal',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition'
+    }
+  }
+];
+
+module.exports.INTERMEDIATE_EVENT = [
+  {
+    label: 'Start Event',
+    actionName: 'replace-with-none-start',
+    className: 'bpmn-icon-start-event-none',
+    target: {
+      type: 'bpmn:StartEvent'
+    }
+  },
+  {
+    label: 'Intermediate Throw Event',
+    actionName: 'replace-with-none-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-none',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent'
+    }
+  },
+  {
+    label: 'End Event',
+    actionName: 'replace-with-none-end',
+    className: 'bpmn-icon-end-event-none',
+    target: {
+      type: 'bpmn:EndEvent'
+    }
+  },
+  {
+    label: 'Message Intermediate Catch Event',
+    actionName: 'replace-with-message-intermediate-catch',
+    className: 'bpmn-icon-intermediate-event-catch-message',
+    target: {
+      type: 'bpmn:IntermediateCatchEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition'
+    }
+  },
+  {
+    label: 'Message Intermediate Throw Event',
+    actionName: 'replace-with-message-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-throw-message',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition'
+    }
+  },
+  {
+    label: 'Timer Intermediate Catch Event',
+    actionName: 'replace-with-timer-intermediate-catch',
+    className: 'bpmn-icon-intermediate-event-catch-timer',
+    target: {
+      type: 'bpmn:IntermediateCatchEvent',
+      eventDefinitionType: 'bpmn:TimerEventDefinition'
+    }
+  },
+  {
+    label: 'Escalation Intermediate Throw Event',
+    actionName: 'replace-with-escalation-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-throw-escalation',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent',
+      eventDefinitionType: 'bpmn:EscalationEventDefinition'
+    }
+  },
+  {
+    label: 'Conditional Intermediate Catch Event',
+    actionName: 'replace-with-conditional-intermediate-catch',
+    className: 'bpmn-icon-intermediate-event-catch-condition',
+    target: {
+      type: 'bpmn:IntermediateCatchEvent',
+      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
+    }
+  },
+  {
+    label: 'Link Intermediate Catch Event',
+    actionName: 'replace-with-link-intermediate-catch',
+    className: 'bpmn-icon-intermediate-event-catch-link',
+    target: {
+      type: 'bpmn:IntermediateCatchEvent',
+      eventDefinitionType: 'bpmn:LinkEventDefinition'
+    }
+  },
+  {
+    label: 'Link Intermediate Throw Event',
+    actionName: 'replace-with-link-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-throw-link',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent',
+      eventDefinitionType: 'bpmn:LinkEventDefinition'
+    }
+  },
+  {
+    label: 'Compensation Intermediate Throw Event',
+    actionName: 'replace-with-compensation-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-throw-compensation',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent',
+      eventDefinitionType: 'bpmn:CompensateEventDefinition'
+    }
+  },
+  {
+    label: 'Signal Intermediate Catch Event',
+    actionName: 'replace-with-signal-intermediate-catch',
+    className: 'bpmn-icon-intermediate-event-catch-signal',
+    target: {
+      type: 'bpmn:IntermediateCatchEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition'
+    }
+  },
+  {
+    label: 'Signal Intermediate Throw Event',
+    actionName: 'replace-with-signal-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-throw-signal',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition'
+    }
+  }
+];
+
+module.exports.END_EVENT = [
+  {
+    label: 'Start Event',
+    actionName: 'replace-with-none-start',
+    className: 'bpmn-icon-start-event-none',
+    target: {
+      type: 'bpmn:StartEvent'
+    }
+  },
+  {
+    label: 'Intermediate Throw Event',
+    actionName: 'replace-with-none-intermediate-throw',
+    className: 'bpmn-icon-intermediate-event-none',
+    target: {
+      type: 'bpmn:IntermediateThrowEvent'
+    }
+  },
+  {
+    label: 'End Event',
+    actionName: 'replace-with-none-end',
+    className: 'bpmn-icon-end-event-none',
+    target: {
+      type: 'bpmn:EndEvent'
+    }
+  },
+  {
+    label: 'Message End Event',
+    actionName: 'replace-with-message-end',
+    className: 'bpmn-icon-end-event-message',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition'
+    }
+  },
+  {
+    label: 'Escalation End Event',
+    actionName: 'replace-with-escalation-end',
+    className: 'bpmn-icon-end-event-escalation',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:EscalationEventDefinition'
+    }
+  },
+  {
+    label: 'Error End Event',
+    actionName: 'replace-with-error-end',
+    className: 'bpmn-icon-end-event-error',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:ErrorEventDefinition'
+    }
+  },
+  {
+    label: 'Cancel End Event',
+    actionName: 'replace-with-cancel-end',
+    className: 'bpmn-icon-end-event-cancel',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:CancelEventDefinition'
+    }
+  },
+  {
+    label: 'Compensation End Event',
+    actionName: 'replace-with-compensation-end',
+    className: 'bpmn-icon-end-event-compensation',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:CompensateEventDefinition'
+    }
+  },
+  {
+    label: 'Signal End Event',
+    actionName: 'replace-with-signal-end',
+    className: 'bpmn-icon-end-event-signal',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition'
+    }
+  },
+  {
+    label: 'Terminate End Event',
+    actionName: 'replace-with-terminate-end',
+    className: 'bpmn-icon-end-event-terminate',
+    target: {
+      type: 'bpmn:EndEvent',
+      eventDefinitionType: 'bpmn:TerminateEventDefinition'
+    }
+  }
+];
+
+module.exports.GATEWAY = [
+  {
+    label: 'Exclusive Gateway',
+    actionName: 'replace-with-exclusive-gateway',
+    className: 'bpmn-icon-gateway-xor',
+    target: {
+      type: 'bpmn:ExclusiveGateway'
+    }
+  },
+  {
+    label: 'Parallel Gateway',
+    actionName: 'replace-with-parallel-gateway',
+    className: 'bpmn-icon-gateway-parallel',
+    target: {
+      type: 'bpmn:ParallelGateway'
+    }
+  },
+  {
+    label: 'Inclusive Gateway',
+    actionName: 'replace-with-inclusive-gateway',
+    className: 'bpmn-icon-gateway-or',
+    target: {
+      type: 'bpmn:InclusiveGateway'
+    }
+  },
+  {
+    label: 'Complex Gateway',
+    actionName: 'replace-with-complex-gateway',
+    className: 'bpmn-icon-gateway-complex',
+    target: {
+      type: 'bpmn:ComplexGateway'
+    }
+  },
+  {
+    label: 'Event based Gateway',
+    actionName: 'replace-with-event-based-gateway',
+    className: 'bpmn-icon-gateway-eventbased',
+    target: {
+      type: 'bpmn:EventBasedGateway',
+      instantiate: false,
+      eventGatewayType: 'Exclusive'
+    }
+  }
+  // Gateways deactivated until https://github.com/bpmn-io/bpmn-js/issues/194
+  // {
+  //   label: 'Event based instantiating Gateway',
+  //   actionName: 'replace-with-exclusive-event-based-gateway',
+  //   className: 'bpmn-icon-exclusive-event-based',
+  //   target: {
+  //     type: 'bpmn:EventBasedGateway'
+  //   },
+  //   options: {
+  //     businessObject: { instantiate: true, eventGatewayType: 'Exclusive' }
+  //   }
+  // },
+  // {
+  //   label: 'Parallel Event based instantiating Gateway',
+  //   actionName: 'replace-with-parallel-event-based-instantiate-gateway',
+  //   className: 'bpmn-icon-parallel-event-based-instantiate-gateway',
+  //   target: {
+  //     type: 'bpmn:EventBasedGateway'
+  //   },
+  //   options: {
+  //     businessObject: { instantiate: true, eventGatewayType: 'Parallel' }
+  //   }
+  // }
+];
+
+module.exports.SUBPROCESS_EXPANDED = [
+  {
+    label: 'Transaction',
+    actionName: 'replace-with-transaction',
+    className: 'bpmn-icon-transaction',
+    target: {
+      type: 'bpmn:Transaction',
+      isExpanded: true
+    }
+  },
+  {
+    label: 'Event Sub Process',
+    actionName: 'replace-with-event-subprocess',
+    className: 'bpmn-icon-event-subprocess-expanded',
+    target: {
+      type: 'bpmn:SubProcess',
+      triggeredByEvent: true,
+      isExpanded: true
+    }
+  }
+];
+
+module.exports.TRANSACTION = [
+  {
+    label: 'Sub Process',
+    actionName: 'replace-with-subprocess',
+    className: 'bpmn-icon-subprocess-expanded',
+    target: {
+      type: 'bpmn:SubProcess',
+      isExpanded: true
+    }
+  },
+  {
+    label: 'Event Sub Process',
+    actionName: 'replace-with-event-subprocess',
+    className: 'bpmn-icon-event-subprocess-expanded',
+    target: {
+      type: 'bpmn:SubProcess',
+      triggeredByEvent: true,
+      isExpanded: true
+    }
+  }
+];
+
+module.exports.EVENT_SUB_PROCESS = [
+  {
+    label: 'Sub Process',
+    actionName: 'replace-with-subprocess',
+    className: 'bpmn-icon-subprocess-expanded',
+    target: {
+      type: 'bpmn:SubProcess',
+      isExpanded: true
+    }
+  },
+  {
+    label: 'Transaction',
+    actionName: 'replace-with-transaction',
+    className: 'bpmn-icon-transaction',
+    target: {
+      type: 'bpmn:Transaction',
+      isExpanded: true
+    }
+  },
+];
+
+module.exports.TASK = [
+  {
+    label: 'Task',
+    actionName: 'replace-with-task',
+    className: 'bpmn-icon-task',
+    target: {
+      type: 'bpmn:Task'
+    }
+  },
+  {
+    label: 'Send Task',
+    actionName: 'replace-with-send-task',
+    className: 'bpmn-icon-send',
+    target: {
+      type: 'bpmn:SendTask'
+    }
+  },
+  {
+    label: 'Receive Task',
+    actionName: 'replace-with-receive-task',
+    className: 'bpmn-icon-receive',
+    target: {
+      type: 'bpmn:ReceiveTask'
+    }
+  },
+  {
+    label: 'User Task',
+    actionName: 'replace-with-user-task',
+    className: 'bpmn-icon-user',
+    target: {
+      type: 'bpmn:UserTask'
+    }
+  },
+  {
+    label: 'Manual Task',
+    actionName: 'replace-with-manual-task',
+    className: 'bpmn-icon-manual',
+    target: {
+      type: 'bpmn:ManualTask'
+    }
+  },
+  {
+    label: 'Business Rule Task',
+    actionName: 'replace-with-rule-task',
+    className: 'bpmn-icon-business-rule',
+    target: {
+      type: 'bpmn:BusinessRuleTask'
+    }
+  },
+  {
+    label: 'Service Task',
+    actionName: 'replace-with-service-task',
+    className: 'bpmn-icon-service',
+    target: {
+      type: 'bpmn:ServiceTask'
+    }
+  },
+  {
+    label: 'Script Task',
+    actionName: 'replace-with-script-task',
+    className: 'bpmn-icon-script',
+    target: {
+      type: 'bpmn:ScriptTask'
+    }
+  },
+  {
+    label: 'Call Activity',
+    actionName: 'replace-with-call-activity',
+    className: 'bpmn-icon-call-activity',
+    target: {
+      type: 'bpmn:CallActivity'
+    }
+  },
+  {
+    label: 'Sub Process (collapsed)',
+    actionName: 'replace-with-collapsed-subprocess',
+    className: 'bpmn-icon-subprocess-collapsed',
+    target: {
+      type: 'bpmn:SubProcess',
+      isExpanded: false
+    }
+  }
+];
+
+module.exports.BOUNDARY_EVENT = [
+  {
+    label: 'Message Boundary Event',
+    actionName: 'replace-with-message-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-message',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition'
+    }
+  },
+  {
+    label: 'Timer Boundary Event',
+    actionName: 'replace-with-timer-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-timer',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:TimerEventDefinition'
+    }
+  },
+  {
+    label: 'Escalation Boundary Event',
+    actionName: 'replace-with-escalation-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-escalation',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:EscalationEventDefinition'
+    }
+  },
+  {
+    label: 'Conditional Boundary Event',
+    actionName: 'replace-with-conditional-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-condition',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
+    }
+  },
+  {
+    label: 'Error Boundary Event',
+    actionName: 'replace-with-error-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-error',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:ErrorEventDefinition'
+    }
+  },
+  {
+    label: 'Cancel Boundary Event',
+    actionName: 'replace-with-cancel-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-cancel',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:CancelEventDefinition'
+    }
+  },
+  {
+    label: 'Signal Boundary Event',
+    actionName: 'replace-with-signal-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-signal',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition'
+    }
+  },
+  {
+    label: 'Compensation Boundary Event',
+    actionName: 'replace-with-compensation-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-compensation',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:CompensateEventDefinition'
+    }
+  },
+  {
+    label: 'Message Boundary Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-message-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-message',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition',
+      cancelActivity: false
+    }
+  },
+  {
+    label: 'Timer Boundary Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-timer-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-timer',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:TimerEventDefinition',
+      cancelActivity: false
+    }
+  },
+  {
+    label: 'Escalation Boundary Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-escalation-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-escalation',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:EscalationEventDefinition',
+      cancelActivity: false
+    }
+  },
+  {
+    label: 'Conditional Boundary Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-conditional-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-condition',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:ConditionalEventDefinition',
+      cancelActivity: false
+    }
+  },
+  {
+    label: 'Signal Boundary Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-signal-boundary',
+    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-signal',
+    target: {
+      type: 'bpmn:BoundaryEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition',
+      cancelActivity: false
+    }
+  },
+];
+
+module.exports.EVENT_SUB_PROCESS_START_EVENT = [
+  {
+    label: 'Message Start Event',
+    actionName: 'replace-with-message-start',
+    className: 'bpmn-icon-start-event-message',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition'
+    }
+  },
+  {
+    label: 'Timer Start Event',
+    actionName: 'replace-with-timer-start',
+    className: 'bpmn-icon-start-event-timer',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:TimerEventDefinition'
+    }
+  },
+  {
+    label: 'Conditional Start Event',
+    actionName: 'replace-with-conditional-start',
+    className: 'bpmn-icon-start-event-condition',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
+    }
+  },
+  {
+    label: 'Signal Start Event',
+    actionName: 'replace-with-signal-start',
+    className: 'bpmn-icon-start-event-signal',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition'
+    }
+  },
+  {
+    label: 'Error Start Event',
+    actionName: 'replace-with-error-start',
+    className: 'bpmn-icon-start-event-error',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:ErrorEventDefinition'
+    }
+  },
+  {
+    label: 'Escalation Start Event',
+    actionName: 'replace-with-escalation-start',
+    className: 'bpmn-icon-start-event-escalation',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:EscalationEventDefinition'
+    }
+  },
+  {
+    label: 'Compensation Start Event',
+    actionName: 'replace-with-compensation-start',
+    className: 'bpmn-icon-start-event-compensation',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:CompensateEventDefinition'
+    }
+  },
+  {
+    label: 'Message Start Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-message-start',
+    className: 'bpmn-icon-start-event-non-interrupting-message',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:MessageEventDefinition',
+      isInterrupting: false
+    }
+  },
+  {
+    label: 'Timer Start Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-timer-start',
+    className: 'bpmn-icon-start-event-non-interrupting-timer',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:TimerEventDefinition',
+      isInterrupting: false
+    }
+  },
+  {
+    label: 'Conditional Start Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-conditional-start',
+    className: 'bpmn-icon-start-event-non-interrupting-condition',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:ConditionalEventDefinition',
+      isInterrupting: false
+    }
+  },
+  {
+    label: 'Signal Start Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-signal-start',
+    className: 'bpmn-icon-start-event-non-interrupting-signal',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:SignalEventDefinition',
+      isInterrupting: false
+    }
+  },
+  {
+    label: 'Escalation Start Event (non-interrupting)',
+    actionName: 'replace-with-non-interrupting-escalation-start',
+    className: 'bpmn-icon-start-event-non-interrupting-escalation',
+    target: {
+      type: 'bpmn:StartEvent',
+      eventDefinitionType: 'bpmn:EscalationEventDefinition',
+      isInterrupting: false
+    }
+  },
+];
+
+module.exports.SEQUENCE_FLOW = [
+  {
+    label: 'Sequence Flow',
+    actionName: 'replace-with-sequence-flow',
+    className: 'bpmn-icon-connection'
+  },
+  {
+    label: 'Default Flow',
+    actionName: 'replace-with-default-flow',
+    className: 'bpmn-icon-default-flow'
+  },
+  {
+    label: 'Conditional Flow',
+    actionName: 'replace-with-conditional-flow',
+    className: 'bpmn-icon-conditional-flow'
+  }
+];
+
+},{}],11:[function(require,module,exports){
+module.exports =require('./CustomReplaceMenuProvider');
+},{"./CustomReplaceMenuProvider":9}],12:[function(require,module,exports){
+'use strict';
+
+var inherits = require('inherits');
+var is = require('./../util/ModelUtil').is;
+
+var RuleProvider = require('diagram-js/lib/features/rules/RuleProvider');
+
+
+/**
+ * A custom rule provider that decides what elements can be
+ * dropped where based on a `vendor:allowDrop` BPMN extension.
+ *
+ * See {@link BpmnRules} for the default implementation
+ * of BPMN 2.0 modeling rules provided by bpmn-js.
+ *
+ * @param {EventBus} eventBus
+ */
+function AofRules(eventBus) {
+    RuleProvider.call(this, eventBus);
+}
+
+inherits(AofRules, RuleProvider);
+
+AofRules.$inject = [ 'eventBus' ];
+
+module.exports = AofRules;
+
+
+AofRules.prototype.init = function() {
+
+
+    this.addRule('elements.move',2000, function(context) {
+
+        var target = context.target;
+        if(!!target){   // !!=cast in boolean
+            var shape = context.shapes[0];
+            var shapeBo = shape.businessObject,
+                targetBo = target.businessObject;
+            if(is(shapeBo, 'bpmn:Task')){
+                var targetIsAppEnsemble = targetBo.get('isAppEnsemble');
+                if(shape.type=="bpmn:UserTask" && !!targetIsAppEnsemble) return true;   // UserTask can only be dropped in AppEnsembles
+                else if(shape.type=="bpmn:UserTask" && !targetIsAppEnsemble) return false;  //not anywhere else
+                else if(shape.type!="bpmn:ManualTask" && shape.type!="bpmn:Task" && !!targetIsAppEnsemble) return false; //only manual, user and normal tasks can be dropped in AppEnsembles
+            }
+        }
+    });
+};
+},{"./../util/ModelUtil":18,"diagram-js/lib/features/rules/RuleProvider":276,"inherits":353}],13:[function(require,module,exports){
+module.exports = require('./aofRules');
+},{"./aofRules":12}],14:[function(require,module,exports){
+'use strict';
+
+var find = require('lodash/collection/find'),
+    any = require('lodash/collection/any'),
+    forEach = require('lodash/collection/forEach'),
+    jquery = require('jquery'),
+    inherits = require('inherits'),
+    md5 = require('md5');
+
+
+/**
+ * BPMN specific modeling rule
+ */
+function AppManager(config) {
+
+    this._apps=[];
+    this.request_uri=config.request_uri;
+    this.info_uri_pattern=config.info_uri_pattern;
+    this.init();
+
+}
+
+AppManager.$inject = [ 'config.appManager' ];
+
+module.exports = AppManager;
+
+AppManager.prototype.init = function() {
+    var apps=this._apps;
+
+    var request = jquery.ajax(this.request_uri, {
+        success: function (data, status, jqXHR) {
+            data=JSON.parse(data);
+            if (data.results) {
+                for(var i=0;i<data.results.bindings.length;i++){
+                    var pushdata={name: data.results.bindings[i].label.value, value: data.results.bindings[i].uri.value};
+                     apps.push(pushdata);
+                }
+                apps.sort(function(a,b){
+                    if(a.name< b.name)return -1;
+                    else return 1;
+
+                });
+            }
+        },
+        method: "GET",
+        async: true,
+        dataType: 'json',
+        timeout: 1000,
+        data: '',
+        error: function (jqXHR, status, error) {
+            alert(status);
+        }
+    });
+
+};
+
+AppManager.prototype.list=function(){
+    return this._apps;
+}
+AppManager.prototype.getInfoUri=function(appUri){
+    var uri = this._apps.filter(function (app) { return app.value == appUri});
+    if(uri.length>0)  {
+        uri=md5(uri[0].value);
+        return this.info_uri_pattern.replace('#URI#',uri);
+    }
+    return "";
+
+}
+
+},{"inherits":353,"jquery":354,"lodash/collection/any":364,"lodash/collection/find":367,"lodash/collection/forEach":368,"md5":72}],15:[function(require,module,exports){
+module.exports =require('./AppManager');
+},{"./AppManager":14}],16:[function(require,module,exports){
+'use strict';
+
+var is = require('./ModelUtil').is,
+    getBusinessObject = require('./ModelUtil').getBusinessObject;
+
+module.exports.isExpanded = function(element) {
+
+  if (is(element, 'bpmn:CallActivity')) {
+    return false;
+  }
+
+  if (is(element, 'bpmn:SubProcess')) {
+    return !!getBusinessObject(element).di.isExpanded;
+  }
+
+  if (is(element, 'bpmn:Participant')) {
+    return !!getBusinessObject(element).processRef;
+  }
+
+  return true;
+};
+
+module.exports.isInterrupting = function(element) {
+  return element && getBusinessObject(element).isInterrupting !== false;
+};
+
+module.exports.isEventSubProcess = function(element) {
+  return element && !!getBusinessObject(element).triggeredByEvent;
+};
+
+},{"./ModelUtil":18}],17:[function(require,module,exports){
+'use strict';
+
+var is = require('./ModelUtil').is;
+
+var getParent = require('./ModelingUtil').getParent;
+
+var asTRBL = require('diagram-js/lib/layout/LayoutUtil').asTRBL,
+    substractTRBL = require('diagram-js/lib/features/resize/ResizeUtil').substractTRBL,
+    resizeTRBL = require('diagram-js/lib/features/resize/ResizeUtil').resizeTRBL;
+
+var abs = Math.abs;
+
+
+function getTRBLResize(oldBounds, newBounds) {
+  return substractTRBL(asTRBL(newBounds), asTRBL(oldBounds));
+}
+
+
+var LANE_PARENTS = [
+  'bpmn:Participant',
+  'bpmn:Process',
+  'bpmn:SubProcess'
+];
+
+var LANE_INDENTATION = 30;
+
+module.exports.LANE_INDENTATION = LANE_INDENTATION;
+
+
+/**
+ * Collect all lane shapes in the given paren
+ *
+ * @param  {djs.model.Shape} shape
+ * @param  {Array<djs.model.Base>} [collectedShapes]
+ *
+ * @return {Array<djs.model.Base>}
+ */
+function collectLanes(shape, collectedShapes) {
+
+  collectedShapes = collectedShapes || [];
+
+  shape.children.filter(function(s) {
+    if (is(s, 'bpmn:Lane')) {
+      collectLanes(s, collectedShapes);
+
+      collectedShapes.push(s);
+    }
+  });
+
+  return collectedShapes;
+}
+
+module.exports.collectLanes = collectLanes;
+
+/**
+ * Return the lane children of the given element.
+ *
+ * @param {djs.model.Shape} shape
+ *
+ * @return {Array<djs.model.Shape>}
+ */
+function getChildLanes(shape) {
+  return shape.children.filter(function(c) {
+    return is(c, 'bpmn:Lane');
+  });
+}
+
+module.exports.getChildLanes = getChildLanes;
+
+/**
+ * Return the root element containing the given lane shape
+ *
+ * @param {djs.model.Shape} shape
+ *
+ * @return {djs.model.Shape}
+ */
+function getLanesRoot(shape) {
+  return getParent(shape, LANE_PARENTS) || shape;
+}
+
+module.exports.getLanesRoot = getLanesRoot;
+
+
+/**
+ * Compute the required resize operations for lanes
+ * adjacent to the given shape, assuming it will be
+ * resized to the given new bounds.
+ *
+ * @param {djs.model.Shape} shape
+ * @param {Bounds} newBounds
+ *
+ * @return {Array<Object>}
+ */
+function computeLanesResize(shape, newBounds) {
+
+  var rootElement = getLanesRoot(shape);
+
+  var initialShapes = is(rootElement, 'bpmn:Process') ? [] : [ rootElement ];
+
+  var allLanes = collectLanes(rootElement, initialShapes),
+      shapeTrbl = asTRBL(shape),
+      shapeNewTrbl = asTRBL(newBounds),
+      trblResize = getTRBLResize(shape, newBounds),
+      resizeNeeded = [];
+
+  allLanes.forEach(function(other) {
+
+    if (other === shape) {
+      return;
+    }
+
+    var topResize = 0,
+        rightResize = trblResize.right,
+        bottomResize = 0,
+        leftResize = trblResize.left;
+
+    var otherTrbl = asTRBL(other);
+
+    if (trblResize.top) {
+      if (abs(otherTrbl.bottom - shapeTrbl.top) < 10) {
+        bottomResize = shapeNewTrbl.top - otherTrbl.bottom;
+      }
+
+      if (abs(otherTrbl.top - shapeTrbl.top) < 5) {
+        topResize = shapeNewTrbl.top - otherTrbl.top;
+      }
+    }
+
+    if (trblResize.bottom) {
+      if (abs(otherTrbl.top - shapeTrbl.bottom) < 10) {
+        topResize = shapeNewTrbl.bottom - otherTrbl.top;
+      }
+
+      if (abs(otherTrbl.bottom - shapeTrbl.bottom) < 5) {
+        bottomResize = shapeNewTrbl.bottom - otherTrbl.bottom;
+      }
+    }
+
+    if (topResize || rightResize || bottomResize || leftResize) {
+
+      resizeNeeded.push({
+        shape: other,
+        newBounds: resizeTRBL(other, {
+          top: topResize,
+          right: rightResize,
+          bottom: bottomResize,
+          left: leftResize
+        })
+      });
+    }
+
+  });
+
+  return resizeNeeded;
+}
+
+module.exports.computeLanesResize = computeLanesResize;
+
+},{"./ModelUtil":18,"./ModelingUtil":19,"diagram-js/lib/features/resize/ResizeUtil":273,"diagram-js/lib/layout/LayoutUtil":299}],18:[function(require,module,exports){
+'use strict';
+
+/**
+ * Is an element of the given BPMN type?
+ *
+ * @param  {djs.model.Base|ModdleElement} element
+ * @param  {String} type
+ *
+ * @return {Boolean}
+ */
+function is(element, type) {
+  var bo = getBusinessObject(element);
+
+  return bo && (typeof bo.$instanceOf === 'function') && bo.$instanceOf(type);
+}
+
+module.exports.is = is;
+
+
+/**
+ * Return the business object for a given element.
+ *
+ * @param  {djs.model.Base|ModdleElement} element
+ *
+ * @return {ModdleElement}
+ */
+function getBusinessObject(element) {
+  return (element && element.businessObject) || element;
+}
+
+module.exports.getBusinessObject = getBusinessObject;
+
+},{}],19:[function(require,module,exports){
+'use strict';
+
+var any = require('lodash/collection/any');
+
+var is = require('./ModelUtil').is;
+
+
+function getParents(element) {
+
+  var parents = [];
+
+  while (element) {
+    element = element.parent;
+
+    if (element) {
+      parents.push(element);
+    }
+  }
+
+  return parents;
+}
+
+module.exports.getParents = getParents;
+
+
+/**
+ * Return true if element has any of the given types.
+ *
+ * @param {djs.model.Base} element
+ * @param {Array<String>} types
+ *
+ * @return {Boolean}
+ */
+function isAny(element, types) {
+  return any(types, function(t) {
+    return is(element, t);
+  });
+}
+
+module.exports.isAny = isAny;
+
+
+/**
+ * Return the parent of the element with any of the given types.
+ *
+ * @param {djs.model.Base} element
+ * @param {String|Array<String>} anyType
+ *
+ * @return {djs.model.Base}
+ */
+function getParent(element, anyType) {
+
+  if (typeof anyType === 'string') {
+    anyType = [ anyType ];
+  }
+
+  while ((element = element.parent)) {
+    if (isAny(element, anyType)) {
+      return element;
+    }
+  }
+
+  return null;
+}
+
+module.exports.getParent = getParent;
+},{"./ModelUtil":18,"lodash/collection/any":364}],20:[function(require,module,exports){
+'use strict';
+
+var getBusinessObject = require('./ModelUtil').getBusinessObject;
+
+/**
+ * Returns true, if an element is from a different type
+ * than a target definition. Takes into account the type,
+ * event definition type and triggeredByEvent property.
+ *
+ * @param {djs.model.Base} element
+ *
+ * @return {Boolean}
+ */
+function isDifferentType(element) {
+
+  return function(entry) {
+    var target = entry.target;
+
+    var businessObject = getBusinessObject(element),
+        eventDefinition = businessObject.eventDefinitions && businessObject.eventDefinitions[0];
+
+    var isEventDefinitionEqual = (eventDefinition && eventDefinition.$type) === target.eventDefinitionType,
+        isTypeEqual = businessObject.$type === target.type,
+        isTriggeredByEventEqual = businessObject.triggeredByEvent == target.triggeredByEvent;
+
+    return !isTypeEqual || !isEventDefinitionEqual || !isTriggeredByEventEqual;
+  };
+}
+
+module.exports.isDifferentType = isDifferentType;
+},{"./ModelUtil":18}],21:[function(require,module,exports){
+module.exports =  {aof: require('./resources/aof')};
+},{"./resources/aof":76}],22:[function(require,module,exports){
+'use strict';
+
+var DEFAULT_PRIORITY = 1000;
+
+
+/**
+ * A component that decides upon the visibility / editable
+ * state of properties in the properties panel.
+ *
+ * Implementors must subclass this component and override
+ * {@link PropertiesActivator#isEntryVisible} and
+ * {@link PropertiesActivator#isPropertyEditable} to provide
+ * custom behavior.
+ *
+ * @class
+ * @constructor
+ *
+ * @param {EventBus} eventBus
+ * @param {Number} [priority] at which priority to hook into the activation
+ */
+function PropertiesActivator(eventBus, priority) {
+  var self = this;
+
+  priority = priority || DEFAULT_PRIORITY;
+
+  eventBus.on('propertiesPanel.isEntryVisible', priority, function(e) {
+    return self.isEntryVisible(e.entry, e.element);
+  });
+
+  eventBus.on('propertiesPanel.isPropertyEditable', priority, function(e) {
+    return self.isPropertyEditable(e.entry, e.propertyName, e.element);
+  });
+}
+
+PropertiesActivator.$inject = [ 'eventBus' ];
+
+module.exports = PropertiesActivator;
+
+
+/**
+ * Should the given entry be visible for the specified element.
+ *
+ * @method  PropertiesActivator#isEntryVisible
+ *
+ * @param {EntryDescriptor} entry
+ * @param {ModdleElement} element
+ *
+ * @returns {Boolean}
+ */
+PropertiesActivator.prototype.isEntryVisible = function(entry, element) {
+  return true;
+};
+
+/**
+ * Should the given property be editable for the specified element
+ *
+ * @method  PropertiesActivator#isPropertyEditable
+ *
+ * @param {EntryDescriptor} entry
+ * @param {String} propertyName
+ * @param {ModdleElement} element
+ *
+ * @returns {Boolean}
+ */
+PropertiesActivator.prototype.isPropertyEditable = function(entry, propertyName, element) {
+  return true;
+};
+},{}],23:[function(require,module,exports){
+'use strict';
+
+var domify = require('min-dom/lib/domify'),
+    domQuery = require('min-dom/lib/query'),
+    domRemove = require('min-dom/lib/remove'),
+    domClasses = require('min-dom/lib/classes'),
+    domClosest = require('min-dom/lib/closest'),
+    domAttr = require('min-dom/lib/attr'),
+    domDelegate = require('min-dom/lib/delegate'),
+    domMatches = require('min-dom/lib/matches');
+
+var forEach = require('lodash/collection/forEach'),
+    filter = require('lodash/collection/filter'),
+    get = require('lodash/object/get'),
+    keys = require('lodash/object/keys'),
+    isEmpty = require('lodash/lang/isEmpty'),
+    isArray = require('lodash/lang/isArray'),
+    xor = require('lodash/array/xor'),
+    debounce = require('lodash/function/debounce'),
+    filter = require('lodash/collection/filter');
+
+var updateSelection = require('selection-update');
+
+var scrollTabs = require('scroll-tabs');
+
+var HIDE_CLASS = 'pp-hidden';
+var DEBOUNCE_DELAY = 300;
+
+
+function isToggle(node) {
+  return node.type === 'checkbox' || node.type === 'radio';
+}
+
+function isSelect(node) {
+  return node.type === 'select-one';
+}
+
+function getPropertyPlaceholders(node) {
+  var selector = 'input[name], textarea[name], [data-value]';
+  var placeholders = domQuery.all(selector, node);
+  if ((!placeholders || !placeholders.length) && domMatches(node, selector)) {
+    placeholders = [ node ];
+  }
+  return placeholders;
+}
+
+/**
+ * Return all active form controls.
+ * This excludes the invisible controls unless all is true
+ *
+ * @param {Element} node
+ * @param {Boolean} [all=false]
+ */
+function getFormControls(node, all) {
+  var controls = domQuery.all('input[name], textarea[name], select[name]', node);
+
+  if (!controls || !controls.length) {
+    controls = domMatches(node, 'option') ? [ node ] : controls;
+  }
+
+  if (!all) {
+    controls = filter(controls, function(node) {
+      return !domClosest(node, '.' + HIDE_CLASS);
+    });
+  }
+
+  return controls;
+}
+
+function getFormControlValuesInScope(entryNode) {
+  var values = {};
+
+  var controlNodes = getFormControls(entryNode);
+
+  forEach(controlNodes, function(controlNode) {
+    var value = controlNode.value;
+
+    var name = domAttr(controlNode, 'name') || domAttr(controlNode, 'data-name');
+
+    // take toggle state into account for radio / checkboxes
+    if (isToggle(controlNode)) {
+      if (controlNode.checked) {
+        if (!domAttr(controlNode, 'value')) {
+          value = true;
+        } else {
+          value = controlNode.value;
+        }
+      } else {
+        value = null;
+      }
+    }
+
+    if (value !== null) {
+      // return the actual value
+      // handle serialization in entry provider
+      // (ie. if empty string should be serialized or not)
+      values[name] = value;
+    }
+  });
+
+  return values;
+
+}
+
+/**
+ * Extract input values from entry node
+ *
+ * @param  {DOMElement} entryNode
+ * @returns {Object}
+ */
+function getFormControlValues(entryNode) {
+
+  var values;
+
+  var listContainer = domQuery('[data-list-entry-container]', entryNode);
+  if(!!listContainer) {
+    values = [];
+    var listNodes = listContainer.children || [];
+    forEach(listNodes, function(listNode) {
+      values.push(getFormControlValuesInScope(listNode));
+    });
+  }
+  else {
+    values = getFormControlValuesInScope(entryNode);
+  }
+
+  return values;
+}
+
+var keys = Object.keys;
+
+/**
+ * Return true if the given form extracted value equals
+ * to an old cached version.
+ *
+ * @param {Object} value
+ * @param {Object} oldValue
+ * @return {Boolean}
+ */
+function valueEqual(value, oldValue) {
+
+  if (value && !oldValue) {
+    return false;
+  }
+
+  var allKeys = keys(value).concat(keys(oldValue));
+
+  return allKeys.every(function(key) {
+    return value[key] === oldValue[key];
+  });
+}
+
+/**
+ * Return true if the given form extracted value(s)
+ * equal an old cached version.
+ *
+ * @param {Array<Object>|Object} values
+ * @param {Array<Object>|Object} oldValues
+ * @return {Boolean}
+ */
+function valuesEqual(values, oldValues) {
+
+  if (isArray(values)) {
+
+    if (values.length !== oldValues.length) {
+      return false;
+    }
+
+    return values.every(function(v, idx) {
+      return valueEqual(v, oldValues[idx]);
+    });
+  }
+
+  return valueEqual(values, oldValues);
+}
+
+/**
+ * Return a mapping of { id: entry } for all entries in the given groups in the given tabs.
+ *
+ * @param {Object} tabs
+ * @return {Object}
+ */
+function extractEntries(tabs) {
+  return indexBy(flattenDeep(map(flattenDeep(map(tabs, 'groups')), 'entries')), 'id');
+}
+
+/**
+ * Return a mapping of { id: group } for all groups in the given tabs.
+ *
+ * @param {Object} tabs
+ * @return {Object}
+ */
+function extractGroups(tabs) {
+  return indexBy(flattenDeep(map(tabs, 'groups')), 'id');
+}
+
+/**
+ * Get the expandable textarea.
+ *
+ * @param {DOMElement} node
+ *
+ * @return {DOMElement} expandable textarea
+ */
+function getExpandableTextArea(node) {
+  return domQuery('textarea[data-expandable]', node);
+}
+
+/**
+ * Expands the given textarea according to the line breaks
+ * in the value.
+ *
+ * The minimum rows are determined from the attribute [data-min-rows].
+ * The maximum rows are determined from the attribute [data-max-rows].
+ *
+ * If the number of line breaks is greater than the maximum rows value,
+ * then the attribute [rows] of the textarea is set to [data-max-rows]. If
+ * the attribute [data-max-rows] is not present, then the attribute [rows]
+ * of the textarea is set to the number of line breaks or [data-min-rows].
+ *
+ * If the number of line breaks is less than the minimum rows value,
+ * then the attribute [rows] of the textarea is set to [data-min-rows].
+ * If the attribute [data-min-rows] is not present, then the attribute [rows]
+ * of the textarea is set to the numer of line breaks or [data-max-rows].
+ *
+ * @param {DOMElement} textarea
+ */
+function expandTextArea(textarea) {
+  if (textarea) {
+    var value = textarea.value || '';
+    var lines = value.split(/\r?\n/g);
+
+    var minRows = domAttr(textarea, 'data-min-rows');
+    var maxRows = domAttr(textarea, 'data-max-rows');
+
+    var rows = lines.length || 1;
+
+    if (minRows) {
+      rows = Math.max(parseInt(minRows, 10), rows);
+    }
+
+    if (maxRows) {
+      rows = Math.min(parseInt(maxRows, 10), rows);
+    }
+
+    textarea.rows = rows;
+  }
+}
+
+/**
+ * A properties panel implementation.
+ *
+ * To use it provide a `propertiesProvider` component that knows
+ * about which properties to display.
+ *
+ * Properties edit state / visibility can be intercepted
+ * via a custom {@link PropertiesActivator}.
+ *
+ * @class
+ * @constructor
+ *
+ * @param {Object} config
+ * @param {EventBus} eventBus
+ * @param {Modeling} modeling
+ * @param {PropertiesProvider} propertiesProvider
+ * @param {Canvas} canvas
+ * @param commandStack
+ */
+function PropertiesPanel(config, eventBus, modeling, propertiesProvider, commandStack, canvas) {
+
+  this._eventBus = eventBus;
+  this._modeling = modeling;
+  this._commandStack = commandStack;
+  this._canvas = canvas;
+  this._propertiesProvider = propertiesProvider;
+  this._config=config;
+
+  this._init(config);
+}
+
+PropertiesPanel.$inject = [
+  'config.propertiesPanel',
+  'eventBus',
+  'modeling',
+  'propertiesProvider',
+  'commandStack',
+  'canvas' ];
+
+module.exports = PropertiesPanel;
+
+
+PropertiesPanel.prototype._init = function(config) {
+
+  var eventBus = this._eventBus;
+
+  var self = this;
+
+  eventBus.on('diagram.init', function() {
+    self.registerCmdHandlers();
+  });
+
+  /**
+   * Select the root element once it is added to the canvas
+   */
+  eventBus.on('root.added', function(e) {
+    self.update(e.element);
+  });
+
+  eventBus.on('selection.changed', function(e) {
+    var newElement = e.newSelection[0];
+
+    self.update(newElement);
+  });
+
+  // add / update tab-bar scrolling
+  eventBus.on([
+    'propertiesPanel.changed',
+    'propertiesPanel.resized'
+  ], function(event) {
+
+    var tabBarNode = domQuery('.djs-properties-tab-bar', self._container);
+
+    if (!tabBarNode) {
+      return;
+    }
+
+    var scroller = scrollTabs.get(tabBarNode);
+
+    if (!scroller) {
+
+      // we did not initialize yet, do that
+      // now and make sure we select the active
+      // tab on scroll update
+      scroller = scrollTabs(tabBarNode, {
+        selectors: {
+          tabsContainer: '.djs-properties-tabs-links',
+          tab: '.djs-properties-tabs-links li',
+          ignore: '.pp-hidden',
+          active: '.pp-active'
+        }
+      });
+
+
+      scroller.on('scroll', function(newActiveNode, oldActiveNode, direction) {
+
+        var linkNode = domQuery('[data-tab-target]', newActiveNode);
+
+        var tabId = domAttr(linkNode, 'data-tab-target');
+
+        self.activateTab(tabId);
+      });
+    }
+
+    // react on tab changes and or tabContainer resize
+    // and make sure the active tab is shown completely
+    scroller.update();
+  });
+
+  eventBus.on('elements.changed', function(e) {
+
+    var current = self._current;
+    var element = current && current.element;
+
+    if (element) {
+      if (e.elements.indexOf(element) !== -1) {
+        self.update(element);
+      }
+    }
+  });
+
+  eventBus.on('diagram.destroy', function() {
+    self.detach();
+  });
+
+  this._container = domify('<div class="djs-properties-panel"></div>');
+
+  this._bindListeners(this._container);
+
+  if (config && config.parent) {
+    this.attachTo(config.parent);
+  }
+};
+
+PropertiesPanel.prototype.registerCmdHandlers = function() {
+  var self = this;
+  forEach(self.getCmdHandlers(), function(handler, id) {
+    self._commandStack.registerHandler(id, handler);
+  });
+};
+
+PropertiesPanel.prototype.getCmdHandlers = function() {
+  return {
+    'properties-panel.update-businessobject': require('./cmd/UpdateBusinessObjectHandler'),
+    'properties-panel.create-and-reference': require('./cmd/CreateAndReferenceHandler'),
+    'properties-panel.create-businessobject-list': require('./cmd/CreateBusinessObjectListHandler'),
+    'properties-panel.update-businessobject-list': require('./cmd/UpdateBusinessObjectListHandler'),
+    'properties-panel.multi-command-executor': require('./cmd/MultiCommandHandler')
+  };
+};
+
+PropertiesPanel.prototype.attachTo = function(parentNode) {
+
+  if (!parentNode) {
+    throw new Error('parentNode required');
+  }
+
+  // ensure we detach from the
+  // previous, old parent
+  this.detach();
+
+  // unwrap jQuery if provided
+  if (parentNode.get) {
+    parentNode = parentNode.get(0);
+  }
+
+  if (typeof parentNode === 'string') {
+    parentNode = domQuery(parentNode);
+  }
+
+  var container = this._container;
+
+  parentNode.appendChild(container);
+
+  this._emit('attach');
+};
+
+PropertiesPanel.prototype.detach = function() {
+
+  var container = this._container,
+      parentNode = container.parentNode;
+
+  if (!parentNode) {
+    return;
+  }
+
+  this._emit('detach');
+
+  parentNode.removeChild(container);
+};
+
+
+/**
+ * Select the given tab within the properties panel.
+ *
+ * @param {Object|String} tab
+ */
+PropertiesPanel.prototype.activateTab = function(tab) {
+
+  var tabId = typeof tab === 'string' ? tab : tab.id;
+
+  var current = this._current;
+
+  var panelNode = current.panel;
+
+  var allTabNodes = domQuery.all('.djs-properties-tab', panelNode),
+      allTabLinkNodes = domQuery.all('.djs-properties-tab-link', panelNode);
+
+  forEach(allTabNodes, function(tabNode) {
+    var currentTabId = domAttr(tabNode, 'data-tab');
+
+    domClasses(tabNode).toggle('pp-active', tabId === currentTabId);
+  });
+
+  forEach(allTabLinkNodes, function(tabLinkNode) {
+    var tabLink = domQuery('[data-tab-target]', tabLinkNode),
+        currentTabId = domAttr(tabLink, 'data-tab-target');
+
+    domClasses(tabLinkNode).toggle('pp-active', tabId === currentTabId);
+  });
+};
+
+/**
+ * Update the DOM representation of the properties panel
+ */
+PropertiesPanel.prototype.update = function(element) {
+  var current = this._current;
+
+  // no actual selection change
+  var needsCreate = true;
+
+  if (typeof element === 'undefined') {
+
+    // use RootElement of BPMN diagram to generate properties panel if no element is selected
+    element = this._canvas.getRootElement();
+  }
+
+  var newTabs = this._propertiesProvider.getTabs(element);
+
+  if (current && current.element === element) {
+    // see if we can reuse the existing panel
+
+    needsCreate = this._entriesChanged(current, newTabs);
+    //needsCreate = false;
+  }
+
+  if (needsCreate) {
+
+    if (current) {
+      // remove old panel
+      domRemove(current.panel);
+    }
+
+    this._current = this._create(element, newTabs);
+
+    // activate first tab
+    this.activateTab(this._current.tabs[0]);
+  }
+
+  if (this._current) {
+    // make sure correct tab contents are visible
+    this._updateActivation(this._current);
+
+  }
+
+  this._emit('changed');
+};
+
+
+/**
+ * Returns true if one of two groups has different entries than the other.
+ *
+ * @param  {Object} current
+ * @param  {Object} newTabs
+ * @return {Booelan}
+ */
+PropertiesPanel.prototype._entriesChanged = function(current, newTabs) {
+
+  var oldEntryIds = keys(current.entries),
+      newEntryIds = keys(extractEntries(newTabs));
+
+  return !isEmpty(xor(oldEntryIds, newEntryIds));
+};
+
+PropertiesPanel.prototype._emit = function(event) {
+  this._eventBus.fire('propertiesPanel.' + event, { panel: this, current: this._current });
+};
+
+PropertiesPanel.prototype._bindListeners = function(container) {
+
+  var self = this;
+
+  // handles a change for a given event
+  var handleChange = function handleChange(event) {
+
+    // see if we handle a change inside a [data-entry] element.
+    // if not, drop out
+    var node = domClosest(event.delegateTarget, '[data-entry]'),
+        entryId, entry;
+
+    // change from outside a [data-entry] element, simply ignore
+    if (!node) {
+      return;
+    }
+
+    entryId = domAttr(node, 'data-entry');
+    entry = self.getEntry(entryId);
+
+    var values = getFormControlValues(node);
+
+    if (event.type === 'change') {
+
+      // - if the "data-on-change" attribute is present and a value is changed,
+      //   then the associated action is performed.
+      // - if the associated action returns "true" then an update to the business
+      //   object is done
+      // - if it does not return "true", then only the DOM content is updated
+      var onChangeAction = event.delegateTarget.getAttribute('data-on-change');
+
+      if (onChangeAction) {
+        var isEntryDirty = self.executeAction(entry, node, onChangeAction, event);
+
+        if (!isEntryDirty) {
+          return self.update(self._current.element);
+        }
+      }
+    }
+    self.applyChanges(entry, values, node);
+    self.updateState(entry, node);
+  };
+
+  domDelegate.bind(container, 'textarea[data-expandable]', 'input', function(event) {
+    expandTextArea(event.delegateTarget);
+  });
+
+  // debounce update only elements that are target of key events,
+  // i.e. INPUT and TEXTAREA. SELECTs will trigger an immediate update anyway.
+  domDelegate.bind(container, 'input, textarea', 'input', debounce(handleChange, DEBOUNCE_DELAY));
+  domDelegate.bind(container, 'input, textarea, select', 'change', handleChange);
+
+  domDelegate.bind(container, '[data-action]', 'click', function onClick(event) {
+
+    // triggers on all inputs
+    var inputNode = event.delegateTarget;
+    var entryNode = domClosest(inputNode, '[data-entry]');
+
+    var actionId = domAttr(inputNode, 'data-action'),
+        entryId = domAttr(entryNode, 'data-entry');
+
+    var entry = self.getEntry(entryId);
+
+    var isEntryDirty = self.executeAction(entry, entryNode, actionId, event);
+
+    if (!!isEntryDirty) {
+      var values = getFormControlValues(entryNode);
+
+      self.applyChanges(entry, values, entryNode);
+    }
+
+    self.updateState(entry, entryNode);
+  });
+
+  function handleInput(event, element) {
+    // triggers on all inputs
+    var inputNode = event.delegateTarget;
+
+    var entryNode = domClosest(inputNode, '[data-entry]');
+
+    // only work on data entries
+    if (!entryNode) {
+      return;
+    }
+
+    var eventHandlerId = domAttr(inputNode, 'data-blur'),
+        entryId = domAttr(entryNode, 'data-entry');
+
+    var entry = self.getEntry(entryId);
+
+    var isEntryDirty = self.executeAction(entry, entryNode, eventHandlerId, event);
+
+    if (isEntryDirty) {
+      var values = getFormControlValues(entryNode);
+
+      self.applyChanges(entry, values, entryNode);
+    }
+
+    self.updateState(entry, entryNode);
+  }
+
+  domDelegate.bind(container, '[data-blur]', 'blur', handleInput, true);
+
+  // make tab links interactive
+  domDelegate.bind(container, '.djs-properties-tabs-links [data-tab-target]', 'click', function(event) {
+    event.preventDefault();
+
+    var delegateTarget = event.delegateTarget;
+
+    var tabId = domAttr(delegateTarget, 'data-tab-target');
+
+    // activate tab on link click
+    self.activateTab(tabId);
+  });
+
+};
+
+PropertiesPanel.prototype.updateState = function(entry, entryNode) {
+  this.updateShow(entry, entryNode);
+  this.updateDisable(entry, entryNode);
+  this.updateTextArea(entry, entryNode);
+};
+
+/**
+ * Update the size of a textarea in the DOM, if it is set to be expandable.
+ */
+PropertiesPanel.prototype.updateTextArea = function(entry, node) {
+  expandTextArea(getExpandableTextArea(node));
+};
+
+
+/**
+ * Update the visibility of the entry node in the DOM
+ */
+PropertiesPanel.prototype.updateShow = function(entry, node) {
+
+  var current = this._current;
+
+  if (!current) {
+    return;
+  }
+
+  var showNodes = domQuery.all('[data-show]', node) || [];
+
+  forEach(showNodes, function(showNode) {
+
+    var expr = domAttr(showNode, 'data-show');
+    var fn = get(entry, expr);
+    if (fn) {
+      var scope = domClosest(showNode, '[data-scope]') || node;
+      var shouldShow = fn(current.element, node, showNode, scope) || false;
+      var hasClass = domClasses(showNode).has(HIDE_CLASS);
+      if (shouldShow) {
+        if (hasClass) {
+          domClasses(showNode).remove(HIDE_CLASS);
+        }
+      } else {
+        domClasses(showNode).add(HIDE_CLASS);
+      }
+    }
+  });
+};
+
+/**
+ * Evaluates a given function. If it returns true, then the
+ * node is marked as "disabled".
+ */
+PropertiesPanel.prototype.updateDisable = function(entry, node) {
+  var current = this._current;
+
+  if (!current) {
+    return;
+  }
+
+  var nodes = domQuery.all('[data-disable]', node) || [];
+
+  forEach(nodes, function(currentNode) {
+    var expr = domAttr(currentNode, 'data-disable');
+    var fn = get(entry, expr);
+    if (fn) {
+      var scope = domClosest(currentNode, '[data-scope]') || node;
+      var shouldDisable = fn(current.element, node, currentNode, scope) || false;
+      domAttr(currentNode, 'disabled', shouldDisable ? '' : null);
+    }
+  });
+};
+
+PropertiesPanel.prototype.executeAction = function(entry, entryNode, actionId, event) {
+  var current = this._current;
+
+  if (!current) {
+    return;
+  }
+
+  var fn = get(entry, actionId);
+  if (!!fn) {
+    var scopeNode = domClosest(event.target, '[data-scope]') || entryNode;
+    return fn.apply(entry, [ current.element, entryNode, event, scopeNode ]);
+  }
+};
+
+/**
+ * Apply changes to the business object by executing a command
+ */
+PropertiesPanel.prototype.applyChanges = function(entry, values, containerElement) {
+
+  var element = this._current.element;
+
+  // ensure we only update the model if we got dirty changes
+  if (valuesEqual(values, entry.oldValues)) {
+    return;
+  }
+
+  var command = entry.set(element, values, containerElement);
+
+  var commandToExecute;
+
+  if (isArray(command)) {
+    if (command.length) {
+      commandToExecute = {
+        cmd: 'properties-panel.multi-command-executor',
+        context: flattenDeep(command)
+      };
+    }
+  }
+  else {
+    commandToExecute = command;
+  }
+
+  if (commandToExecute) {
+    this._commandStack.execute(commandToExecute.cmd, commandToExecute.context || {element : element});
+  }
+  else {
+    this.update(element);
+  }
+
+  this._updateGroupVisibility();
+};
+
+
+/**
+ * apply validation errors in the DOM and show or remove an error message near the entry node.
+ */
+PropertiesPanel.prototype.applyValidationErrors = function(validationErrors, entryNode) {
+
+  var valid = true;
+
+  var controlNodes = getFormControls(entryNode, true);
+
+  forEach(controlNodes, function(controlNode) {
+
+    var name = domAttr(controlNode, 'name') || domAttr(controlNode, 'data-name');
+
+    var error = validationErrors && validationErrors[name];
+
+    var errorMessageNode = domQuery('.pp-error-message', controlNode.parentNode);
+
+    if (error) {
+      valid = false;
+
+      if (!errorMessageNode) {
+        errorMessageNode = domify('<div></div>');
+
+        domClasses(errorMessageNode).add('pp-error-message');
+
+        // insert errorMessageNode after controlNode
+        controlNode.parentNode.insertBefore(errorMessageNode, controlNode.nextSibling);
+      }
+
+      errorMessageNode.innerHTML = error;
+
+      domClasses(controlNode).add('invalid');
+    } else {
+      domClasses(controlNode).remove('invalid');
+
+      if (errorMessageNode) {
+        controlNode.parentNode.removeChild(errorMessageNode);
+      }
+    }
+  });
+
+  return valid;
+};
+
+
+/**
+ * Check if the entry contains valid input
+ */
+PropertiesPanel.prototype.validate = function(entry, values, entryNode) {
+  var self = this;
+
+  var current = this._current;
+
+  var valid = true;
+
+  entryNode = entryNode || domQuery('[data-entry=' + entry.id + ']', current.panel);
+
+  if (values instanceof Array) {
+    var listContainer = domQuery('[data-list-entry-container]', entryNode),
+        listEntryNodes = listContainer.children || [];
+
+    // create new elements
+    for(var i = 0; i < values.length; i++) {
+      var listValue = values[i];
+
+      if(entry.validateListItem) {
+
+        var validationErrors = entry.validateListItem(current.element, listValue, entryNode, i),
+            listEntryNode = listEntryNodes[i];
+
+        valid = self.applyValidationErrors(validationErrors, listEntryNode) && valid;
+      }
+    }
+  }
+  else {
+    if (entry.validate) {
+      this.validationErrors = entry.validate(current.element, values, entryNode);
+
+      valid = self.applyValidationErrors(this.validationErrors, entryNode) && valid;
+    }
+  }
+
+  return valid;
+};
+
+PropertiesPanel.prototype.getEntry = function(id) {
+  return this._current && this._current.entries[id];
+};
+
+var flattenDeep = require('lodash/array/flattenDeep'),
+    indexBy = require('lodash/collection/indexBy'),
+    map = require('lodash/collection/map');
+
+PropertiesPanel.prototype._create = function(element, tabs) {
+
+  if (!element) {
+    return null;
+  }
+
+  var containerNode = this._container;
+
+  var panelNode = this._createPanel(element, tabs);
+
+  containerNode.appendChild(panelNode);
+
+  var entries = extractEntries(tabs);
+  var groups = extractGroups(tabs);
+
+  return {
+    tabs: tabs,
+    groups: groups,
+    entries: entries,
+    element: element,
+    panel: panelNode
+  };
+};
+
+PropertiesPanel.prototype._bindTemplate = function(element, entry, values, entryNode, idx) {
+
+  var eventBus = this._eventBus;
+
+  function isPropertyEditable(entry, propertyName) {
+    return eventBus.fire('propertiesPanel.isPropertyEditable', {
+      entry: entry,
+      propertyName: propertyName,
+      element: element
+    });
+  }
+
+  var inputNodes = getPropertyPlaceholders(entryNode);
+
+  forEach(inputNodes, function(node) {
+
+    var name,
+        newValue,
+        editable;
+
+    // we deal with an input element
+    if ('value' in node) {
+      name = domAttr(node, 'name') || domAttr(node, 'data-name');
+      newValue = values[name];
+
+      editable = isPropertyEditable(entry, name);
+      if (editable && entry.editable) {
+        editable = entry.editable(element, entryNode, node, name, newValue, idx);
+      }
+
+      domAttr(node, 'readonly', editable ? null : '');
+      domAttr(node, 'disabled', editable ? null : '');
+
+      if (entry.setControlValue) {
+        entry.setControlValue(element, entryNode, node, name, newValue, idx);
+      } else if (isToggle(node)) {
+        setToggleValue(node, newValue);
+      } else if (isSelect(node)) {
+        setSelectValue(node, newValue);
+      } else {
+        setInputValue(node, newValue);
+      }
+    }
+
+    // we deal with some non-editable html element
+    else {
+      name = domAttr(node, 'data-value');
+      newValue = values[name];
+      if (entry.setControlValue) {
+        entry.setControlValue(element, entryNode, node, name, newValue, idx);
+      }
+      else {
+        setTextValue(node, newValue);
+      }
+    }
+  });
+};
+
+PropertiesPanel.prototype._updateGroupVisibility = function() {
+  var element = this._current.element;
+  var groups = this._current.groups;
+  var panelNode = this._current.panel;
+
+  forEach(groups, function(group) {
+    var groupNode = domQuery('[data-group=' + group.id + ']', panelNode);
+    var groupVisible = isGroupVisible(group, element, groupNode, group.entries && group.entries.length > 0);
+
+    domClasses(groupNode).toggle(HIDE_CLASS, !groupVisible);
+  });
+};
+
+// TODO(nikku): WTF freaking name? Change / clarify.
+PropertiesPanel.prototype._updateActivation = function(current) {
+  var self = this;
+
+  var eventBus = this._eventBus;
+
+  var element = current.element;
+
+  function isEntryVisible(entry) {
+    return eventBus.fire('propertiesPanel.isEntryVisible', {
+      entry: entry,
+      element: element
+    });
+  }
+
+  var panelNode = current.panel;
+
+  forEach(current.tabs, function(tab) {
+
+    var tabNode = domQuery('[data-tab=' + tab.id + ']', panelNode);
+    var tabLinkNode = domQuery('[data-tab-target=' + tab.id + ']', panelNode).parentNode;
+    var tabVisible = false;
+
+    var groups = tab.groups;
+
+    forEach(groups, function(group) {
+
+      var groupVisible = false;
+
+      var groupNode = domQuery('[data-group=' + group.id + ']', tabNode);
+
+      forEach(group.entries, function(entry) {
+
+        var entryNode = domQuery('[data-entry=' + entry.id + ']', groupNode);
+
+        var entryVisible = isEntryVisible(entry);
+
+        groupVisible = groupVisible || entryVisible;
+
+        domClasses(entryNode).toggle(HIDE_CLASS, !entryVisible);
+
+        var values = 'get' in entry ? entry.get(element, entryNode) : {};
+
+        if (values instanceof Array) {
+          var listEntryContainer = domQuery('[data-list-entry-container]', entryNode);
+          var existingElements = listEntryContainer.children || [];
+
+          for (var i = 0; i < values.length; i++) {
+            var listValue = values[i];
+            var listItemNode = existingElements[i];
+            if (!listItemNode) {
+              listItemNode = domify(entry.createListEntryTemplate(listValue, i, listEntryContainer));
+              listEntryContainer.appendChild(listItemNode);
+            }
+            domAttr(listItemNode, 'data-index', i);
+
+            self._bindTemplate(element, entry, listValue, listItemNode, i);
+          }
+
+          var entriesToRemove = existingElements.length - values.length;
+
+          for (var j = 0; j < entriesToRemove; j++) {
+            // remove orphaned element
+            listEntryContainer.removeChild(listEntryContainer.lastChild);
+          }
+
+        } else {
+          self._bindTemplate(element, entry, values, entryNode);
+        }
+
+        // update conditionally visible elements
+        self.updateState(entry, entryNode);
+        self.validate(entry, values, entryNode);
+
+        // remember initial state for later dirty checking
+        entry.oldValues = getFormControlValues(entryNode);
+      });
+
+      groupVisible = isGroupVisible(group, element, groupNode, groupVisible);
+
+      if (typeof group.label === 'function') {
+        var groupLabelNode = domQuery('.group-label', groupNode);
+        groupLabelNode.textContent = group.label(element, groupNode);
+      }
+
+      domClasses(groupNode).toggle(HIDE_CLASS, !groupVisible);
+
+      tabVisible = tabVisible || groupVisible;
+    });
+
+    tabVisible = tabVisible && isTabVisible(tab, element, tabVisible);
+    domClasses(tabNode).toggle(HIDE_CLASS, !tabVisible);
+    domClasses(tabLinkNode).toggle(HIDE_CLASS, !tabVisible);
+  });
+
+  // inject elements id into header
+  var headerIdNode = domQuery('[data-label-id]', panelNode);
+
+  if (headerIdNode) {
+    headerIdNode.textContent = element.id || '';
+  }
+};
+
+PropertiesPanel.prototype._createPanel = function(element, tabs) {
+  var self = this;
+
+  var panelNode = domify('<div class="djs-properties"></div>'),
+      controlNode=domQuery(self._config.control),
+      closeNode=domify('<div class="close-properties-panel">close</div>'),
+      openNode=domify('<div class="open-properties-panel">open</div>'),
+      headerNode = domify('<div class="djs-properties-header">' +
+        '<div class="label" data-label-id></div>' +
+        '<div class="search">' +
+          '<input type="search" placeholder="Search for property" />' +
+          '<button><span>Search</span></button>' +
+        '</div>' +
+      '</div>'),
+      tabBarNode = domify('<div class="djs-properties-tab-bar"></div>'),
+      tabLinksNode = domify('<ul class="djs-properties-tabs-links"></ul>'),
+      tabContainerNode = domify('<div class="djs-properties-tabs-container"></div>');
+
+  panelNode.appendChild(headerNode);
+  while (controlNode.hasChildNodes()) {
+    controlNode.removeChild(controlNode.lastChild);
+  }
+  controlNode.appendChild(closeNode);
+
+
+  closeNode.addEventListener('click', function (evt) {
+    self.detach();
+    controlNode.removeChild(closeNode);
+    controlNode.appendChild(openNode);
+  });
+  openNode.addEventListener('click', function (evt) {
+    self.attachTo(self._config.parent);
+    controlNode.removeChild(openNode);
+    controlNode.appendChild(closeNode);
+  });
+
+  forEach(tabs, function(tab, tabIndex) {
+
+    if (!tab.id) {
+      throw new Error('tab must have an id');
+    }
+
+    var tabNode = domify('<div class="djs-properties-tab" data-tab="' + tab.id + '"></div>'),
+        tabLinkNode = domify('<li class="djs-properties-tab-link">' +
+          '<a href data-tab-target="' + tab.id + '">' + tab.label + '</a>' +
+        '</li>');
+
+    var groups = tab.groups;
+
+    forEach(groups, function(group) {
+
+      if (!group.id) {
+        throw new Error('group must have an id');
+      }
+
+      var groupNode = domify('<div class="djs-properties-group" data-group="' + group.id + '">' +
+          '<span class="group-toggle"></span>' +
+          '<span class="group-label">' + group.label + '</span>' +
+        '</div>');
+
+      // TODO(nre): use event delegation to handle that...
+      groupNode.querySelector('.group-toggle').addEventListener('click', function (evt) {
+        domClasses(groupNode).toggle('group-closed');
+        evt.preventDefault();
+        evt.stopPropagation();
+      });
+      groupNode.addEventListener('click', function (evt) {
+        if (!evt.defaultPrevented && domClasses(groupNode).has('group-closed')) {
+          domClasses(groupNode).remove('group-closed');
+        }
+      });
+
+      forEach(group.entries, function(entry) {
+
+        if (!entry.id) {
+          throw new Error('entry must have an id');
+        }
+
+        var html = entry.html;
+
+        if (typeof html === 'string') {
+          html = domify(html);
+        }
+
+        // unwrap jquery
+        if (html.get) {
+          html = html.get(0);
+        }
+
+        var entryNode = domify('<div class="djs-properties-entry" data-entry="' + entry.id + '"></div>');
+
+        forEach(entry.cssClasses || [], function (cssClass) {
+          domClasses(entryNode).add(cssClass);
+        });
+
+        entryNode.appendChild(html);
+
+        groupNode.appendChild(entryNode);
+
+        // update conditionally visible elements
+        self.updateState(entry, entryNode);
+      });
+
+      tabNode.appendChild(groupNode);
+    });
+
+    tabLinksNode.appendChild(tabLinkNode);
+    tabContainerNode.appendChild(tabNode);
+  });
+
+  tabBarNode.appendChild(tabLinksNode);
+
+  panelNode.appendChild(tabBarNode);
+  panelNode.appendChild(tabContainerNode);
+
+  return panelNode;
+};
+
+
+
+function setInputValue(node, value) {
+
+  var selection;
+
+  // prevents input fields from having the value 'undefined'
+  if (value === undefined) {
+    value = '';
+  }
+
+  // update selection on undo/redo
+  if (document.activeElement === node) {
+    selection = updateSelection(getSelection(node), node.value, value);
+  }
+
+  node.value = value;
+
+  if (selection) {
+    setSelection(node, selection);
+  }
+}
+
+function setSelectValue(node, value) {
+  if (value !== undefined) {
+    node.value = value;
+  }
+}
+
+function setToggleValue(node, value) {
+  var nodeValue = node.value;
+
+  node.checked = (value === nodeValue) || (!domAttr(node, 'value') && value);
+}
+
+function setTextValue(node, value) {
+  node.textContent = value;
+}
+
+
+function getSelection(node) {
+  return {
+    start: node.selectionStart,
+    end: node.selectionEnd
+  };
+}
+
+function setSelection(node, selection) {
+  node.selectionStart = selection.start;
+  node.selectionEnd = selection.end;
+}
+
+function isGroupVisible(group, element, groupNode, defaultVisibility) {
+  if (typeof group.enabled === 'function') {
+    return group.enabled(element, groupNode);
+  } else {
+    return defaultVisibility;
+  }
+}
+
+function isTabVisible(tab, element, defaultVisibility) {
+  if (typeof tab.enabled === 'function') {
+    return tab.enabled(element);
+  } else {
+    return defaultVisibility;
+  }
+}
+
+},{"./cmd/CreateAndReferenceHandler":25,"./cmd/CreateBusinessObjectListHandler":26,"./cmd/MultiCommandHandler":27,"./cmd/UpdateBusinessObjectHandler":28,"./cmd/UpdateBusinessObjectListHandler":29,"lodash/array/flattenDeep":357,"lodash/array/xor":362,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/collection/indexBy":371,"lodash/collection/map":372,"lodash/function/debounce":379,"lodash/lang/isArray":483,"lodash/lang/isEmpty":484,"lodash/object/get":494,"lodash/object/keys":495,"min-dom/lib/attr":52,"min-dom/lib/classes":53,"min-dom/lib/closest":55,"min-dom/lib/delegate":56,"min-dom/lib/domify":57,"min-dom/lib/matches":59,"min-dom/lib/query":60,"min-dom/lib/remove":61,"scroll-tabs":70,"selection-update":71}],24:[function(require,module,exports){
+'use strict';
+
+var domQuery = require('min-dom/lib/query'),
+    domClear = require('min-dom/lib/clear'),
+    is = require('bpmn-js/lib/util/ModelUtil').is,
+    forEach = require('lodash/collection/forEach'),
+    domify = require('min-dom/lib/domify'),
+    Ids = require('ids');
+
+var SPACE_REGEX = /\s/;
+
+// for QName validation as per http://www.w3.org/TR/REC-xml/#NT-NameChar
+var QNAME_REGEX = /^([a-z][\w-.]*:)?[a-z_][\w-.]*$/i;
+
+// for ID validation as per BPMN Schema (QName - Namespace)
+var ID_REGEX = /^[a-z_][\w-.]*$/i;
+
+function selectedOption(selectBox) {
+  if (selectBox.selectedIndex >= 0) {
+    return selectBox.options[selectBox.selectedIndex].value;
+  }
+}
+
+module.exports.selectedOption = selectedOption;
+
+
+function selectedType(elementSyntax, inputNode) {
+  var typeSelect = domQuery(elementSyntax, inputNode);
+  return selectedOption(typeSelect);
+}
+
+module.exports.selectedType = selectedType;
+
+
+/**
+ * Retrieve the root element the document this
+ * business object is contained in.
+ *
+ * @return {ModdleElement}
+ */
+function getRoot(businessObject) {
+  var parent = businessObject;
+  while (parent.$parent) {
+    parent = parent.$parent;
+  }
+  return parent;
+}
+
+module.exports.getRoot = getRoot;
+
+
+/**
+ * filters all elements in the list which have a given type.
+ * removes a new list
+ */
+function filterElementsByType(objectList, type) {
+  var list = objectList || [];
+  var result = [];
+  forEach(list, function(obj) {
+    if (is(obj, type)) {
+      result.push(obj);
+    }
+  });
+  return result;
+}
+
+module.exports.filterElementsByType = filterElementsByType;
+
+
+function findRootElementsByType(businessObject, referencedType) {
+  var root = getRoot(businessObject);
+
+  return filterElementsByType(root.rootElements, referencedType);
+}
+
+module.exports.findRootElementsByType = findRootElementsByType;
+
+
+function removeAllChildren(domElement) {
+  while(!!domElement.firstChild) {
+    domElement.removeChild(domElement.firstChild);
+  }
+}
+
+module.exports.removeAllChildren = removeAllChildren;
+
+
+/**
+ * adds an empty option to the list
+ */
+function addEmptyParameter(list) {
+  return list.push({'label': '', 'value': '', 'name': ''});
+}
+
+module.exports.addEmptyParameter = addEmptyParameter;
+
+
+/**
+ * returns a list with all root elements for the given parameter 'referencedType'
+ */
+function refreshOptionsModel(businessObject, referencedType) {
+  var model = [];
+  var referableObjects = findRootElementsByType(businessObject, referencedType);
+  forEach(referableObjects, function(obj) {
+    model.push({
+      label: (obj.name || '')  + ' (id='+obj.id+')',
+      value: obj.id,
+      name: obj.name
+    });
+  });
+  return model;
+}
+
+module.exports.refreshOptionsModel = refreshOptionsModel;
+
+
+/**
+ * fills the drop down with options
+ */
+function updateOptionsDropDown(domSelector, businessObject, referencedType, entryNode) {
+  var options = refreshOptionsModel(businessObject, referencedType);
+  addEmptyParameter(options);
+  var selectBox = domQuery(domSelector, entryNode);
+  domClear(selectBox);
+
+  forEach(options, function(option){
+    var optionEntry = domify('<option value="' + option.value + '">' + option.label + '</option>');
+    selectBox.appendChild(optionEntry);
+  });
+  return options;
+}
+
+module.exports.updateOptionsDropDown = updateOptionsDropDown;
+
+
+/**
+ * checks whether the id value is valid
+ *
+ * @param {ModdleElement} bo
+ * @param {String} idValue
+ *
+ * @return {String} error message
+ */
+function isIdValid(bo, idValue) {
+  var assigned = bo.$model.ids.assigned(idValue);
+
+  var idExists = !!assigned && assigned !== bo;
+
+  if (!idValue || idExists) {
+    return 'Element must have an unique id.';
+  }
+
+  return validateId(idValue);
+}
+
+module.exports.isIdValid = isIdValid;
+
+
+function validateId(idValue) {
+
+  if (containsSpace(idValue)) {
+    return 'Id must not contain spaces.';
+  }
+
+  if (!ID_REGEX.test(idValue)) {
+
+    if (QNAME_REGEX.test(idValue)) {
+      return 'Id must not contain prefix.';
+    }
+
+    return 'Id must be a valid QName.';
+  }
+}
+
+module.exports.validateId = validateId;
+
+
+function containsSpace(value) {
+  return SPACE_REGEX.test(value);
+}
+
+module.exports.containsSpace = containsSpace;
+
+
+/**
+ * generate a semantic id with given prefix
+ */
+function nextId(prefix) {
+  var ids = new Ids([32,32,1]);
+
+  return ids.nextPrefixed(prefix);
+}
+
+module.exports.nextId = nextId;
+
+
+function triggerClickEvent(element) {
+  var evt;
+  var eventType = 'click';
+
+  if (!!document.createEvent) {
+    try {
+      // Chrome, Safari, Firefox
+      evt = new MouseEvent((eventType), { view: window, bubbles: true, cancelable: true });
+    } catch (e) {
+      // IE 11, PhantomJS (wat!)
+      evt = document.createEvent('MouseEvent');
+
+      evt.initEvent((eventType), true, true);
+    }
+    return element.dispatchEvent(evt);
+  } else {
+    // Welcome IE
+    evt = document.createEventObject();
+
+    return element.fireEvent('on' + eventType, evt);
+  }
+}
+
+module.exports.triggerClickEvent = triggerClickEvent;
+
+},{"bpmn-js/lib/util/ModelUtil":146,"ids":50,"lodash/collection/forEach":368,"min-dom/lib/clear":54,"min-dom/lib/domify":57,"min-dom/lib/query":60}],25:[function(require,module,exports){
+'use strict';
+
+var elementHelper = require('../helper/ElementHelper');
+
+/**
+ * A handler capable of creating a new element under a provided parent
+ * and updating / creating a reference to it in one atomic action.
+ *
+ * @class
+ * @constructor
+ */
+function CreateAndReferenceElementHandler(elementRegistry, bpmnFactory) {
+  this._elementRegistry = elementRegistry;
+  this._bpmnFactory = bpmnFactory;
+}
+
+CreateAndReferenceElementHandler.$inject = [ 'elementRegistry', 'bpmnFactory' ];
+
+module.exports = CreateAndReferenceElementHandler;
+
+function ensureNotNull(prop, name) {
+  if(!prop) {
+    throw new Error(name + ' required');
+  }
+  return prop;
+}
+
+////// api /////////////////////////////////////////////
+
+/**
+ * Creates a new element under a provided parent and updates / creates a reference to it in
+ * one atomic action.
+ *
+ * @method  CreateAndReferenceElementHandler#execute
+ *
+ * @param {Object} context
+ * @param {djs.model.Base} context.element which is the context for the reference
+ * @param {moddle.referencingObject} context.referencingObject the object which creates the reference
+ * @param {String} context.referenceProperty the property of the referencingObject which makes the reference
+ * @param {moddle.newObject} context.newObject the new object to add
+ * @param {moddle.newObjectContainer} context.newObjectContainer the container for the new object
+ *
+ * @returns {Array<djs.mode.Base>} the updated element
+ */
+CreateAndReferenceElementHandler.prototype.execute = function(context) {
+
+  var referencingObject = ensureNotNull(context.referencingObject, 'referencingObject'),
+      referenceProperty = ensureNotNull(context.referenceProperty, 'referenceProperty'),
+      newObject = ensureNotNull(context.newObject, 'newObject'),
+      newObjectContainer = ensureNotNull(context.newObjectContainer, 'newObjectContainer'),
+      newObjectParent = ensureNotNull(context.newObjectParent, 'newObjectParent'),
+      changed = [ context.element ]; // this will not change any diagram-js elements
+
+  // create new object
+  var referencedObject = elementHelper
+                          .createElement(newObject.type, newObject.properties, newObjectParent, this._bpmnFactory);
+  context.referencedObject = referencedObject;
+
+  // add to containing list
+  newObjectContainer.push(referencedObject);
+
+  // adjust reference attribute
+  context.previousReference = referencingObject[referenceProperty];
+  referencingObject[referenceProperty] = referencedObject;
+
+  context.changed = changed;
+
+  // indicate changed on objects affected by the update
+  return changed;
+};
+
+/**
+ * Reverts the update
+ *
+ * @method  CreateAndReferenceElementHandler#revert
+ *
+ * @param {Object} context
+ *
+ * @returns {djs.mode.Base} the updated element
+ */
+CreateAndReferenceElementHandler.prototype.revert = function(context) {
+
+  var referencingObject = context.referencingObject,
+      referenceProperty = context.referenceProperty,
+      previousReference = context.previousReference,
+      referencedObject = context.referencedObject,
+      newObjectContainer = context.newObjectContainer;
+
+  // reset reference
+  referencingObject.set(referenceProperty, previousReference);
+
+  // remove new element
+  newObjectContainer.splice(newObjectContainer.indexOf(referencedObject), 1);
+
+  return context.changed;
+};
+
+},{"../helper/ElementHelper":41}],26:[function(require,module,exports){
+'use strict';
+
+var forEach = require('lodash/collection/forEach');
+
+var elementHelper = require('../helper/ElementHelper');
+
+/**
+ * A handler that implements a BPMN 2.0 property update
+ * for business objects which are not represented in the
+ * diagram.
+ *
+ * This is useful in the context of the properties panel in
+ * order to update child elements of elements visible in
+ * the diagram.
+ *
+ * Example: perform an update of a specific event definition
+ * of an intermediate event.
+ *
+ * @class
+ * @constructor
+ */
+function CreateBusinessObjectListHandler(elementRegistry, bpmnFactory) {
+  this._elementRegistry = elementRegistry;
+  this._bpmnFactory = bpmnFactory;
+}
+
+CreateBusinessObjectListHandler.$inject = [ 'elementRegistry', 'bpmnFactory' ];
+
+module.exports = CreateBusinessObjectListHandler;
+
+function ensureNotNull(prop, name) {
+  if(!prop) {
+    throw new Error(name + ' required');
+  }
+  return prop;
+
+}
+function ensureList(prop, name) {
+  if(!prop || Object.prototype.toString.call(prop) !== '[object Array]' ) {
+    throw new Error(name + ' needs to be a list');
+  }
+  return prop;
+}
+
+////// api /////////////////////////////////////////////
+
+/**
+ * Creates a new element under a provided parent and updates / creates a reference to it in
+ * one atomic action.
+ *
+ * @method  CreateBusinessObjectListHandler#execute
+ *
+ * @param {Object} context
+ * @param {djs.model.Base} context.element which is the context for the reference
+ * @param {moddle.referencingObject} context.referencingObject the object which creates the reference
+ * @param {String} context.referenceProperty the property of the referencingObject which makes the reference
+ * @param {moddle.newObject} context.newObject the new object to add
+ * @param {moddle.newObjectContainer} context.newObjectContainer the container for the new object
+ *
+ * @return {Array<djs.mode.Base>} the updated element
+ */
+CreateBusinessObjectListHandler.prototype.execute = function(context) {
+
+  var currentObject = ensureNotNull(context.currentObject, 'currentObject'),
+      propertyName = ensureNotNull(context.propertyName, 'propertyName'),
+      newObjects = ensureList(context.newObjects, 'newObjects'),
+      changed = [ context.element ]; // this will not change any diagram-js elements
+
+
+  var childObjects = [];
+  var self = this;
+
+  // create new array of business objects
+  forEach(newObjects, function(obj) {
+    var element = elementHelper.createElement(obj.type, obj.properties, currentObject, self._bpmnFactory);
+
+    childObjects.push(element);
+  });
+  context.childObject = childObjects;
+
+  // adjust array reference in the parent business object
+  context.previousChilds = currentObject[propertyName];
+  currentObject[propertyName] = childObjects;
+
+  context.changed = changed;
+
+  // indicate changed on objects affected by the update
+  return changed;
+};
+
+/**
+ * Reverts the update
+ *
+ * @method  CreateBusinessObjectListHandler#revert
+ *
+ * @param {Object} context
+ *
+ * @return {djs.mode.Base} the updated element
+ */
+CreateBusinessObjectListHandler.prototype.revert = function(context) {
+
+  var currentObject = context.currentObject,
+      propertyName = context.propertyName,
+      previousChilds = context.previousChilds;
+
+  // remove new element
+  currentObject.set(propertyName, previousChilds);
+
+  return context.changed;
+};
+
+},{"../helper/ElementHelper":41,"lodash/collection/forEach":368}],27:[function(require,module,exports){
+'use strict';
+
+var forEach = require('lodash/collection/forEach');
+
+/**
+ * A handler that combines and executes multiple commands.
+ *
+ * All updates are bundled on the command stack and executed in one step.
+ * This also makes it possible to revert the changes in one step.
+ *
+ * Example use case: remove the camunda:formKey attribute and in addition
+ * add all form fields needed for the camunda:formData property.
+ *
+ * @class
+ * @constructor
+ */
+function MultiCommandHandler(commandStack) {
+  this._commandStack = commandStack;
+}
+
+MultiCommandHandler.$inject = [ 'commandStack' ];
+
+module.exports = MultiCommandHandler;
+
+MultiCommandHandler.prototype.preExecute = function(context) {
+
+  var commandStack = this._commandStack;
+
+  forEach(context, function(command) {
+    commandStack.execute(command.cmd, command.context);
+  });
+};
+},{"lodash/collection/forEach":368}],28:[function(require,module,exports){
+'use strict';
+
+var reduce = require('lodash/object/transform'),
+    is = require('bpmn-js/lib/util/ModelUtil').is,
+    keys = require('lodash/object/keys'),
+    forEach = require('lodash/collection/forEach');
+
+/**
+ * A handler that implements a BPMN 2.0 property update
+ * for business objects which are not represented in the
+ * diagram.
+ *
+ * This is useful in the context of the properties panel in
+ * order to update child elements of elements visible in
+ * the diagram.
+ *
+ * Example: perform an update of a specific event definition
+ * of an intermediate event.
+ *
+ * @class
+ * @constructor
+ */
+function UpdateBusinessObjectHandler(elementRegistry) {
+  this._elementRegistry = elementRegistry;
+}
+
+UpdateBusinessObjectHandler.$inject = [ 'elementRegistry' ];
+
+module.exports = UpdateBusinessObjectHandler;
+
+/**
+ * returns the root element
+ */
+function getRoot(businessObject) {
+  var parent = businessObject;
+  while(parent.$parent) {
+    parent = parent.$parent;
+  }
+  return parent;
+}
+
+function getProperties(businessObject, propertyNames) {
+  return reduce(propertyNames, function(result, key) {
+    result[key] = businessObject.get(key);
+    return result;
+  }, {});
+}
+
+
+function setProperties(businessObject, properties) {
+  forEach(properties, function(value, key) {
+    businessObject.set(key, value);
+  });
+}
+
+
+////// api /////////////////////////////////////////////
+
+/**
+ * Updates a business object with a list of new properties
+ *
+ * @method  UpdateBusinessObjectHandler#execute
+ *
+ * @param {Object} context
+ * @param {djs.model.Base} context.element the element which has a child business object updated
+ * @param {moddle.businessObject} context.businessObject the businessObject to update
+ * @param {Object} context.properties a list of properties to set on the businessObject
+ *
+ * @return {Array<djs.mode.Base>} the updated element
+ */
+UpdateBusinessObjectHandler.prototype.execute = function(context) {
+
+  var element = context.element,
+      businessObject = context.businessObject,
+      rootElements = getRoot(businessObject).rootElements,
+      referenceType = context.referenceType,
+      referenceProperty = context.referenceProperty,
+      changed = [ element ]; // this will not change any diagram-js elements
+
+  if (!element) {
+    throw new Error('element required');
+  }
+
+  if(!businessObject) {
+    throw new Error('businessObject required');
+  }
+
+  var properties = context.properties,
+      oldProperties = context.oldProperties || getProperties(businessObject, keys(properties));
+
+  // check if there the update needs an external element for reference
+  if(typeof referenceType !== 'undefined' && typeof referenceProperty !== 'undefined') {
+    forEach(rootElements, function(rootElement) {
+      if(is(rootElement, referenceType)) {
+        if(rootElement.id === properties[referenceProperty]) {
+          properties[referenceProperty] = rootElement;
+        }
+      }
+    });
+  }
+
+  // update properties
+  setProperties(businessObject, properties);
+
+  // store old values
+  context.oldProperties = oldProperties;
+  context.changed = changed;
+
+  // indicate changed on objects affected by the update
+  return changed;
+};
+
+/**
+ * Reverts the update
+ *
+ * @method  UpdateBusinessObjectHandler#revert
+ *
+ * @param {Object} context
+ *
+ * @return {djs.mode.Base} the updated element
+ */
+UpdateBusinessObjectHandler.prototype.revert = function(context) {
+
+  var oldProperties = context.oldProperties,
+      businessObject = context.businessObject;
+
+  // update properties
+  setProperties(businessObject, oldProperties);
+
+  return context.changed;
+};
+
+},{"bpmn-js/lib/util/ModelUtil":146,"lodash/collection/forEach":368,"lodash/object/keys":495,"lodash/object/transform":501}],29:[function(require,module,exports){
+'use strict';
+
+var forEach = require('lodash/collection/forEach');
+
+/**
+ * A handler that implements a BPMN 2.0 property update
+ * for business object lists which are not represented in the
+ * diagram.
+ *
+ * This is useful in the context of the properties panel in
+ * order to update child elements of elements visible in
+ * the diagram.
+ *
+ * Example: perform an update of a specific event definition
+ * of an intermediate event.
+ *
+ * @class
+ * @constructor
+ */
+function UpdateBusinessObjectListHandler(elementRegistry, bpmnFactory) {
+  this._elementRegistry = elementRegistry;
+  this._bpmnFactory = bpmnFactory;
+}
+
+UpdateBusinessObjectListHandler.$inject = [ 'elementRegistry', 'bpmnFactory' ];
+
+module.exports = UpdateBusinessObjectListHandler;
+
+function ensureNotNull(prop, name) {
+  if (!prop) {
+    throw new Error(name + 'required');
+  }
+  return prop;
+}
+
+////// api /////////////////////////////////////////////
+
+/**
+ * Updates a element under a provided parent.
+ */
+UpdateBusinessObjectListHandler.prototype.execute = function(context) {
+
+  var currentObject = ensureNotNull(context.currentObject, 'currentObject'),
+      propertyName = ensureNotNull(context.propertyName, 'propertyName'),
+      updatedObjectList = context.updatedObjectList,
+      objectsToRemove = context.objectsToRemove || [],
+      objectsToAdd = context.objectsToAdd || [],
+      changed = [ context.element], // this will not change any diagram-js elements
+      referencePropertyName;
+
+  if (context.referencePropertyName) {
+    referencePropertyName = context.referencePropertyName;
+  }
+
+  var objectList = currentObject[propertyName];
+  // adjust array reference in the parent business object
+  context.previousList = currentObject[propertyName];
+
+  if (updatedObjectList) {
+    currentObject[propertyName] = updatedObjectList;
+  }
+  else {
+    var listCopy = [];
+    // remove all objects which should be removed
+    forEach(objectList, function(object) {
+      if (objectsToRemove.indexOf(object) == -1) {
+        listCopy.push(object);
+      }
+    });
+    // add all objects which should be added
+    listCopy = listCopy.concat(objectsToAdd);
+
+    // set property to new list
+    if (listCopy.length > 0 || !referencePropertyName) {
+
+      // as long as there are elements in the list update the list
+      currentObject[propertyName] = listCopy;
+    } else if (referencePropertyName) {
+
+      // remove the list when it is empty
+      var parentObject = currentObject.$parent;
+      parentObject.set(referencePropertyName, undefined);
+    }
+  }
+
+  context.changed = changed;
+
+  // indicate changed on objects affected by the update
+  return changed;
+};
+
+/**
+ * Reverts the update
+ *
+ * @method  CreateBusinessObjectListHandler#revert
+ *
+ * @param {Object} context
+ *
+ * @return {djs.mode.Base} the updated element
+ */
+UpdateBusinessObjectListHandler.prototype.revert = function(context) {
+
+  var currentObject = context.currentObject,
+      propertyName = context.propertyName,
+      previousList = context.previousList,
+      parentObject = currentObject.$parent;
+
+  if (context.referencePropertyName) {
+    parentObject.set(context.referencePropertyName, currentObject);
+  }
+
+  // remove new element
+  currentObject.set(propertyName, previousList);
+
+  return context.changed;
+};
+
+},{"lodash/collection/forEach":368}],30:[function(require,module,exports){
+'use strict';
+
+var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
+    cmdHelper = require('../helper/CmdHelper');
+
+var checkbox = function(options, defaultParameters) {
+  var resource = defaultParameters,
+    label = options.label || resource.id,
+    canBeDisabled = !!options.disabled && typeof options.disabled === 'function';
+
+
+  resource.html =
+    '<input id="camunda-' + resource.id + '" ' +
+         'type="checkbox" ' +
+         'name="' + options.modelProperty + '" ' +
+         (canBeDisabled ? 'data-show="isDisabled"' : '') +
+         ' />' +
+    '<label for="camunda-' + resource.id + '" ' +
+         (canBeDisabled ? 'data-show="isDisabled"' : '') +
+         '>' + label + '</label>';
+
+  resource.get = function(element) {
+    var bo = getBusinessObject(element),
+      res = {};
+
+    res[options.modelProperty] = bo.get(options.modelProperty);
+
+    return res;
+  };
+  resource.set = function(element, values) {
+    var res = {};
+
+    res[options.modelProperty] = !!values[options.modelProperty];
+
+    return cmdHelper.updateProperties(element, res);
+  };
+
+  if(typeof options.set === 'function') {
+    resource.set = options.set;
+  }
+
+  if(typeof options.get === 'function') {
+    resource.get = options.get;
+  }
+
+  if(canBeDisabled) {
+    resource.isDisabled = function() {
+      return !options.disabled.apply(resource, arguments);
+    };
+  }
+
+  resource.cssClasses = ['pp-checkbox'];
+
+  return resource;
+};
+
+module.exports = checkbox;
+
+},{"../helper/CmdHelper":40,"bpmn-js/lib/util/ModelUtil":146}],31:[function(require,module,exports){
+'use strict';
+
+var assign = require('lodash/object/assign'),
+    find = require('lodash/collection/find');
+
+var domQuery = require('min-dom/lib/query');
+
+var selectEntryFactory = require('./SelectEntryFactory');
+
+
+/**
+ * The combo box is a special implementation of the select entry and adds the option 'custom' to the
+ * select box. If 'custom' is selected, an additional text input field is shown which allows to define
+ * a custom value.
+ *
+ * @param  {Object} options
+ * @param  {string} options.id
+ * @param  {string} options.label
+ * @param  {Array<Object>} options.selectOptions list of name/value pairs
+ * @param  {string} options.modelProperty
+ * @param  {function} options.get
+ * @param  {function} options.set
+ * @param  {function} options.disabled
+ * @param  {string} [options.customValue] custom select option value (default: 'custom')
+ * @param  {string} [options.customName] custom select option name visible in the select box (default: 'custom')
+ *
+ * @return {Object}
+ */
+var comboBox = function(options) {
+
+  var selectOptions = options.selectOptions,
+      modelProperty = options.modelProperty,
+      customValue = options.customValue || 'custom',
+      customName = options.customName || 'custom ' + modelProperty;
+
+  // check if a value is not a built in value
+  var isCustomValue = function(value) {
+    if (typeof value[modelProperty] === 'undefined') {
+      return false;
+    }
+
+    var isCustom = !find(selectOptions, function(option) {
+      return value[modelProperty] === option.value;
+    });
+
+    return isCustom;
+  };
+
+  var comboOptions = assign({}, options);
+
+  // true if the selected value in the select box is customValue
+  comboOptions.showCustomInput = function(element, node) {
+    var selectBox = domQuery('[data-entry="'+ options.id +'"] select', node.parentNode);
+
+    if (selectBox) {
+      return selectBox.value === customValue;
+    }
+
+    return false;
+  };
+
+  comboOptions.get = function(element, node) {
+    var value = options.get(element, node);
+
+    var modifiedValues = {};
+
+    if (!isCustomValue(value)) {
+      modifiedValues[modelProperty] = value[modelProperty] || '';
+      
+      return modifiedValues;
+    }
+
+    modifiedValues[modelProperty] = customValue;
+    modifiedValues['custom-'+modelProperty] = value[modelProperty];
+
+    return modifiedValues;
+  };
+
+  comboOptions.set = function(element, values, node) {
+    var modifiedValues = {};
+
+    // if the custom select option has been selected
+    // take the value from the text input field
+    if (values[modelProperty] === customValue) {
+      modifiedValues[modelProperty] = values['custom-' + modelProperty] || '';
+    }
+    else if (options.emptyParameter && values[modelProperty] === '') {
+      modifiedValues[modelProperty] = undefined;
+    }
+    else {
+      modifiedValues[modelProperty] = values[modelProperty];
+    }
+    return options.set(element, modifiedValues, node);
+  };
+
+  comboOptions.selectOptions.push({ name: customName, value: customValue });
+
+  var comboBoxEntry = assign({}, selectEntryFactory(comboOptions, comboOptions));
+
+  comboBoxEntry.html += '<div class="pp-field-wrapper pp-combo-input" ' +
+    'data-show="showCustomInput"' +
+    '>' +
+    '<input id="camunda-' + options.id + '-input" type="text" name="custom-' + modelProperty+'" ' +
+      ' />' +
+  '</div>';
+
+  return comboBoxEntry;
+};
+
+module.exports = comboBox;
+
+},{"./SelectEntryFactory":35,"lodash/collection/find":367,"lodash/object/assign":493,"min-dom/lib/query":60}],32:[function(require,module,exports){
+'use strict';
+
+var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
+
+// input entities
+var textInputField = require('./TextInputEntryFactory'),
+    checkboxField = require('./CheckboxEntryFactory'),
+    selectBoxField = require('./SelectEntryFactory'),
+    comboBoxField = require('./ComboEntryFactory'),
+    textAreaField = require('./TextAreaEntryFactory'),
+    validationAwareTextInputField = require('./ValidationAwareTextInput'),
+    tableField = require('./TableEntryFactory'),
+    labelEntry = require('./LabelFactory'),
+    link = require('./LinkEntryFactory');
+
+var cmdHelper = require('../helper/CmdHelper');
+
+// helpers ////////////////////////////////////////
+
+function ensureNotNull(prop) {
+  if(!prop) {
+    throw new Error(prop + ' must be set.');
+  }
+
+  return prop;
+}
+
+/**
+ * sets the default parameters which are needed to create an entry
+ *
+ * @param options
+ * @returns {{id: *, description: (*|string), get: (*|Function), set: (*|Function),
+ *            validate: (*|Function), html: string}}
+ */
+var setDefaultParameters = function ( options ) {
+
+  // default method to fetch the current value of the input field
+  var defaultGet = function (element) {
+    var bo = getBusinessObject(element),
+      res = {},
+      prop = ensureNotNull(options.modelProperty);
+    res[prop] = bo.get(prop);
+
+    return res;
+  };
+
+// default method to set a new value to the input field
+  var defaultSet = function (element, values) {
+    var res = {},
+        prop = ensureNotNull(options.modelProperty);
+    if (values[prop] !== '') {
+      res[prop] = values[prop];
+    } else {
+      res[prop] = undefined;
+    }
+
+    return cmdHelper.updateProperties(element, res);
+  };
+
+// default validation method
+  var defaultValidate = function () {
+    return {};
+  };
+
+  return {
+    id : options.id,
+    description : ( options.description || '' ),
+    get : ( options.get || defaultGet ),
+    set : ( options.set || defaultSet ),
+    validate : ( options.validate || defaultValidate ),
+    html: ''
+  };
+};
+
+function EntryFactory() {
+
+}
+
+/**
+ * Generates an text input entry object for a property panel.
+ * options are:
+ * - id: id of the entry - String
+ *
+ * - description: description of the property - String
+ *
+ * - label: label for the input field - String
+ *
+ * - set: setter method - Function
+ *
+ * - get: getter method - Function
+ *
+ * - validate: validation mehtod - Function
+ *
+ * - modelProperty: name of the model property - String
+ *
+ * - buttonAction: Object which contains the following properties: - Object
+ * ---- name: name of the [data-action] callback - String
+ * ---- method: callback function for [data-action] - Function
+ *
+ * - buttonShow: Object which contains the following properties: - Object
+ * ---- name: name of the [data-show] callback - String
+ * ---- method: callback function for [data-show] - Function
+ *
+ * @param options
+ * @returns the propertyPanel entry resource object
+ */
+EntryFactory.textField = function(options) {
+  return textInputField(options, setDefaultParameters(options));
+};
+
+EntryFactory.validationAwareTextField = function(options) {
+  return validationAwareTextInputField(options, setDefaultParameters(options));
+};
+
+/**
+ * Generates a checkbox input entry object for a property panel.
+ * options are:
+ * - id: id of the entry - String
+ *
+ * - description: description of the property - String
+ *
+ * - label: label for the input field - String
+ *
+ * - set: setter method - Function
+ *
+ * - get: getter method - Function
+ *
+ * - validate: validation mehtod - Function
+ *
+ * - modelProperty: name of the model property - String
+ *
+ * @param options
+ * @returns the propertyPanel entry resource object
+ */
+EntryFactory.checkbox = function(options) {
+  return checkboxField(options, setDefaultParameters(options));
+};
+
+EntryFactory.textArea = function(options) {
+  return textAreaField(options, setDefaultParameters(options));
+};
+
+EntryFactory.selectBox = function(options) {
+  return selectBoxField(options, setDefaultParameters(options));
+};
+
+EntryFactory.comboBox = function(options) {
+  return comboBoxField(options);
+};
+
+EntryFactory.table = function(options) {
+  return tableField(options);
+};
+
+EntryFactory.label = function(options) {
+  return labelEntry(options);
+};
+
+EntryFactory.link = function(options) {
+  return link(options);
+};
+
+module.exports = EntryFactory;
+
+},{"../helper/CmdHelper":40,"./CheckboxEntryFactory":30,"./ComboEntryFactory":31,"./LabelFactory":33,"./LinkEntryFactory":34,"./SelectEntryFactory":35,"./TableEntryFactory":36,"./TextAreaEntryFactory":37,"./TextInputEntryFactory":38,"./ValidationAwareTextInput":39,"bpmn-js/lib/util/ModelUtil":146}],33:[function(require,module,exports){
+'use strict';
+
+/**
+ * The label factory provides a label entry. For the label text
+ * it expects either a string provided by the options.labelText
+ * parameter or it could be generated programmatically using a
+ * function passed as the options.get parameter.
+ *
+ * @param  {Object} options
+ * @param  {string} options.id
+ * @param  {string} [options.labelText]
+ * @param  {Function} [options.get]
+ * @param  {Function} [options.showLabel]
+ * @param  {Boolean} [options.divider] adds a divider at the top of the label if true; default: false
+ */
+var label = function(options) {
+  return {
+    id: options.id,
+    html: '<label data-value="label" ' +
+            'data-show="showLabel" ' +
+            'class="entry-label' + (options.divider ? ' divider' : '') + '">' +
+          '</label>',
+    get: function(element, node) {
+      if (typeof options.get === 'function') {
+        return options.get(element, node);
+      }
+      return { label: options.labelText };
+    },
+    showLabel: function(element, node) {
+      if (typeof options.showLabel === 'function') {
+        return options.showLabel(element, node);
+      }
+      return true;
+    }
+  };
+};
+
+module.exports = label;
+
+},{}],34:[function(require,module,exports){
+'use strict';
+
+var utils = require('../Utils');
+
+var link = function(options, defaultParameters) {
+
+
+  var id                  = options.id,
+      label               = options.label || id,
+      hideLink            = options.hideLink,
+      canBeHidden         = typeof hideLink === 'function',
+      getClickableElement = options.getClickableElement;
+
+  var resource = { id: id };
+
+  resource.html =
+    '<a data-action="linkSelected" ' +
+    (canBeHidden ? 'data-show="hideLink" ' : '') +
+    'class="pp-entry-link' + (options.cssClasses ? ' ' + options.cssClasses : '') +
+    '">' + label + '</a>';
+
+  resource.linkSelected = function(element, node, event, scopeNode) {
+    if (typeof getClickableElement === 'function') {
+
+      var link = getClickableElement.apply(resource, [ element, node, event, scopeNode ]);
+      link && utils.triggerClickEvent(link);
+    }
+
+    return false;
+  };
+
+  if (canBeHidden) {
+    resource.hideLink = function() {
+      return !hideLink.apply(resource, arguments);
+    };
+  }
+
+  return resource;
+};
+
+module.exports = link;
+
+},{"../Utils":24}],35:[function(require,module,exports){
+'use strict';
+
+var forEach = require('lodash/collection/forEach');
+
+var isList = function(list) {
+  return !(!list || Object.prototype.toString.call(list) !== '[object Array]');
+};
+
+var addEmptyParameter = function(list) {
+  return list.concat([ { name: '', value: '' } ]);
+};
+
+/**
+ * @param  {Object} options
+ * @param  {string} options.id
+ * @param  {string} [options.label]
+ * @param  {Array<Object>} options.selectOptions
+ * @param  {string} options.modelProperty
+ * @param  {boolean} options.emptyParameter
+ * @param  {function} options.disabled
+ * @param  {Object} defaultParameters
+ *
+ * @return {Object}
+ */
+var selectbox = function(options, defaultParameters) {
+  var resource = defaultParameters,
+      label = options.label || resource.id,
+      selectOptions = options.selectOptions,
+      modelProperty = options.modelProperty,
+      emptyParameter = options.emptyParameter,
+      canBeDisabled = !!options.disabled && typeof options.disabled === 'function';
+
+  if (isList(selectOptions)) {
+    if (emptyParameter) {
+      selectOptions = addEmptyParameter(selectOptions);
+    }
+  } else {
+    selectOptions = [ { name: '', value: '' } ];
+  }
+
+  resource.html =
+    '<label for="camunda-' + resource.id + '"' +
+    (canBeDisabled ? 'data-show="isDisabled" ' : '') + '>' + label + '</label>' +
+    '<select id="camunda-' + resource.id + '-select" name="' + modelProperty + '"' +
+    (canBeDisabled ? 'data-show="isDisabled" ' : '') + ' data-value>';
+
+  forEach(selectOptions, function(option){
+    resource.html += '<option value="' + option.value + '">' + (option.name || '') + '</option>';
+  });
+
+  resource.html += '</select>';
+
+  if(canBeDisabled) {
+    resource.isDisabled = function() {
+      return !options.disabled.apply(resource, arguments);
+    };
+  }
+
+  resource.cssClasses = ['dropdown'];
+
+  return resource;
+};
+
+module.exports = selectbox;
+
+},{"lodash/collection/forEach":368}],36:[function(require,module,exports){
+'use strict';
+
+var cmdHelper = require('../helper/CmdHelper');
+
+var domQuery = require('min-dom/lib/query'),
+    domAttr = require('min-dom/lib/attr'),
+    domClosest = require('min-dom/lib/closest');
+
+var filter = require('lodash/collection/filter'),
+    forEach = require('lodash/collection/forEach'),
+    keys = require('lodash/object/keys');
+
+var domify = require('min-dom/lib/domify');
+
+var TABLE_ROW_DIV_SNIPPET = '<div class="pp-field-wrapper pp-table-row">';
+var DELETE_ROW_BUTTON_SNIPPET = '<button class="clear" data-action="deleteElement">' +
+                                  '<span>X</span>' +
+                                '</button>';
+
+function createInputRowTemplate(properties, canRemove) {
+  var template = TABLE_ROW_DIV_SNIPPET;
+  template += createInputTemplate(properties, canRemove);
+  template += canRemove ? DELETE_ROW_BUTTON_SNIPPET : '';
+  template += '</div>';
+
+  return template;
+}
+
+function createInputTemplate(properties, canRemove) {
+  var columns = properties.length;
+  var template = '';
+  forEach(properties, function(prop) {
+    template += '<input class="pp-table-row-columns-' + columns + ' ' +
+                               (canRemove ? 'pp-table-row-removable' : '') + '" ' +
+                       'id="camunda-table-row-cell-input-value" ' +
+                       'type="text" ' +
+                       'name="' + prop + '" />';
+  });
+  return template;
+}
+
+function createLabelRowTemplate(labels) {
+  var template = TABLE_ROW_DIV_SNIPPET;
+  template += createLabelTemplate(labels);
+  template += '</div>';
+
+return template;
+}
+
+function createLabelTemplate(labels) {
+  var columns = labels.length;
+  var template = '';
+  forEach(labels, function(label) {
+    template += '<label class="pp-table-row-columns-' + columns + '">' + label + '</label>';
+  });
+  return template;
+}
+
+function pick(elements, properties) {
+  return (elements || []).map(function(elem) {
+    var newElement = {};
+    forEach(properties, function(prop) {
+      newElement[prop] = elem[prop] || '';
+    });
+    return newElement;
+  });
+}
+
+function diff(element, node, values, oldValues, editable) {
+  return filter(values, function(value, idx) {
+    return !valueEqual(element, node, value, oldValues[idx], editable, idx);
+  });
+}
+
+function valueEqual(element, node, value, oldValue, editable, idx) {
+  if (value && !oldValue) {
+    return false;
+  }
+  var allKeys = keys(value).concat(keys(oldValue));
+
+  return allKeys.every(function(key) {
+    var n = value[key] || undefined;
+    var o = oldValue[key] || undefined;
+    return !editable(element, node, key, idx) || n === o;
+  });
+}
+
+function getEntryNode(node) {
+  return domClosest(node, '[data-entry]', true);
+}
+
+function getContainer(node) {
+  return domQuery('div[data-list-entry-container]', node);
+}
+
+/**
+ * @param  {Object} options
+ * @param  {string} options.id
+ * @param  {Array<string>} options.modelProperties
+ * @param  {Array<string>} options.labels
+ * @param  {Function} options.getElements - this callback function must return a list of business object items
+ * @param  {Function} options.removeElement
+ * @param  {Function} options.addElement
+ * @param  {Function} options.updateElement
+ * @param  {Function} options.editable
+ * @param  {Function} options.setControlValue
+ * @param  {Function} options.show
+ *
+ * @return {Object}
+ */
+module.exports = function(options) {
+
+  var id              = options.id,
+      modelProperties = options.modelProperties,
+      labels          = options.labels;
+
+  var labelRow = createLabelRowTemplate(labels);
+
+  var getElements   = options.getElements;
+
+  var removeElement = options.removeElement,
+      canRemove     = typeof removeElement === 'function';
+
+  var addElement = options.addElement,
+      canAdd     = typeof addElement === 'function',
+      addLabel   = options.addLabel || 'Add Value';
+
+  var updateElement = options.updateElement,
+      canUpdate     = typeof updateElement === 'function';
+
+  var editable        = options.editable || function() { return true; },
+      setControlValue = options.setControlValue;
+
+  var show       = options.show,
+      canBeShown = typeof show === 'function';
+
+  var elements = function(element, node) {
+    return pick(getElements(element, node), modelProperties);
+  };
+
+  var factory = {
+    id: id,
+    html: ( canAdd ?
+          '<div class="pp-table-add-row" ' + (canBeShown ? 'data-show="show"' : '') + '>' +
+            '<label>' + addLabel + '</label>' +
+            '<button class="add" data-action="addElement"><span>+</span></button>' +
+          '</div>' : '') +
+          '<div class="pp-table" data-show="showTable">' +
+            '<div class="pp-field-wrapper pp-table-row">' +
+               labelRow +
+            '</div>' +
+            '<div data-list-entry-container>' +
+            '</div>' +
+          '</div>',
+
+    get: function(element, node) {
+      var boElements = elements(element, node, this.__invalidValues);
+
+      var invalidValues = this.__invalidValues;
+
+      delete this.__invalidValues;
+
+      forEach(invalidValues, function(value, idx) {
+        var element = boElements[idx];
+
+        forEach(modelProperties, function(prop) {
+          element[prop] = value[prop];
+        });
+      });
+
+      return boElements;
+    },
+
+    set: function(element, values, node) {
+      var action = this.__action || {};
+      delete this.__action;
+
+      if (action.id === 'delete-element') {
+        return removeElement(element, node, action.idx);
+      }
+      else if (action.id === 'add-element') {
+        return addElement(element, node);
+      }
+      else if (canUpdate) {
+        var commands = [],
+            valuesToValidate = values;
+
+        if (typeof options.validate !== 'function') {
+          valuesToValidate = diff(element, node, values, elements(element, node), editable);
+        }
+
+        var self = this;
+
+        forEach(valuesToValidate, function(value) {
+          var validationError,
+              idx = values.indexOf(value);
+
+          if (typeof options.validate === 'function') {
+            validationError = options.validate(element, value, node, idx);
+          }
+
+          if (!validationError) {
+            var cmd = updateElement(element, value, node, idx);
+
+            if(cmd) {
+              commands.push(cmd);
+            }
+          } else {
+            // cache invalid value in an object by index as key
+            self.__invalidValues = self.__invalidValues || {};
+            self.__invalidValues[idx] = value;
+
+            // execute a command, which does not do anything
+            commands.push(cmdHelper.updateProperties(element, {}));
+          }
+        });
+
+        return commands;
+      }
+    },
+    createListEntryTemplate: function(value, index, selectBox) {
+      return createInputRowTemplate(modelProperties, canRemove);
+    },
+
+    addElement: function(element, node, event, scopeNode) {
+      var template = domify(createInputRowTemplate(modelProperties, canRemove));
+
+      var container = getContainer(node);
+      container.appendChild(template);
+
+      this.__action = {
+        id: 'add-element'
+      };
+
+      return true;
+    },
+
+    deleteElement: function(element, node, event, scopeNode) {
+      var container = getContainer(node);
+      var rowToDelete = event.delegateTarget.parentNode;
+      var idx = parseInt(domAttr(rowToDelete, 'data-index'), 10);
+
+      container.removeChild(rowToDelete);
+
+      this.__action = {
+        id: 'delete-element',
+        idx: idx
+      };
+
+      return true;
+    },
+
+    editable: function(element, rowNode, input, prop, value, idx) {
+      var entryNode = domClosest(rowNode, '[data-entry]');
+      return editable(element, entryNode, prop, idx);
+    },
+
+    show: function(element, entryNode, node, scopeNode) {
+      entryNode = getEntryNode(entryNode);
+      return show(element, entryNode, node, scopeNode);
+    },
+
+    showTable: function(element, entryNode, node, scopeNode) {
+      entryNode = getEntryNode(entryNode);
+      var elems = elements(element, entryNode);
+      return elems && elems.length && (!canBeShown || show(element, entryNode, node, scopeNode));
+    },
+
+    validateListItem: function(element, value, node, idx) {
+      if (typeof options.validate === 'function') {
+        return options.validate(element, value, node, idx);
+      }
+    }
+
+  };
+
+  if (setControlValue) {
+    factory.setControlValue = function(element, rowNode, input, prop, value, idx) {
+      var entryNode = getEntryNode(rowNode);
+      setControlValue(element, entryNode, input, prop, value, idx);
+    };
+  }
+
+  return factory;
+
+};
+},{"../helper/CmdHelper":40,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/object/keys":495,"min-dom/lib/attr":52,"min-dom/lib/closest":55,"min-dom/lib/domify":57,"min-dom/lib/query":60}],37:[function(require,module,exports){
+'use strict';
+
+var textArea = function(options, defaultParameters) {
+
+  var resource = defaultParameters,
+    label = options.label || resource.id,
+    canBeShown = !!options.show && typeof options.show === 'function',
+    expandable = options.expandable,
+    minRows = options.minRows,
+    maxRows = options.maxRows;
+
+  resource.html =
+    '<label for="camunda-' + resource.id + '" ' +
+    (canBeShown ? 'data-show="isShown"' : '') +
+    '>' + label + '</label>' +
+    '<div class="pp-field-wrapper" ' +
+    (canBeShown ? 'data-show="isShown"' : '') +
+    '>' +
+      '<textarea id="camunda-' + resource.id + '" ' +
+                'name="' + options.modelProperty + '" ' +
+                (expandable ? 'data-expandable ' : '') +
+                (minRows ? 'data-min-rows="' + minRows + '" ' : '') +
+                (maxRows ? 'data-max-rows="' + maxRows + '" ' : '') +
+      '>' +
+      '</textarea>' +
+    '</div>';
+
+  if(canBeShown) {
+    resource.isShown = function() {
+      return options.show.apply(resource, arguments);
+    };
+  }
+
+  resource.cssClasses = ['pp-textarea'];
+
+  return resource;
+};
+
+module.exports = textArea;
+
+},{}],38:[function(require,module,exports){
+'use strict';
+
+var domQuery = require('min-dom/lib/query');
+
+var textField = function(options, defaultParameters) {
+
+  // Default action for the button next to the input-field
+  var defaultButtonAction = function (element, inputNode) {
+    var input = domQuery('input[name='+options.modelProperty+']', inputNode);
+    input.value = '';
+
+    return true;
+  };
+
+  // default method to determine if the button should be visible
+  var defaultButtonShow = function (element, inputNode) {
+    var input = domQuery('input[name='+options.modelProperty+']', inputNode);
+
+    return input.value !== '';
+  };
+
+  var resource = defaultParameters,
+    label = options.label || resource.id,
+    dataValueLabel = options.dataValueLabel,
+    buttonLabel = ( options.buttonLabel || 'X' ),
+    actionName = ( typeof options.buttonAction != 'undefined' ) ? options.buttonAction.name : 'clear',
+    actionMethod = ( typeof options.buttonAction != 'undefined' ) ? options.buttonAction.method : defaultButtonAction,
+    showName = ( typeof options.buttonShow != 'undefined' ) ? options.buttonShow.name : 'canClear',
+    showMethod = ( typeof options.buttonShow != 'undefined' ) ? options.buttonShow.method : defaultButtonShow,
+    canBeDisabled = !!options.disabled && typeof options.disabled === 'function';
+
+  resource.html =
+    '<label for="camunda-' + resource.id + '" ' +
+      (canBeDisabled ? 'data-show="isDisabled" ' : '') +
+      (dataValueLabel ? 'data-value="' + dataValueLabel + '"' : '') + '>'+ label +'</label>' +
+    '<div class="pp-field-wrapper" ' +
+      (canBeDisabled ? 'data-show="isDisabled"' : '') +
+      '>' +
+      '<input id="camunda-' + resource.id + '" type="text" name="' + options.modelProperty+'" ' +
+        ' />' +
+      '<button class="' + actionName + '" data-action="' + actionName + '" data-show="' + showName + '" ' +
+        (canBeDisabled ? 'data-disabled="isDisabled"' : '') + '>' +
+        '<span>' + buttonLabel + '</span>' +
+      '</button>' +
+    '</div>';
+
+  resource[actionName] = actionMethod;
+  resource[showName] = showMethod;
+
+  if(canBeDisabled) {
+    resource.isDisabled = function() {
+      return !options.disabled.apply(resource, arguments);
+    };
+  }
+
+  resource.cssClasses = ['pp-textfield'];
+
+  return resource;
+};
+
+module.exports = textField;
+
+},{"min-dom/lib/query":60}],39:[function(require,module,exports){
+'use strict';
+
+var textField = require('./TextInputEntryFactory');
+
+/**
+ * This function is a wrapper around TextInputEntryFactory.
+ * It adds functionality to cache an invalid value entered in the
+ * text input, instead of setting it on the business object.
+ */
+var validationAwareTextField = function(options, defaultParameters) {
+
+  var modelProperty = options.modelProperty;
+
+  defaultParameters.get = function(element, node) {
+    var value = this.__lastInvalidValue;
+
+    delete this.__lastInvalidValue;
+
+    var properties = {};
+
+    properties[modelProperty] = value !== undefined ? value : options.getProperty(element, node);
+
+    return properties;
+  };
+
+  defaultParameters.set = function(element, values, node) {
+    var validationErrors = validate.apply(this, [ element, values, node ]),
+        propertyValue = values[modelProperty];
+
+    // make sure we do not update the id
+    if (validationErrors && validationErrors[modelProperty]) {
+      this.__lastInvalidValue = propertyValue;
+
+      return options.setProperty(element, {}, node);
+    } else {
+      var properties = {};
+
+      properties[modelProperty] = propertyValue;
+
+      return options.setProperty(element, properties, node);
+    }
+  };
+
+  var validate = defaultParameters.validate = function(element, values, node) {
+    var value = values[modelProperty] || this.__lastInvalidValue;
+
+    var property = {};
+    property[modelProperty] = value;
+
+    return options.validate(element, property, node);
+  };
+
+  return textField(options, defaultParameters);
+};
+
+module.exports = validationAwareTextField;
+},{"./TextInputEntryFactory":38}],40:[function(require,module,exports){
+'use strict';
+
+var CmdHelper = {};
+module.exports = CmdHelper;
+
+CmdHelper.updateProperties = function(element, properties) {
+  return {
+    cmd: 'element.updateProperties',
+    context: { element: element, properties: properties }
+  };
+};
+
+CmdHelper.updateBusinessObject = function(element, businessObject, newProperties) {
+  return {
+    cmd: 'properties-panel.update-businessobject',
+    context: {
+      element: element,
+      businessObject: businessObject,
+      properties: newProperties
+    }
+  };
+};
+
+CmdHelper.addElementsTolist = function(element, businessObject, listPropertyName, objectsToAdd) {
+  return {
+    cmd: 'properties-panel.update-businessobject-list',
+    context: {
+      element: element,
+      currentObject: businessObject,
+      propertyName: listPropertyName,
+      objectsToAdd: objectsToAdd
+    }
+  };
+};
+
+CmdHelper.removeElementsFromList = function
+  (element, businessObject, listPropertyName, referencePropertyName, objectsToRemove) {
+
+  return {
+    cmd: 'properties-panel.update-businessobject-list',
+    context: {
+      element: element,
+      currentObject: businessObject,
+      propertyName: listPropertyName,
+      referencePropertyName: referencePropertyName,
+      objectsToRemove: objectsToRemove
+    }
+  };
+};
+
+
+CmdHelper.addAndRemoveElementsFromList = function
+  (element, businessObject, listPropertyName, referencePropertyName, objectsToAdd, objectsToRemove) {
+
+  return {
+    cmd: 'properties-panel.update-businessobject-list',
+    context: {
+      element: element,
+      currentObject: businessObject,
+      propertyName: listPropertyName,
+      referencePropertyName: referencePropertyName,
+      objectsToAdd: objectsToAdd,
+      objectsToRemove: objectsToRemove
+    }
+  };
+};
+
+
+CmdHelper.setList = function(element, businessObject, listPropertyName, updatedObjectList) {
+  return {
+    cmd: 'properties-panel.update-businessobject-list',
+    context: {
+      element: element,
+      currentObject: businessObject,
+      propertyName: listPropertyName,
+      updatedObjectList: updatedObjectList
+    }
+  };
+};
+
+},{}],41:[function(require,module,exports){
+'use strict';
+
+var ElementHelper = {};
+module.exports = ElementHelper;
+
+/**
+ * Creates a new element and set the parent to it
+ *
+ * @method ElementHelper#createElement
+ *
+ * @param {String} elementType of the new element
+ * @param {Object} properties of the new element in key-value pairs
+ * @param {moddle.object} parent of the new element
+ * @param {BpmnFactory} factory which creates the new element
+ *
+ * @returns {djs.model.Base} element which is created
+ */
+ElementHelper.createElement = function(elementType, properties, parent, factory) {
+  var element = factory.create(elementType, properties);
+  element.$parent = parent;
+
+  return element;
+};
+
+},{}],42:[function(require,module,exports){
+'use strict';
+
+var cmdHelper = require('./CmdHelper'),
+    elementHelper = require('./ElementHelper');
+
+var is = require('bpmn-js/lib/util/ModelUtil').is;
+
+var ExtensionElementsHelper = {};
+
+var getExtensionElements = function(bo) {
+  return bo.get('extensionElements');
+};
+
+ExtensionElementsHelper.getExtensionElements = function(bo, type) {
+  var extensionElements = getExtensionElements(bo);
+  if (typeof extensionElements !== 'undefined') {
+    var extensionValues = extensionElements.get('values');
+    if (typeof extensionValues !== 'undefined') {
+      var elements = extensionValues.filter(function(value) {
+        return is(value, type);
+      });
+      if (elements.length) {
+        return elements;
+      }
+    }
+  }
+};
+
+ExtensionElementsHelper.addEntry = function(bo, element, entry, bpmnFactory) {
+  var extensionElements = bo.get('extensionElements');
+
+  // if there is no extensionElements list, create one
+  if( !extensionElements ) {
+    // TODO: Ask Daniel which operation costs more
+    extensionElements = elementHelper.createElement('bpmn:ExtensionElements', { values: [entry] }, bo, bpmnFactory);
+    return { extensionElements : extensionElements };
+  } else {
+    // add new failedJobRetryExtensionElement to existing extensionElements list
+    return cmdHelper.addElementsTolist(element, extensionElements, 'values', [entry]);
+  }
+};
+
+ExtensionElementsHelper.removeEntry = function(bo, element, entry) {
+  var extensionElements = bo.get('extensionElements');
+
+  if( !extensionElements ) {
+    // return an empty command when there is no extensionElements list
+    return {};
+  }
+
+  return cmdHelper.removeElementsFromList(element, extensionElements, 'values', 'extensionElements', [entry]);
+};
+
+module.exports = ExtensionElementsHelper;
+},{"./CmdHelper":40,"./ElementHelper":41,"bpmn-js/lib/util/ModelUtil":146}],43:[function(require,module,exports){
+'use strict';
+
+var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
+    getExtensionElements = require('./ExtensionElementsHelper').getExtensionElements;
+
+var FormHelper = {};
+
+module.exports = FormHelper;
+
+
+/**
+ * Return the form type of an element: Checks if the 'camunda:FormData'
+ * exists in the extensions elements and returns 'form-data' when true.
+ * If it does not exist, 'form-key' is returned.
+ *
+ * @param  {djs.model.Base} element
+ *
+ * @return {string} a form type (either 'form-key' or 'form-value')
+ */
+FormHelper.getFormType = function(element) {
+  var bo = getBusinessObject(element),
+      formData = getExtensionElements(bo, 'camunda:FormData'),
+      formType = 'form-key';
+
+  if (formData) {
+    formType = 'form-data';
+  }
+  return formType;
+};
+
+
+/**
+ * Return all form fields existing in the business object, and
+ * an empty array if none exist.
+ *
+ * @param  {djs.model.Base} element
+ *
+ * @return {Array} a list of form field objects
+ */
+FormHelper.getFormFields = function(element) {
+  var bo = getBusinessObject(element),
+      formData = getExtensionElements(bo, 'camunda:FormData');
+
+  if (typeof formData !== 'undefined') {
+    return formData[0].fields;
+  } else {
+    return [];
+  }
+};
+
+
+/**
+ * Get a form field from the business object at given index
+ *
+ * @param {djs.model.Base} element
+ * @param {number} idx
+ *
+ * @return {ModdleElement} the form field
+ */
+FormHelper.getFormField = function(element, idx) {
+
+  var formFields = this.getFormFields(element);
+
+  return formFields[idx];
+};
+
+
+/**
+ * Get all constraints for a specific form field from the business object
+ *
+ * @param  {ModdleElement} formField
+ *
+ * @return {Array<ModdleElement>} a list of constraint objects
+ */
+FormHelper.getConstraints = function(formField) {
+  if(formField && formField.validation && formField.validation.constraints) {
+    return formField.validation.constraints;
+  }
+  return [];
+};
+
+
+/**
+ * Get all camunda:value objects for a specific form field from the business object
+ *
+ * @param  {ModdleElement} formField
+ *
+ * @return {Array<ModdleElement>} a list of camunda:value objects
+ */
+FormHelper.getEnumValues = function(formField) {
+  if(formField && formField.values) {
+    return formField.values;
+  }
+  return [];
+};
+
+
+},{"./ExtensionElementsHelper":42,"bpmn-js/lib/util/ModelUtil":146}],44:[function(require,module,exports){
+'use strict';
+
+
+var inherits = require('inherits');
+
+var PropertiesActivator = require('../../PropertiesActivator');
+
+var documentationProps = require('./parts/DocumentationProps'),
+    realizedByProps = require('./parts/RealizedByProps'),
+    nameProps = require('./parts/NameProps'),
+    typeProps= require('./parts/TypeProps'),
+    jquery = require('jquery');
+
+
+function createGeneralTabGroups(element, bpmnFactory, elementRegistry, eventBus, appManager) {
+
+  var nameGroup={
+    id: 'general',
+    label: 'General',
+    entries: []
+  };
+  nameProps(nameGroup, element);
+
+  var aofGroup={
+    id: 'aof',
+    label: 'AOF - Settings',
+    entries: []
+  };
+  realizedByProps(aofGroup, element, eventBus, appManager);
+
+  var documentationGroup = {
+    id: 'documentation',
+    label: 'Documentation',
+    entries: []
+  };
+
+  documentationProps(documentationGroup, element, bpmnFactory, appManager);
+
+  return[
+    nameGroup,
+    aofGroup,
+    documentationGroup
+  ];
+
+}
+
+
+function Provider(eventBus, bpmnFactory, elementRegistry, appManager) {
+
+  PropertiesActivator.call(this, eventBus);
+
+  this.getTabs = function(element) {
+
+    var generalTab = {
+      id: 'general',
+      label: 'General',
+      groups: createGeneralTabGroups(element, bpmnFactory, elementRegistry,eventBus, appManager)
+    };
+
+    return [
+      generalTab
+    ];
+  };
+}
+
+
+
+inherits(Provider, PropertiesActivator);
+
+Provider.$inject = ['eventBus','bpmnFactory','elementRegistry','appManager' ];
+
+module.exports = Provider;
+
+},{"../../PropertiesActivator":22,"./parts/DocumentationProps":46,"./parts/NameProps":47,"./parts/RealizedByProps":48,"./parts/TypeProps":49,"inherits":353,"jquery":354}],45:[function(require,module,exports){
+// see https://regex.wtf/url-matching-regex-javascript/
+var URLHelper = {};
+module.exports = URLHelper;
+
+URLHelper.validate=function (str) {
+    var patterns = {
+        protocol: '^(http(s)?:\/\/)?(www\.|(?!www))[a-z\d]',
+        domain: '[a-z0-9-_\.]+',
+        tld: '(\.[a-z]{2,4})(\:[0-9]+)?',
+        params: '(\/[-a-z0-9:%_\+.~#?&//=]*)?$'
+    }; // /([www])?\.?((\w+)\.+)([a-zA-Z]{2,})/gi
+    var pattern = new RegExp(patterns.protocol + patterns.domain + patterns.tld + patterns.params, 'gi');
+    return pattern.test(str)
+}
+
+},{}],46:[function(require,module,exports){
+'use strict';
+
+var entryFactory = require('../../../factory/EntryFactory'),
+  getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
+  cmdHelper = require('../../../helper/CmdHelper');
+
+
+module.exports = function(group, element, bpmnFactory) {
+
+  // Documentation
+  var entry = entryFactory.textArea({
+    id: 'documentation',
+    description: '',
+    label: 'Documentation',
+    modelProperty: 'documentation'
+  });
+
+  entry.set = function(element, values) {
+    var businessObject = getBusinessObject(element),
+        newObjectList = [];
+
+    if (typeof values.documentation !== 'undefined' && values.documentation !== '') {
+      newObjectList.push(bpmnFactory.create('bpmn:Documentation', {
+        text: values.documentation
+      }));
+    }
+
+    return cmdHelper.setList(element, businessObject, 'documentation', newObjectList);
+  };
+
+  entry.get = function(element) {
+    var businessObject = getBusinessObject(element),
+        documentations = businessObject.get('documentation'),
+        text = (documentations.length > 0) ? documentations[0].text : '';
+
+    return { documentation: text };
+  };
+
+  group.entries.push(entry);
+};
+},{"../../../factory/EntryFactory":32,"../../../helper/CmdHelper":40,"bpmn-js/lib/util/ModelUtil":146}],47:[function(require,module,exports){
+'use strict';
+
+var entryFactory = require('../../../factory/EntryFactory'),
+    is = require('bpmn-js/lib/util/ModelUtil').is;
+
+
+module.exports = function(group, element) {
+  if (is(element, 'bpmn:Task') || is(element, 'bpmn:Participant')){
+    // Id
+    group.entries.push(entryFactory.textField({
+      id: 'name',
+      description: 'Name of this UserTask',
+      label: 'Name',
+      modelProperty: 'name'
+    }));
+  }
+};
+},{"../../../factory/EntryFactory":32,"bpmn-js/lib/util/ModelUtil":146}],48:[function(require,module,exports){
+'use strict';
+
+var entryFactory = require('../../../factory/EntryFactory'),
+    getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
+    cmdHelper = require('../../../helper/CmdHelper'),
+    is = require('bpmn-js/lib/util/ModelUtil').is,
+    jquery = require('jquery'),
+    formHelper = require('../../../helper/FormHelper');
+
+var domQuery   = require('min-dom/lib/query'),
+    domClosest = require('min-dom/lib/closest'),
+    domClasses = require('min-dom/lib/classes'),
+    URLHelper=require('../helper/URLHelper');
+
+//var SPACE_REGEX = /\s/;
+
+// for QName validation as per http://www.w3.org/TR/REC-xml/#NT-NameChar
+//var QNAME_REGEX = /^[a-z][\w0-9-]*(:[a-z][\w0-9-]*)?$/i;
+
+/**
+ * Return the currently selected form field querying the form field select box
+ * from the DOM.
+ *
+ * @param  {djs.model.Base} element
+ * @param  {DOMElement} node - DOM element of any form field text input
+ *
+ * @return {ModdleElement} the currently selected form field
+ */
+
+
+
+function RealizedByProps(group, element, eventBus,appManager) {
+
+    function getSelectedFormField(element, node) {
+        var selected = comboEntry.getSelected(element, node.parentNode);
+
+        if (selected.idx === -1) {
+            return;
+        }
+
+        return formHelper.getFormField(element, selected.idx);
+    }
+
+    function getSelected(node, id) {
+        var selectBox = getSelectBox(node, id);
+        return {
+            value: (selectBox || {}).value,
+            idx: (selectBox || {}).selectedIndex
+        };
+    }
+
+
+    var businessObject = getBusinessObject(element)
+    if (is(element, 'bpmn:UserTask') && businessObject.isAppEnsembleApp == true ) {
+
+            var request_data = appManager.list()
+
+        var comboEntry = entryFactory.comboBox({
+            id: 'realizedBy',
+            description: 'App which realized this UserTask',
+            label: 'Realized by following App',
+            modelProperty: 'aof:realizedBy',
+            selectOptions: request_data,
+            customName:'Custom URL',
+            customValue:'',
+            get: function(element, node) {
+                var bo = getBusinessObject(element),
+                res = {};
+
+                res[comboEntry.modelProperty] = bo.get(comboEntry.modelProperty);
+
+                var link = domQuery('a[id="realizedByLink"');
+                link.href=appManager.getInfoUri(res[comboEntry.modelProperty]);
+
+                return res;
+            },
+            set: function(element, values, node) {
+                var res = {};
+
+                res[comboEntry.modelProperty] = values[comboEntry.modelProperty];
+
+                return cmdHelper.updateProperties(element, res);
+            },
+            validate: function(element, values) {
+                var validationResult = {};
+
+                if(!!values['custom-'+this.modelProperty] && !URLHelper.validate(values['custom-'+this.modelProperty])) {
+                    validationResult[this.modelProperty] = "URL is not valid!";
+                }
+                return validationResult;
+            }
+        });
+
+
+        group.entries.push(comboEntry);
+
+
+        var entry = entryFactory.link({
+            id: 'realizedByLink',
+            label: 'URL',
+            hideLink: function(element, node) {
+                var link = domQuery('a', node);
+                link.textContent = 'App-Info';
+                link.id="realizedByLink";
+                link.target="_blank";
+                domClasses(link).remove('pp-error-message');
+                if(link.href=="custom" || link.href=="" || link.href==link.baseURI) return true;
+                else return false;
+            }
+        });
+
+        group.entries.push(entry);
+
+
+// TODO: Make custom element possible
+    }
+};
+
+module.exports = RealizedByProps;
+},{"../../../factory/EntryFactory":32,"../../../helper/CmdHelper":40,"../../../helper/FormHelper":43,"../helper/URLHelper":45,"bpmn-js/lib/util/ModelUtil":146,"jquery":354,"min-dom/lib/classes":53,"min-dom/lib/closest":55,"min-dom/lib/query":60}],49:[function(require,module,exports){
+'use strict';
+
+var entryFactory = require('../../../factory/EntryFactory'),
+    is = require('bpmn-js/lib/util/ModelUtil').is;
+
+
+module.exports = function(group, element) {
+  if (is(element, 'bpmn:Task')){
+    // Id
+    var executableEntry=entryFactory.checkbox({
+      id: 'isAppEnsembleApp',
+      description: 'Defines if Task is a App-Ensemble app.',
+      label: 'Is App-Ensemble app?',
+      modelProperty: 'aof:isAppEnsembleApp'
+    });
+
+    executableEntry.set = function (element, values) {
+      var businessObject = getBusinessObject(element);
+
+      businessObject.set(property, values[property]);
+      businessObject.set('bpmn:UserTask', 'bpmn:UserTask');
+      return participantHelper.modifyProcessBusinessObject(element, 'isExecutable', values);
+    };
+
+    group.entries.push(executableEntry);
+  }
+};
+},{"../../../factory/EntryFactory":32,"bpmn-js/lib/util/ModelUtil":146}],50:[function(require,module,exports){
+'use strict';
+
+var hat = require('hat');
+
+
+/**
+ * Create a new id generator / cache instance.
+ *
+ * You may optionally provide a seed that is used internally.
+ *
+ * @param {Seed} seed
+ */
+function Ids(seed) {
+
+  if (!(this instanceof Ids)) {
+    return new Ids(seed);
+  }
+
+  seed = seed || [ 128, 36, 1 ];
+  this._seed = seed.length ? hat.rack(seed[0], seed[1], seed[2]) : seed;
+}
+
+module.exports = Ids;
+
+/**
+ * Generate a next id.
+ *
+ * @param {Object} [element] element to bind the id to
+ *
+ * @return {String} id
+ */
+Ids.prototype.next = function(element) {
+  return this._seed(element || true);
+};
+
+/**
+ * Generate a next id with a given prefix.
+ *
+ * @param {Object} [element] element to bind the id to
+ *
+ * @return {String} id
+ */
+Ids.prototype.nextPrefixed = function(prefix, element) {
+  var id;
+
+  do {
+    id = prefix + this.next(true);
+  } while (this.assigned(id));
+
+  // claim {prefix}{random}
+  this.claim(id, element);
+
+  // return
+  return id;
+};
+
+/**
+ * Manually claim an existing id.
+ *
+ * @param {String} id
+ * @param {String} [element] element the id is claimed by
+ */
+Ids.prototype.claim = function(id, element) {
+  this._seed.set(id, element || true);
+};
+
+/**
+ * Returns true if the given id has already been assigned.
+ *
+ * @param  {String} id
+ * @return {Boolean}
+ */
+Ids.prototype.assigned = function(id) {
+  return this._seed.get(id) || false;
+};
+
+/**
+ * Unclaim an id.
+ *
+ * @param  {String} id the id to unclaim
+ */
+Ids.prototype.unclaim = function(id) {
+  delete this._seed.hats[id];
+};
+
+},{"hat":51}],51:[function(require,module,exports){
+var hat = module.exports = function (bits, base) {
+    if (!base) base = 16;
+    if (bits === undefined) bits = 128;
+    if (bits <= 0) return '0';
+    
+    var digits = Math.log(Math.pow(2, bits)) / Math.log(base);
+    for (var i = 2; digits === Infinity; i *= 2) {
+        digits = Math.log(Math.pow(2, bits / i)) / Math.log(base) * i;
+    }
+    
+    var rem = digits - Math.floor(digits);
+    
+    var res = '';
+    
+    for (var i = 0; i < Math.floor(digits); i++) {
+        var x = Math.floor(Math.random() * base).toString(base);
+        res = x + res;
+    }
+    
+    if (rem) {
+        var b = Math.pow(base, rem);
+        var x = Math.floor(Math.random() * b).toString(base);
+        res = x + res;
+    }
+    
+    var parsed = parseInt(res, base);
+    if (parsed !== Infinity && parsed >= Math.pow(2, bits)) {
+        return hat(bits, base)
+    }
+    else return res;
+};
+
+hat.rack = function (bits, base, expandBy) {
+    var fn = function (data) {
+        var iters = 0;
+        do {
+            if (iters ++ > 10) {
+                if (expandBy) bits += expandBy;
+                else throw new Error('too many ID collisions, use more bits')
+            }
+            
+            var id = hat(bits, base);
+        } while (Object.hasOwnProperty.call(hats, id));
+        
+        hats[id] = data;
+        return id;
+    };
+    var hats = fn.hats = {};
+    
+    fn.get = function (id) {
+        return fn.hats[id];
+    };
+    
+    fn.set = function (id, value) {
+        fn.hats[id] = value;
+        return fn;
+    };
+    
+    fn.bits = bits || 128;
+    fn.base = base || 16;
+    return fn;
+};
+
+},{}],52:[function(require,module,exports){
+/**
+ * Set attribute `name` to `val`, or get attr `name`.
+ *
+ * @param {Element} el
+ * @param {String} name
+ * @param {String} [val]
+ * @api public
+ */
+
+module.exports = function(el, name, val) {
+  // get
+  if (arguments.length == 2) {
+    return el.getAttribute(name);
+  }
+
+  // remove
+  if (val === null) {
+    return el.removeAttribute(name);
+  }
+
+  // set
+  el.setAttribute(name, val);
+
+  return el;
+};
+},{}],53:[function(require,module,exports){
+module.exports = require('component-classes');
+},{"component-classes":62}],54:[function(require,module,exports){
+module.exports = function(el) {
+
+  var c;
+
+  while (el.childNodes.length) {
+    c = el.childNodes[0];
+    el.removeChild(c);
+  }
+
+  return el;
+};
+},{}],55:[function(require,module,exports){
+module.exports = require('component-closest');
+},{"component-closest":64}],56:[function(require,module,exports){
+module.exports = require('component-delegate');
+},{"component-delegate":65}],57:[function(require,module,exports){
+module.exports = require('domify');
+},{"domify":69}],58:[function(require,module,exports){
+module.exports = require('component-event');
+},{"component-event":66}],59:[function(require,module,exports){
+module.exports = require('component-matches-selector');
+},{"component-matches-selector":67}],60:[function(require,module,exports){
+module.exports = require('component-query');
+},{"component-query":68}],61:[function(require,module,exports){
+module.exports = function(el) {
+  el.parentNode && el.parentNode.removeChild(el);
+};
+},{}],62:[function(require,module,exports){
+/**
+ * Module dependencies.
+ */
+
+try {
+  var index = require('indexof');
+} catch (err) {
+  var index = require('component-indexof');
+}
+
+/**
+ * Whitespace regexp.
+ */
+
+var re = /\s+/;
+
+/**
+ * toString reference.
+ */
+
+var toString = Object.prototype.toString;
+
+/**
+ * Wrap `el` in a `ClassList`.
+ *
+ * @param {Element} el
+ * @return {ClassList}
+ * @api public
+ */
+
+module.exports = function(el){
+  return new ClassList(el);
+};
+
+/**
+ * Initialize a new ClassList for `el`.
+ *
+ * @param {Element} el
+ * @api private
+ */
+
+function ClassList(el) {
+  if (!el || !el.nodeType) {
+    throw new Error('A DOM element reference is required');
+  }
+  this.el = el;
+  this.list = el.classList;
+}
+
+/**
+ * Add class `name` if not already present.
+ *
+ * @param {String} name
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.add = function(name){
+  // classList
+  if (this.list) {
+    this.list.add(name);
+    return this;
+  }
+
+  // fallback
+  var arr = this.array();
+  var i = index(arr, name);
+  if (!~i) arr.push(name);
+  this.el.className = arr.join(' ');
+  return this;
+};
+
+/**
+ * Remove class `name` when present, or
+ * pass a regular expression to remove
+ * any which match.
+ *
+ * @param {String|RegExp} name
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.remove = function(name){
+  if ('[object RegExp]' == toString.call(name)) {
+    return this.removeMatching(name);
+  }
+
+  // classList
+  if (this.list) {
+    this.list.remove(name);
+    return this;
+  }
+
+  // fallback
+  var arr = this.array();
+  var i = index(arr, name);
+  if (~i) arr.splice(i, 1);
+  this.el.className = arr.join(' ');
+  return this;
+};
+
+/**
+ * Remove all classes matching `re`.
+ *
+ * @param {RegExp} re
+ * @return {ClassList}
+ * @api private
+ */
+
+ClassList.prototype.removeMatching = function(re){
+  var arr = this.array();
+  for (var i = 0; i < arr.length; i++) {
+    if (re.test(arr[i])) {
+      this.remove(arr[i]);
+    }
+  }
+  return this;
+};
+
+/**
+ * Toggle class `name`, can force state via `force`.
+ *
+ * For browsers that support classList, but do not support `force` yet,
+ * the mistake will be detected and corrected.
+ *
+ * @param {String} name
+ * @param {Boolean} force
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.toggle = function(name, force){
+  // classList
+  if (this.list) {
+    if ("undefined" !== typeof force) {
+      if (force !== this.list.toggle(name, force)) {
+        this.list.toggle(name); // toggle again to correct
+      }
+    } else {
+      this.list.toggle(name);
+    }
+    return this;
+  }
+
+  // fallback
+  if ("undefined" !== typeof force) {
+    if (!force) {
+      this.remove(name);
+    } else {
+      this.add(name);
+    }
+  } else {
+    if (this.has(name)) {
+      this.remove(name);
+    } else {
+      this.add(name);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return an array of classes.
+ *
+ * @return {Array}
+ * @api public
+ */
+
+ClassList.prototype.array = function(){
+  var className = this.el.getAttribute('class') || '';
+  var str = className.replace(/^\s+|\s+$/g, '');
+  var arr = str.split(re);
+  if ('' === arr[0]) arr.shift();
+  return arr;
+};
+
+/**
+ * Check if class `name` is present.
+ *
+ * @param {String} name
+ * @return {ClassList}
+ * @api public
+ */
+
+ClassList.prototype.has =
+ClassList.prototype.contains = function(name){
+  return this.list
+    ? this.list.contains(name)
+    : !! ~index(this.array(), name);
+};
+
+},{"component-indexof":63,"indexof":63}],63:[function(require,module,exports){
+module.exports = function(arr, obj){
+  if (arr.indexOf) return arr.indexOf(obj);
+  for (var i = 0; i < arr.length; ++i) {
+    if (arr[i] === obj) return i;
+  }
+  return -1;
+};
+},{}],64:[function(require,module,exports){
+var matches = require('matches-selector')
+
+module.exports = function (element, selector, checkYoSelf, root) {
+  element = checkYoSelf ? {parentNode: element} : element
+
+  root = root || document
+
+  // Make sure `element !== document` and `element != null`
+  // otherwise we get an illegal invocation
+  while ((element = element.parentNode) && element !== document) {
+    if (matches(element, selector))
+      return element
+    // After `matches` on the edge case that
+    // the selector matches the root
+    // (when the root is not the document)
+    if (element === root)
+      return
+  }
+}
+
+},{"matches-selector":67}],65:[function(require,module,exports){
+/**
+ * Module dependencies.
+ */
+
+try {
+  var closest = require('closest');
+} catch(err) {
+  var closest = require('component-closest');
+}
+
+try {
+  var event = require('event');
+} catch(err) {
+  var event = require('component-event');
+}
+
+/**
+ * Delegate event `type` to `selector`
+ * and invoke `fn(e)`. A callback function
+ * is returned which may be passed to `.unbind()`.
+ *
+ * @param {Element} el
+ * @param {String} selector
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.bind = function(el, selector, type, fn, capture){
+  return event.bind(el, type, function(e){
+    var target = e.target || e.srcElement;
+    e.delegateTarget = closest(target, selector, true, el);
+    if (e.delegateTarget) fn.call(el, e);
+  }, capture);
+};
+
+/**
+ * Unbind event `type`'s callback `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @api public
+ */
+
+exports.unbind = function(el, type, fn, capture){
+  event.unbind(el, type, fn, capture);
+};
+
+},{"closest":64,"component-closest":64,"component-event":66,"event":66}],66:[function(require,module,exports){
+var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
+    unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
+    prefix = bind !== 'addEventListener' ? 'on' : '';
+
+/**
+ * Bind `el` event `type` to `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.bind = function(el, type, fn, capture){
+  el[bind](prefix + type, fn, capture || false);
+  return fn;
+};
+
+/**
+ * Unbind `el` event `type`'s callback `fn`.
+ *
+ * @param {Element} el
+ * @param {String} type
+ * @param {Function} fn
+ * @param {Boolean} capture
+ * @return {Function}
+ * @api public
+ */
+
+exports.unbind = function(el, type, fn, capture){
+  el[unbind](prefix + type, fn, capture || false);
+  return fn;
+};
+},{}],67:[function(require,module,exports){
+/**
+ * Module dependencies.
+ */
+
+try {
+  var query = require('query');
+} catch (err) {
+  var query = require('component-query');
+}
+
+/**
+ * Element prototype.
+ */
+
+var proto = Element.prototype;
+
+/**
+ * Vendor function.
+ */
+
+var vendor = proto.matches
+  || proto.webkitMatchesSelector
+  || proto.mozMatchesSelector
+  || proto.msMatchesSelector
+  || proto.oMatchesSelector;
+
+/**
+ * Expose `match()`.
+ */
+
+module.exports = match;
+
+/**
+ * Match `el` to `selector`.
+ *
+ * @param {Element} el
+ * @param {String} selector
+ * @return {Boolean}
+ * @api public
+ */
+
+function match(el, selector) {
+  if (!el || el.nodeType !== 1) return false;
+  if (vendor) return vendor.call(el, selector);
+  var nodes = query.all(selector, el.parentNode);
+  for (var i = 0; i < nodes.length; ++i) {
+    if (nodes[i] == el) return true;
+  }
+  return false;
+}
+
+},{"component-query":68,"query":68}],68:[function(require,module,exports){
+function one(selector, el) {
+  return el.querySelector(selector);
+}
+
+exports = module.exports = function(selector, el){
+  el = el || document;
+  return one(selector, el);
+};
+
+exports.all = function(selector, el){
+  el = el || document;
+  return el.querySelectorAll(selector);
+};
+
+exports.engine = function(obj){
+  if (!obj.one) throw new Error('.one callback required');
+  if (!obj.all) throw new Error('.all callback required');
+  one = obj.one;
+  exports.all = obj.all;
+  return exports;
+};
+
+},{}],69:[function(require,module,exports){
+
+/**
+ * Expose `parse`.
+ */
+
+module.exports = parse;
+
+/**
+ * Tests for browser support.
+ */
+
+var innerHTMLBug = false;
+var bugTestDiv;
+if (typeof document !== 'undefined') {
+  bugTestDiv = document.createElement('div');
+  // Setup
+  bugTestDiv.innerHTML = '  <link/><table></table><a href="/a">a</a><input type="checkbox"/>';
+  // Make sure that link elements get serialized correctly by innerHTML
+  // This requires a wrapper element in IE
+  innerHTMLBug = !bugTestDiv.getElementsByTagName('link').length;
+  bugTestDiv = undefined;
+}
+
+/**
+ * Wrap map from jquery.
+ */
+
+var map = {
+  legend: [1, '<fieldset>', '</fieldset>'],
+  tr: [2, '<table><tbody>', '</tbody></table>'],
+  col: [2, '<table><tbody></tbody><colgroup>', '</colgroup></table>'],
+  // for script/link/style tags to work in IE6-8, you have to wrap
+  // in a div with a non-whitespace character in front, ha!
+  _default: innerHTMLBug ? [1, 'X<div>', '</div>'] : [0, '', '']
+};
+
+map.td =
+map.th = [3, '<table><tbody><tr>', '</tr></tbody></table>'];
+
+map.option =
+map.optgroup = [1, '<select multiple="multiple">', '</select>'];
+
+map.thead =
+map.tbody =
+map.colgroup =
+map.caption =
+map.tfoot = [1, '<table>', '</table>'];
+
+map.polyline =
+map.ellipse =
+map.polygon =
+map.circle =
+map.text =
+map.line =
+map.path =
+map.rect =
+map.g = [1, '<svg xmlns="http://www.w3.org/2000/svg" version="1.1">','</svg>'];
+
+/**
+ * Parse `html` and return a DOM Node instance, which could be a TextNode,
+ * HTML DOM Node of some kind (<div> for example), or a DocumentFragment
+ * instance, depending on the contents of the `html` string.
+ *
+ * @param {String} html - HTML string to "domify"
+ * @param {Document} doc - The `document` instance to create the Node for
+ * @return {DOMNode} the TextNode, DOM Node, or DocumentFragment instance
+ * @api private
+ */
+
+function parse(html, doc) {
+  if ('string' != typeof html) throw new TypeError('String expected');
+
+  // default to the global `document` object
+  if (!doc) doc = document;
+
+  // tag name
+  var m = /<([\w:]+)/.exec(html);
+  if (!m) return doc.createTextNode(html);
+
+  html = html.replace(/^\s+|\s+$/g, ''); // Remove leading/trailing whitespace
+
+  var tag = m[1];
+
+  // body support
+  if (tag == 'body') {
+    var el = doc.createElement('html');
+    el.innerHTML = html;
+    return el.removeChild(el.lastChild);
+  }
+
+  // wrap map
+  var wrap = map[tag] || map._default;
+  var depth = wrap[0];
+  var prefix = wrap[1];
+  var suffix = wrap[2];
+  var el = doc.createElement('div');
+  el.innerHTML = prefix + html + suffix;
+  while (depth--) el = el.lastChild;
+
+  // one element
+  if (el.firstChild == el.lastChild) {
+    return el.removeChild(el.firstChild);
+  }
+
+  // several elements
+  var fragment = doc.createDocumentFragment();
+  while (el.firstChild) {
+    fragment.appendChild(el.removeChild(el.firstChild));
+  }
+
+  return fragment;
+}
+
+},{}],70:[function(require,module,exports){
+'use strict';
+
+var domify = require('min-dom/lib/domify'),
+    domClasses = require('min-dom/lib/classes'),
+    domMatches = require('min-dom/lib/matches'),
+    domDelegate = require('min-dom/lib/delegate'),
+    domQuery = require('min-dom/lib/query'),
+    domEvent = require('min-dom/lib/event'),
+    domAttr = require('min-dom/lib/attr');
+
+var filter = require('lodash/collection/filter'),
+    assign = require('lodash/object/assign');
+
+var inherits = require('inherits');
+
+var EventEmitter = require('events');
+
+var DEFAULT_OPTIONS = {
+  scrollSymbolLeft: '‹',
+  scrollSymbolRight: '›'
+};
+
+
+/**
+ * This component adds the functionality to scroll over a list of tabs.
+ *
+ * It adds scroll buttons on the left and right side of the tabs container
+ * if not all tabs are visible. It also adds a mouse wheel listener on the
+ * container.
+ *
+ * If either a button is clicked or the mouse wheel is used over the tabs,
+ * a 'scroll' event is being fired. This event contains the node elements
+ * of the new and old active tab, and the direction in which the tab has
+ * changed relative to the old active tab.
+ *
+ * @example:
+ * (1) provide a tabs-container:
+ *
+ * var $el = (
+ *   <div>
+ *     <!-- button added by scrollTabs -->
+ *     <span class="scroll-tabs-button scroll-tabs-left"></span>
+ *     <ul class="my-tabs-container">
+ *       <li class="my-tab i-am-active"></li>
+ *       <li class="my-tab"></li>
+ *       <li class="my-tab ignore-me"></li>
+ *     </ul>
+ *     <!-- button added by scrollTabs -->
+ *     <span class="scroll-tabs-button scroll-tabs-right"></span>
+ *   </div>
+ * );
+ *
+ *
+ * (2) initialize scrollTabs:
+ *
+ *  var scroller = scrollTabs(tabBarNode, {
+ *    selectors: {
+ *      tabsContainer: '.my-tabs-container',
+ *      tab: '.my-tab',
+ *      ignore: '.ignore-me',
+ *      active: '.i-am-active'
+ *    }
+ *  });
+ *
+ *
+ * (3) listen to the scroll event:
+ *
+ * scroller.on('scroll', function(newActiveNode, oldActiveNode, direction) {
+ *   // direction is any of (-1: left, 1: right)
+ *   // activate the new active tab
+ * });
+ *
+ *
+ * (4) update the scroller if tabs change and or the tab container resizes:
+ *
+ * scroller.update();
+ *
+ *
+ * @param  {DOMElement} el
+ * @param  {Object} options
+ * @param  {Object} options.selectors
+ * @param  {String} options.selectors.tabsContainer the container all tabs are contained in
+ * @param  {String} options.selectors.tab a single tab inside the tab container
+ * @param  {String} options.selectors.ignore tabs that should be ignored during scroll left/right
+ * @param  {String} options.selectors.active selector for the current active tab
+ * @param  {String} [options.scrollSymbolLeft]
+ * @param  {String} [options.scrollSymbolRight]
+ */
+function ScrollTabs($el, options) {
+
+  // we are an event emitter
+  EventEmitter.call(this);
+
+  this.options = options = assign({}, DEFAULT_OPTIONS, options);
+  this.container = $el;
+
+  this._createScrollButtons($el, options);
+
+  this._bindEvents($el);
+}
+
+inherits(ScrollTabs, EventEmitter);
+
+
+/**
+ * Create a clickable scroll button
+ *
+ * @param {Object} options
+ * @param {String} options.className
+ * @param {String} options.label
+ * @param {Number} options.direction
+ *
+ * @return {DOMElement} The created scroll button node
+ */
+ScrollTabs.prototype._createButton = function(parentNode, options) {
+
+  var className = options.className,
+      direction = options.direction;
+
+
+  var button = domQuery('.' + className, parentNode);
+
+  if (!button) {
+    button = domify('<span class="scroll-tabs-button ' + className + '">' +
+                                options.label +
+                              '</span>');
+
+    parentNode.insertBefore(button, parentNode.childNodes[0]);
+  }
+
+  domAttr(button, 'data-direction', direction);
+
+  return button;
+};
+
+/**
+ * Create both scroll buttons
+ *
+ * @param  {DOMElement} parentNode
+ * @param  {Object} options
+ * @param  {String} options.scrollSymbolLeft
+ * @param  {String} options.scrollSymbolRight
+ */
+ScrollTabs.prototype._createScrollButtons = function(parentNode, options) {
+
+  // Create a button that scrolls to the tab left to the currently active tab
+  this._createButton(parentNode, {
+    className: 'scroll-tabs-left',
+    label: options.scrollSymbolLeft,
+    direction: -1
+  });
+
+  // Create a button that scrolls to the tab right to the currently active tab
+  this._createButton(parentNode, {
+    className: 'scroll-tabs-right',
+    label: options.scrollSymbolRight,
+    direction: 1
+  });
+};
+
+/**
+ * Get the current active tab
+ *
+ * @return {DOMElement}
+ */
+ScrollTabs.prototype.getActiveTabNode = function() {
+  return domQuery(this.options.selectors.active, this.container);
+};
+
+
+/**
+ * Get the container all tabs are contained in
+ *
+ * @return {DOMElement}
+ */
+ScrollTabs.prototype.getTabsContainerNode = function () {
+  return domQuery(this.options.selectors.tabsContainer, this.container);
+};
+
+
+/**
+ * Get all tabs (visible and invisible ones)
+ *
+ * @return {Array<DOMElement>}
+ */
+ScrollTabs.prototype.getAllTabNodes = function () {
+  return domQuery.all(this.options.selectors.tab, this.container);
+};
+
+
+/**
+ * Gets all tabs that don't have the ignore class set
+ *
+ * @return {Array<DOMElement>}
+ */
+ScrollTabs.prototype.getVisibleTabs = function() {
+  var allTabs = this.getAllTabNodes();
+
+  var ignore = this.options.selectors.ignore;
+
+  return filter(allTabs, function(tabNode) {
+    return !domMatches(tabNode, ignore);
+  });
+};
+
+
+/**
+ * Get a tab relative to a reference tab.
+ *
+ * @param  {DOMElement} referenceTabNode
+ * @param  {Number} n gets the nth tab next or previous to the reference tab
+ *
+ * @return {DOMElement}
+ *
+ * @example:
+ * Visible tabs: [ A | B | C | D | E ]
+ * Assume tab 'C' is the reference tab:
+ * If direction === -1, it returns tab 'B',
+ * if direction ===  2, it returns tab 'E'
+ */
+ScrollTabs.prototype.getAdjacentTab = function(referenceTabNode, n) {
+  var visibleTabs = this.getVisibleTabs();
+
+  var index = visibleTabs.indexOf(referenceTabNode);
+
+  return visibleTabs[index + n];
+};
+
+ScrollTabs.prototype._bindEvents = function(node) {
+  this._bindWheelEvent(node);
+  this._bindTabClickEvents(node);
+  this._bindScrollButtonEvents(node);
+};
+
+/**
+ *  Bind a click listener to a DOM node.
+ *  Make sure a tab link is entirely visible after onClick.
+ *
+ * @param {DOMElement} node
+ */
+ScrollTabs.prototype._bindTabClickEvents = function(node) {
+  var selector = this.options.selectors.tab;
+
+  var self = this;
+
+  domDelegate.bind(node, selector, 'click', function onClick(event) {
+    self.scrollToTabNode(event.delegateTarget);
+  });
+};
+
+
+/**
+ * Bind the wheel event listener to a DOM node
+ *
+ * @param {DOMElement} node
+ */
+ScrollTabs.prototype._bindWheelEvent = function(node) {
+  var self = this;
+
+  domEvent.bind(node, 'wheel', function(e) {
+
+    // scroll direction (-1: left, 1: right)
+    var direction = Math.sign(e.deltaY);
+
+    var oldActiveTab = self.getActiveTabNode();
+
+    var newActiveTab = self.getAdjacentTab(oldActiveTab, direction);
+
+    if (newActiveTab) {
+      self.scrollToTabNode(newActiveTab);
+      self.emit('scroll', newActiveTab, oldActiveTab, direction);
+    }
+
+    e.preventDefault();
+  });
+};
+
+/**
+ * Bind scroll button events to a DOM node
+ *
+ * @param  {DOMElement} node
+ */
+ScrollTabs.prototype._bindScrollButtonEvents = function(node) {
+
+  var self = this;
+
+  domDelegate.bind(node, '.scroll-tabs-button', 'click', function(event) {
+
+    var target = event.delegateTarget;
+
+    // data-direction is either -1 or 1
+    var direction = parseInt(domAttr(target, 'data-direction'), 10);
+
+    var oldActiveTabNode = self.getActiveTabNode();
+
+    var newActiveTabNode = self.getAdjacentTab(oldActiveTabNode, direction);
+
+    if (newActiveTabNode) {
+      self.scrollToTabNode(newActiveTabNode);
+      self.emit('scroll', newActiveTabNode, oldActiveTabNode, direction);
+    }
+
+    event.preventDefault();
+  });
+};
+
+
+/**
+* Scroll to a tab if it is not entirely visible
+*
+* @param  {DOMElement} tabNode tab node to scroll to
+*/
+ScrollTabs.prototype.scrollToTabNode = function(tabNode) {
+  if (!tabNode) {
+    return;
+  }
+
+  var tabsContainerNode = tabNode.parentNode;
+
+  var tabWidth = tabNode.offsetWidth,
+      tabOffsetLeft = tabNode.offsetLeft,
+      tabOffsetRight = tabOffsetLeft + tabWidth,
+      containerWidth = tabsContainerNode.offsetWidth,
+      containerScrollLeft = tabsContainerNode.scrollLeft;
+
+  if (containerScrollLeft > tabOffsetLeft) {
+    // scroll to the left, if the tab is overflowing on the left side
+    tabsContainerNode.scrollLeft = 0;
+  } else if (tabOffsetRight > containerWidth) {
+    // scroll to the right, if the tab is overflowing on the right side
+    tabsContainerNode.scrollLeft = tabOffsetRight - containerWidth;
+  }
+};
+
+
+/**
+ * React on tab changes from outside (resize/show/hide/add/remove),
+ * update scroll button visibility.
+ */
+ScrollTabs.prototype.update = function() {
+
+  var tabsContainerNode = this.getTabsContainerNode();
+
+  // check if tabs fit in container
+  var overflow = tabsContainerNode.scrollWidth > tabsContainerNode.offsetWidth;
+
+  // TODO(nikku): distinguish overflow left / overflow right?
+  var overflowClass = 'scroll-tabs-overflow';
+
+  domClasses(this.container).toggle(overflowClass, overflow);
+
+  if (overflow) {
+    // make sure the current active tab is always visible
+    this.scrollToTabNode(this.getActiveTabNode());
+  }
+};
+
+
+////// module exports /////////////////////////////////////////
+
+/**
+ * Create a scrollTabs instance on the given element.
+ *
+ * @param {DOMElement} $el
+ * @param {Object} options
+ *
+ * @return {ScrollTabs}
+ */
+function create($el, options) {
+
+  var scrollTabs = get($el);
+
+  if (!scrollTabs) {
+    scrollTabs = new ScrollTabs($el, options);
+
+    $el.__scrollTabs = scrollTabs;
+  }
+
+  return scrollTabs;
+}
+
+/**
+ * Factory function to get or create a new scroll tabs instance.
+ */
+module.exports = create;
+
+
+/**
+ * Return the scrollTabs instance that has been previously
+ * initialized on the element.
+ *
+ * @param {DOMElement} $el
+ * @return {ScrollTabs}
+ */
+function get($el) {
+  return $el.__scrollTabs;
+}
+
+/**
+ * Getter to retrieve an already initialized scroll tabs instance.
+ */
+module.exports.get = get;
+},{"events":undefined,"inherits":353,"lodash/collection/filter":366,"lodash/object/assign":493,"min-dom/lib/attr":52,"min-dom/lib/classes":53,"min-dom/lib/delegate":56,"min-dom/lib/domify":57,"min-dom/lib/event":58,"min-dom/lib/matches":59,"min-dom/lib/query":60}],71:[function(require,module,exports){
+'use strict';
+
+/**
+ * Calculate the selection update for the given
+ * current and new input values.
+ *
+ * @param {Object} currentSelection as {start, end}
+ * @param {String} currentValue
+ * @param {String} newValue
+ *
+ * @return {Object} newSelection as {start, end}
+ */
+function calculateUpdate(currentSelection, currentValue, newValue) {
+
+  var currentCursor = currentSelection.start,
+      newCursor = currentCursor,
+      diff = newValue.length - currentValue.length,
+      idx;
+
+  var lengthDelta = newValue.length - currentValue.length;
+
+  var currentTail = currentValue.substring(currentCursor);
+
+  // check if we can remove common ending from the equation
+  // to be able to properly detect a selection change for
+  // the following scenarios:
+  //
+  //  * (AAATTT|TF) => (AAAT|TF)
+  //  * (AAAT|TF) =>  (AAATTT|TF)
+  //
+  if (newValue.lastIndexOf(currentTail) === newValue.length - currentTail.length) {
+    currentValue = currentValue.substring(0, currentValue.length - currentTail.length);
+    newValue = newValue.substring(0, newValue.length - currentTail.length);
+  }
+
+  // diff
+  var diff = createDiff(currentValue, newValue);
+
+  if (diff) {
+    if (diff.type === 'remove') {
+      newCursor = diff.newStart;
+    } else {
+      newCursor = diff.newEnd;
+    }
+  }
+
+  return range(newCursor);
+}
+
+module.exports = calculateUpdate;
+
+
+function createDiff(currentValue, newValue) {
+
+  var insert;
+
+  var l_str, l_char, l_idx = 0,
+      s_str, s_char, s_idx = 0;
+
+  if (newValue.length > currentValue.length) {
+    l_str = newValue;
+    s_str = currentValue;
+  } else {
+    l_str = currentValue;
+    s_str = newValue;
+  }
+
+  // assume there will be only one insert / remove and
+  // detect that _first_ edit operation only
+  while (l_idx < l_str.length) {
+
+    l_char = l_str.charAt(l_idx);
+    s_char = s_str.charAt(s_idx);
+
+    // chars no not equal
+    if (l_char !== s_char) {
+
+      if (!insert) {
+        insert = {
+          l_start: l_idx,
+          s_start: s_idx
+        };
+      }
+
+      l_idx++;
+    }
+
+    // chars equal (again?)
+    else {
+
+      if (insert && !insert.complete) {
+        insert.l_end = l_idx;
+        insert.s_end = s_idx;
+        insert.complete = true;
+      }
+
+      s_idx++;
+      l_idx++;
+    }
+  }
+
+  if (insert && !insert.complete) {
+    insert.complete = true;
+    insert.s_end = s_str.length;
+    insert.l_end = l_str.length;
+  }
+
+  // no diff
+  if (!insert) {
+    return;
+  }
+
+  if (newValue.length > currentValue.length) {
+    return {
+      newStart: insert.l_start,
+      newEnd: insert.l_end,
+      type: 'add'
+    };
+  } else {
+    return {
+      newStart: insert.s_start,
+      newEnd: insert.s_end,
+      type: newValue.length < currentValue.length ? 'remove' : 'replace'
+    };
+  }
+}
+
+/**
+ * Utility method for creating a new selection range {start, end} object.
+ *
+ * @param {Number} start
+ * @param {Number} [end]
+ *
+ * @return {Object} selection range as {start, end}
+ */
+function range(start, end) {
+  return {
+    start: start,
+    end: end === undefined ? start : end
+  };
+}
+
+module.exports.range = range;
+
+
+function splitStr(str, position) {
+  return {
+    before: str.substring(0, position),
+    after: str.substring(position)
+  };
+}
+},{}],72:[function(require,module,exports){
+(function(){
+  var crypt = require('crypt'),
+      utf8 = require('charenc').utf8,
+      isBuffer = require('is-buffer'),
+      bin = require('charenc').bin,
+
+  // The core
+  md5 = function (message, options) {
+    // Convert to byte array
+    if (message.constructor == String)
+      if (options && options.encoding === 'binary')
+        message = bin.stringToBytes(message);
+      else
+        message = utf8.stringToBytes(message);
+    else if (isBuffer(message))
+      message = Array.prototype.slice.call(message, 0);
+    else if (!Array.isArray(message))
+      message = message.toString();
+    // else, assume byte array already
+
+    var m = crypt.bytesToWords(message),
+        l = message.length * 8,
+        a =  1732584193,
+        b = -271733879,
+        c = -1732584194,
+        d =  271733878;
+
+    // Swap endian
+    for (var i = 0; i < m.length; i++) {
+      m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
+             ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
+    }
+
+    // Padding
+    m[l >>> 5] |= 0x80 << (l % 32);
+    m[(((l + 64) >>> 9) << 4) + 14] = l;
+
+    // Method shortcuts
+    var FF = md5._ff,
+        GG = md5._gg,
+        HH = md5._hh,
+        II = md5._ii;
+
+    for (var i = 0; i < m.length; i += 16) {
+
+      var aa = a,
+          bb = b,
+          cc = c,
+          dd = d;
+
+      a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
+      d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
+      c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
+      b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
+      a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
+      d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
+      c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
+      b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
+      a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
+      d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
+      c = FF(c, d, a, b, m[i+10], 17, -42063);
+      b = FF(b, c, d, a, m[i+11], 22, -1990404162);
+      a = FF(a, b, c, d, m[i+12],  7,  1804603682);
+      d = FF(d, a, b, c, m[i+13], 12, -40341101);
+      c = FF(c, d, a, b, m[i+14], 17, -1502002290);
+      b = FF(b, c, d, a, m[i+15], 22,  1236535329);
+
+      a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
+      d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
+      c = GG(c, d, a, b, m[i+11], 14,  643717713);
+      b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
+      a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
+      d = GG(d, a, b, c, m[i+10],  9,  38016083);
+      c = GG(c, d, a, b, m[i+15], 14, -660478335);
+      b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
+      a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
+      d = GG(d, a, b, c, m[i+14],  9, -1019803690);
+      c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
+      b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
+      a = GG(a, b, c, d, m[i+13],  5, -1444681467);
+      d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
+      c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
+      b = GG(b, c, d, a, m[i+12], 20, -1926607734);
+
+      a = HH(a, b, c, d, m[i+ 5],  4, -378558);
+      d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
+      c = HH(c, d, a, b, m[i+11], 16,  1839030562);
+      b = HH(b, c, d, a, m[i+14], 23, -35309556);
+      a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
+      d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
+      c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
+      b = HH(b, c, d, a, m[i+10], 23, -1094730640);
+      a = HH(a, b, c, d, m[i+13],  4,  681279174);
+      d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
+      c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
+      b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
+      a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
+      d = HH(d, a, b, c, m[i+12], 11, -421815835);
+      c = HH(c, d, a, b, m[i+15], 16,  530742520);
+      b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
+
+      a = II(a, b, c, d, m[i+ 0],  6, -198630844);
+      d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
+      c = II(c, d, a, b, m[i+14], 15, -1416354905);
+      b = II(b, c, d, a, m[i+ 5], 21, -57434055);
+      a = II(a, b, c, d, m[i+12],  6,  1700485571);
+      d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
+      c = II(c, d, a, b, m[i+10], 15, -1051523);
+      b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
+      a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
+      d = II(d, a, b, c, m[i+15], 10, -30611744);
+      c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
+      b = II(b, c, d, a, m[i+13], 21,  1309151649);
+      a = II(a, b, c, d, m[i+ 4],  6, -145523070);
+      d = II(d, a, b, c, m[i+11], 10, -1120210379);
+      c = II(c, d, a, b, m[i+ 2], 15,  718787259);
+      b = II(b, c, d, a, m[i+ 9], 21, -343485551);
+
+      a = (a + aa) >>> 0;
+      b = (b + bb) >>> 0;
+      c = (c + cc) >>> 0;
+      d = (d + dd) >>> 0;
+    }
+
+    return crypt.endian([a, b, c, d]);
+  };
+
+  // Auxiliary functions
+  md5._ff  = function (a, b, c, d, x, s, t) {
+    var n = a + (b & c | ~b & d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._gg  = function (a, b, c, d, x, s, t) {
+    var n = a + (b & d | c & ~d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._hh  = function (a, b, c, d, x, s, t) {
+    var n = a + (b ^ c ^ d) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+  md5._ii  = function (a, b, c, d, x, s, t) {
+    var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
+    return ((n << s) | (n >>> (32 - s))) + b;
+  };
+
+  // Package private blocksize
+  md5._blocksize = 16;
+  md5._digestsize = 16;
+
+  module.exports = function (message, options) {
+    if (message === undefined || message === null)
+      throw new Error('Illegal argument ' + message);
+
+    var digestbytes = crypt.wordsToBytes(md5(message, options));
+    return options && options.asBytes ? digestbytes :
+        options && options.asString ? bin.bytesToString(digestbytes) :
+        crypt.bytesToHex(digestbytes);
+  };
+
+})();
+
+},{"charenc":73,"crypt":74,"is-buffer":75}],73:[function(require,module,exports){
+var charenc = {
+  // UTF-8 encoding
+  utf8: {
+    // Convert a string to a byte array
+    stringToBytes: function(str) {
+      return charenc.bin.stringToBytes(unescape(encodeURIComponent(str)));
+    },
+
+    // Convert a byte array to a string
+    bytesToString: function(bytes) {
+      return decodeURIComponent(escape(charenc.bin.bytesToString(bytes)));
+    }
+  },
+
+  // Binary encoding
+  bin: {
+    // Convert a string to a byte array
+    stringToBytes: function(str) {
+      for (var bytes = [], i = 0; i < str.length; i++)
+        bytes.push(str.charCodeAt(i) & 0xFF);
+      return bytes;
+    },
+
+    // Convert a byte array to a string
+    bytesToString: function(bytes) {
+      for (var str = [], i = 0; i < bytes.length; i++)
+        str.push(String.fromCharCode(bytes[i]));
+      return str.join('');
+    }
+  }
+};
+
+module.exports = charenc;
+
+},{}],74:[function(require,module,exports){
+(function() {
+  var base64map
+      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
+
+  crypt = {
+    // Bit-wise rotation left
+    rotl: function(n, b) {
+      return (n << b) | (n >>> (32 - b));
+    },
+
+    // Bit-wise rotation right
+    rotr: function(n, b) {
+      return (n << (32 - b)) | (n >>> b);
+    },
+
+    // Swap big-endian to little-endian and vice versa
+    endian: function(n) {
+      // If number given, swap endian
+      if (n.constructor == Number) {
+        return crypt.rotl(n, 8) & 0x00FF00FF | crypt.rotl(n, 24) & 0xFF00FF00;
+      }
+
+      // Else, assume array and swap all items
+      for (var i = 0; i < n.length; i++)
+        n[i] = crypt.endian(n[i]);
+      return n;
+    },
+
+    // Generate an array of any length of random bytes
+    randomBytes: function(n) {
+      for (var bytes = []; n > 0; n--)
+        bytes.push(Math.floor(Math.random() * 256));
+      return bytes;
+    },
+
+    // Convert a byte array to big-endian 32-bit words
+    bytesToWords: function(bytes) {
+      for (var words = [], i = 0, b = 0; i < bytes.length; i++, b += 8)
+        words[b >>> 5] |= bytes[i] << (24 - b % 32);
+      return words;
+    },
+
+    // Convert big-endian 32-bit words to a byte array
+    wordsToBytes: function(words) {
+      for (var bytes = [], b = 0; b < words.length * 32; b += 8)
+        bytes.push((words[b >>> 5] >>> (24 - b % 32)) & 0xFF);
+      return bytes;
+    },
+
+    // Convert a byte array to a hex string
+    bytesToHex: function(bytes) {
+      for (var hex = [], i = 0; i < bytes.length; i++) {
+        hex.push((bytes[i] >>> 4).toString(16));
+        hex.push((bytes[i] & 0xF).toString(16));
+      }
+      return hex.join('');
+    },
+
+    // Convert a hex string to a byte array
+    hexToBytes: function(hex) {
+      for (var bytes = [], c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+      return bytes;
+    },
+
+    // Convert a byte array to a base-64 string
+    bytesToBase64: function(bytes) {
+      for (var base64 = [], i = 0; i < bytes.length; i += 3) {
+        var triplet = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
+        for (var j = 0; j < 4; j++)
+          if (i * 8 + j * 6 <= bytes.length * 8)
+            base64.push(base64map.charAt((triplet >>> 6 * (3 - j)) & 0x3F));
+          else
+            base64.push('=');
+      }
+      return base64.join('');
+    },
+
+    // Convert a base-64 string to a byte array
+    base64ToBytes: function(base64) {
+      // Remove non-base-64 characters
+      base64 = base64.replace(/[^A-Z0-9+\/]/ig, '');
+
+      for (var bytes = [], i = 0, imod4 = 0; i < base64.length;
+          imod4 = ++i % 4) {
+        if (imod4 == 0) continue;
+        bytes.push(((base64map.indexOf(base64.charAt(i - 1))
+            & (Math.pow(2, -2 * imod4 + 8) - 1)) << (imod4 * 2))
+            | (base64map.indexOf(base64.charAt(i)) >>> (6 - imod4 * 2)));
+      }
+      return bytes;
+    }
+  };
+
+  module.exports = crypt;
+})();
+
+},{}],75:[function(require,module,exports){
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+}
+
+},{}],76:[function(require,module,exports){
+module.exports={
+  "name": "AOF",
+  "uri": "http://eatld.et.tu-dresden.de/aof/",
+  "prefix": "aof",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "AppCustomization",
+      "extends": [ "bpmn:UserTask" ],
+      "properties": [
+        {
+          "name": "realizedBy",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "AppCustomization",
+      "extends": [ "bpmn:UserTask" ],
+      "properties": [
+        {
+          "name": "isAppEnsembleApp",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    },
+    {
+      "name": "AppensembleCustomization",
+      "extends": [ "bpmn:Participant" ],
+      "properties": [
+        {
+          "name": "isAppEnsemble",
+          "isAttr": true,
+          "type": "Boolean"
+        }
+      ]
+    }
+  ],
+  "emumerations": [ ]
+}
+},{}],77:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -393,7 +7898,7 @@ Modeler.prototype._modules = [].concat(
 
 module.exports = Modeler;
 
-},{"./Viewer":3,"./features/auto-resize":9,"./features/context-pad":11,"./features/keyboard":13,"./features/label-editing":17,"./features/modeling":44,"./features/palette":50,"./features/replace-preview":55,"./features/snapping":63,"bpmn-moddle/lib/id-support":75,"diagram-js/lib/features/bendpoints":136,"diagram-js/lib/features/hand-tool":151,"diagram-js/lib/features/lasso-tool":159,"diagram-js/lib/features/move":184,"diagram-js/lib/features/resize":200,"diagram-js/lib/features/space-tool":214,"diagram-js/lib/navigation/movecanvas":228,"diagram-js/lib/navigation/touch":229,"diagram-js/lib/navigation/zoomscroll":232,"ids":98,"inherits":278}],3:[function(require,module,exports){
+},{"./Viewer":78,"./features/auto-resize":84,"./features/context-pad":86,"./features/keyboard":88,"./features/label-editing":92,"./features/modeling":119,"./features/palette":125,"./features/replace-preview":130,"./features/snapping":138,"bpmn-moddle/lib/id-support":150,"diagram-js/lib/features/bendpoints":211,"diagram-js/lib/features/hand-tool":226,"diagram-js/lib/features/lasso-tool":234,"diagram-js/lib/features/move":259,"diagram-js/lib/features/resize":275,"diagram-js/lib/features/space-tool":289,"diagram-js/lib/navigation/movecanvas":303,"diagram-js/lib/navigation/touch":304,"diagram-js/lib/navigation/zoomscroll":307,"ids":173,"inherits":353}],78:[function(require,module,exports){
 /**
  * The code in the <project-logo></project-logo> area
  * must not be changed.
@@ -860,14 +8365,14 @@ function addProjectLogo(container) {
 
 /* </project-logo> */
 
-},{"./core":4,"./import/Importer":66,"./util/PoweredByUtil":72,"bpmn-moddle":73,"diagram-js":114,"diagram-js/lib/features/overlays":189,"diagram-js/lib/features/selection":207,"lodash/lang/isNumber":408,"lodash/lang/isString":411,"lodash/object/assign":414,"lodash/object/omit":418,"min-dom/lib/domify":101,"min-dom/lib/event":102,"min-dom/lib/query":103,"min-dom/lib/remove":104}],4:[function(require,module,exports){
+},{"./core":79,"./import/Importer":141,"./util/PoweredByUtil":147,"bpmn-moddle":148,"diagram-js":189,"diagram-js/lib/features/overlays":264,"diagram-js/lib/features/selection":282,"lodash/lang/isNumber":487,"lodash/lang/isString":490,"lodash/object/assign":493,"lodash/object/omit":498,"min-dom/lib/domify":176,"min-dom/lib/event":177,"min-dom/lib/query":178,"min-dom/lib/remove":179}],79:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../draw'),
     require('../import')
   ]
 };
-},{"../draw":7,"../import":68}],5:[function(require,module,exports){
+},{"../draw":82,"../import":143}],80:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits'),
@@ -2518,7 +10023,7 @@ function getRectPath(shape) {
   return componentsToPath(rectPath);
 }
 
-},{"../util/DiUtil":69,"../util/ModelUtil":71,"diagram-js/lib/draw/BaseRenderer":125,"diagram-js/lib/util/RenderUtil":247,"diagram-js/lib/util/Text":248,"inherits":278,"lodash/collection/every":288,"lodash/collection/forEach":291,"lodash/collection/includes":293,"lodash/collection/some":297,"lodash/lang/isObject":409,"lodash/object/assign":414}],6:[function(require,module,exports){
+},{"../util/DiUtil":144,"../util/ModelUtil":146,"diagram-js/lib/draw/BaseRenderer":200,"diagram-js/lib/util/RenderUtil":322,"diagram-js/lib/util/Text":323,"inherits":353,"lodash/collection/every":365,"lodash/collection/forEach":368,"lodash/collection/includes":370,"lodash/collection/some":375,"lodash/lang/isObject":488,"lodash/object/assign":493}],81:[function(require,module,exports){
 'use strict';
 
 var Snap = require('diagram-js/vendor/snapsvg');
@@ -2973,14 +10478,14 @@ function PathMap() {
 
 module.exports = PathMap;
 
-},{"diagram-js/vendor/snapsvg":277}],7:[function(require,module,exports){
+},{"diagram-js/vendor/snapsvg":352}],82:[function(require,module,exports){
 module.exports = {
   __init__: [ 'bpmnRenderer' ],
   bpmnRenderer: [ 'type', require('./BpmnRenderer') ],
   pathMap: [ 'type', require('./PathMap') ]
 };
 
-},{"./BpmnRenderer":5,"./PathMap":6}],8:[function(require,module,exports){
+},{"./BpmnRenderer":80,"./PathMap":81}],83:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -3131,13 +10636,13 @@ inherits(AutoResize, CommandInterceptor);
 
 module.exports = AutoResize;
 
-},{"../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"diagram-js/lib/util/Elements":237,"inherits":278,"lodash/array/flatten":281,"lodash/collection/forEach":291,"lodash/collection/groupBy":292,"lodash/object/assign":414,"lodash/object/pick":420,"lodash/object/values":422}],9:[function(require,module,exports){
+},{"../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"diagram-js/lib/util/Elements":312,"inherits":353,"lodash/array/flatten":356,"lodash/collection/forEach":368,"lodash/collection/groupBy":369,"lodash/object/assign":493,"lodash/object/pick":500,"lodash/object/values":502}],84:[function(require,module,exports){
 module.exports = {
   __init__: [ 'autoResize' ],
   autoResize: [ 'type', require('./AutoResize') ]
 };
 
-},{"./AutoResize":8}],10:[function(require,module,exports){
+},{"./AutoResize":83}],85:[function(require,module,exports){
 'use strict';
 
 
@@ -3486,7 +10991,7 @@ function isEventType(eventBo, type, definition) {
   return isType && isDefinition;
 }
 
-},{"../../util/DiUtil":69,"../../util/ModelUtil":71,"../modeling/util/LaneUtil":45,"../modeling/util/ModelingUtil":46,"lodash/collection/forEach":291,"lodash/lang/isArray":405,"lodash/object/assign":414}],11:[function(require,module,exports){
+},{"../../util/DiUtil":144,"../../util/ModelUtil":146,"../modeling/util/LaneUtil":120,"../modeling/util/ModelingUtil":121,"lodash/collection/forEach":368,"lodash/lang/isArray":483,"lodash/object/assign":493}],86:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('diagram-js-direct-editing'),
@@ -3499,7 +11004,7 @@ module.exports = {
   __init__: [ 'contextPadProvider' ],
   contextPadProvider: [ 'type', require('./ContextPadProvider') ]
 };
-},{"../popup-menu":52,"./ContextPadProvider":10,"diagram-js-direct-editing":95,"diagram-js/lib/features/connect":140,"diagram-js/lib/features/context-pad":142,"diagram-js/lib/features/create":144,"diagram-js/lib/features/selection":207}],12:[function(require,module,exports){
+},{"../popup-menu":127,"./ContextPadProvider":85,"diagram-js-direct-editing":170,"diagram-js/lib/features/connect":215,"diagram-js/lib/features/context-pad":217,"diagram-js/lib/features/create":219,"diagram-js/lib/features/selection":282}],87:[function(require,module,exports){
 'use strict';
 
 function BpmnKeyBindings(keyboard, spaceTool, lassoTool, handTool, directEditing,
@@ -3594,7 +11099,7 @@ BpmnKeyBindings.$inject = [
 
 module.exports = BpmnKeyBindings;
 
-},{}],13:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('diagram-js/lib/features/keyboard')
@@ -3602,7 +11107,7 @@ module.exports = {
   __init__: [ 'bpmnKeyBindings' ],
   bpmnKeyBindings: [ 'type', require('./BpmnKeyBindings') ]
 };
-},{"./BpmnKeyBindings":12,"diagram-js/lib/features/keyboard":155}],14:[function(require,module,exports){
+},{"./BpmnKeyBindings":87,"diagram-js/lib/features/keyboard":230}],89:[function(require,module,exports){
 'use strict';
 
 var UpdateLabelHandler = require('./cmd/UpdateLabelHandler');
@@ -3740,7 +11245,7 @@ LabelEditingProvider.prototype.update = function(element, newLabel) {
     newLabel: newLabel
   });
 };
-},{"../../util/DiUtil":69,"../../util/ModelUtil":71,"./LabelUtil":15,"./cmd/UpdateLabelHandler":16}],15:[function(require,module,exports){
+},{"../../util/DiUtil":144,"../../util/ModelUtil":146,"./LabelUtil":90,"./cmd/UpdateLabelHandler":91}],90:[function(require,module,exports){
 'use strict';
 
 var is = require('../../util/ModelUtil').is;
@@ -3785,7 +11290,7 @@ module.exports.setLabel = function(element, text, isExternal) {
 
   return element;
 };
-},{"../../util/ModelUtil":71}],16:[function(require,module,exports){
+},{"../../util/ModelUtil":146}],91:[function(require,module,exports){
 'use strict';
 
 var LabelUtil = require('../LabelUtil');
@@ -3832,7 +11337,7 @@ function UpdateLabelHandler() {
 }
 
 module.exports = UpdateLabelHandler;
-},{"../LabelUtil":15}],17:[function(require,module,exports){
+},{"../LabelUtil":90}],92:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('diagram-js/lib/command'),
@@ -3842,7 +11347,7 @@ module.exports = {
   __init__: [ 'labelEditingProvider' ],
   labelEditingProvider: [ 'type', require('./LabelEditingProvider') ]
 };
-},{"./LabelEditingProvider":14,"diagram-js-direct-editing":95,"diagram-js/lib/command":118,"diagram-js/lib/features/change-support":138}],18:[function(require,module,exports){
+},{"./LabelEditingProvider":89,"diagram-js-direct-editing":170,"diagram-js/lib/command":193,"diagram-js/lib/features/change-support":213}],93:[function(require,module,exports){
 'use strict';
 
 var map = require('lodash/collection/map'),
@@ -3941,7 +11446,7 @@ BpmnFactory.prototype.createDiPlane = function(semantic) {
 
 module.exports = BpmnFactory;
 
-},{"lodash/collection/map":294,"lodash/object/assign":414,"lodash/object/pick":420}],19:[function(require,module,exports){
+},{"lodash/collection/map":372,"lodash/object/assign":493,"lodash/object/pick":500}],94:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -4022,7 +11527,7 @@ LabelSupport.$inject = [ 'eventBus', 'modeling', 'bpmnFactory' ];
 
 module.exports = LabelSupport;
 
-},{"../../util/LabelUtil":70,"../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278,"lodash/object/assign":414}],20:[function(require,module,exports){
+},{"../../util/LabelUtil":145,"../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353,"lodash/object/assign":493}],95:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -4176,7 +11681,7 @@ function isCompensationAssociation(connection) {
          is(source, 'bpmn:BoundaryEvent') &&
          target.businessObject.isForCompensation;
 }
-},{"../../util/ModelUtil":71,"diagram-js/lib/layout/BaseLayouter":222,"diagram-js/lib/layout/LayoutUtil":224,"diagram-js/lib/layout/ManhattanLayout":225,"inherits":278,"lodash/object/assign":414}],21:[function(require,module,exports){
+},{"../../util/ModelUtil":146,"diagram-js/lib/layout/BaseLayouter":297,"diagram-js/lib/layout/LayoutUtil":299,"diagram-js/lib/layout/ManhattanLayout":300,"inherits":353,"lodash/object/assign":493}],96:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -4787,7 +12292,7 @@ function ifBpmn(fn) {
   };
 }
 
-},{"../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"diagram-js/lib/model":226,"diagram-js/lib/util/Collections":235,"inherits":278,"lodash/collection/forEach":291,"lodash/object/assign":414}],22:[function(require,module,exports){
+},{"../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"diagram-js/lib/model":301,"diagram-js/lib/util/Collections":310,"inherits":353,"lodash/collection/forEach":368,"lodash/object/assign":493}],97:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -4960,7 +12465,7 @@ ElementFactory.prototype.createParticipantShape = function(collapsed) {
   return participantShape;
 };
 
-},{"../../util/LabelUtil":70,"../../util/ModelUtil":71,"diagram-js/lib/core/ElementFactory":120,"inherits":278,"lodash/object/assign":414}],23:[function(require,module,exports){
+},{"../../util/LabelUtil":145,"../../util/ModelUtil":146,"diagram-js/lib/core/ElementFactory":195,"inherits":353,"lodash/object/assign":493}],98:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5109,7 +12614,7 @@ Modeling.prototype.makeProcess = function() {
   this._commandStack.execute('canvas.updateRoot', context);
 };
 
-},{"./cmd/AddLaneHandler":38,"./cmd/ResizeLaneHandler":39,"./cmd/SplitLaneHandler":40,"./cmd/UpdateCanvasRootHandler":41,"./cmd/UpdateFlowNodeRefsHandler":42,"./cmd/UpdatePropertiesHandler":43,"diagram-js/lib/features/modeling/Modeling":160,"inherits":278}],24:[function(require,module,exports){
+},{"./cmd/AddLaneHandler":113,"./cmd/ResizeLaneHandler":114,"./cmd/SplitLaneHandler":115,"./cmd/UpdateCanvasRootHandler":116,"./cmd/UpdateFlowNodeRefsHandler":117,"./cmd/UpdatePropertiesHandler":118,"diagram-js/lib/features/modeling/Modeling":235,"inherits":353}],99:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5153,7 +12658,7 @@ AppendBehavior.$inject = [ 'eventBus', 'elementFactory', 'bpmnRules' ];
 inherits(AppendBehavior, CommandInterceptor);
 
 module.exports = AppendBehavior;
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278}],25:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353}],100:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5206,7 +12711,7 @@ inherits(CreateBoundaryEventBehavior, CommandInterceptor);
 
 module.exports = CreateBoundaryEventBehavior;
 
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278}],26:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353}],101:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5245,7 +12750,7 @@ inherits(CreateDataObjectBehavior, CommandInterceptor);
 
 module.exports = CreateDataObjectBehavior;
 
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278}],27:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353}],102:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5342,7 +12847,7 @@ CreateOnFlowBehavior.$inject = [ 'eventBus', 'bpmnRules', 'modeling' ];
 
 module.exports = CreateOnFlowBehavior;
 
-},{"diagram-js/lib/command/CommandInterceptor":116,"diagram-js/lib/util/LineIntersection":242,"inherits":278,"lodash/object/assign":414}],28:[function(require,module,exports){
+},{"diagram-js/lib/command/CommandInterceptor":191,"diagram-js/lib/util/LineIntersection":317,"inherits":353,"lodash/object/assign":493}],103:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5433,7 +12938,7 @@ inherits(CreateParticipantBehavior, CommandInterceptor);
 
 module.exports = CreateParticipantBehavior;
 
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278}],29:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353}],104:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5586,7 +13091,7 @@ function ifDataInputAssociation(fn) {
     }
   };
 }
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"diagram-js/lib/util/Collections":235,"inherits":278,"lodash/collection/find":290}],30:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"diagram-js/lib/util/Collections":310,"inherits":353,"lodash/collection/find":367}],105:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5695,7 +13200,7 @@ DeleteLaneBehavior.$inject = [ 'eventBus', 'modeling', 'spaceTool' ];
 inherits(DeleteLaneBehavior, CommandInterceptor);
 
 module.exports = DeleteLaneBehavior;
-},{"../../../util/ModelUtil":71,"../util/LaneUtil":45,"diagram-js/lib/command/CommandInterceptor":116,"diagram-js/lib/util/Elements":237,"inherits":278}],31:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"../util/LaneUtil":120,"diagram-js/lib/command/CommandInterceptor":191,"diagram-js/lib/util/Elements":312,"inherits":353}],106:[function(require,module,exports){
 'use strict';
 
 var is = require('../../../util/ModelUtil').is;
@@ -5732,7 +13237,7 @@ function ModelingFeedback(eventBus, tooltips) {
 ModelingFeedback.$inject = [ 'eventBus', 'tooltips' ];
 
 module.exports = ModelingFeedback;
-},{"../../../util/ModelUtil":71}],32:[function(require,module,exports){
+},{"../../../util/ModelUtil":146}],107:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -5784,7 +13289,7 @@ RemoveParticipantBehavior.$inject = [ 'eventBus', 'modeling' ];
 inherits(RemoveParticipantBehavior, CommandInterceptor);
 
 module.exports = RemoveParticipantBehavior;
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278}],33:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353}],108:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -5914,7 +13419,7 @@ ReplaceConnectionBehavior.$inject = [ 'eventBus', 'modeling', 'bpmnRules' ];
 
 module.exports = ReplaceConnectionBehavior;
 
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278,"lodash/collection/find":290,"lodash/collection/forEach":291}],34:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353,"lodash/collection/find":367,"lodash/collection/forEach":368}],109:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -6023,7 +13528,7 @@ ReplaceElementBehaviour.$inject = [ 'eventBus', 'bpmnReplace', 'bpmnRules', 'ele
 
 module.exports = ReplaceElementBehaviour;
 
-},{"../../../util/DiUtil":69,"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278,"lodash/collection/forEach":291}],35:[function(require,module,exports){
+},{"../../../util/DiUtil":144,"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353,"lodash/collection/forEach":368}],110:[function(require,module,exports){
 'use strict';
 
 var is = require('../../../util/ModelUtil').is;
@@ -6084,7 +13589,7 @@ ResizeLaneBehavior.$inject = [ 'eventBus', 'modeling' ];
 
 module.exports = ResizeLaneBehavior;
 
-},{"../../../util/ModelUtil":71,"diagram-js/lib/layout/LayoutUtil":224,"diagram-js/lib/util/Mouse":244}],36:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/layout/LayoutUtil":299,"diagram-js/lib/util/Mouse":319}],111:[function(require,module,exports){
 'use strict';
 
 
@@ -6242,7 +13747,7 @@ function UpdateContext() {
     return !this.counter;
   };
 }
-},{"../../../util/ModelUtil":71,"diagram-js/lib/command/CommandInterceptor":116,"inherits":278}],37:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"diagram-js/lib/command/CommandInterceptor":191,"inherits":353}],112:[function(require,module,exports){
 module.exports = {
   __init__: [
     'appendBehavior',
@@ -6274,7 +13779,7 @@ module.exports = {
   updateFlowNodeRefsBehavior: [ 'type', require('./UpdateFlowNodeRefsBehavior') ]
 };
 
-},{"./AppendBehavior":24,"./CreateBoundaryEventBehavior":25,"./CreateDataObjectBehavior":26,"./CreateOnFlowBehavior":27,"./CreateParticipantBehavior":28,"./DataInputAssociationBehavior":29,"./DeleteLaneBehavior":30,"./ModelingFeedback":31,"./RemoveParticipantBehavior":32,"./ReplaceConnectionBehavior":33,"./ReplaceElementBehaviour":34,"./ResizeLaneBehavior":35,"./UpdateFlowNodeRefsBehavior":36}],38:[function(require,module,exports){
+},{"./AppendBehavior":99,"./CreateBoundaryEventBehavior":100,"./CreateDataObjectBehavior":101,"./CreateOnFlowBehavior":102,"./CreateParticipantBehavior":103,"./DataInputAssociationBehavior":104,"./DeleteLaneBehavior":105,"./ModelingFeedback":106,"./RemoveParticipantBehavior":107,"./ReplaceConnectionBehavior":108,"./ReplaceElementBehaviour":109,"./ResizeLaneBehavior":110,"./UpdateFlowNodeRefsBehavior":111}],113:[function(require,module,exports){
 'use strict';
 
 var filter = require('lodash/collection/filter');
@@ -6359,7 +13864,7 @@ AddLaneHandler.prototype.preExecute = function(context) {
   }, laneParent);
 };
 
-},{"../util/LaneUtil":45,"diagram-js/lib/util/Elements":237,"lodash/collection/filter":289}],39:[function(require,module,exports){
+},{"../util/LaneUtil":120,"diagram-js/lib/util/Elements":312,"lodash/collection/filter":366}],114:[function(require,module,exports){
 'use strict';
 
 var is = require('../../../util/ModelUtil').is;
@@ -6486,7 +13991,7 @@ ResizeLaneHandler.prototype.resizeSpace = function(shape, newBounds) {
     spaceTool.makeSpace(adjustments.movingShapes, adjustments.resizingShapes, { x: change, y: 0 }, direction);
   }
 };
-},{"../../../util/ModelUtil":71,"../util/LaneUtil":45,"diagram-js/lib/features/resize/ResizeUtil":198,"diagram-js/lib/layout/LayoutUtil":224,"diagram-js/lib/util/Elements":237}],40:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"../util/LaneUtil":120,"diagram-js/lib/features/resize/ResizeUtil":273,"diagram-js/lib/layout/LayoutUtil":299,"diagram-js/lib/util/Elements":312}],115:[function(require,module,exports){
 'use strict';
 
 var getChildLanes = require('../util/LaneUtil').getChildLanes;
@@ -6568,7 +14073,7 @@ SplitLaneHandler.prototype.preExecute = function(context) {
   }
 };
 
-},{"../util/LaneUtil":45}],41:[function(require,module,exports){
+},{"../util/LaneUtil":120}],116:[function(require,module,exports){
 'use strict';
 
 var Collections = require('diagram-js/lib/util/Collections');
@@ -6648,7 +14153,7 @@ UpdateCanvasRootHandler.prototype.revert = function(context) {
   // TODO(nikku): return changed elements?
   // return [ newRoot, oldRoot ];
 };
-},{"diagram-js/lib/util/Collections":235}],42:[function(require,module,exports){
+},{"diagram-js/lib/util/Collections":310}],117:[function(require,module,exports){
 'use strict';
 
 var collectLanes = require('../util/LaneUtil').collectLanes;
@@ -6835,7 +14340,7 @@ UpdateFlowNodeRefsHandler.prototype.revert = function(context) {
   // TODO(nikku): return changed elements
   // return [ ... ];
 };
-},{"../../../util/ModelUtil":71,"../util/LaneUtil":45,"diagram-js/lib/layout/LayoutUtil":224,"diagram-js/lib/util/Collections":235}],43:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"../util/LaneUtil":120,"diagram-js/lib/layout/LayoutUtil":299,"diagram-js/lib/util/Collections":310}],118:[function(require,module,exports){
 'use strict';
 
 var reduce = require('lodash/object/transform'),
@@ -7005,7 +14510,7 @@ function unwrapBusinessObjects(properties) {
 
   return unwrappedProps;
 }
-},{"../../../util/ModelUtil":71,"lodash/collection/forEach":291,"lodash/object/assign":414,"lodash/object/keys":415,"lodash/object/transform":421}],44:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"lodash/collection/forEach":368,"lodash/object/assign":493,"lodash/object/keys":495,"lodash/object/transform":501}],119:[function(require,module,exports){
 module.exports = {
   __init__: [ 'modeling', 'bpmnUpdater', 'bpmnLabelSupport' ],
   __depends__: [
@@ -7031,7 +14536,7 @@ module.exports = {
   connectionDocking: [ 'type', require('diagram-js/lib/layout/CroppingConnectionDocking') ]
 };
 
-},{"../label-editing":17,"../ordering":48,"../replace":58,"../rules":60,"./BpmnFactory":18,"./BpmnLabelSupport":19,"./BpmnLayouter":20,"./BpmnUpdater":21,"./ElementFactory":22,"./Modeling":23,"./behavior":37,"diagram-js/lib/command":118,"diagram-js/lib/features/attach-support":130,"diagram-js/lib/features/change-support":138,"diagram-js/lib/features/label-support":157,"diagram-js/lib/features/selection":207,"diagram-js/lib/features/space-tool":214,"diagram-js/lib/features/tooltips":218,"diagram-js/lib/layout/CroppingConnectionDocking":223}],45:[function(require,module,exports){
+},{"../label-editing":92,"../ordering":123,"../replace":133,"../rules":135,"./BpmnFactory":93,"./BpmnLabelSupport":94,"./BpmnLayouter":95,"./BpmnUpdater":96,"./ElementFactory":97,"./Modeling":98,"./behavior":112,"diagram-js/lib/command":193,"diagram-js/lib/features/attach-support":205,"diagram-js/lib/features/change-support":213,"diagram-js/lib/features/label-support":232,"diagram-js/lib/features/selection":282,"diagram-js/lib/features/space-tool":289,"diagram-js/lib/features/tooltips":293,"diagram-js/lib/layout/CroppingConnectionDocking":298}],120:[function(require,module,exports){
 'use strict';
 
 var is = require('../../../util/ModelUtil').is;
@@ -7190,7 +14695,7 @@ function computeLanesResize(shape, newBounds) {
 
 module.exports.computeLanesResize = computeLanesResize;
 
-},{"../../../util/ModelUtil":71,"./ModelingUtil":46,"diagram-js/lib/features/resize/ResizeUtil":198,"diagram-js/lib/layout/LayoutUtil":224}],46:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"./ModelingUtil":121,"diagram-js/lib/features/resize/ResizeUtil":273,"diagram-js/lib/layout/LayoutUtil":299}],121:[function(require,module,exports){
 'use strict';
 
 var any = require('lodash/collection/any');
@@ -7257,7 +14762,7 @@ function getParent(element, anyType) {
 }
 
 module.exports.getParent = getParent;
-},{"../../../util/ModelUtil":71,"lodash/collection/any":287}],47:[function(require,module,exports){
+},{"../../../util/ModelUtil":146,"lodash/collection/any":364}],122:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -7398,12 +14903,12 @@ inherits(BpmnOrderingProvider, OrderingProvider);
 
 module.exports = BpmnOrderingProvider;
 
-},{"../modeling/util/ModelingUtil":46,"diagram-js/lib/features/ordering/OrderingProvider":185,"inherits":278,"lodash/array/findIndex":280,"lodash/collection/find":290}],48:[function(require,module,exports){
+},{"../modeling/util/ModelingUtil":121,"diagram-js/lib/features/ordering/OrderingProvider":260,"inherits":353,"lodash/array/findIndex":355,"lodash/collection/find":367}],123:[function(require,module,exports){
 module.exports = {
   __init__: [ 'bpmnOrderingProvider' ],
   bpmnOrderingProvider: [ 'type', require('./BpmnOrderingProvider') ]
 };
-},{"./BpmnOrderingProvider":47}],49:[function(require,module,exports){
+},{"./BpmnOrderingProvider":122}],124:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign');
@@ -7547,7 +15052,7 @@ PaletteProvider.prototype.getPaletteEntries = function(element) {
   return actions;
 };
 
-},{"lodash/object/assign":414}],50:[function(require,module,exports){
+},{"lodash/object/assign":493}],125:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('diagram-js/lib/features/palette'),
@@ -7560,7 +15065,7 @@ module.exports = {
   paletteProvider: [ 'type', require('./PaletteProvider') ]
 };
 
-},{"./PaletteProvider":49,"diagram-js/lib/features/create":144,"diagram-js/lib/features/hand-tool":151,"diagram-js/lib/features/lasso-tool":159,"diagram-js/lib/features/palette":191,"diagram-js/lib/features/space-tool":214}],51:[function(require,module,exports){
+},{"./PaletteProvider":124,"diagram-js/lib/features/create":219,"diagram-js/lib/features/hand-tool":226,"diagram-js/lib/features/lasso-tool":234,"diagram-js/lib/features/palette":266,"diagram-js/lib/features/space-tool":289}],126:[function(require,module,exports){
 'use strict';
 
 var is = require('../../util/ModelUtil').is,
@@ -8023,12 +15528,12 @@ ReplaceMenuProvider.prototype._getAdHocEntry = function(element) {
 };
 
 module.exports = ReplaceMenuProvider;
-},{"../../util/DiUtil":69,"../../util/ModelUtil":71,"../replace/ReplaceOptions":57,"./util/TypeUtil":53,"lodash/collection/filter":289,"lodash/collection/forEach":291}],52:[function(require,module,exports){
+},{"../../util/DiUtil":144,"../../util/ModelUtil":146,"../replace/ReplaceOptions":132,"./util/TypeUtil":128,"lodash/collection/filter":366,"lodash/collection/forEach":368}],127:[function(require,module,exports){
 module.exports = {
   __init__: [ 'replaceMenuProvider' ],
   replaceMenuProvider: [ 'type', require('./ReplaceMenuProvider') ]
 };
-},{"./ReplaceMenuProvider":51}],53:[function(require,module,exports){
+},{"./ReplaceMenuProvider":126}],128:[function(require,module,exports){
 'use strict';
 
 var getBusinessObject = require('../../../util/ModelUtil').getBusinessObject;
@@ -8059,7 +15564,7 @@ function isDifferentType(element) {
 }
 
 module.exports.isDifferentType = isDifferentType;
-},{"../../../util/ModelUtil":71}],54:[function(require,module,exports){
+},{"../../../util/ModelUtil":146}],129:[function(require,module,exports){
 'use strict';
 
 var CommandInterceptor = require('diagram-js/lib/command/CommandInterceptor');
@@ -8170,14 +15675,14 @@ inherits(BpmnReplacePreview, CommandInterceptor);
 
 module.exports = BpmnReplacePreview;
 
-},{"diagram-js/lib/command/CommandInterceptor":116,"inherits":278,"lodash/collection/forEach":291,"lodash/object/assign":414}],55:[function(require,module,exports){
+},{"diagram-js/lib/command/CommandInterceptor":191,"inherits":353,"lodash/collection/forEach":368,"lodash/object/assign":493}],130:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('diagram-js/lib/features/move') ],
   __init__: ['bpmnReplacePreview'],
   bpmnReplacePreview: [ 'type', require('./BpmnReplacePreview') ]
 };
 
-},{"./BpmnReplacePreview":54,"diagram-js/lib/features/move":184}],56:[function(require,module,exports){
+},{"./BpmnReplacePreview":129,"diagram-js/lib/features/move":259}],131:[function(require,module,exports){
 'use strict';
 
 var pick = require('lodash/object/pick'),
@@ -8281,756 +15786,9 @@ BpmnReplace.$inject = [ 'bpmnFactory', 'replace', 'selection', 'modeling' ];
 
 module.exports = BpmnReplace;
 
-},{"../../util/DiUtil":69,"../../util/ModelUtil":71,"lodash/object/assign":414,"lodash/object/pick":420}],57:[function(require,module,exports){
-'use strict';
-
-module.exports.START_EVENT = [
-  {
-    label: 'Start Event',
-    actionName: 'replace-with-none-start',
-    className: 'bpmn-icon-start-event-none',
-    target: {
-      type: 'bpmn:StartEvent'
-    }
-  },
-  {
-    label: 'Intermediate Throw Event',
-    actionName: 'replace-with-none-intermediate-throwing',
-    className: 'bpmn-icon-intermediate-event-none',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent'
-    }
-  },
-  {
-    label: 'End Event',
-    actionName: 'replace-with-none-end',
-    className: 'bpmn-icon-end-event-none',
-    target: {
-      type: 'bpmn:EndEvent'
-    }
-  },
-  {
-    label: 'Message Start Event',
-    actionName: 'replace-with-message-start',
-    className: 'bpmn-icon-start-event-message',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Start Event',
-    actionName: 'replace-with-timer-start',
-    className: 'bpmn-icon-start-event-timer',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Start Event',
-    actionName: 'replace-with-conditional-start',
-    className: 'bpmn-icon-start-event-condition',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Start Event',
-    actionName: 'replace-with-signal-start',
-    className: 'bpmn-icon-start-event-signal',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  }
-];
-
-module.exports.INTERMEDIATE_EVENT = [
-  {
-    label: 'Start Event',
-    actionName: 'replace-with-none-start',
-    className: 'bpmn-icon-start-event-none',
-    target: {
-      type: 'bpmn:StartEvent'
-    }
-  },
-  {
-    label: 'Intermediate Throw Event',
-    actionName: 'replace-with-none-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-none',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent'
-    }
-  },
-  {
-    label: 'End Event',
-    actionName: 'replace-with-none-end',
-    className: 'bpmn-icon-end-event-none',
-    target: {
-      type: 'bpmn:EndEvent'
-    }
-  },
-  {
-    label: 'Message Intermediate Catch Event',
-    actionName: 'replace-with-message-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-message',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Message Intermediate Throw Event',
-    actionName: 'replace-with-message-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-message',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Intermediate Catch Event',
-    actionName: 'replace-with-timer-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-timer',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation Intermediate Throw Event',
-    actionName: 'replace-with-escalation-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-escalation',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Intermediate Catch Event',
-    actionName: 'replace-with-conditional-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-condition',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Link Intermediate Catch Event',
-    actionName: 'replace-with-link-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-link',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:LinkEventDefinition'
-    }
-  },
-  {
-    label: 'Link Intermediate Throw Event',
-    actionName: 'replace-with-link-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-link',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:LinkEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation Intermediate Throw Event',
-    actionName: 'replace-with-compensation-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-compensation',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Intermediate Catch Event',
-    actionName: 'replace-with-signal-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-signal',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Intermediate Throw Event',
-    actionName: 'replace-with-signal-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-signal',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  }
-];
-
-module.exports.END_EVENT = [
-  {
-    label: 'Start Event',
-    actionName: 'replace-with-none-start',
-    className: 'bpmn-icon-start-event-none',
-    target: {
-      type: 'bpmn:StartEvent'
-    }
-  },
-  {
-    label: 'Intermediate Throw Event',
-    actionName: 'replace-with-none-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-none',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent'
-    }
-  },
-  {
-    label: 'End Event',
-    actionName: 'replace-with-none-end',
-    className: 'bpmn-icon-end-event-none',
-    target: {
-      type: 'bpmn:EndEvent'
-    }
-  },
-  {
-    label: 'Message End Event',
-    actionName: 'replace-with-message-end',
-    className: 'bpmn-icon-end-event-message',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation End Event',
-    actionName: 'replace-with-escalation-end',
-    className: 'bpmn-icon-end-event-escalation',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Error End Event',
-    actionName: 'replace-with-error-end',
-    className: 'bpmn-icon-end-event-error',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:ErrorEventDefinition'
-    }
-  },
-  {
-    label: 'Cancel End Event',
-    actionName: 'replace-with-cancel-end',
-    className: 'bpmn-icon-end-event-cancel',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:CancelEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation End Event',
-    actionName: 'replace-with-compensation-end',
-    className: 'bpmn-icon-end-event-compensation',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Signal End Event',
-    actionName: 'replace-with-signal-end',
-    className: 'bpmn-icon-end-event-signal',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Terminate End Event',
-    actionName: 'replace-with-terminate-end',
-    className: 'bpmn-icon-end-event-terminate',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:TerminateEventDefinition'
-    }
-  }
-];
-
-module.exports.GATEWAY = [
-  {
-    label: 'Exclusive Gateway',
-    actionName: 'replace-with-exclusive-gateway',
-    className: 'bpmn-icon-gateway-xor',
-    target: {
-      type: 'bpmn:ExclusiveGateway'
-    }
-  },
-  {
-    label: 'Parallel Gateway',
-    actionName: 'replace-with-parallel-gateway',
-    className: 'bpmn-icon-gateway-parallel',
-    target: {
-      type: 'bpmn:ParallelGateway'
-    }
-  },
-  {
-    label: 'Inclusive Gateway',
-    actionName: 'replace-with-inclusive-gateway',
-    className: 'bpmn-icon-gateway-or',
-    target: {
-      type: 'bpmn:InclusiveGateway'
-    }
-  },
-  {
-    label: 'Complex Gateway',
-    actionName: 'replace-with-complex-gateway',
-    className: 'bpmn-icon-gateway-complex',
-    target: {
-      type: 'bpmn:ComplexGateway'
-    }
-  },
-  {
-    label: 'Event based Gateway',
-    actionName: 'replace-with-event-based-gateway',
-    className: 'bpmn-icon-gateway-eventbased',
-    target: {
-      type: 'bpmn:EventBasedGateway',
-      instantiate: false,
-      eventGatewayType: 'Exclusive'
-    }
-  }
-  // Gateways deactivated until https://github.com/bpmn-io/bpmn-js/issues/194
-  // {
-  //   label: 'Event based instantiating Gateway',
-  //   actionName: 'replace-with-exclusive-event-based-gateway',
-  //   className: 'bpmn-icon-exclusive-event-based',
-  //   target: {
-  //     type: 'bpmn:EventBasedGateway'
-  //   },
-  //   options: {
-  //     businessObject: { instantiate: true, eventGatewayType: 'Exclusive' }
-  //   }
-  // },
-  // {
-  //   label: 'Parallel Event based instantiating Gateway',
-  //   actionName: 'replace-with-parallel-event-based-instantiate-gateway',
-  //   className: 'bpmn-icon-parallel-event-based-instantiate-gateway',
-  //   target: {
-  //     type: 'bpmn:EventBasedGateway'
-  //   },
-  //   options: {
-  //     businessObject: { instantiate: true, eventGatewayType: 'Parallel' }
-  //   }
-  // }
-];
-
-module.exports.SUBPROCESS_EXPANDED = [
-  {
-    label: 'Transaction',
-    actionName: 'replace-with-transaction',
-    className: 'bpmn-icon-transaction',
-    target: {
-      type: 'bpmn:Transaction',
-      isExpanded: true
-    }
-  },
-  {
-    label: 'Event Sub Process',
-    actionName: 'replace-with-event-subprocess',
-    className: 'bpmn-icon-event-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      triggeredByEvent: true,
-      isExpanded: true
-    }
-  }
-];
-
-module.exports.TRANSACTION = [
-  {
-    label: 'Sub Process',
-    actionName: 'replace-with-subprocess',
-    className: 'bpmn-icon-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      isExpanded: true
-    }
-  },
-  {
-    label: 'Event Sub Process',
-    actionName: 'replace-with-event-subprocess',
-    className: 'bpmn-icon-event-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      triggeredByEvent: true,
-      isExpanded: true
-    }
-  }
-];
-
-module.exports.EVENT_SUB_PROCESS = [
-  {
-    label: 'Sub Process',
-    actionName: 'replace-with-subprocess',
-    className: 'bpmn-icon-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      isExpanded: true
-    }
-  },
-  {
-    label: 'Transaction',
-    actionName: 'replace-with-transaction',
-    className: 'bpmn-icon-transaction',
-    target: {
-      type: 'bpmn:Transaction',
-      isExpanded: true
-    }
-  },
-];
-
-module.exports.TASK = [
-  {
-    label: 'Task',
-    actionName: 'replace-with-task',
-    className: 'bpmn-icon-task',
-    target: {
-      type: 'bpmn:Task'
-    }
-  },
-  {
-    label: 'Send Task',
-    actionName: 'replace-with-send-task',
-    className: 'bpmn-icon-send',
-    target: {
-      type: 'bpmn:SendTask'
-    }
-  },
-  {
-    label: 'Receive Task',
-    actionName: 'replace-with-receive-task',
-    className: 'bpmn-icon-receive',
-    target: {
-      type: 'bpmn:ReceiveTask'
-    }
-  },
-  {
-    label: 'User Task',
-    actionName: 'replace-with-user-task',
-    className: 'bpmn-icon-user',
-    target: {
-      type: 'bpmn:UserTask'
-    }
-  },
-  {
-    label: 'Manual Task',
-    actionName: 'replace-with-manual-task',
-    className: 'bpmn-icon-manual',
-    target: {
-      type: 'bpmn:ManualTask'
-    }
-  },
-  {
-    label: 'Business Rule Task',
-    actionName: 'replace-with-rule-task',
-    className: 'bpmn-icon-business-rule',
-    target: {
-      type: 'bpmn:BusinessRuleTask'
-    }
-  },
-  {
-    label: 'Service Task',
-    actionName: 'replace-with-service-task',
-    className: 'bpmn-icon-service',
-    target: {
-      type: 'bpmn:ServiceTask'
-    }
-  },
-  {
-    label: 'Script Task',
-    actionName: 'replace-with-script-task',
-    className: 'bpmn-icon-script',
-    target: {
-      type: 'bpmn:ScriptTask'
-    }
-  },
-  {
-    label: 'Call Activity',
-    actionName: 'replace-with-call-activity',
-    className: 'bpmn-icon-call-activity',
-    target: {
-      type: 'bpmn:CallActivity'
-    }
-  },
-  {
-    label: 'Sub Process (collapsed)',
-    actionName: 'replace-with-collapsed-subprocess',
-    className: 'bpmn-icon-subprocess-collapsed',
-    target: {
-      type: 'bpmn:SubProcess',
-      isExpanded: false
-    }
-  }
-];
-
-module.exports.BOUNDARY_EVENT = [
-  {
-    label: 'Message Boundary Event',
-    actionName: 'replace-with-message-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-message',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Boundary Event',
-    actionName: 'replace-with-timer-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-timer',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation Boundary Event',
-    actionName: 'replace-with-escalation-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-escalation',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Boundary Event',
-    actionName: 'replace-with-conditional-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-condition',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Error Boundary Event',
-    actionName: 'replace-with-error-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-error',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:ErrorEventDefinition'
-    }
-  },
-  {
-    label: 'Cancel Boundary Event',
-    actionName: 'replace-with-cancel-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-cancel',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:CancelEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Boundary Event',
-    actionName: 'replace-with-signal-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-signal',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation Boundary Event',
-    actionName: 'replace-with-compensation-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-compensation',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Message Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-message-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-message',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Timer Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-timer-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-timer',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Escalation Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-escalation-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-escalation',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Conditional Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-conditional-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-condition',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Signal Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-signal-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-signal',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition',
-      cancelActivity: false
-    }
-  },
-];
-
-module.exports.EVENT_SUB_PROCESS_START_EVENT = [
-  {
-    label: 'Message Start Event',
-    actionName: 'replace-with-message-start',
-    className: 'bpmn-icon-start-event-message',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Start Event',
-    actionName: 'replace-with-timer-start',
-    className: 'bpmn-icon-start-event-timer',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Start Event',
-    actionName: 'replace-with-conditional-start',
-    className: 'bpmn-icon-start-event-condition',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Start Event',
-    actionName: 'replace-with-signal-start',
-    className: 'bpmn-icon-start-event-signal',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Error Start Event',
-    actionName: 'replace-with-error-start',
-    className: 'bpmn-icon-start-event-error',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ErrorEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation Start Event',
-    actionName: 'replace-with-escalation-start',
-    className: 'bpmn-icon-start-event-escalation',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation Start Event',
-    actionName: 'replace-with-compensation-start',
-    className: 'bpmn-icon-start-event-compensation',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Message Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-message-start',
-    className: 'bpmn-icon-start-event-non-interrupting-message',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Timer Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-timer-start',
-    className: 'bpmn-icon-start-event-non-interrupting-timer',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Conditional Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-conditional-start',
-    className: 'bpmn-icon-start-event-non-interrupting-condition',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Signal Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-signal-start',
-    className: 'bpmn-icon-start-event-non-interrupting-signal',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Escalation Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-escalation-start',
-    className: 'bpmn-icon-start-event-non-interrupting-escalation',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition',
-      isInterrupting: false
-    }
-  },
-];
-
-module.exports.SEQUENCE_FLOW = [
-  {
-    label: 'Sequence Flow',
-    actionName: 'replace-with-sequence-flow',
-    className: 'bpmn-icon-connection'
-  },
-  {
-    label: 'Default Flow',
-    actionName: 'replace-with-default-flow',
-    className: 'bpmn-icon-default-flow'
-  },
-  {
-    label: 'Conditional Flow',
-    actionName: 'replace-with-conditional-flow',
-    className: 'bpmn-icon-conditional-flow'
-  }
-];
-
-},{}],58:[function(require,module,exports){
+},{"../../util/DiUtil":144,"../../util/ModelUtil":146,"lodash/object/assign":493,"lodash/object/pick":500}],132:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],133:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('diagram-js/lib/features/popup-menu'),
@@ -9039,7 +15797,7 @@ module.exports = {
   ],
   bpmnReplace: [ 'type', require('./BpmnReplace') ]
 };
-},{"./BpmnReplace":56,"diagram-js/lib/features/popup-menu":193,"diagram-js/lib/features/replace":195,"diagram-js/lib/features/selection":207}],59:[function(require,module,exports){
+},{"./BpmnReplace":131,"diagram-js/lib/features/popup-menu":268,"diagram-js/lib/features/replace":270,"diagram-js/lib/features/selection":282}],134:[function(require,module,exports){
 'use strict';
 
 var find = require('lodash/collection/find'),
@@ -9688,7 +16446,7 @@ function canInsert(shape, flow, position) {
     canDrop(shape, flow.parent, position));
 }
 
-},{"../../util/DiUtil":69,"../../util/ModelUtil":71,"../modeling/util/ModelingUtil":46,"../snapping/BpmnSnappingUtil":62,"diagram-js/lib/features/rules/RuleProvider":201,"inherits":278,"lodash/collection/any":287,"lodash/collection/find":290,"lodash/collection/forEach":291}],60:[function(require,module,exports){
+},{"../../util/DiUtil":144,"../../util/ModelUtil":146,"../modeling/util/ModelingUtil":121,"../snapping/BpmnSnappingUtil":137,"diagram-js/lib/features/rules/RuleProvider":276,"inherits":353,"lodash/collection/any":364,"lodash/collection/find":367,"lodash/collection/forEach":368}],135:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('diagram-js/lib/features/rules')
@@ -9697,7 +16455,7 @@ module.exports = {
   bpmnRules: [ 'type', require('./BpmnRules') ]
 };
 
-},{"./BpmnRules":59,"diagram-js/lib/features/rules":203}],61:[function(require,module,exports){
+},{"./BpmnRules":134,"diagram-js/lib/features/rules":278}],136:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -10156,7 +16914,7 @@ function snapBoundaryEvent(event, shape, target) {
     setSnapped(event, 'x', targetTRBL.right);
   }
 }
-},{"../../util/DiUtil":69,"../../util/ModelUtil":71,"../modeling/util/LaneUtil":45,"../modeling/util/ModelingUtil":46,"./BpmnSnappingUtil":62,"diagram-js/lib/features/snapping/SnapUtil":209,"diagram-js/lib/features/snapping/Snapping":210,"diagram-js/lib/layout/LayoutUtil":224,"diagram-js/lib/util/Elements":237,"inherits":278,"lodash/collection/filter":289,"lodash/collection/forEach":291,"lodash/object/assign":414}],62:[function(require,module,exports){
+},{"../../util/DiUtil":144,"../../util/ModelUtil":146,"../modeling/util/LaneUtil":120,"../modeling/util/ModelingUtil":121,"./BpmnSnappingUtil":137,"diagram-js/lib/features/snapping/SnapUtil":284,"diagram-js/lib/features/snapping/Snapping":285,"diagram-js/lib/layout/LayoutUtil":299,"diagram-js/lib/util/Elements":312,"inherits":353,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/object/assign":493}],137:[function(require,module,exports){
 'use strict';
 
 var getOrientation = require('diagram-js/lib/layout/LayoutUtil').getOrientation;
@@ -10317,12 +17075,12 @@ function getParticipantSizeConstraints(laneShape, resizeDirection, balanced) {
 
 
 module.exports.getParticipantSizeConstraints = getParticipantSizeConstraints;
-},{"../../util/ModelUtil":71,"../modeling/util/LaneUtil":45,"diagram-js/lib/layout/LayoutUtil":224}],63:[function(require,module,exports){
+},{"../../util/ModelUtil":146,"../modeling/util/LaneUtil":120,"diagram-js/lib/layout/LayoutUtil":299}],138:[function(require,module,exports){
 module.exports = {
   __init__: [ 'snapping' ],
   snapping: [ 'type', require('./BpmnSnapping') ]
 };
-},{"./BpmnSnapping":61}],64:[function(require,module,exports){
+},{"./BpmnSnapping":136}],139:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -10556,7 +17314,7 @@ BpmnImporter.prototype._getTarget = function(semantic) {
 BpmnImporter.prototype._getElement = function(semantic) {
   return this._elementRegistry.get(semantic.id);
 };
-},{"../util/DiUtil":69,"../util/LabelUtil":70,"../util/ModelUtil":71,"./Util":67,"lodash/collection/map":294,"lodash/object/assign":414}],65:[function(require,module,exports){
+},{"../util/DiUtil":144,"../util/LabelUtil":145,"../util/ModelUtil":146,"./Util":142,"lodash/collection/map":372,"lodash/object/assign":493}],140:[function(require,module,exports){
 'use strict';
 
 var filter = require('lodash/collection/filter'),
@@ -10976,7 +17734,7 @@ function BpmnTreeWalker(handler) {
 }
 
 module.exports = BpmnTreeWalker;
-},{"./Util":67,"lodash/collection/filter":289,"lodash/collection/find":290,"lodash/collection/forEach":291,"object-refs":111}],66:[function(require,module,exports){
+},{"./Util":142,"lodash/collection/filter":366,"lodash/collection/find":367,"lodash/collection/forEach":368,"object-refs":186}],141:[function(require,module,exports){
 'use strict';
 
 var BpmnTreeWalker = require('./BpmnTreeWalker');
@@ -11035,7 +17793,7 @@ function importBpmnDiagram(diagram, definitions, done) {
 }
 
 module.exports.importBpmnDiagram = importBpmnDiagram;
-},{"./BpmnTreeWalker":65}],67:[function(require,module,exports){
+},{"./BpmnTreeWalker":140}],142:[function(require,module,exports){
 'use strict';
 
 module.exports.elementToString = function(e) {
@@ -11045,42 +17803,13 @@ module.exports.elementToString = function(e) {
 
   return '<' + e.$type + (e.id ? ' id="' + e.id : '') + '" />';
 };
-},{}],68:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 module.exports = {
   bpmnImporter: [ 'type', require('./BpmnImporter') ]
 };
-},{"./BpmnImporter":64}],69:[function(require,module,exports){
-'use strict';
-
-var is = require('./ModelUtil').is,
-    getBusinessObject = require('./ModelUtil').getBusinessObject;
-
-module.exports.isExpanded = function(element) {
-
-  if (is(element, 'bpmn:CallActivity')) {
-    return false;
-  }
-
-  if (is(element, 'bpmn:SubProcess')) {
-    return !!getBusinessObject(element).di.isExpanded;
-  }
-
-  if (is(element, 'bpmn:Participant')) {
-    return !!getBusinessObject(element).processRef;
-  }
-
-  return true;
-};
-
-module.exports.isInterrupting = function(element) {
-  return element && getBusinessObject(element).isInterrupting !== false;
-};
-
-module.exports.isEventSubProcess = function(element) {
-  return element && !!getBusinessObject(element).triggeredByEvent;
-};
-
-},{"./ModelUtil":71}],70:[function(require,module,exports){
+},{"./BpmnImporter":139}],144:[function(require,module,exports){
+arguments[4][16][0].apply(exports,arguments)
+},{"./ModelUtil":146,"dup":16}],145:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign');
@@ -11186,40 +17915,9 @@ module.exports.getExternalLabelBounds = function(semantic, element) {
   }, size);
 };
 
-},{"./ModelUtil":71,"lodash/object/assign":414}],71:[function(require,module,exports){
-'use strict';
-
-/**
- * Is an element of the given BPMN type?
- *
- * @param  {djs.model.Base|ModdleElement} element
- * @param  {String} type
- *
- * @return {Boolean}
- */
-function is(element, type) {
-  var bo = getBusinessObject(element);
-
-  return bo && (typeof bo.$instanceOf === 'function') && bo.$instanceOf(type);
-}
-
-module.exports.is = is;
-
-
-/**
- * Return the business object for a given element.
- *
- * @param  {djs.model.Base|ModdleElement} element
- *
- * @return {ModdleElement}
- */
-function getBusinessObject(element) {
-  return (element && element.businessObject) || element;
-}
-
-module.exports.getBusinessObject = getBusinessObject;
-
-},{}],72:[function(require,module,exports){
+},{"./ModelUtil":146,"lodash/object/assign":493}],146:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18}],147:[function(require,module,exports){
 /**
  * This file must not be changed or exchanged.
  *
@@ -11303,9 +18001,9 @@ function open() {
 }
 
 module.exports.open = open;
-},{"min-dom/lib/delegate":100,"min-dom/lib/domify":101}],73:[function(require,module,exports){
+},{"min-dom/lib/delegate":175,"min-dom/lib/domify":176}],148:[function(require,module,exports){
 module.exports = require('./lib/simple');
-},{"./lib/simple":76}],74:[function(require,module,exports){
+},{"./lib/simple":151}],149:[function(require,module,exports){
 'use strict';
 
 var isString = require('lodash/lang/isString'),
@@ -11386,7 +18084,7 @@ BpmnModdle.prototype.toXML = function(element, options, done) {
   }
 };
 
-},{"lodash/lang/isFunction":406,"lodash/lang/isString":411,"lodash/object/assign":414,"moddle":82,"moddle-xml/lib/reader":78,"moddle-xml/lib/writer":79}],75:[function(require,module,exports){
+},{"lodash/lang/isFunction":485,"lodash/lang/isString":490,"lodash/object/assign":493,"moddle":157,"moddle-xml/lib/reader":153,"moddle-xml/lib/writer":154}],150:[function(require,module,exports){
 'use strict';
 
 var ID_PATTERN = /^(.*:)?id$/;
@@ -11442,7 +18140,7 @@ module.exports.extend = function(model, ids) {
 
   return model;
 };
-},{}],76:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign');
@@ -11459,7 +18157,7 @@ var packages = {
 module.exports = function(additionalPackages, options) {
   return new BpmnModdle(assign({}, packages, additionalPackages), options);
 };
-},{"../resources/bpmn/json/bpmn.json":91,"../resources/bpmn/json/bpmndi.json":92,"../resources/bpmn/json/dc.json":93,"../resources/bpmn/json/di.json":94,"./bpmn-moddle":74,"lodash/object/assign":414}],77:[function(require,module,exports){
+},{"../resources/bpmn/json/bpmn.json":166,"../resources/bpmn/json/bpmndi.json":167,"../resources/bpmn/json/dc.json":168,"../resources/bpmn/json/di.json":169,"./bpmn-moddle":149,"lodash/object/assign":493}],152:[function(require,module,exports){
 'use strict';
 
 function capitalize(string) {
@@ -11508,7 +18206,7 @@ module.exports.serializeAsType = function(element) {
 module.exports.serializeAsProperty = function(element) {
   return serializeFormat(element) === 'property';
 };
-},{}],78:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 'use strict';
 
 var reduce = require('lodash/collection/reduce'),
@@ -12170,7 +18868,7 @@ XMLReader.prototype.handler = function(name) {
 
 module.exports = XMLReader;
 module.exports.ElementHandler = ElementHandler;
-},{"./common":77,"lodash/collection/find":290,"lodash/collection/forEach":291,"lodash/collection/reduce":295,"lodash/function/defer":302,"lodash/object/assign":414,"moddle":82,"moddle/lib/ns":87,"moddle/lib/types":90,"sax":80,"tiny-stack":81}],79:[function(require,module,exports){
+},{"./common":152,"lodash/collection/find":367,"lodash/collection/forEach":368,"lodash/collection/reduce":373,"lodash/function/defer":380,"lodash/object/assign":493,"moddle":157,"moddle/lib/ns":162,"moddle/lib/types":165,"sax":155,"tiny-stack":156}],154:[function(require,module,exports){
 'use strict';
 
 var map = require('lodash/collection/map'),
@@ -12846,7 +19544,7 @@ function XMLWriter(options) {
 
 module.exports = XMLWriter;
 
-},{"./common":77,"lodash/collection/filter":289,"lodash/collection/forEach":291,"lodash/collection/map":294,"lodash/lang/isString":411,"lodash/object/assign":414,"moddle/lib/ns":87,"moddle/lib/types":90}],80:[function(require,module,exports){
+},{"./common":152,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/collection/map":372,"lodash/lang/isString":490,"lodash/object/assign":493,"moddle/lib/ns":162,"moddle/lib/types":165}],155:[function(require,module,exports){
 (function (Buffer){
 // wrapper for non-node envs
 ;(function (sax) {
@@ -14260,7 +20958,7 @@ if (!String.fromCodePoint) {
 })(typeof exports === "undefined" ? sax = {} : exports);
 
 }).call(this,undefined)
-},{"stream":undefined,"string_decoder":undefined}],81:[function(require,module,exports){
+},{"stream":undefined,"string_decoder":undefined}],156:[function(require,module,exports){
 /**
  * Tiny stack for browser or server
  *
@@ -14377,9 +21075,9 @@ else {
 }
 } )( this );
 
-},{}],82:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 module.exports = require('./lib/moddle');
-},{"./lib/moddle":86}],83:[function(require,module,exports){
+},{"./lib/moddle":161}],158:[function(require,module,exports){
 'use strict';
 
 function Base() { }
@@ -14394,7 +21092,7 @@ Base.prototype.set = function(name, value) {
 
 
 module.exports = Base;
-},{}],84:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 'use strict';
 
 var pick = require('lodash/object/pick'),
@@ -14601,7 +21299,7 @@ DescriptorBuilder.prototype.addTrait = function(t, inherited) {
   allTypes.push(t);
 };
 
-},{"./ns":87,"lodash/collection/forEach":291,"lodash/object/assign":414,"lodash/object/pick":420}],85:[function(require,module,exports){
+},{"./ns":162,"lodash/collection/forEach":368,"lodash/object/assign":493,"lodash/object/pick":500}],160:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -14659,7 +21357,7 @@ Factory.prototype.createType = function(descriptor) {
 
   return ModdleElement;
 };
-},{"./base":83,"lodash/collection/forEach":291}],86:[function(require,module,exports){
+},{"./base":158,"lodash/collection/forEach":368}],161:[function(require,module,exports){
 'use strict';
 
 var isString = require('lodash/lang/isString'),
@@ -14881,7 +21579,7 @@ Moddle.prototype.getPropertyDescriptor = function(element, property) {
   return this.getElementDescriptor(element).propertiesByName[property];
 };
 
-},{"./factory":85,"./ns":87,"./properties":88,"./registry":89,"lodash/collection/find":290,"lodash/collection/forEach":291,"lodash/lang/isObject":409,"lodash/lang/isString":411}],87:[function(require,module,exports){
+},{"./factory":160,"./ns":162,"./properties":163,"./registry":164,"lodash/collection/find":367,"lodash/collection/forEach":368,"lodash/lang/isObject":488,"lodash/lang/isString":490}],162:[function(require,module,exports){
 'use strict';
 
 /**
@@ -14918,7 +21616,7 @@ module.exports.parseName = function(name, defaultPrefix) {
     localName: localName
   };
 };
-},{}],88:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 'use strict';
 
 
@@ -15037,7 +21735,7 @@ function defineProperty(target, property, value) {
     configurable: true
   });
 }
-},{}],89:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -15230,7 +21928,7 @@ Registry.prototype.getEffectiveDescriptor = function(name) {
 Registry.prototype.definePackage = function(target, pkg) {
   this.properties.define(target, '$pkg', { value: pkg });
 };
-},{"./descriptor-builder":84,"./ns":87,"./types":90,"lodash/collection/forEach":291,"lodash/object/assign":414}],90:[function(require,module,exports){
+},{"./descriptor-builder":159,"./ns":162,"./types":165,"lodash/collection/forEach":368,"lodash/object/assign":493}],165:[function(require,module,exports){
 'use strict';
 
 /**
@@ -15281,7 +21979,7 @@ module.exports.isBuiltIn = function(type) {
 module.exports.isSimple = function(type) {
   return !!TYPE_CONVERTERS[type];
 };
-},{}],91:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 module.exports={
   "name": "BPMN20",
   "uri": "http://www.omg.org/spec/BPMN/20100524/MODEL",
@@ -18227,7 +24925,7 @@ module.exports={
     "typePrefix": "t"
   }
 }
-},{}],92:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 module.exports={
   "name": "BPMNDI",
   "uri": "http://www.omg.org/spec/BPMN/20100524/DI",
@@ -18421,7 +25119,7 @@ module.exports={
   "associations": [],
   "prefix": "bpmndi"
 }
-},{}],93:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 module.exports={
   "name": "DC",
   "uri": "http://www.omg.org/spec/DD/20100524/DC",
@@ -18521,7 +25219,7 @@ module.exports={
   "prefix": "dc",
   "associations": []
 }
-},{}],94:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 module.exports={
   "name": "DI",
   "uri": "http://www.omg.org/spec/DD/20100524/DI",
@@ -18740,13 +25438,13 @@ module.exports={
     "tagAlias": "lowerCase"
   }
 }
-},{}],95:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('diagram-js/lib/features/interaction-events') ],
   __init__: [ 'directEditing' ],
   directEditing: [ 'type', require('./lib/DirectEditing') ]
 };
-},{"./lib/DirectEditing":96,"diagram-js/lib/features/interaction-events":153}],96:[function(require,module,exports){
+},{"./lib/DirectEditing":171,"diagram-js/lib/features/interaction-events":228}],171:[function(require,module,exports){
 'use strict';
 
 var bind = require('lodash/function/bind'),
@@ -18908,7 +25606,7 @@ DirectEditing.prototype.activate = function(element) {
 
 
 module.exports = DirectEditing;
-},{"./TextBox":97,"lodash/collection/find":290,"lodash/function/bind":300}],97:[function(require,module,exports){
+},{"./TextBox":172,"lodash/collection/find":367,"lodash/function/bind":378}],172:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -18976,472 +25674,37 @@ TextBox.prototype.getValue = function() {
   return this.textarea.value;
 };
 
-},{"lodash/object/assign":414,"min-dom/lib/event":102,"min-dom/lib/remove":104}],98:[function(require,module,exports){
-'use strict';
-
-var hat = require('hat');
-
-
-/**
- * Create a new id generator / cache instance.
- *
- * You may optionally provide a seed that is used internally.
- *
- * @param {Seed} seed
- */
-function Ids(seed) {
-
-  if (!(this instanceof Ids)) {
-    return new Ids(seed);
-  }
-
-  seed = seed || [ 128, 36, 1 ];
-  this._seed = seed.length ? hat.rack(seed[0], seed[1], seed[2]) : seed;
-}
-
-module.exports = Ids;
-
-/**
- * Generate a next id.
- *
- * @param {Object} [element] element to bind the id to
- *
- * @return {String} id
- */
-Ids.prototype.next = function(element) {
-  return this._seed(element || true);
-};
-
-/**
- * Generate a next id with a given prefix.
- *
- * @param {Object} [element] element to bind the id to
- *
- * @return {String} id
- */
-Ids.prototype.nextPrefixed = function(prefix, element) {
-  var id;
-
-  do {
-    id = prefix + this.next(true);
-  } while (this.assigned(id));
-
-  // claim {prefix}{random}
-  this.claim(id, element);
-
-  // return
-  return id;
-};
-
-/**
- * Manually claim an existing id.
- *
- * @param {String} id
- * @param {String} [element] element the id is claimed by
- */
-Ids.prototype.claim = function(id, element) {
-  this._seed.set(id, element || true);
-};
-
-/**
- * Returns true if the given id has already been assigned.
- *
- * @param  {String} id
- * @return {Boolean}
- */
-Ids.prototype.assigned = function(id) {
-  return this._seed.get(id) || false;
-};
-
-/**
- * Unclaim an id.
- *
- * @param  {String} id the id to unclaim
- */
-Ids.prototype.unclaim = function(id) {
-  delete this._seed.hats[id];
-};
-
-},{"hat":99}],99:[function(require,module,exports){
-var hat = module.exports = function (bits, base) {
-    if (!base) base = 16;
-    if (bits === undefined) bits = 128;
-    if (bits <= 0) return '0';
-    
-    var digits = Math.log(Math.pow(2, bits)) / Math.log(base);
-    for (var i = 2; digits === Infinity; i *= 2) {
-        digits = Math.log(Math.pow(2, bits / i)) / Math.log(base) * i;
-    }
-    
-    var rem = digits - Math.floor(digits);
-    
-    var res = '';
-    
-    for (var i = 0; i < Math.floor(digits); i++) {
-        var x = Math.floor(Math.random() * base).toString(base);
-        res = x + res;
-    }
-    
-    if (rem) {
-        var b = Math.pow(base, rem);
-        var x = Math.floor(Math.random() * b).toString(base);
-        res = x + res;
-    }
-    
-    var parsed = parseInt(res, base);
-    if (parsed !== Infinity && parsed >= Math.pow(2, bits)) {
-        return hat(bits, base)
-    }
-    else return res;
-};
-
-hat.rack = function (bits, base, expandBy) {
-    var fn = function (data) {
-        var iters = 0;
-        do {
-            if (iters ++ > 10) {
-                if (expandBy) bits += expandBy;
-                else throw new Error('too many ID collisions, use more bits')
-            }
-            
-            var id = hat(bits, base);
-        } while (Object.hasOwnProperty.call(hats, id));
-        
-        hats[id] = data;
-        return id;
-    };
-    var hats = fn.hats = {};
-    
-    fn.get = function (id) {
-        return fn.hats[id];
-    };
-    
-    fn.set = function (id, value) {
-        fn.hats[id] = value;
-        return fn;
-    };
-    
-    fn.bits = bits || 128;
-    fn.base = base || 16;
-    return fn;
-};
-
-},{}],100:[function(require,module,exports){
-module.exports = require('component-delegate');
-},{"component-delegate":106}],101:[function(require,module,exports){
-module.exports = require('domify');
-},{"domify":110}],102:[function(require,module,exports){
-module.exports = require('component-event');
-},{"component-event":107}],103:[function(require,module,exports){
-module.exports = require('component-query');
-},{"component-query":109}],104:[function(require,module,exports){
-module.exports = function(el) {
-  el.parentNode && el.parentNode.removeChild(el);
-};
-},{}],105:[function(require,module,exports){
-var matches = require('matches-selector')
-
-module.exports = function (element, selector, checkYoSelf, root) {
-  element = checkYoSelf ? {parentNode: element} : element
-
-  root = root || document
-
-  // Make sure `element !== document` and `element != null`
-  // otherwise we get an illegal invocation
-  while ((element = element.parentNode) && element !== document) {
-    if (matches(element, selector))
-      return element
-    // After `matches` on the edge case that
-    // the selector matches the root
-    // (when the root is not the document)
-    if (element === root)
-      return
-  }
-}
-
-},{"matches-selector":108}],106:[function(require,module,exports){
-/**
- * Module dependencies.
- */
-
-try {
-  var closest = require('closest');
-} catch(err) {
-  var closest = require('component-closest');
-}
-
-try {
-  var event = require('event');
-} catch(err) {
-  var event = require('component-event');
-}
-
-/**
- * Delegate event `type` to `selector`
- * and invoke `fn(e)`. A callback function
- * is returned which may be passed to `.unbind()`.
- *
- * @param {Element} el
- * @param {String} selector
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @return {Function}
- * @api public
- */
-
-exports.bind = function(el, selector, type, fn, capture){
-  return event.bind(el, type, function(e){
-    var target = e.target || e.srcElement;
-    e.delegateTarget = closest(target, selector, true, el);
-    if (e.delegateTarget) fn.call(el, e);
-  }, capture);
-};
-
-/**
- * Unbind event `type`'s callback `fn`.
- *
- * @param {Element} el
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @api public
- */
-
-exports.unbind = function(el, type, fn, capture){
-  event.unbind(el, type, fn, capture);
-};
-
-},{"closest":105,"component-closest":105,"component-event":107,"event":107}],107:[function(require,module,exports){
-var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
-    unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
-    prefix = bind !== 'addEventListener' ? 'on' : '';
-
-/**
- * Bind `el` event `type` to `fn`.
- *
- * @param {Element} el
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @return {Function}
- * @api public
- */
-
-exports.bind = function(el, type, fn, capture){
-  el[bind](prefix + type, fn, capture || false);
-  return fn;
-};
-
-/**
- * Unbind `el` event `type`'s callback `fn`.
- *
- * @param {Element} el
- * @param {String} type
- * @param {Function} fn
- * @param {Boolean} capture
- * @return {Function}
- * @api public
- */
-
-exports.unbind = function(el, type, fn, capture){
-  el[unbind](prefix + type, fn, capture || false);
-  return fn;
-};
-},{}],108:[function(require,module,exports){
-/**
- * Module dependencies.
- */
-
-try {
-  var query = require('query');
-} catch (err) {
-  var query = require('component-query');
-}
-
-/**
- * Element prototype.
- */
-
-var proto = Element.prototype;
-
-/**
- * Vendor function.
- */
-
-var vendor = proto.matches
-  || proto.webkitMatchesSelector
-  || proto.mozMatchesSelector
-  || proto.msMatchesSelector
-  || proto.oMatchesSelector;
-
-/**
- * Expose `match()`.
- */
-
-module.exports = match;
-
-/**
- * Match `el` to `selector`.
- *
- * @param {Element} el
- * @param {String} selector
- * @return {Boolean}
- * @api public
- */
-
-function match(el, selector) {
-  if (!el || el.nodeType !== 1) return false;
-  if (vendor) return vendor.call(el, selector);
-  var nodes = query.all(selector, el.parentNode);
-  for (var i = 0; i < nodes.length; ++i) {
-    if (nodes[i] == el) return true;
-  }
-  return false;
-}
-
-},{"component-query":109,"query":109}],109:[function(require,module,exports){
-function one(selector, el) {
-  return el.querySelector(selector);
-}
-
-exports = module.exports = function(selector, el){
-  el = el || document;
-  return one(selector, el);
-};
-
-exports.all = function(selector, el){
-  el = el || document;
-  return el.querySelectorAll(selector);
-};
-
-exports.engine = function(obj){
-  if (!obj.one) throw new Error('.one callback required');
-  if (!obj.all) throw new Error('.all callback required');
-  one = obj.one;
-  exports.all = obj.all;
-  return exports;
-};
-
-},{}],110:[function(require,module,exports){
-
-/**
- * Expose `parse`.
- */
-
-module.exports = parse;
-
-/**
- * Tests for browser support.
- */
-
-var innerHTMLBug = false;
-var bugTestDiv;
-if (typeof document !== 'undefined') {
-  bugTestDiv = document.createElement('div');
-  // Setup
-  bugTestDiv.innerHTML = '  <link/><table></table><a href="/a">a</a><input type="checkbox"/>';
-  // Make sure that link elements get serialized correctly by innerHTML
-  // This requires a wrapper element in IE
-  innerHTMLBug = !bugTestDiv.getElementsByTagName('link').length;
-  bugTestDiv = undefined;
-}
-
-/**
- * Wrap map from jquery.
- */
-
-var map = {
-  legend: [1, '<fieldset>', '</fieldset>'],
-  tr: [2, '<table><tbody>', '</tbody></table>'],
-  col: [2, '<table><tbody></tbody><colgroup>', '</colgroup></table>'],
-  // for script/link/style tags to work in IE6-8, you have to wrap
-  // in a div with a non-whitespace character in front, ha!
-  _default: innerHTMLBug ? [1, 'X<div>', '</div>'] : [0, '', '']
-};
-
-map.td =
-map.th = [3, '<table><tbody><tr>', '</tr></tbody></table>'];
-
-map.option =
-map.optgroup = [1, '<select multiple="multiple">', '</select>'];
-
-map.thead =
-map.tbody =
-map.colgroup =
-map.caption =
-map.tfoot = [1, '<table>', '</table>'];
-
-map.polyline =
-map.ellipse =
-map.polygon =
-map.circle =
-map.text =
-map.line =
-map.path =
-map.rect =
-map.g = [1, '<svg xmlns="http://www.w3.org/2000/svg" version="1.1">','</svg>'];
-
-/**
- * Parse `html` and return a DOM Node instance, which could be a TextNode,
- * HTML DOM Node of some kind (<div> for example), or a DocumentFragment
- * instance, depending on the contents of the `html` string.
- *
- * @param {String} html - HTML string to "domify"
- * @param {Document} doc - The `document` instance to create the Node for
- * @return {DOMNode} the TextNode, DOM Node, or DocumentFragment instance
- * @api private
- */
-
-function parse(html, doc) {
-  if ('string' != typeof html) throw new TypeError('String expected');
-
-  // default to the global `document` object
-  if (!doc) doc = document;
-
-  // tag name
-  var m = /<([\w:]+)/.exec(html);
-  if (!m) return doc.createTextNode(html);
-
-  html = html.replace(/^\s+|\s+$/g, ''); // Remove leading/trailing whitespace
-
-  var tag = m[1];
-
-  // body support
-  if (tag == 'body') {
-    var el = doc.createElement('html');
-    el.innerHTML = html;
-    return el.removeChild(el.lastChild);
-  }
-
-  // wrap map
-  var wrap = map[tag] || map._default;
-  var depth = wrap[0];
-  var prefix = wrap[1];
-  var suffix = wrap[2];
-  var el = doc.createElement('div');
-  el.innerHTML = prefix + html + suffix;
-  while (depth--) el = el.lastChild;
-
-  // one element
-  if (el.firstChild == el.lastChild) {
-    return el.removeChild(el.firstChild);
-  }
-
-  // several elements
-  var fragment = doc.createDocumentFragment();
-  while (el.firstChild) {
-    fragment.appendChild(el.removeChild(el.firstChild));
-  }
-
-  return fragment;
-}
-
-},{}],111:[function(require,module,exports){
+},{"lodash/object/assign":493,"min-dom/lib/event":177,"min-dom/lib/remove":179}],173:[function(require,module,exports){
+arguments[4][50][0].apply(exports,arguments)
+},{"dup":50,"hat":174}],174:[function(require,module,exports){
+arguments[4][51][0].apply(exports,arguments)
+},{"dup":51}],175:[function(require,module,exports){
+arguments[4][56][0].apply(exports,arguments)
+},{"component-delegate":181,"dup":56}],176:[function(require,module,exports){
+arguments[4][57][0].apply(exports,arguments)
+},{"domify":185,"dup":57}],177:[function(require,module,exports){
+arguments[4][58][0].apply(exports,arguments)
+},{"component-event":182,"dup":58}],178:[function(require,module,exports){
+arguments[4][60][0].apply(exports,arguments)
+},{"component-query":184,"dup":60}],179:[function(require,module,exports){
+arguments[4][61][0].apply(exports,arguments)
+},{"dup":61}],180:[function(require,module,exports){
+arguments[4][64][0].apply(exports,arguments)
+},{"dup":64,"matches-selector":183}],181:[function(require,module,exports){
+arguments[4][65][0].apply(exports,arguments)
+},{"closest":180,"component-closest":180,"component-event":182,"dup":65,"event":182}],182:[function(require,module,exports){
+arguments[4][66][0].apply(exports,arguments)
+},{"dup":66}],183:[function(require,module,exports){
+arguments[4][67][0].apply(exports,arguments)
+},{"component-query":184,"dup":67,"query":184}],184:[function(require,module,exports){
+arguments[4][68][0].apply(exports,arguments)
+},{"dup":68}],185:[function(require,module,exports){
+arguments[4][69][0].apply(exports,arguments)
+},{"dup":69}],186:[function(require,module,exports){
 module.exports = require('./lib/refs');
 
 module.exports.Collection = require('./lib/collection');
-},{"./lib/collection":112,"./lib/refs":113}],112:[function(require,module,exports){
+},{"./lib/collection":187,"./lib/refs":188}],187:[function(require,module,exports){
 'use strict';
 
 /**
@@ -19538,7 +25801,7 @@ function isExtended(collection) {
 module.exports.extend = extend;
 
 module.exports.isExtended = isExtended;
-},{}],113:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 'use strict';
 
 var Collection = require('./collection');
@@ -19730,9 +25993,9 @@ module.exports = Refs;
  * @property {boolean} [collection=false]
  * @property {boolean} [enumerable=false]
  */
-},{"./collection":112}],114:[function(require,module,exports){
+},{"./collection":187}],189:[function(require,module,exports){
 module.exports = require('./lib/Diagram');
-},{"./lib/Diagram":115}],115:[function(require,module,exports){
+},{"./lib/Diagram":190}],190:[function(require,module,exports){
 'use strict';
 
 var di = require('didi');
@@ -19926,7 +26189,7 @@ module.exports = Diagram;
 Diagram.prototype.destroy = function() {
   this.get('eventBus').fire('diagram.destroy');
 };
-},{"./core":124,"didi":250}],116:[function(require,module,exports){
+},{"./core":199,"didi":325}],191:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -20077,7 +26340,7 @@ forEach(hooks, function(hook) {
   };
 });
 
-},{"lodash/collection/forEach":291,"lodash/lang/isArray":405,"lodash/lang/isFunction":406,"lodash/lang/isNumber":408}],117:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/lang/isArray":483,"lodash/lang/isFunction":485,"lodash/lang/isNumber":487}],192:[function(require,module,exports){
 'use strict';
 
 var unique = require('lodash/array/unique'),
@@ -20546,12 +26809,12 @@ CommandStack.prototype._setHandler = function(command, handler) {
   this._handlerMap[command] = handler;
 };
 
-},{"../core/EventBus":122,"lodash/array/unique":284,"lodash/lang/isArray":405,"lodash/object/assign":414}],118:[function(require,module,exports){
+},{"../core/EventBus":197,"lodash/array/unique":360,"lodash/lang/isArray":483,"lodash/object/assign":493}],193:[function(require,module,exports){
 module.exports = {
   commandStack: [ 'type', require('./CommandStack') ]
 };
 
-},{"./CommandStack":117}],119:[function(require,module,exports){
+},{"./CommandStack":192}],194:[function(require,module,exports){
 'use strict';
 
 var isNumber = require('lodash/lang/isNumber'),
@@ -21479,7 +27742,7 @@ Canvas.prototype.getAbsoluteBBox = function(element) {
   };
 };
 
-},{"../../vendor/snapsvg":277,"../util/Collections":235,"lodash/collection/every":288,"lodash/collection/forEach":291,"lodash/function/debounce":301,"lodash/lang/isNumber":408,"lodash/object/assign":414}],120:[function(require,module,exports){
+},{"../../vendor/snapsvg":352,"../util/Collections":310,"lodash/collection/every":365,"lodash/collection/forEach":368,"lodash/function/debounce":379,"lodash/lang/isNumber":487,"lodash/object/assign":493}],195:[function(require,module,exports){
 'use strict';
 
 var Model = require('../model');
@@ -21529,7 +27792,7 @@ ElementFactory.prototype.create = function(type, attrs) {
 
   return Model.create(type, attrs);
 };
-},{"../model":226}],121:[function(require,module,exports){
+},{"../model":301}],196:[function(require,module,exports){
 'use strict';
 
 var ELEMENT_ID = 'data-element-id';
@@ -21728,7 +27991,7 @@ ElementRegistry.prototype._validateId = function(id) {
     throw new Error('element with id ' + id + ' already added');
   }
 };
-},{}],122:[function(require,module,exports){
+},{}],197:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction'),
@@ -22188,7 +28451,7 @@ function invokeFunction(fn, args) {
   return fn.apply(null, args);
 }
 
-},{"lodash/function/bind":300,"lodash/lang/isArray":405,"lodash/lang/isFunction":406,"lodash/lang/isNumber":408,"lodash/object/assign":414}],123:[function(require,module,exports){
+},{"lodash/function/bind":378,"lodash/lang/isArray":483,"lodash/lang/isFunction":485,"lodash/lang/isNumber":487,"lodash/object/assign":493}],198:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -22372,7 +28635,7 @@ GraphicsFactory.prototype.remove = function(element) {
   gfx.parent().remove();
 };
 
-},{"../util/GraphicsUtil":240,"lodash/collection/forEach":291,"lodash/collection/reduce":295,"min-dom/lib/clear":257}],124:[function(require,module,exports){
+},{"../util/GraphicsUtil":315,"lodash/collection/forEach":368,"lodash/collection/reduce":373,"min-dom/lib/clear":332}],199:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('../draw') ],
   __init__: [ 'canvas' ],
@@ -22382,7 +28645,7 @@ module.exports = {
   eventBus: [ 'type', require('./EventBus') ],
   graphicsFactory: [ 'type', require('./GraphicsFactory') ]
 };
-},{"../draw":128,"./Canvas":119,"./ElementFactory":120,"./ElementRegistry":121,"./EventBus":122,"./GraphicsFactory":123}],125:[function(require,module,exports){
+},{"../draw":203,"./Canvas":194,"./ElementFactory":195,"./ElementRegistry":196,"./EventBus":197,"./GraphicsFactory":198}],200:[function(require,module,exports){
 'use strict';
 
 var DEFAULT_RENDER_PRIORITY = 1000;
@@ -22473,7 +28736,7 @@ BaseRenderer.prototype.getConnectionPath = function() {};
 
 module.exports = BaseRenderer;
 
-},{}],126:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -22558,7 +28821,7 @@ DefaultRenderer.$inject = [ 'eventBus', 'styles' ];
 
 module.exports = DefaultRenderer;
 
-},{"../util/RenderUtil":247,"./BaseRenderer":125,"inherits":278}],127:[function(require,module,exports){
+},{"../util/RenderUtil":322,"./BaseRenderer":200,"inherits":353}],202:[function(require,module,exports){
 'use strict';
 
 var isArray = require('lodash/lang/isArray'),
@@ -22635,14 +28898,14 @@ function Styles() {
 
 module.exports = Styles;
 
-},{"lodash/collection/reduce":295,"lodash/lang/isArray":405,"lodash/object/assign":414}],128:[function(require,module,exports){
+},{"lodash/collection/reduce":373,"lodash/lang/isArray":483,"lodash/object/assign":493}],203:[function(require,module,exports){
 module.exports = {
   __init__: [ 'defaultRenderer' ],
   defaultRenderer: [ 'type', require('./DefaultRenderer') ],
   styles: [ 'type', require('./Styles') ]
 };
 
-},{"./DefaultRenderer":126,"./Styles":127}],129:[function(require,module,exports){
+},{"./DefaultRenderer":201,"./Styles":202}],204:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -22898,7 +29161,7 @@ function removeAttached(elements) {
   });
 }
 
-},{"../../command/CommandInterceptor":116,"../../util/AttachUtil":233,"../../util/Removal":246,"inherits":278,"lodash/array/flatten":281,"lodash/collection/filter":289,"lodash/collection/forEach":291,"lodash/collection/groupBy":292,"lodash/collection/map":294}],130:[function(require,module,exports){
+},{"../../command/CommandInterceptor":191,"../../util/AttachUtil":308,"../../util/Removal":321,"inherits":353,"lodash/array/flatten":356,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/collection/groupBy":369,"lodash/collection/map":372}],205:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../move'),
@@ -22908,7 +29171,7 @@ module.exports = {
   attachSupport: [ 'type', require('./AttachSupport') ]
 };
 
-},{"../label-support":157,"../move":184,"./AttachSupport":129}],131:[function(require,module,exports){
+},{"../label-support":232,"../move":259,"./AttachSupport":204}],206:[function(require,module,exports){
 'use strict';
 
 var Geometry = require('../../util/Geometry'),
@@ -23135,7 +29398,7 @@ BendpointMove.$inject = [ 'injector', 'eventBus', 'canvas', 'dragging', 'graphic
 
 module.exports = BendpointMove;
 
-},{"../../util/Geometry":239,"./BendpointUtil":133}],132:[function(require,module,exports){
+},{"../../util/Geometry":314,"./BendpointUtil":208}],207:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -23337,7 +29600,7 @@ function BendpointSnapping(eventBus) {
 BendpointSnapping.$inject = [ 'eventBus' ];
 
 module.exports = BendpointSnapping;
-},{"../../../vendor/snapsvg":277,"../../util/Geometry":239,"lodash/collection/forEach":291,"lodash/object/assign":414,"lodash/object/pick":420}],133:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../util/Geometry":314,"lodash/collection/forEach":368,"lodash/object/assign":493,"lodash/object/pick":500}],208:[function(require,module,exports){
 'use strict';
 
 var Events = require('../../util/Event'),
@@ -23420,7 +29683,7 @@ module.exports.addSegmentDragger = function(parentGfx, segmentStart, segmentEnd)
   return groupGfx;
 };
 
-},{"../../../vendor/snapsvg":277,"../../util/Event":238,"../../util/Geometry":239}],134:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../util/Event":313,"../../util/Geometry":314}],209:[function(require,module,exports){
 'use strict';
 
 var domEvent = require('min-dom/lib/event'),
@@ -23668,7 +29931,7 @@ Bendpoints.$inject = [
 
 module.exports = Bendpoints;
 
-},{"../../util/Geometry":239,"../../util/LineIntersection":242,"./BendpointUtil":133,"min-dom/lib/event":261}],135:[function(require,module,exports){
+},{"../../util/Geometry":314,"../../util/LineIntersection":317,"./BendpointUtil":208,"min-dom/lib/event":336}],210:[function(require,module,exports){
 'use strict';
 
 var Geometry = require('../../util/Geometry'),
@@ -23996,7 +30259,7 @@ ConnectionSegmentMove.$inject = [
 ];
 
 module.exports = ConnectionSegmentMove;
-},{"../../layout/LayoutUtil":224,"../../util/Geometry":239,"./BendpointUtil":133}],136:[function(require,module,exports){
+},{"../../layout/LayoutUtil":299,"../../util/Geometry":314,"./BendpointUtil":208}],211:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('../dragging'), require('../rules') ],
   __init__: [ 'bendpoints', 'bendpointSnapping' ],
@@ -24006,7 +30269,7 @@ module.exports = {
   bendpointSnapping: [ 'type', require('./BendpointSnapping') ]
 };
 
-},{"../dragging":147,"../rules":203,"./BendpointMove":131,"./BendpointSnapping":132,"./Bendpoints":134,"./ConnectionSegmentMove":135}],137:[function(require,module,exports){
+},{"../dragging":222,"../rules":278,"./BendpointMove":206,"./BendpointSnapping":207,"./Bendpoints":209,"./ConnectionSegmentMove":210}],212:[function(require,module,exports){
 'use strict';
 
 /**
@@ -24074,12 +30337,12 @@ ChangeSupport.$inject = [ 'eventBus', 'canvas', 'elementRegistry', 'graphicsFact
 
 module.exports = ChangeSupport;
 
-},{}],138:[function(require,module,exports){
+},{}],213:[function(require,module,exports){
 module.exports = {
   __init__: [ 'changeSupport'],
   changeSupport: [ 'type', require('./ChangeSupport') ]
 };
-},{"./ChangeSupport":137}],139:[function(require,module,exports){
+},{"./ChangeSupport":212}],214:[function(require,module,exports){
 'use strict';
 
 var LayoutUtil = require('../../layout/LayoutUtil');
@@ -24226,7 +30489,7 @@ Connect.$inject = [ 'eventBus', 'dragging', 'modeling', 'rules', 'canvas', 'grap
 
 module.exports = Connect;
 
-},{"../../layout/LayoutUtil":224}],140:[function(require,module,exports){
+},{"../../layout/LayoutUtil":299}],215:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../selection'),
@@ -24236,7 +30499,7 @@ module.exports = {
   connect: [ 'type', require('./Connect') ]
 };
 
-},{"../dragging":147,"../rules":203,"../selection":207,"./Connect":139}],141:[function(require,module,exports){
+},{"../dragging":222,"../rules":278,"../selection":282,"./Connect":214}],216:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction'),
@@ -24536,7 +30799,7 @@ ContextPad.prototype.isOpen = function() {
 
 module.exports = ContextPad;
 
-},{"lodash/collection/forEach":291,"lodash/lang/isFunction":406,"min-dom/lib/attr":255,"min-dom/lib/classes":256,"min-dom/lib/clear":257,"min-dom/lib/delegate":259,"min-dom/lib/domify":260,"min-dom/lib/event":261,"min-dom/lib/query":263}],142:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/lang/isFunction":485,"min-dom/lib/attr":330,"min-dom/lib/classes":331,"min-dom/lib/clear":332,"min-dom/lib/delegate":334,"min-dom/lib/domify":335,"min-dom/lib/event":336,"min-dom/lib/query":338}],217:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../interaction-events'),
@@ -24544,7 +30807,7 @@ module.exports = {
   ],
   contextPad: [ 'type', require('./ContextPad') ]
 };
-},{"../interaction-events":153,"../overlays":189,"./ContextPad":141}],143:[function(require,module,exports){
+},{"../interaction-events":228,"../overlays":264,"./ContextPad":216}],218:[function(require,module,exports){
 'use strict';
 
 var MARKER_OK = 'drop-ok',
@@ -24719,7 +30982,7 @@ Create.$inject = [ 'eventBus', 'dragging', 'rules', 'modeling', 'canvas', 'style
 
 module.exports = Create;
 
-},{}],144:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../dragging'),
@@ -24729,7 +30992,7 @@ module.exports = {
   create: [ 'type', require('./Create') ]
 };
 
-},{"../dragging":147,"../rules":203,"../selection":207,"./Create":143}],145:[function(require,module,exports){
+},{"../dragging":222,"../rules":278,"../selection":282,"./Create":218}],220:[function(require,module,exports){
 'use strict';
 
 /* global TouchEvent */
@@ -25253,7 +31516,7 @@ Dragging.$inject = [ 'eventBus', 'canvas', 'selection' ];
 
 module.exports = Dragging;
 
-},{"../../core/EventBus":122,"../../util/ClickTrap":234,"../../util/Cursor":236,"../../util/Event":238,"lodash/object/assign":414,"min-dom/lib/event":261}],146:[function(require,module,exports){
+},{"../../core/EventBus":197,"../../util/ClickTrap":309,"../../util/Cursor":311,"../../util/Event":313,"lodash/object/assign":493,"min-dom/lib/event":336}],221:[function(require,module,exports){
 'use strict';
 
 var domClosest = require('min-dom/lib/closest');
@@ -25345,7 +31608,7 @@ function HoverFix(eventBus, dragging, elementRegistry) {
 HoverFix.$inject = [ 'eventBus', 'dragging', 'elementRegistry' ];
 
 module.exports = HoverFix;
-},{"../../../vendor/snapsvg":277,"../../util/Event":238,"min-dom/lib/closest":258}],147:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../util/Event":313,"min-dom/lib/closest":333}],222:[function(require,module,exports){
 module.exports = {
   __init__: [
     'hoverFix'
@@ -25356,7 +31619,7 @@ module.exports = {
   dragging: [ 'type', require('./Dragging') ],
   hoverFix: [ 'type', require('./HoverFix') ]
 };
-},{"../selection":207,"./Dragging":145,"./HoverFix":146}],148:[function(require,module,exports){
+},{"../selection":282,"./Dragging":220,"./HoverFix":221}],223:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -25556,7 +31819,7 @@ function error(action, message) {
   return new Error(action + ' ' + message);
 }
 
-},{"lodash/collection/forEach":291,"lodash/lang/isArray":405}],149:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/lang/isArray":483}],224:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../selection'),
@@ -25566,7 +31829,7 @@ module.exports = {
   editorActions: [ 'type', require('./EditorActions') ]
 };
 
-},{"../../navigation/zoomscroll":232,"../selection":207,"./EditorActions":148}],150:[function(require,module,exports){
+},{"../../navigation/zoomscroll":307,"../selection":282,"./EditorActions":223}],225:[function(require,module,exports){
 'use strict';
 
 var hasPrimaryModifier = require('../../util/Mouse').hasPrimaryModifier,
@@ -25705,7 +31968,7 @@ HandTool.prototype.isActive = function() {
   return context && /^hand/.test(context.prefix);
 };
 
-},{"../../util/Math":243,"../../util/Mouse":244}],151:[function(require,module,exports){
+},{"../../util/Math":318,"../../util/Mouse":319}],226:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -25714,7 +31977,7 @@ module.exports = {
   handTool: [ 'type', require('./HandTool') ]
 };
 
-},{"../tool-manager":216,"./HandTool":150}],152:[function(require,module,exports){
+},{"../tool-manager":291,"./HandTool":225}],227:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -25956,12 +32219,12 @@ module.exports = InteractionEvents;
  * @property {Event} originalEvent
  */
 
-},{"../../../vendor/snapsvg":277,"../../util/Mouse":244,"../../util/RenderUtil":247,"lodash/collection/forEach":291,"min-dom/lib/delegate":259}],153:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../util/Mouse":319,"../../util/RenderUtil":322,"lodash/collection/forEach":368,"min-dom/lib/delegate":334}],228:[function(require,module,exports){
 module.exports = {
   __init__: [ 'interactionEvents' ],
   interactionEvents: [ 'type', require('./InteractionEvents') ]
 };
-},{"./InteractionEvents":152}],154:[function(require,module,exports){
+},{"./InteractionEvents":227}],229:[function(require,module,exports){
 'use strict';
 
 var domEvent = require('min-dom/lib/event'),
@@ -26252,7 +32515,7 @@ function isShift(modifiers) {
   return modifiers.shiftKey;
 }
 
-},{"min-dom/lib/event":261,"min-dom/lib/matches":262}],155:[function(require,module,exports){
+},{"min-dom/lib/event":336,"min-dom/lib/matches":337}],230:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../editor-actions')
@@ -26261,7 +32524,7 @@ module.exports = {
   keyboard: [ 'type', require('./Keyboard') ]
 };
 
-},{"../editor-actions":149,"./Keyboard":154}],156:[function(require,module,exports){
+},{"../editor-actions":224,"./Keyboard":229}],231:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -26364,7 +32627,7 @@ function removeLabels(elements) {
   });
 }
 
-},{"../../command/CommandInterceptor":116,"inherits":278,"lodash/collection/filter":289,"lodash/collection/forEach":291}],157:[function(require,module,exports){
+},{"../../command/CommandInterceptor":191,"inherits":353,"lodash/collection/filter":366,"lodash/collection/forEach":368}],232:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../move')
@@ -26373,7 +32636,7 @@ module.exports = {
   labelSupport: [ 'type', require('./LabelSupport') ]
 };
 
-},{"../move":184,"./LabelSupport":156}],158:[function(require,module,exports){
+},{"../move":259,"./LabelSupport":231}],233:[function(require,module,exports){
 'use strict';
 
 var values = require('lodash/object/values');
@@ -26630,7 +32893,7 @@ function toBBox(event) {
   return bbox;
 }
 
-},{"../../../vendor/snapsvg":277,"../../util/Elements":237,"../../util/Mouse":244,"lodash/object/values":422}],159:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../util/Elements":312,"../../util/Mouse":319,"lodash/object/values":502}],234:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -26639,7 +32902,7 @@ module.exports = {
   lassoTool: [ 'type', require('./LassoTool') ]
 };
 
-},{"../tool-manager":216,"./LassoTool":158}],160:[function(require,module,exports){
+},{"../tool-manager":291,"./LassoTool":233}],235:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -27021,7 +33284,7 @@ Modeling.prototype._create = function(type, attrs) {
   }
 };
 
-},{"../../model":226,"./cmd/AppendShapeHandler":161,"./cmd/CreateConnectionHandler":162,"./cmd/CreateLabelHandler":163,"./cmd/CreateShapeHandler":164,"./cmd/DeleteConnectionHandler":165,"./cmd/DeleteElementsHandler":166,"./cmd/DeleteShapeHandler":167,"./cmd/LayoutConnectionHandler":168,"./cmd/MoveConnectionHandler":169,"./cmd/MoveElementsHandler":170,"./cmd/MoveShapeHandler":171,"./cmd/ReconnectConnectionHandler":173,"./cmd/ReplaceShapeHandler":174,"./cmd/ResizeShapeHandler":175,"./cmd/SpaceToolHandler":176,"./cmd/UpdateAnchorsHandler":177,"./cmd/UpdateAttachmentHandler":178,"./cmd/UpdateWaypointsHandler":179,"lodash/collection/forEach":291}],161:[function(require,module,exports){
+},{"../../model":301,"./cmd/AppendShapeHandler":236,"./cmd/CreateConnectionHandler":237,"./cmd/CreateLabelHandler":238,"./cmd/CreateShapeHandler":239,"./cmd/DeleteConnectionHandler":240,"./cmd/DeleteElementsHandler":241,"./cmd/DeleteShapeHandler":242,"./cmd/LayoutConnectionHandler":243,"./cmd/MoveConnectionHandler":244,"./cmd/MoveElementsHandler":245,"./cmd/MoveShapeHandler":246,"./cmd/ReconnectConnectionHandler":248,"./cmd/ReplaceShapeHandler":249,"./cmd/ResizeShapeHandler":250,"./cmd/SpaceToolHandler":251,"./cmd/UpdateAnchorsHandler":252,"./cmd/UpdateAttachmentHandler":253,"./cmd/UpdateWaypointsHandler":254,"lodash/collection/forEach":368}],236:[function(require,module,exports){
 'use strict';
 
 var any = require('lodash/collection/any');
@@ -27088,7 +33351,7 @@ function existsConnection(source, target) {
     return c.target === target;
   });
 }
-},{"./NoopHandler":172,"inherits":278,"lodash/collection/any":287}],162:[function(require,module,exports){
+},{"./NoopHandler":247,"inherits":353,"lodash/collection/any":364}],237:[function(require,module,exports){
 'use strict';
 
 
@@ -27150,7 +33413,7 @@ CreateConnectionHandler.prototype.revert = function(context) {
   connection.source = null;
   connection.target = null;
 };
-},{}],163:[function(require,module,exports){
+},{}],238:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -27223,7 +33486,7 @@ function ensureValidDimensions(label) {
     }
   });
 }
-},{"./CreateShapeHandler":164,"inherits":278}],164:[function(require,module,exports){
+},{"./CreateShapeHandler":239,"inherits":353}],239:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign');
@@ -27296,7 +33559,7 @@ CreateShapeHandler.prototype.revert = function(context) {
   // (3) remove form canvas
   this._canvas.removeShape(context.shape);
 };
-},{"lodash/object/assign":414}],165:[function(require,module,exports){
+},{"lodash/object/assign":493}],240:[function(require,module,exports){
 'use strict';
 
 var Collections = require('../../../util/Collections');
@@ -27369,7 +33632,7 @@ DeleteConnectionHandler.prototype.revert = function(context) {
   return connection;
 };
 
-},{"../../../util/Collections":235}],166:[function(require,module,exports){
+},{"../../../util/Collections":310}],241:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -27409,7 +33672,7 @@ DeleteElementsHandler.prototype.postExecute = function(context) {
     }
   });
 };
-},{"./NoopHandler":172,"inherits":278,"lodash/collection/forEach":291}],167:[function(require,module,exports){
+},{"./NoopHandler":247,"inherits":353,"lodash/collection/forEach":368}],242:[function(require,module,exports){
 'use strict';
 
 var Collections = require('../../../util/Collections');
@@ -27515,7 +33778,7 @@ DeleteShapeHandler.prototype.revert = function(context) {
   return shape;
 };
 
-},{"../../../util/Collections":235,"../../../util/Removal":246}],168:[function(require,module,exports){
+},{"../../../util/Collections":310,"../../../util/Removal":321}],243:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign');
@@ -27631,7 +33894,7 @@ function sendToFront(connection) {
   return insertIndex;
 }
 
-},{"lodash/object/assign":414}],169:[function(require,module,exports){
+},{"lodash/object/assign":493}],244:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -27719,7 +33982,7 @@ MoveConnectionHandler.prototype.revert = function(context) {
 
   return connection;
 };
-},{"../../../util/Collections":235,"lodash/collection/forEach":291}],170:[function(require,module,exports){
+},{"../../../util/Collections":310,"lodash/collection/forEach":368}],245:[function(require,module,exports){
 'use strict';
 
 var MoveHelper = require('./helper/MoveHelper');
@@ -27757,7 +34020,7 @@ MoveElementsHandler.prototype.postExecute = function(context) {
 MoveElementsHandler.prototype.execute = function(context) { };
 MoveElementsHandler.prototype.revert = function(context) { };
 
-},{"./helper/MoveHelper":180}],171:[function(require,module,exports){
+},{"./helper/MoveHelper":255}],246:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -27866,7 +34129,7 @@ MoveShapeHandler.prototype.getNewParent = function(context) {
   return context.newParent || context.shape.parent;
 };
 
-},{"../../../util/Collections":235,"./helper/MoveHelper":180,"lodash/collection/forEach":291,"lodash/object/assign":414,"lodash/object/pick":420}],172:[function(require,module,exports){
+},{"../../../util/Collections":310,"./helper/MoveHelper":255,"lodash/collection/forEach":368,"lodash/object/assign":493,"lodash/object/pick":500}],247:[function(require,module,exports){
 'use strict';
 
 function NoopHandler() {}
@@ -27875,7 +34138,7 @@ module.exports = NoopHandler;
 
 NoopHandler.prototype.execute = function() {};
 NoopHandler.prototype.revert = function() {};
-},{}],173:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 'use strict';
 
 var isArray = require('lodash/lang/isArray');
@@ -27950,7 +34213,7 @@ ReconnectConnectionHandler.prototype.revert = function(context) {
 
   return connection;
 };
-},{"lodash/lang/isArray":405}],174:[function(require,module,exports){
+},{"lodash/lang/isArray":483}],249:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -28070,7 +34333,7 @@ ReplaceShapeHandler.prototype.execute = function(context) {};
 
 ReplaceShapeHandler.prototype.revert = function(context) {};
 
-},{"lodash/collection/forEach":291}],175:[function(require,module,exports){
+},{"lodash/collection/forEach":368}],250:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -28169,7 +34432,7 @@ ResizeShapeHandler.prototype.revert = function(context) {
   return shape;
 };
 
-},{"lodash/collection/forEach":291,"lodash/object/assign":414}],176:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/object/assign":493}],251:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -28220,7 +34483,7 @@ SpaceToolHandler.prototype.postExecute = function(context) {
 SpaceToolHandler.prototype.execute = function(context) {};
 SpaceToolHandler.prototype.revert = function(context) {};
 
-},{"../../space-tool/SpaceUtil":213,"lodash/collection/forEach":291}],177:[function(require,module,exports){
+},{"../../space-tool/SpaceUtil":288,"lodash/collection/forEach":368}],252:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -28295,7 +34558,7 @@ UpdateAnchorsHandler.prototype.revert = function(context) {
 
   return changedConnections;
 };
-},{"../../../util/AttachUtil":233,"lodash/collection/forEach":291}],178:[function(require,module,exports){
+},{"../../../util/AttachUtil":308,"lodash/collection/forEach":368}],253:[function(require,module,exports){
 'use strict';
 
 var Collections = require('../../../util/Collections');
@@ -28369,7 +34632,7 @@ function addAttacher(host, attacher, idx) {
   Collections.add(attachers, attacher, idx);
 }
 
-},{"../../../util/Collections":235}],179:[function(require,module,exports){
+},{"../../../util/Collections":310}],254:[function(require,module,exports){
 'use strict';
 
 function UpdateWaypointsHandler() { }
@@ -28397,7 +34660,7 @@ UpdateWaypointsHandler.prototype.revert = function(context) {
 
   return connection;
 };
-},{}],180:[function(require,module,exports){
+},{}],255:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -28495,7 +34758,7 @@ MoveHelper.prototype.getClosure = function(elements) {
   return Elements.getClosure(elements);
 };
 
-},{"../../../../util/Elements":237,"lodash/collection/forEach":291}],181:[function(require,module,exports){
+},{"../../../../util/Elements":312,"lodash/collection/forEach":368}],256:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../../command'),
@@ -28507,7 +34770,7 @@ module.exports = {
   layouter: [ 'type', require('../../layout/BaseLayouter') ]
 };
 
-},{"../../command":118,"../../layout/BaseLayouter":222,"../change-support":138,"../rules":203,"./Modeling":160}],182:[function(require,module,exports){
+},{"../../command":193,"../../layout/BaseLayouter":297,"../change-support":213,"../rules":278,"./Modeling":235}],257:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -28722,7 +34985,7 @@ function removeNested(elements) {
   });
 }
 
-},{"../../util/Event":238,"lodash/collection/filter":289,"lodash/collection/groupBy":292,"lodash/object/assign":414}],183:[function(require,module,exports){
+},{"../../util/Event":313,"lodash/collection/filter":366,"lodash/collection/groupBy":369,"lodash/object/assign":493}],258:[function(require,module,exports){
 'use strict';
 
 var flatten = require('lodash/array/flatten'),
@@ -28957,7 +35220,7 @@ MoveVisuals.$inject = [ 'eventBus', 'elementRegistry', 'canvas', 'styles' ];
 
 module.exports = MoveVisuals;
 
-},{"../../util/Elements":237,"lodash/array/flatten":281,"lodash/collection/filter":289,"lodash/collection/find":290,"lodash/collection/forEach":291,"lodash/collection/groupBy":292,"lodash/collection/map":294,"lodash/collection/size":296}],184:[function(require,module,exports){
+},{"../../util/Elements":312,"lodash/array/flatten":356,"lodash/collection/filter":366,"lodash/collection/find":367,"lodash/collection/forEach":368,"lodash/collection/groupBy":369,"lodash/collection/map":372,"lodash/collection/size":374}],259:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../interaction-events'),
@@ -28971,7 +35234,7 @@ module.exports = {
   moveVisuals: [ 'type', require('./MoveVisuals') ]
 };
 
-},{"../dragging":147,"../interaction-events":153,"../outline":187,"../rules":203,"../selection":207,"./Move":182,"./MoveVisuals":183}],185:[function(require,module,exports){
+},{"../dragging":222,"../interaction-events":228,"../outline":262,"../rules":278,"../selection":282,"./Move":257,"./MoveVisuals":258}],260:[function(require,module,exports){
 'use strict';
 
 var inherits = require('inherits');
@@ -29071,7 +35334,7 @@ OrderingProvider.prototype.getOrdering = function(element, newParent) {
 inherits(OrderingProvider, CommandInterceptor);
 
 module.exports = OrderingProvider;
-},{"../../command/CommandInterceptor":116,"inherits":278}],186:[function(require,module,exports){
+},{"../../command/CommandInterceptor":191,"inherits":353}],261:[function(require,module,exports){
 'use strict';
 
 var getBBox = require('../../util/Elements').getBBox;
@@ -29151,14 +35414,14 @@ Outline.$inject = ['eventBus', 'styles', 'elementRegistry'];
 
 module.exports = Outline;
 
-},{"../../util/Elements":237}],187:[function(require,module,exports){
+},{"../../util/Elements":312}],262:[function(require,module,exports){
 'use strict';
 
 module.exports = {
   __init__: [ 'outline' ],
   outline: [ 'type', require('./Outline') ]
 };
-},{"./Outline":186}],188:[function(require,module,exports){
+},{"./Outline":261}],263:[function(require,module,exports){
 'use strict';
 
 var isArray = require('lodash/lang/isArray'),
@@ -29670,12 +35933,12 @@ Overlays.prototype._init = function() {
   });
 };
 
-},{"../../util/Elements":237,"../../util/IdGenerator":241,"lodash/collection/filter":289,"lodash/collection/forEach":291,"lodash/lang/isArray":405,"lodash/lang/isObject":409,"lodash/lang/isString":411,"lodash/object/assign":414,"min-dom/lib/classes":256,"min-dom/lib/domify":260,"min-dom/lib/remove":264}],189:[function(require,module,exports){
+},{"../../util/Elements":312,"../../util/IdGenerator":316,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/lang/isArray":483,"lodash/lang/isObject":488,"lodash/lang/isString":490,"lodash/object/assign":493,"min-dom/lib/classes":331,"min-dom/lib/domify":335,"min-dom/lib/remove":339}],264:[function(require,module,exports){
 module.exports = {
   __init__: [ 'overlays' ],
   overlays: [ 'type', require('./Overlays') ]
 };
-},{"./Overlays":188}],190:[function(require,module,exports){
+},{"./Overlays":263}],265:[function(require,module,exports){
 'use strict';
 
 var isFunction = require('lodash/lang/isFunction'),
@@ -29966,7 +36229,7 @@ Palette.HTML_MARKUP =
     '<div class="djs-palette-toggle"></div>' +
   '</div>';
 
-},{"lodash/collection/forEach":291,"lodash/lang/isFunction":406,"min-dom/lib/attr":255,"min-dom/lib/classes":256,"min-dom/lib/clear":257,"min-dom/lib/delegate":259,"min-dom/lib/domify":260,"min-dom/lib/event":261,"min-dom/lib/matches":262,"min-dom/lib/query":263}],191:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/lang/isFunction":485,"min-dom/lib/attr":330,"min-dom/lib/classes":331,"min-dom/lib/clear":332,"min-dom/lib/delegate":334,"min-dom/lib/domify":335,"min-dom/lib/event":336,"min-dom/lib/matches":337,"min-dom/lib/query":338}],266:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -29975,7 +36238,7 @@ module.exports = {
   palette: [ 'type', require('./Palette') ]
 };
 
-},{"../tool-manager":216,"./Palette":190}],192:[function(require,module,exports){
+},{"../tool-manager":291,"./Palette":265}],267:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -30408,7 +36671,7 @@ PopupMenu.prototype._unbindHandlers = function() {
 
 module.exports = PopupMenu;
 
-},{"lodash/collection/find":290,"lodash/collection/forEach":291,"lodash/object/assign":414,"min-dom/lib/attr":255,"min-dom/lib/classes":256,"min-dom/lib/delegate":259,"min-dom/lib/domify":260,"min-dom/lib/remove":264}],193:[function(require,module,exports){
+},{"lodash/collection/find":367,"lodash/collection/forEach":368,"lodash/object/assign":493,"min-dom/lib/attr":330,"min-dom/lib/classes":331,"min-dom/lib/delegate":334,"min-dom/lib/domify":335,"min-dom/lib/remove":339}],268:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -30416,7 +36679,7 @@ module.exports = {
   popupMenu: [ 'type', require('./PopupMenu') ]
 };
 
-},{"./PopupMenu":192}],194:[function(require,module,exports){
+},{"./PopupMenu":267}],269:[function(require,module,exports){
 'use strict';
 
 
@@ -30465,7 +36728,7 @@ Replace.prototype.replaceElement = function(oldElement, newElementData, options)
   return newElement;
 };
 
-},{}],195:[function(require,module,exports){
+},{}],270:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -30473,7 +36736,7 @@ module.exports = {
   replace: [ 'type', require('./Replace') ]
 };
 
-},{"./Replace":194}],196:[function(require,module,exports){
+},{"./Replace":269}],271:[function(require,module,exports){
 'use strict';
 
 var pick = require('lodash/object/pick'),
@@ -30664,7 +36927,7 @@ Resize.$inject = [ 'eventBus', 'rules', 'modeling', 'dragging' ];
 
 module.exports = Resize;
 
-},{"../../layout/LayoutUtil":224,"./ResizeUtil":198,"lodash/object/assign":414,"lodash/object/pick":420}],197:[function(require,module,exports){
+},{"../../layout/LayoutUtil":299,"./ResizeUtil":273,"lodash/object/assign":493,"lodash/object/pick":500}],272:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -30820,7 +37083,7 @@ ResizeHandles.$inject = [ 'eventBus', 'canvas', 'selection', 'resize' ];
 
 module.exports = ResizeHandles;
 
-},{"../../../vendor/snapsvg":277,"../../layout/LayoutUtil":224,"../../util/Mouse":244,"lodash/collection/forEach":291,"min-dom/lib/event":261}],198:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../layout/LayoutUtil":299,"../../util/Mouse":319,"lodash/collection/forEach":368,"min-dom/lib/event":336}],273:[function(require,module,exports){
 'use strict';
 
 var filter = require('lodash/collection/filter');
@@ -31084,7 +37347,7 @@ function computeChildrenBBox(shapeOrChildren, padding) {
 
 module.exports.computeChildrenBBox = computeChildrenBBox;
 
-},{"../../layout/LayoutUtil":224,"../../util/Elements":237,"lodash/collection/filter":289}],199:[function(require,module,exports){
+},{"../../layout/LayoutUtil":299,"../../util/Elements":312,"lodash/collection/filter":366}],274:[function(require,module,exports){
 'use strict';
 
 var Snap = require('../../../vendor/snapsvg');
@@ -31188,7 +37451,7 @@ ResizeVisuals.$inject = [ 'eventBus', 'canvas' ];
 
 module.exports = ResizeVisuals;
 
-},{"../../../vendor/snapsvg":277}],200:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352}],275:[function(require,module,exports){
 module.exports = {
   __depends__: [
     require('../modeling'),
@@ -31201,7 +37464,7 @@ module.exports = {
   resizeHandles: [ 'type', require('./ResizeHandles') ]
 };
 
-},{"../dragging":147,"../modeling":181,"../rules":203,"./Resize":196,"./ResizeHandles":197,"./ResizeVisuals":199}],201:[function(require,module,exports){
+},{"../dragging":222,"../modeling":256,"../rules":278,"./Resize":271,"./ResizeHandles":272,"./ResizeVisuals":274}],276:[function(require,module,exports){
 
 'use strict';
 
@@ -31294,7 +37557,7 @@ RuleProvider.prototype.addRule = function(actions, priority, fn) {
  * Implement this method to add new rules during provider initialization.
  */
 RuleProvider.prototype.init = function() {};
-},{"../../command/CommandInterceptor":116,"inherits":278}],202:[function(require,module,exports){
+},{"../../command/CommandInterceptor":191,"inherits":353}],277:[function(require,module,exports){
 'use strict';
 
 /**
@@ -31327,14 +37590,14 @@ Rules.prototype.allowed = function(action, context) {
   // map undefined to true, i.e. no rules
   return allowed === undefined ? true : allowed;
 };
-},{}],203:[function(require,module,exports){
+},{}],278:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('../../command' ) ],
   __init__: [ 'rules' ],
   rules: [ 'type', require('./Rules') ]
 };
 
-},{"../../command":118,"./Rules":202}],204:[function(require,module,exports){
+},{"../../command":193,"./Rules":277}],279:[function(require,module,exports){
 'use strict';
 
 var isArray = require('lodash/lang/isArray'),
@@ -31428,7 +37691,7 @@ Selection.prototype.select = function(elements, add) {
   this._eventBus.fire('selection.changed', { oldSelection: oldSelection, newSelection: selectedElements });
 };
 
-},{"lodash/collection/forEach":291,"lodash/lang/isArray":405}],205:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/lang/isArray":483}],280:[function(require,module,exports){
 'use strict';
 
 var hasPrimaryModifier = require('../../util/Mouse').hasPrimaryModifier;
@@ -31503,7 +37766,7 @@ function SelectionBehavior(eventBus, selection, canvas, elementRegistry) {
 SelectionBehavior.$inject = [ 'eventBus', 'selection', 'canvas', 'elementRegistry' ];
 module.exports = SelectionBehavior;
 
-},{"../../util/Mouse":244}],206:[function(require,module,exports){
+},{"../../util/Mouse":319}],281:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -31581,7 +37844,7 @@ SelectionVisuals.$inject = [
 
 module.exports = SelectionVisuals;
 
-},{"lodash/collection/forEach":291}],207:[function(require,module,exports){
+},{"lodash/collection/forEach":368}],282:[function(require,module,exports){
 module.exports = {
   __init__: [ 'selectionVisuals', 'selectionBehavior' ],
   __depends__: [
@@ -31593,7 +37856,7 @@ module.exports = {
   selectionBehavior: [ 'type', require('./SelectionBehavior') ]
 };
 
-},{"../interaction-events":153,"../outline":187,"./Selection":204,"./SelectionBehavior":205,"./SelectionVisuals":206}],208:[function(require,module,exports){
+},{"../interaction-events":228,"../outline":262,"./Selection":279,"./SelectionBehavior":280,"./SelectionVisuals":281}],283:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -31764,7 +38027,7 @@ SnapPoints.prototype.initDefaults = function(defaultSnaps) {
     });
   });
 };
-},{"./SnapUtil":209,"lodash/collection/forEach":291}],209:[function(require,module,exports){
+},{"./SnapUtil":284,"lodash/collection/forEach":368}],284:[function(require,module,exports){
 'use strict';
 
 var abs = Math.abs,
@@ -31893,7 +38156,7 @@ module.exports.setSnapped = function(event, axis, value) {
 
   return previousValue;
 };
-},{}],210:[function(require,module,exports){
+},{}],285:[function(require,module,exports){
 'use strict';
 
 var filter = require('lodash/collection/filter'),
@@ -32131,7 +38394,7 @@ Snapping.prototype.getSiblings = function(element, target) {
     return !e.hidden && !e.labelTarget && !e.waypoints && e.host !== element && e !== element;
   });
 };
-},{"./SnapContext":208,"./SnapUtil":209,"lodash/collection/filter":289,"lodash/collection/forEach":291,"lodash/function/debounce":301}],211:[function(require,module,exports){
+},{"./SnapContext":283,"./SnapUtil":284,"lodash/collection/filter":366,"lodash/collection/forEach":368,"lodash/function/debounce":379}],286:[function(require,module,exports){
 'use strict';
 
 var SpaceUtil = require('./SpaceUtil');
@@ -32384,7 +38647,7 @@ SpaceTool.prototype.isActive = function() {
   return context && /^spaceTool/.test(context.prefix);
 };
 
-},{"../../util/Cursor":236,"../../util/Elements":237,"../../util/Mouse":244,"./SpaceUtil":213,"lodash/object/assign":414}],212:[function(require,module,exports){
+},{"../../util/Cursor":311,"../../util/Elements":312,"../../util/Mouse":319,"./SpaceUtil":288,"lodash/object/assign":493}],287:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -32527,7 +38790,7 @@ SpaceToolVisuals.$inject = [ 'eventBus', 'elementRegistry', 'canvas', 'styles' ]
 
 module.exports = SpaceToolVisuals;
 
-},{"lodash/collection/forEach":291}],213:[function(require,module,exports){
+},{"lodash/collection/forEach":368}],288:[function(require,module,exports){
 'use strict';
 
 /**
@@ -32617,7 +38880,7 @@ module.exports.resizeBounds = function(bounds, direction, delta) {
       throw new Error('unrecognized direction: ' + direction);
   }
 };
-},{}],214:[function(require,module,exports){
+},{}],289:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -32632,7 +38895,7 @@ module.exports = {
   spaceToolVisuals: ['type', require('./SpaceToolVisuals') ]
 };
 
-},{"../dragging":147,"../modeling":181,"../rules":203,"../tool-manager":216,"./SpaceTool":211,"./SpaceToolVisuals":212}],215:[function(require,module,exports){
+},{"../dragging":222,"../modeling":256,"../rules":278,"../tool-manager":291,"./SpaceTool":286,"./SpaceToolVisuals":287}],290:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach');
@@ -32729,7 +38992,7 @@ ToolManager.prototype.bindEvents = function(name, events) {
   }, this);
 };
 
-},{"lodash/collection/forEach":291}],216:[function(require,module,exports){
+},{"lodash/collection/forEach":368}],291:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -32738,7 +39001,7 @@ module.exports = {
   toolManager: [ 'type', require('./ToolManager') ]
 };
 
-},{"../dragging":147,"./ToolManager":215}],217:[function(require,module,exports){
+},{"../dragging":222,"./ToolManager":290}],292:[function(require,module,exports){
 'use strict';
 
 var isString = require('lodash/lang/isString'),
@@ -33103,12 +39366,12 @@ Tooltips.prototype._init = function() {
   });
 };
 
-},{"../../util/IdGenerator":241,"lodash/collection/forEach":291,"lodash/lang/isString":411,"lodash/object/assign":414,"min-dom/lib/attr":255,"min-dom/lib/classes":256,"min-dom/lib/delegate":259,"min-dom/lib/domify":260,"min-dom/lib/remove":264}],218:[function(require,module,exports){
+},{"../../util/IdGenerator":316,"lodash/collection/forEach":368,"lodash/lang/isString":490,"lodash/object/assign":493,"min-dom/lib/attr":330,"min-dom/lib/classes":331,"min-dom/lib/delegate":334,"min-dom/lib/domify":335,"min-dom/lib/remove":339}],293:[function(require,module,exports){
 module.exports = {
   __init__: [ 'tooltips' ],
   tooltips: [ 'type', require('./Tooltips') ]
 };
-},{"./Tooltips":217}],219:[function(require,module,exports){
+},{"./Tooltips":292}],294:[function(require,module,exports){
 'use strict';
 
 function TouchFix(canvas, eventBus) {
@@ -33143,7 +39406,7 @@ TouchFix.prototype.addBBoxMarker = function(paper) {
   paper.rect(10000, 10000, 10, 10).attr(markerStyle);
 };
 
-},{}],220:[function(require,module,exports){
+},{}],295:[function(require,module,exports){
 'use strict';
 
 var forEach = require('lodash/collection/forEach'),
@@ -33476,14 +39739,14 @@ TouchInteractionEvents.$inject = [
 ];
 
 module.exports = TouchInteractionEvents;
-},{"../../../vendor/snapsvg":277,"../../util/Event":238,"hammerjs":254,"lodash/collection/forEach":291,"min-dom/lib/closest":258,"min-dom/lib/event":261}],221:[function(require,module,exports){
+},{"../../../vendor/snapsvg":352,"../../util/Event":313,"hammerjs":329,"lodash/collection/forEach":368,"min-dom/lib/closest":333,"min-dom/lib/event":336}],296:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('../interaction-events') ],
   __init__: [ 'touchInteractionEvents' ],
   touchInteractionEvents: [ 'type', require('./TouchInteractionEvents') ],
   touchFix: [ 'type', require('./TouchFix') ]
 };
-},{"../interaction-events":153,"./TouchFix":219,"./TouchInteractionEvents":220}],222:[function(require,module,exports){
+},{"../interaction-events":228,"./TouchFix":294,"./TouchInteractionEvents":295}],297:[function(require,module,exports){
 'use strict';
 
 var getMid = require('./LayoutUtil').getMid;
@@ -33516,7 +39779,7 @@ BaseLayouter.prototype.layoutConnection = function(connection, hints) {
   ];
 };
 
-},{"./LayoutUtil":224}],223:[function(require,module,exports){
+},{"./LayoutUtil":299}],298:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign');
@@ -33613,7 +39876,7 @@ CroppingConnectionDocking.prototype._getGfx = function(element) {
   return this._elementRegistry.getGraphics(element);
 };
 
-},{"./LayoutUtil":224,"lodash/object/assign":414}],224:[function(require,module,exports){
+},{"./LayoutUtil":299,"lodash/object/assign":493}],299:[function(require,module,exports){
 'use strict';
 
 var isObject = require('lodash/lang/isObject'),
@@ -33794,7 +40057,7 @@ function getIntersections(a, b) {
 
 module.exports.getIntersections = getIntersections;
 
-},{"../../vendor/snapsvg":277,"../util/Geometry":239,"lodash/collection/sortBy":298,"lodash/lang/isObject":409}],225:[function(require,module,exports){
+},{"../../vendor/snapsvg":352,"../util/Geometry":314,"lodash/collection/sortBy":376,"lodash/lang/isObject":488}],300:[function(require,module,exports){
 'use strict';
 
 var isArray = require('lodash/lang/isArray'),
@@ -34249,7 +40512,7 @@ function getDirections(orientation, defaultLayout) {
   }
 }
 
-},{"../util/Geometry":239,"./LayoutUtil":224,"lodash/array/without":285,"lodash/collection/find":290,"lodash/lang/isArray":405,"lodash/object/assign":414}],226:[function(require,module,exports){
+},{"../util/Geometry":314,"./LayoutUtil":299,"lodash/array/without":361,"lodash/collection/find":367,"lodash/lang/isArray":483,"lodash/object/assign":493}],301:[function(require,module,exports){
 'use strict';
 
 var assign = require('lodash/object/assign'),
@@ -34465,7 +40728,7 @@ module.exports.Shape = Shape;
 module.exports.Connection = Connection;
 module.exports.Label = Label;
 
-},{"inherits":278,"lodash/object/assign":414,"object-refs":273}],227:[function(require,module,exports){
+},{"inherits":353,"lodash/object/assign":493,"object-refs":348}],302:[function(require,module,exports){
 'use strict';
 
 var Cursor = require('../../util/Cursor'),
@@ -34563,16 +40826,16 @@ MoveCanvas.$inject = [ 'eventBus', 'canvas' ];
 
 module.exports = MoveCanvas;
 
-},{"../../util/ClickTrap":234,"../../util/Cursor":236,"../../util/Event":238,"../../util/Math":243,"min-dom/lib/event":261}],228:[function(require,module,exports){
+},{"../../util/ClickTrap":309,"../../util/Cursor":311,"../../util/Event":313,"../../util/Math":318,"min-dom/lib/event":336}],303:[function(require,module,exports){
 module.exports = {
   __init__: [ 'moveCanvas' ],
   moveCanvas: [ 'type', require('./MoveCanvas') ]
 };
-},{"./MoveCanvas":227}],229:[function(require,module,exports){
+},{"./MoveCanvas":302}],304:[function(require,module,exports){
 module.exports = {
   __depends__: [ require('../../features/touch') ]
 };
-},{"../../features/touch":221}],230:[function(require,module,exports){
+},{"../../features/touch":296}],305:[function(require,module,exports){
 'use strict';
 
 var domEvent = require('min-dom/lib/event');
@@ -34755,7 +41018,7 @@ ZoomScroll.prototype.toggle = function toggle(newEnabled) {
 ZoomScroll.prototype._init = function(newEnabled) {
   this.toggle(newEnabled);
 };
-},{"../../util/Math":243,"../../util/Mouse":244,"../../util/Platform":245,"./ZoomUtil":231,"lodash/function/bind":300,"min-dom/lib/event":261}],231:[function(require,module,exports){
+},{"../../util/Math":318,"../../util/Mouse":319,"../../util/Platform":320,"./ZoomUtil":306,"lodash/function/bind":378,"min-dom/lib/event":336}],306:[function(require,module,exports){
 'use strict';
 
 
@@ -34779,12 +41042,12 @@ module.exports.cap = function(range, scale) {
   return Math.max(range.min, Math.min(range.max, scale));
 };
 
-},{"../../util/Math":243}],232:[function(require,module,exports){
+},{"../../util/Math":318}],307:[function(require,module,exports){
 module.exports = {
   __init__: [ 'zoomScroll' ],
   zoomScroll: [ 'type', require('./ZoomScroll') ]
 };
-},{"./ZoomScroll":230}],233:[function(require,module,exports){
+},{"./ZoomScroll":305}],308:[function(require,module,exports){
 'use strict';
 
 var roundPoint = require('../layout/LayoutUtil').roundPoint;
@@ -34867,7 +41130,7 @@ function getNewAttachShapeDelta(shape, oldBounds, newBounds) {
 
 module.exports.getNewAttachShapeDelta = getNewAttachShapeDelta;
 
-},{"../layout/LayoutUtil":224}],234:[function(require,module,exports){
+},{"../layout/LayoutUtil":299}],309:[function(require,module,exports){
 'use strict';
 
 var domEvent = require('min-dom/lib/event'),
@@ -34898,7 +41161,7 @@ function install() {
 }
 
 module.exports.install = install;
-},{"./Event":238,"min-dom/lib/event":261}],235:[function(require,module,exports){
+},{"./Event":313,"min-dom/lib/event":336}],310:[function(require,module,exports){
 'use strict';
 
 /**
@@ -34989,7 +41252,7 @@ module.exports.indexOf = function(collection, element) {
   return collection.indexOf(element);
 };
 
-},{}],236:[function(require,module,exports){
+},{}],311:[function(require,module,exports){
 'use strict';
 
 var domClasses = require('min-dom/lib/classes');
@@ -35017,7 +41280,7 @@ module.exports.has = function(mode) {
   return classes.has('djs-cursor-' + mode);
 };
 
-},{"min-dom/lib/classes":256}],237:[function(require,module,exports){
+},{"min-dom/lib/classes":331}],312:[function(require,module,exports){
 'use strict';
 
 var isArray = require('lodash/lang/isArray'),
@@ -35297,7 +41560,7 @@ module.exports.getEnclosedElements = getEnclosedElements;
 
 module.exports.getClosure = getClosure;
 
-},{"lodash/collection/forEach":291,"lodash/collection/groupBy":292,"lodash/lang/isArray":405,"lodash/lang/isNumber":408}],238:[function(require,module,exports){
+},{"lodash/collection/forEach":368,"lodash/collection/groupBy":369,"lodash/lang/isArray":483,"lodash/lang/isNumber":487}],313:[function(require,module,exports){
 'use strict';
 
 function __preventDefault(event) {
@@ -35368,7 +41631,7 @@ function toPoint(event) {
 
 module.exports.toPoint = toPoint;
 
-},{}],239:[function(require,module,exports){
+},{}],314:[function(require,module,exports){
 'use strict';
 
 /**
@@ -35469,7 +41732,7 @@ module.exports.getMidPoint = function(p, q) {
   };
 };
 
-},{}],240:[function(require,module,exports){
+},{}],315:[function(require,module,exports){
 'use strict';
 
 /**
@@ -35515,7 +41778,7 @@ function getBBox(gfx) {
 module.exports.getVisual = getVisual;
 module.exports.getChildren = getChildren;
 module.exports.getBBox = getBBox;
-},{}],241:[function(require,module,exports){
+},{}],316:[function(require,module,exports){
 'use strict';
 
 /**
@@ -35548,7 +41811,7 @@ IdGenerator.prototype.next = function() {
   return this._prefix + (++this._counter);
 };
 
-},{}],242:[function(require,module,exports){
+},{}],317:[function(require,module,exports){
 'use strict';
 
 var pointDistance = require('./Geometry').pointDistance;
@@ -35660,7 +41923,7 @@ function getPathIntersection(waypoints, reference) {
 module.exports.getApproxIntersection = function(waypoints, reference) {
   return getBendpointIntersection(waypoints, reference) || getPathIntersection(waypoints, reference);
 };
-},{"../../vendor/snapsvg":277,"./Geometry":239}],243:[function(require,module,exports){
+},{"../../vendor/snapsvg":352,"./Geometry":314}],318:[function(require,module,exports){
 'use strict';
 
 /**
@@ -35683,7 +41946,7 @@ function substract(p1, p2) {
 
 module.exports.substract = substract;
 
-},{}],244:[function(require,module,exports){
+},{}],319:[function(require,module,exports){
 'use strict';
 
 var getOriginalEvent = require('./Event').getOriginal;
@@ -35722,13 +41985,13 @@ module.exports.hasSecondaryModifier = function(event) {
   return isPrimaryButton(event) && originalEvent.shiftKey;
 };
 
-},{"./Event":238,"./Platform":245}],245:[function(require,module,exports){
+},{"./Event":313,"./Platform":320}],320:[function(require,module,exports){
 'use strict';
 
 module.exports.isMac = function isMac() {
   return (/mac/i).test(navigator.platform);
 };
-},{}],246:[function(require,module,exports){
+},{}],321:[function(require,module,exports){
 'use strict';
 
 
@@ -35767,7 +42030,7 @@ module.exports.saveClear = function(collection, removeFn) {
   return collection;
 };
 
-},{}],247:[function(require,module,exports){
+},{}],322:[function(require,module,exports){
 'use strict';
 
 var Snap = require('../../vendor/snapsvg');
@@ -35797,7 +42060,7 @@ module.exports.updateLine = function(gfx, points) {
   return gfx.attr({ points: toSVGPoints(points) });
 };
 
-},{"../../vendor/snapsvg":277}],248:[function(require,module,exports){
+},{"../../vendor/snapsvg":352}],323:[function(require,module,exports){
 'use strict';
 
 var isObject = require('lodash/lang/isObject'),
@@ -36049,7 +42312,7 @@ Text.prototype.createText = function(parent, text, options) {
 
 module.exports = Text;
 
-},{"../../vendor/snapsvg":277,"lodash/collection/forEach":291,"lodash/collection/reduce":295,"lodash/lang/isObject":409,"lodash/object/assign":414,"lodash/object/merge":417,"lodash/object/pick":420}],249:[function(require,module,exports){
+},{"../../vendor/snapsvg":352,"lodash/collection/forEach":368,"lodash/collection/reduce":373,"lodash/lang/isObject":488,"lodash/object/assign":493,"lodash/object/merge":497,"lodash/object/pick":500}],324:[function(require,module,exports){
 
 var isArray = function(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
@@ -36099,14 +42362,14 @@ exports.annotate = annotate;
 exports.parse = parse;
 exports.isArray = isArray;
 
-},{}],250:[function(require,module,exports){
+},{}],325:[function(require,module,exports){
 module.exports = {
   annotate: require('./annotation').annotate,
   Module: require('./module'),
   Injector: require('./injector')
 };
 
-},{"./annotation":249,"./injector":251,"./module":252}],251:[function(require,module,exports){
+},{"./annotation":324,"./injector":326,"./module":327}],326:[function(require,module,exports){
 var Module = require('./module');
 var autoAnnotate = require('./annotation').parse;
 var annotate = require('./annotation').annotate;
@@ -36335,7 +42598,7 @@ var Injector = function(modules, parent) {
 
 module.exports = Injector;
 
-},{"./annotation":249,"./module":252}],252:[function(require,module,exports){
+},{"./annotation":324,"./module":327}],327:[function(require,module,exports){
 var Module = function() {
   var providers = [];
 
@@ -36361,7 +42624,7 @@ var Module = function() {
 
 module.exports = Module;
 
-},{}],253:[function(require,module,exports){
+},{}],328:[function(require,module,exports){
 // Copyright (c) 2013 Adobe Systems Incorporated. All rights reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -36766,7 +43029,7 @@ module.exports = Module;
     (typeof module != "undefined" && module.exports) ? (module.exports = eve) : (typeof define === "function" && define.amd ? (define("eve", [], function() { return eve; })) : (glob.eve = eve));
 })(this);
 
-},{}],254:[function(require,module,exports){
+},{}],329:[function(require,module,exports){
 /*! Hammer.JS - v2.0.6 - 2015-12-23
  * http://hammerjs.github.io/
  *
@@ -39336,280 +45599,49 @@ if (typeof define === 'function' && define.amd) {
 
 })(window, document, 'Hammer');
 
-},{}],255:[function(require,module,exports){
-/**
- * Set attribute `name` to `val`, or get attr `name`.
- *
- * @param {Element} el
- * @param {String} name
- * @param {String} [val]
- * @api public
- */
-
-module.exports = function(el, name, val) {
-  // get
-  if (arguments.length == 2) {
-    return el.getAttribute(name);
-  }
-
-  // remove
-  if (val === null) {
-    return el.removeAttribute(name);
-  }
-
-  // set
-  el.setAttribute(name, val);
-
-  return el;
-};
-},{}],256:[function(require,module,exports){
-module.exports = require('component-classes');
-},{"component-classes":265}],257:[function(require,module,exports){
-module.exports = function(el) {
-
-  var c;
-
-  while (el.childNodes.length) {
-    c = el.childNodes[0];
-    el.removeChild(c);
-  }
-
-  return el;
-};
-},{}],258:[function(require,module,exports){
-module.exports = require('component-closest');
-},{"component-closest":267}],259:[function(require,module,exports){
-arguments[4][100][0].apply(exports,arguments)
-},{"component-delegate":268,"dup":100}],260:[function(require,module,exports){
-arguments[4][101][0].apply(exports,arguments)
-},{"domify":272,"dup":101}],261:[function(require,module,exports){
-arguments[4][102][0].apply(exports,arguments)
-},{"component-event":269,"dup":102}],262:[function(require,module,exports){
-module.exports = require('component-matches-selector');
-},{"component-matches-selector":270}],263:[function(require,module,exports){
-arguments[4][103][0].apply(exports,arguments)
-},{"component-query":271,"dup":103}],264:[function(require,module,exports){
-arguments[4][104][0].apply(exports,arguments)
-},{"dup":104}],265:[function(require,module,exports){
-/**
- * Module dependencies.
- */
-
-try {
-  var index = require('indexof');
-} catch (err) {
-  var index = require('component-indexof');
-}
-
-/**
- * Whitespace regexp.
- */
-
-var re = /\s+/;
-
-/**
- * toString reference.
- */
-
-var toString = Object.prototype.toString;
-
-/**
- * Wrap `el` in a `ClassList`.
- *
- * @param {Element} el
- * @return {ClassList}
- * @api public
- */
-
-module.exports = function(el){
-  return new ClassList(el);
-};
-
-/**
- * Initialize a new ClassList for `el`.
- *
- * @param {Element} el
- * @api private
- */
-
-function ClassList(el) {
-  if (!el || !el.nodeType) {
-    throw new Error('A DOM element reference is required');
-  }
-  this.el = el;
-  this.list = el.classList;
-}
-
-/**
- * Add class `name` if not already present.
- *
- * @param {String} name
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.add = function(name){
-  // classList
-  if (this.list) {
-    this.list.add(name);
-    return this;
-  }
-
-  // fallback
-  var arr = this.array();
-  var i = index(arr, name);
-  if (!~i) arr.push(name);
-  this.el.className = arr.join(' ');
-  return this;
-};
-
-/**
- * Remove class `name` when present, or
- * pass a regular expression to remove
- * any which match.
- *
- * @param {String|RegExp} name
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.remove = function(name){
-  if ('[object RegExp]' == toString.call(name)) {
-    return this.removeMatching(name);
-  }
-
-  // classList
-  if (this.list) {
-    this.list.remove(name);
-    return this;
-  }
-
-  // fallback
-  var arr = this.array();
-  var i = index(arr, name);
-  if (~i) arr.splice(i, 1);
-  this.el.className = arr.join(' ');
-  return this;
-};
-
-/**
- * Remove all classes matching `re`.
- *
- * @param {RegExp} re
- * @return {ClassList}
- * @api private
- */
-
-ClassList.prototype.removeMatching = function(re){
-  var arr = this.array();
-  for (var i = 0; i < arr.length; i++) {
-    if (re.test(arr[i])) {
-      this.remove(arr[i]);
-    }
-  }
-  return this;
-};
-
-/**
- * Toggle class `name`, can force state via `force`.
- *
- * For browsers that support classList, but do not support `force` yet,
- * the mistake will be detected and corrected.
- *
- * @param {String} name
- * @param {Boolean} force
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.toggle = function(name, force){
-  // classList
-  if (this.list) {
-    if ("undefined" !== typeof force) {
-      if (force !== this.list.toggle(name, force)) {
-        this.list.toggle(name); // toggle again to correct
-      }
-    } else {
-      this.list.toggle(name);
-    }
-    return this;
-  }
-
-  // fallback
-  if ("undefined" !== typeof force) {
-    if (!force) {
-      this.remove(name);
-    } else {
-      this.add(name);
-    }
-  } else {
-    if (this.has(name)) {
-      this.remove(name);
-    } else {
-      this.add(name);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return an array of classes.
- *
- * @return {Array}
- * @api public
- */
-
-ClassList.prototype.array = function(){
-  var className = this.el.getAttribute('class') || '';
-  var str = className.replace(/^\s+|\s+$/g, '');
-  var arr = str.split(re);
-  if ('' === arr[0]) arr.shift();
-  return arr;
-};
-
-/**
- * Check if class `name` is present.
- *
- * @param {String} name
- * @return {ClassList}
- * @api public
- */
-
-ClassList.prototype.has =
-ClassList.prototype.contains = function(name){
-  return this.list
-    ? this.list.contains(name)
-    : !! ~index(this.array(), name);
-};
-
-},{"component-indexof":266,"indexof":266}],266:[function(require,module,exports){
-module.exports = function(arr, obj){
-  if (arr.indexOf) return arr.indexOf(obj);
-  for (var i = 0; i < arr.length; ++i) {
-    if (arr[i] === obj) return i;
-  }
-  return -1;
-};
-},{}],267:[function(require,module,exports){
-arguments[4][105][0].apply(exports,arguments)
-},{"dup":105,"matches-selector":270}],268:[function(require,module,exports){
-arguments[4][106][0].apply(exports,arguments)
-},{"closest":267,"component-closest":267,"component-event":269,"dup":106,"event":269}],269:[function(require,module,exports){
-arguments[4][107][0].apply(exports,arguments)
-},{"dup":107}],270:[function(require,module,exports){
-arguments[4][108][0].apply(exports,arguments)
-},{"component-query":271,"dup":108,"query":271}],271:[function(require,module,exports){
-arguments[4][109][0].apply(exports,arguments)
-},{"dup":109}],272:[function(require,module,exports){
-arguments[4][110][0].apply(exports,arguments)
-},{"dup":110}],273:[function(require,module,exports){
-arguments[4][111][0].apply(exports,arguments)
-},{"./lib/collection":274,"./lib/refs":275,"dup":111}],274:[function(require,module,exports){
-arguments[4][112][0].apply(exports,arguments)
-},{"dup":112}],275:[function(require,module,exports){
-arguments[4][113][0].apply(exports,arguments)
-},{"./collection":274,"dup":113}],276:[function(require,module,exports){
+},{}],330:[function(require,module,exports){
+arguments[4][52][0].apply(exports,arguments)
+},{"dup":52}],331:[function(require,module,exports){
+arguments[4][53][0].apply(exports,arguments)
+},{"component-classes":340,"dup":53}],332:[function(require,module,exports){
+arguments[4][54][0].apply(exports,arguments)
+},{"dup":54}],333:[function(require,module,exports){
+arguments[4][55][0].apply(exports,arguments)
+},{"component-closest":342,"dup":55}],334:[function(require,module,exports){
+arguments[4][56][0].apply(exports,arguments)
+},{"component-delegate":343,"dup":56}],335:[function(require,module,exports){
+arguments[4][57][0].apply(exports,arguments)
+},{"domify":347,"dup":57}],336:[function(require,module,exports){
+arguments[4][58][0].apply(exports,arguments)
+},{"component-event":344,"dup":58}],337:[function(require,module,exports){
+arguments[4][59][0].apply(exports,arguments)
+},{"component-matches-selector":345,"dup":59}],338:[function(require,module,exports){
+arguments[4][60][0].apply(exports,arguments)
+},{"component-query":346,"dup":60}],339:[function(require,module,exports){
+arguments[4][61][0].apply(exports,arguments)
+},{"dup":61}],340:[function(require,module,exports){
+arguments[4][62][0].apply(exports,arguments)
+},{"component-indexof":341,"dup":62,"indexof":341}],341:[function(require,module,exports){
+arguments[4][63][0].apply(exports,arguments)
+},{"dup":63}],342:[function(require,module,exports){
+arguments[4][64][0].apply(exports,arguments)
+},{"dup":64,"matches-selector":345}],343:[function(require,module,exports){
+arguments[4][65][0].apply(exports,arguments)
+},{"closest":342,"component-closest":342,"component-event":344,"dup":65,"event":344}],344:[function(require,module,exports){
+arguments[4][66][0].apply(exports,arguments)
+},{"dup":66}],345:[function(require,module,exports){
+arguments[4][67][0].apply(exports,arguments)
+},{"component-query":346,"dup":67,"query":346}],346:[function(require,module,exports){
+arguments[4][68][0].apply(exports,arguments)
+},{"dup":68}],347:[function(require,module,exports){
+arguments[4][69][0].apply(exports,arguments)
+},{"dup":69}],348:[function(require,module,exports){
+arguments[4][186][0].apply(exports,arguments)
+},{"./lib/collection":349,"./lib/refs":350,"dup":186}],349:[function(require,module,exports){
+arguments[4][187][0].apply(exports,arguments)
+},{"dup":187}],350:[function(require,module,exports){
+arguments[4][188][0].apply(exports,arguments)
+},{"./collection":349,"dup":188}],351:[function(require,module,exports){
 // Snap.svg 0.3.0
 // 
 // Copyright (c) 2013 – 2014 Adobe Systems Incorporated. All rights reserved.
@@ -46262,7 +52294,7 @@ Snap.plugin(function (Snap, Element, Paper, glob) {
 
 return Snap;
 }));
-},{"eve":253}],277:[function(require,module,exports){
+},{"eve":328}],352:[function(require,module,exports){
 'use strict';
 
 var snapsvg = module.exports = require('snapsvg');
@@ -46471,7 +52503,7 @@ snapsvg.plugin(function(Snap, Element, Paper, global) {
     return new Snap(svg);
   };
 });
-},{"snapsvg":276}],278:[function(require,module,exports){
+},{"snapsvg":351}],353:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -46496,9 +52528,9 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],279:[function(require,module,exports){
+},{}],354:[function(require,module,exports){
 /*!
- * jQuery JavaScript Library v2.2.2
+ * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -46508,7 +52540,7 @@ if (typeof Object.create === 'function') {
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2016-03-17T17:51Z
+ * Date: 2016-05-20T17:23Z
  */
 
 (function( global, factory ) {
@@ -46564,7 +52596,7 @@ var support = {};
 
 
 var
-	version = "2.2.2",
+	version = "2.2.4",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -51505,13 +57537,14 @@ jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
 	isPropagationStopped: returnFalse,
 	isImmediatePropagationStopped: returnFalse,
+	isSimulated: false,
 
 	preventDefault: function() {
 		var e = this.originalEvent;
 
 		this.isDefaultPrevented = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.preventDefault();
 		}
 	},
@@ -51520,7 +57553,7 @@ jQuery.Event.prototype = {
 
 		this.isPropagationStopped = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.stopPropagation();
 		}
 	},
@@ -51529,7 +57562,7 @@ jQuery.Event.prototype = {
 
 		this.isImmediatePropagationStopped = returnTrue;
 
-		if ( e ) {
+		if ( e && !this.isSimulated ) {
 			e.stopImmediatePropagation();
 		}
 
@@ -52459,19 +58492,6 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 		styles = getStyles( elem ),
 		isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
-
-	// Support: IE11 only
-	// In IE 11 fullscreen elements inside of an iframe have
-	// 100x too small dimensions (gh-1764).
-	if ( document.msFullscreenElement && window.top !== window ) {
-
-		// Support: IE11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = Math.round( elem.getBoundingClientRect()[ name ] * 100 );
-		}
-	}
 
 	// Some non-html elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -54363,6 +60383,7 @@ jQuery.extend( jQuery.event, {
 	},
 
 	// Piggyback on a donor event to simulate a different one
+	// Used only for `focus(in | out)` events
 	simulate: function( type, elem, event ) {
 		var e = jQuery.extend(
 			new jQuery.Event(),
@@ -54370,27 +60391,10 @@ jQuery.extend( jQuery.event, {
 			{
 				type: type,
 				isSimulated: true
-
-				// Previously, `originalEvent: {}` was set here, so stopPropagation call
-				// would not be triggered on donor event, since in our own
-				// jQuery.event.stopPropagation function we had a check for existence of
-				// originalEvent.stopPropagation method, so, consequently it would be a noop.
-				//
-				// But now, this "simulate" function is used only for events
-				// for which stopPropagation() is noop, so there is no need for that anymore.
-				//
-				// For the 1.x branch though, guard for "click" and "submit"
-				// events is still used, but was moved to jQuery.event.stopPropagation function
-				// because `originalEvent` should point to the original event for the constancy
-				// with other events and for more focused logic
 			}
 		);
 
 		jQuery.event.trigger( e, null, elem );
-
-		if ( e.isDefaultPrevented() ) {
-			event.preventDefault();
-		}
 	}
 
 } );
@@ -55974,7 +61978,7 @@ jQuery.fn.load = function( url, params, callback ) {
 		// If it fails, this function gets "jqXHR", "status", "error"
 		} ).always( callback && function( jqXHR, status ) {
 			self.each( function() {
-				callback.apply( self, response || [ jqXHR.responseText, status, jqXHR ] );
+				callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
 			} );
 		} );
 	}
@@ -56340,7 +62344,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],280:[function(require,module,exports){
+},{}],355:[function(require,module,exports){
 var createFindIndex = require('../internal/createFindIndex');
 
 /**
@@ -56395,7 +62399,7 @@ var findIndex = createFindIndex();
 
 module.exports = findIndex;
 
-},{"../internal/createFindIndex":368}],281:[function(require,module,exports){
+},{"../internal/createFindIndex":446}],356:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten'),
     isIterateeCall = require('../internal/isIterateeCall');
 
@@ -56429,7 +62433,30 @@ function flatten(array, isDeep, guard) {
 
 module.exports = flatten;
 
-},{"../internal/baseFlatten":329,"../internal/isIterateeCall":385}],282:[function(require,module,exports){
+},{"../internal/baseFlatten":407,"../internal/isIterateeCall":463}],357:[function(require,module,exports){
+var baseFlatten = require('../internal/baseFlatten');
+
+/**
+ * Recursively flattens a nested array.
+ *
+ * @static
+ * @memberOf _
+ * @category Array
+ * @param {Array} array The array to recursively flatten.
+ * @returns {Array} Returns the new flattened array.
+ * @example
+ *
+ * _.flattenDeep([1, [2, 3, [4]]]);
+ * // => [1, 2, 3, 4]
+ */
+function flattenDeep(array) {
+  var length = array ? array.length : 0;
+  return length ? baseFlatten(array, true) : [];
+}
+
+module.exports = flattenDeep;
+
+},{"../internal/baseFlatten":407}],358:[function(require,module,exports){
 /**
  * Gets the last element of `array`.
  *
@@ -56450,7 +62477,7 @@ function last(array) {
 
 module.exports = last;
 
-},{}],283:[function(require,module,exports){
+},{}],359:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseUniq = require('../internal/baseUniq'),
     isIterateeCall = require('../internal/isIterateeCall'),
@@ -56523,10 +62550,10 @@ function uniq(array, isSorted, iteratee, thisArg) {
 
 module.exports = uniq;
 
-},{"../internal/baseCallback":318,"../internal/baseUniq":352,"../internal/isIterateeCall":385,"../internal/sortedUniq":400}],284:[function(require,module,exports){
+},{"../internal/baseCallback":396,"../internal/baseUniq":430,"../internal/isIterateeCall":463,"../internal/sortedUniq":478}],360:[function(require,module,exports){
 module.exports = require('./uniq');
 
-},{"./uniq":283}],285:[function(require,module,exports){
+},{"./uniq":359}],361:[function(require,module,exports){
 var baseDifference = require('../internal/baseDifference'),
     isArrayLike = require('../internal/isArrayLike'),
     restParam = require('../function/restParam');
@@ -56555,7 +62582,44 @@ var without = restParam(function(array, values) {
 
 module.exports = without;
 
-},{"../function/restParam":303,"../internal/baseDifference":323,"../internal/isArrayLike":383}],286:[function(require,module,exports){
+},{"../function/restParam":381,"../internal/baseDifference":401,"../internal/isArrayLike":461}],362:[function(require,module,exports){
+var arrayPush = require('../internal/arrayPush'),
+    baseDifference = require('../internal/baseDifference'),
+    baseUniq = require('../internal/baseUniq'),
+    isArrayLike = require('../internal/isArrayLike');
+
+/**
+ * Creates an array of unique values that is the [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference)
+ * of the provided arrays.
+ *
+ * @static
+ * @memberOf _
+ * @category Array
+ * @param {...Array} [arrays] The arrays to inspect.
+ * @returns {Array} Returns the new array of values.
+ * @example
+ *
+ * _.xor([1, 2], [4, 2]);
+ * // => [1, 4]
+ */
+function xor() {
+  var index = -1,
+      length = arguments.length;
+
+  while (++index < length) {
+    var array = arguments[index];
+    if (isArrayLike(array)) {
+      var result = result
+        ? arrayPush(baseDifference(result, array), baseDifference(array, result))
+        : array;
+    }
+  }
+  return result ? baseUniq(result) : [];
+}
+
+module.exports = xor;
+
+},{"../internal/arrayPush":391,"../internal/baseDifference":401,"../internal/baseUniq":430,"../internal/isArrayLike":461}],363:[function(require,module,exports){
 var LazyWrapper = require('../internal/LazyWrapper'),
     LodashWrapper = require('../internal/LodashWrapper'),
     baseLodash = require('../internal/baseLodash'),
@@ -56682,10 +62746,10 @@ lodash.prototype = baseLodash.prototype;
 
 module.exports = lodash;
 
-},{"../internal/LazyWrapper":305,"../internal/LodashWrapper":306,"../internal/baseLodash":338,"../internal/isObjectLike":389,"../internal/wrapperClone":403,"../lang/isArray":405}],287:[function(require,module,exports){
+},{"../internal/LazyWrapper":383,"../internal/LodashWrapper":384,"../internal/baseLodash":416,"../internal/isObjectLike":467,"../internal/wrapperClone":481,"../lang/isArray":483}],364:[function(require,module,exports){
 module.exports = require('./some');
 
-},{"./some":297}],288:[function(require,module,exports){
+},{"./some":375}],365:[function(require,module,exports){
 var arrayEvery = require('../internal/arrayEvery'),
     baseCallback = require('../internal/baseCallback'),
     baseEvery = require('../internal/baseEvery'),
@@ -56753,7 +62817,7 @@ function every(collection, predicate, thisArg) {
 
 module.exports = every;
 
-},{"../internal/arrayEvery":310,"../internal/baseCallback":318,"../internal/baseEvery":325,"../internal/isIterateeCall":385,"../lang/isArray":405}],289:[function(require,module,exports){
+},{"../internal/arrayEvery":388,"../internal/baseCallback":396,"../internal/baseEvery":403,"../internal/isIterateeCall":463,"../lang/isArray":483}],366:[function(require,module,exports){
 var arrayFilter = require('../internal/arrayFilter'),
     baseCallback = require('../internal/baseCallback'),
     baseFilter = require('../internal/baseFilter'),
@@ -56816,7 +62880,7 @@ function filter(collection, predicate, thisArg) {
 
 module.exports = filter;
 
-},{"../internal/arrayFilter":311,"../internal/baseCallback":318,"../internal/baseFilter":326,"../lang/isArray":405}],290:[function(require,module,exports){
+},{"../internal/arrayFilter":389,"../internal/baseCallback":396,"../internal/baseFilter":404,"../lang/isArray":483}],367:[function(require,module,exports){
 var baseEach = require('../internal/baseEach'),
     createFind = require('../internal/createFind');
 
@@ -56874,7 +62938,7 @@ var find = createFind(baseEach);
 
 module.exports = find;
 
-},{"../internal/baseEach":324,"../internal/createFind":367}],291:[function(require,module,exports){
+},{"../internal/baseEach":402,"../internal/createFind":445}],368:[function(require,module,exports){
 var arrayEach = require('../internal/arrayEach'),
     baseEach = require('../internal/baseEach'),
     createForEach = require('../internal/createForEach');
@@ -56913,7 +62977,7 @@ var forEach = createForEach(arrayEach, baseEach);
 
 module.exports = forEach;
 
-},{"../internal/arrayEach":309,"../internal/baseEach":324,"../internal/createForEach":369}],292:[function(require,module,exports){
+},{"../internal/arrayEach":387,"../internal/baseEach":402,"../internal/createForEach":447}],369:[function(require,module,exports){
 var createAggregator = require('../internal/createAggregator');
 
 /** Used for native method references. */
@@ -56974,7 +63038,7 @@ var groupBy = createAggregator(function(result, value, key) {
 
 module.exports = groupBy;
 
-},{"../internal/createAggregator":360}],293:[function(require,module,exports){
+},{"../internal/createAggregator":438}],370:[function(require,module,exports){
 var baseIndexOf = require('../internal/baseIndexOf'),
     getLength = require('../internal/getLength'),
     isArray = require('../lang/isArray'),
@@ -57033,7 +63097,62 @@ function includes(collection, target, fromIndex, guard) {
 
 module.exports = includes;
 
-},{"../internal/baseIndexOf":334,"../internal/getLength":379,"../internal/isIterateeCall":385,"../internal/isLength":388,"../lang/isArray":405,"../lang/isString":411,"../object/values":422}],294:[function(require,module,exports){
+},{"../internal/baseIndexOf":412,"../internal/getLength":457,"../internal/isIterateeCall":463,"../internal/isLength":466,"../lang/isArray":483,"../lang/isString":490,"../object/values":502}],371:[function(require,module,exports){
+var createAggregator = require('../internal/createAggregator');
+
+/**
+ * Creates an object composed of keys generated from the results of running
+ * each element of `collection` through `iteratee`. The corresponding value
+ * of each key is the last element responsible for generating the key. The
+ * iteratee function is bound to `thisArg` and invoked with three arguments:
+ * (value, index|key, collection).
+ *
+ * If a property name is provided for `iteratee` the created `_.property`
+ * style callback returns the property value of the given element.
+ *
+ * If a value is also provided for `thisArg` the created `_.matchesProperty`
+ * style callback returns `true` for elements that have a matching property
+ * value, else `false`.
+ *
+ * If an object is provided for `iteratee` the created `_.matches` style
+ * callback returns `true` for elements that have the properties of the given
+ * object, else `false`.
+ *
+ * @static
+ * @memberOf _
+ * @category Collection
+ * @param {Array|Object|string} collection The collection to iterate over.
+ * @param {Function|Object|string} [iteratee=_.identity] The function invoked
+ *  per iteration.
+ * @param {*} [thisArg] The `this` binding of `iteratee`.
+ * @returns {Object} Returns the composed aggregate object.
+ * @example
+ *
+ * var keyData = [
+ *   { 'dir': 'left', 'code': 97 },
+ *   { 'dir': 'right', 'code': 100 }
+ * ];
+ *
+ * _.indexBy(keyData, 'dir');
+ * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
+ *
+ * _.indexBy(keyData, function(object) {
+ *   return String.fromCharCode(object.code);
+ * });
+ * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
+ *
+ * _.indexBy(keyData, function(object) {
+ *   return this.fromCharCode(object.code);
+ * }, String);
+ * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
+ */
+var indexBy = createAggregator(function(result, value, key) {
+  result[key] = value;
+});
+
+module.exports = indexBy;
+
+},{"../internal/createAggregator":438}],372:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     baseCallback = require('../internal/baseCallback'),
     baseMap = require('../internal/baseMap'),
@@ -57103,7 +63222,7 @@ function map(collection, iteratee, thisArg) {
 
 module.exports = map;
 
-},{"../internal/arrayMap":312,"../internal/baseCallback":318,"../internal/baseMap":339,"../lang/isArray":405}],295:[function(require,module,exports){
+},{"../internal/arrayMap":390,"../internal/baseCallback":396,"../internal/baseMap":417,"../lang/isArray":483}],373:[function(require,module,exports){
 var arrayReduce = require('../internal/arrayReduce'),
     baseEach = require('../internal/baseEach'),
     createReduce = require('../internal/createReduce');
@@ -57149,7 +63268,7 @@ var reduce = createReduce(arrayReduce, baseEach);
 
 module.exports = reduce;
 
-},{"../internal/arrayReduce":314,"../internal/baseEach":324,"../internal/createReduce":372}],296:[function(require,module,exports){
+},{"../internal/arrayReduce":392,"../internal/baseEach":402,"../internal/createReduce":450}],374:[function(require,module,exports){
 var getLength = require('../internal/getLength'),
     isLength = require('../internal/isLength'),
     keys = require('../object/keys');
@@ -57181,7 +63300,7 @@ function size(collection) {
 
 module.exports = size;
 
-},{"../internal/getLength":379,"../internal/isLength":388,"../object/keys":415}],297:[function(require,module,exports){
+},{"../internal/getLength":457,"../internal/isLength":466,"../object/keys":495}],375:[function(require,module,exports){
 var arraySome = require('../internal/arraySome'),
     baseCallback = require('../internal/baseCallback'),
     baseSome = require('../internal/baseSome'),
@@ -57250,7 +63369,7 @@ function some(collection, predicate, thisArg) {
 
 module.exports = some;
 
-},{"../internal/arraySome":315,"../internal/baseCallback":318,"../internal/baseSome":349,"../internal/isIterateeCall":385,"../lang/isArray":405}],298:[function(require,module,exports){
+},{"../internal/arraySome":393,"../internal/baseCallback":396,"../internal/baseSome":427,"../internal/isIterateeCall":463,"../lang/isArray":483}],376:[function(require,module,exports){
 var baseCallback = require('../internal/baseCallback'),
     baseMap = require('../internal/baseMap'),
     baseSortBy = require('../internal/baseSortBy'),
@@ -57323,7 +63442,7 @@ function sortBy(collection, iteratee, thisArg) {
 
 module.exports = sortBy;
 
-},{"../internal/baseCallback":318,"../internal/baseMap":339,"../internal/baseSortBy":350,"../internal/compareAscending":357,"../internal/isIterateeCall":385}],299:[function(require,module,exports){
+},{"../internal/baseCallback":396,"../internal/baseMap":417,"../internal/baseSortBy":428,"../internal/compareAscending":435,"../internal/isIterateeCall":463}],377:[function(require,module,exports){
 var getNative = require('../internal/getNative');
 
 /* Native method references for those with the same name as other `lodash` methods. */
@@ -57349,7 +63468,7 @@ var now = nativeNow || function() {
 
 module.exports = now;
 
-},{"../internal/getNative":381}],300:[function(require,module,exports){
+},{"../internal/getNative":459}],378:[function(require,module,exports){
 var createWrapper = require('../internal/createWrapper'),
     replaceHolders = require('../internal/replaceHolders'),
     restParam = require('./restParam');
@@ -57407,7 +63526,7 @@ bind.placeholder = {};
 
 module.exports = bind;
 
-},{"../internal/createWrapper":373,"../internal/replaceHolders":397,"./restParam":303}],301:[function(require,module,exports){
+},{"../internal/createWrapper":451,"../internal/replaceHolders":475,"./restParam":381}],379:[function(require,module,exports){
 var isObject = require('../lang/isObject'),
     now = require('../date/now');
 
@@ -57590,7 +63709,7 @@ function debounce(func, wait, options) {
 
 module.exports = debounce;
 
-},{"../date/now":299,"../lang/isObject":409}],302:[function(require,module,exports){
+},{"../date/now":377,"../lang/isObject":488}],380:[function(require,module,exports){
 var baseDelay = require('../internal/baseDelay'),
     restParam = require('./restParam');
 
@@ -57617,7 +63736,7 @@ var defer = restParam(function(func, args) {
 
 module.exports = defer;
 
-},{"../internal/baseDelay":322,"./restParam":303}],303:[function(require,module,exports){
+},{"../internal/baseDelay":400,"./restParam":381}],381:[function(require,module,exports){
 /** Used as the `TypeError` message for "Functions" methods. */
 var FUNC_ERROR_TEXT = 'Expected a function';
 
@@ -57677,7 +63796,7 @@ function restParam(func, start) {
 
 module.exports = restParam;
 
-},{}],304:[function(require,module,exports){
+},{}],382:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -70032,7 +76151,7 @@ module.exports = restParam;
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],305:[function(require,module,exports){
+},{}],383:[function(require,module,exports){
 var baseCreate = require('./baseCreate'),
     baseLodash = require('./baseLodash');
 
@@ -70060,7 +76179,7 @@ LazyWrapper.prototype.constructor = LazyWrapper;
 
 module.exports = LazyWrapper;
 
-},{"./baseCreate":321,"./baseLodash":338}],306:[function(require,module,exports){
+},{"./baseCreate":399,"./baseLodash":416}],384:[function(require,module,exports){
 var baseCreate = require('./baseCreate'),
     baseLodash = require('./baseLodash');
 
@@ -70083,7 +76202,7 @@ LodashWrapper.prototype.constructor = LodashWrapper;
 
 module.exports = LodashWrapper;
 
-},{"./baseCreate":321,"./baseLodash":338}],307:[function(require,module,exports){
+},{"./baseCreate":399,"./baseLodash":416}],385:[function(require,module,exports){
 (function (global){
 var cachePush = require('./cachePush'),
     getNative = require('./getNative');
@@ -70116,7 +76235,7 @@ SetCache.prototype.push = cachePush;
 module.exports = SetCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./cachePush":356,"./getNative":381}],308:[function(require,module,exports){
+},{"./cachePush":434,"./getNative":459}],386:[function(require,module,exports){
 /**
  * Copies the values of `source` to `array`.
  *
@@ -70138,7 +76257,7 @@ function arrayCopy(source, array) {
 
 module.exports = arrayCopy;
 
-},{}],309:[function(require,module,exports){
+},{}],387:[function(require,module,exports){
 /**
  * A specialized version of `_.forEach` for arrays without support for callback
  * shorthands and `this` binding.
@@ -70162,7 +76281,7 @@ function arrayEach(array, iteratee) {
 
 module.exports = arrayEach;
 
-},{}],310:[function(require,module,exports){
+},{}],388:[function(require,module,exports){
 /**
  * A specialized version of `_.every` for arrays without support for callback
  * shorthands and `this` binding.
@@ -70187,7 +76306,7 @@ function arrayEvery(array, predicate) {
 
 module.exports = arrayEvery;
 
-},{}],311:[function(require,module,exports){
+},{}],389:[function(require,module,exports){
 /**
  * A specialized version of `_.filter` for arrays without support for callback
  * shorthands and `this` binding.
@@ -70214,7 +76333,7 @@ function arrayFilter(array, predicate) {
 
 module.exports = arrayFilter;
 
-},{}],312:[function(require,module,exports){
+},{}],390:[function(require,module,exports){
 /**
  * A specialized version of `_.map` for arrays without support for callback
  * shorthands and `this` binding.
@@ -70237,7 +76356,7 @@ function arrayMap(array, iteratee) {
 
 module.exports = arrayMap;
 
-},{}],313:[function(require,module,exports){
+},{}],391:[function(require,module,exports){
 /**
  * Appends the elements of `values` to `array`.
  *
@@ -70259,7 +76378,7 @@ function arrayPush(array, values) {
 
 module.exports = arrayPush;
 
-},{}],314:[function(require,module,exports){
+},{}],392:[function(require,module,exports){
 /**
  * A specialized version of `_.reduce` for arrays without support for callback
  * shorthands and `this` binding.
@@ -70287,7 +76406,7 @@ function arrayReduce(array, iteratee, accumulator, initFromArray) {
 
 module.exports = arrayReduce;
 
-},{}],315:[function(require,module,exports){
+},{}],393:[function(require,module,exports){
 /**
  * A specialized version of `_.some` for arrays without support for callback
  * shorthands and `this` binding.
@@ -70312,7 +76431,7 @@ function arraySome(array, predicate) {
 
 module.exports = arraySome;
 
-},{}],316:[function(require,module,exports){
+},{}],394:[function(require,module,exports){
 var keys = require('../object/keys');
 
 /**
@@ -70346,7 +76465,7 @@ function assignWith(object, source, customizer) {
 
 module.exports = assignWith;
 
-},{"../object/keys":415}],317:[function(require,module,exports){
+},{"../object/keys":495}],395:[function(require,module,exports){
 var baseCopy = require('./baseCopy'),
     keys = require('../object/keys');
 
@@ -70367,7 +76486,7 @@ function baseAssign(object, source) {
 
 module.exports = baseAssign;
 
-},{"../object/keys":415,"./baseCopy":320}],318:[function(require,module,exports){
+},{"../object/keys":495,"./baseCopy":398}],396:[function(require,module,exports){
 var baseMatches = require('./baseMatches'),
     baseMatchesProperty = require('./baseMatchesProperty'),
     bindCallback = require('./bindCallback'),
@@ -70404,7 +76523,7 @@ function baseCallback(func, thisArg, argCount) {
 
 module.exports = baseCallback;
 
-},{"../utility/identity":423,"../utility/property":425,"./baseMatches":340,"./baseMatchesProperty":341,"./bindCallback":354}],319:[function(require,module,exports){
+},{"../utility/identity":503,"../utility/property":505,"./baseMatches":418,"./baseMatchesProperty":419,"./bindCallback":432}],397:[function(require,module,exports){
 /**
  * The base implementation of `compareAscending` which compares values and
  * sorts them in ascending order without guaranteeing a stable sort.
@@ -70440,7 +76559,7 @@ function baseCompareAscending(value, other) {
 
 module.exports = baseCompareAscending;
 
-},{}],320:[function(require,module,exports){
+},{}],398:[function(require,module,exports){
 /**
  * Copies properties of `source` to `object`.
  *
@@ -70465,7 +76584,7 @@ function baseCopy(source, props, object) {
 
 module.exports = baseCopy;
 
-},{}],321:[function(require,module,exports){
+},{}],399:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -70490,7 +76609,7 @@ var baseCreate = (function() {
 
 module.exports = baseCreate;
 
-},{"../lang/isObject":409}],322:[function(require,module,exports){
+},{"../lang/isObject":488}],400:[function(require,module,exports){
 /** Used as the `TypeError` message for "Functions" methods. */
 var FUNC_ERROR_TEXT = 'Expected a function';
 
@@ -70513,7 +76632,7 @@ function baseDelay(func, wait, args) {
 
 module.exports = baseDelay;
 
-},{}],323:[function(require,module,exports){
+},{}],401:[function(require,module,exports){
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
@@ -70570,7 +76689,7 @@ function baseDifference(array, values) {
 
 module.exports = baseDifference;
 
-},{"./baseIndexOf":334,"./cacheIndexOf":355,"./createCache":365}],324:[function(require,module,exports){
+},{"./baseIndexOf":412,"./cacheIndexOf":433,"./createCache":443}],402:[function(require,module,exports){
 var baseForOwn = require('./baseForOwn'),
     createBaseEach = require('./createBaseEach');
 
@@ -70587,7 +76706,7 @@ var baseEach = createBaseEach(baseForOwn);
 
 module.exports = baseEach;
 
-},{"./baseForOwn":332,"./createBaseEach":362}],325:[function(require,module,exports){
+},{"./baseForOwn":410,"./createBaseEach":440}],403:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -70611,7 +76730,7 @@ function baseEvery(collection, predicate) {
 
 module.exports = baseEvery;
 
-},{"./baseEach":324}],326:[function(require,module,exports){
+},{"./baseEach":402}],404:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -70635,7 +76754,7 @@ function baseFilter(collection, predicate) {
 
 module.exports = baseFilter;
 
-},{"./baseEach":324}],327:[function(require,module,exports){
+},{"./baseEach":402}],405:[function(require,module,exports){
 /**
  * The base implementation of `_.find`, `_.findLast`, `_.findKey`, and `_.findLastKey`,
  * without support for callback shorthands and `this` binding, which iterates
@@ -70662,7 +76781,7 @@ function baseFind(collection, predicate, eachFunc, retKey) {
 
 module.exports = baseFind;
 
-},{}],328:[function(require,module,exports){
+},{}],406:[function(require,module,exports){
 /**
  * The base implementation of `_.findIndex` and `_.findLastIndex` without
  * support for callback shorthands and `this` binding.
@@ -70687,7 +76806,7 @@ function baseFindIndex(array, predicate, fromRight) {
 
 module.exports = baseFindIndex;
 
-},{}],329:[function(require,module,exports){
+},{}],407:[function(require,module,exports){
 var arrayPush = require('./arrayPush'),
     isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
@@ -70730,7 +76849,7 @@ function baseFlatten(array, isDeep, isStrict, result) {
 
 module.exports = baseFlatten;
 
-},{"../lang/isArguments":404,"../lang/isArray":405,"./arrayPush":313,"./isArrayLike":383,"./isObjectLike":389}],330:[function(require,module,exports){
+},{"../lang/isArguments":482,"../lang/isArray":483,"./arrayPush":391,"./isArrayLike":461,"./isObjectLike":467}],408:[function(require,module,exports){
 var createBaseFor = require('./createBaseFor');
 
 /**
@@ -70749,7 +76868,7 @@ var baseFor = createBaseFor();
 
 module.exports = baseFor;
 
-},{"./createBaseFor":363}],331:[function(require,module,exports){
+},{"./createBaseFor":441}],409:[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keysIn = require('../object/keysIn');
 
@@ -70768,7 +76887,7 @@ function baseForIn(object, iteratee) {
 
 module.exports = baseForIn;
 
-},{"../object/keysIn":416,"./baseFor":330}],332:[function(require,module,exports){
+},{"../object/keysIn":496,"./baseFor":408}],410:[function(require,module,exports){
 var baseFor = require('./baseFor'),
     keys = require('../object/keys');
 
@@ -70787,7 +76906,7 @@ function baseForOwn(object, iteratee) {
 
 module.exports = baseForOwn;
 
-},{"../object/keys":415,"./baseFor":330}],333:[function(require,module,exports){
+},{"../object/keys":495,"./baseFor":408}],411:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -70818,7 +76937,7 @@ function baseGet(object, path, pathKey) {
 
 module.exports = baseGet;
 
-},{"./toObject":401}],334:[function(require,module,exports){
+},{"./toObject":479}],412:[function(require,module,exports){
 var indexOfNaN = require('./indexOfNaN');
 
 /**
@@ -70847,7 +76966,7 @@ function baseIndexOf(array, value, fromIndex) {
 
 module.exports = baseIndexOf;
 
-},{"./indexOfNaN":382}],335:[function(require,module,exports){
+},{"./indexOfNaN":460}],413:[function(require,module,exports){
 var baseIsEqualDeep = require('./baseIsEqualDeep'),
     isObject = require('../lang/isObject'),
     isObjectLike = require('./isObjectLike');
@@ -70877,7 +76996,7 @@ function baseIsEqual(value, other, customizer, isLoose, stackA, stackB) {
 
 module.exports = baseIsEqual;
 
-},{"../lang/isObject":409,"./baseIsEqualDeep":336,"./isObjectLike":389}],336:[function(require,module,exports){
+},{"../lang/isObject":488,"./baseIsEqualDeep":414,"./isObjectLike":467}],414:[function(require,module,exports){
 var equalArrays = require('./equalArrays'),
     equalByTag = require('./equalByTag'),
     equalObjects = require('./equalObjects'),
@@ -70981,7 +77100,7 @@ function baseIsEqualDeep(object, other, equalFunc, customizer, isLoose, stackA, 
 
 module.exports = baseIsEqualDeep;
 
-},{"../lang/isArray":405,"../lang/isTypedArray":412,"./equalArrays":374,"./equalByTag":375,"./equalObjects":376}],337:[function(require,module,exports){
+},{"../lang/isArray":483,"../lang/isTypedArray":491,"./equalArrays":452,"./equalByTag":453,"./equalObjects":454}],415:[function(require,module,exports){
 var baseIsEqual = require('./baseIsEqual'),
     toObject = require('./toObject');
 
@@ -71035,7 +77154,7 @@ function baseIsMatch(object, matchData, customizer) {
 
 module.exports = baseIsMatch;
 
-},{"./baseIsEqual":335,"./toObject":401}],338:[function(require,module,exports){
+},{"./baseIsEqual":413,"./toObject":479}],416:[function(require,module,exports){
 /**
  * The function whose prototype all chaining wrappers inherit from.
  *
@@ -71047,7 +77166,7 @@ function baseLodash() {
 
 module.exports = baseLodash;
 
-},{}],339:[function(require,module,exports){
+},{}],417:[function(require,module,exports){
 var baseEach = require('./baseEach'),
     isArrayLike = require('./isArrayLike');
 
@@ -71072,7 +77191,7 @@ function baseMap(collection, iteratee) {
 
 module.exports = baseMap;
 
-},{"./baseEach":324,"./isArrayLike":383}],340:[function(require,module,exports){
+},{"./baseEach":402,"./isArrayLike":461}],418:[function(require,module,exports){
 var baseIsMatch = require('./baseIsMatch'),
     getMatchData = require('./getMatchData'),
     toObject = require('./toObject');
@@ -71104,7 +77223,7 @@ function baseMatches(source) {
 
 module.exports = baseMatches;
 
-},{"./baseIsMatch":337,"./getMatchData":380,"./toObject":401}],341:[function(require,module,exports){
+},{"./baseIsMatch":415,"./getMatchData":458,"./toObject":479}],419:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     baseIsEqual = require('./baseIsEqual'),
     baseSlice = require('./baseSlice'),
@@ -71151,7 +77270,7 @@ function baseMatchesProperty(path, srcValue) {
 
 module.exports = baseMatchesProperty;
 
-},{"../array/last":282,"../lang/isArray":405,"./baseGet":333,"./baseIsEqual":335,"./baseSlice":348,"./isKey":386,"./isStrictComparable":390,"./toObject":401,"./toPath":402}],342:[function(require,module,exports){
+},{"../array/last":358,"../lang/isArray":483,"./baseGet":411,"./baseIsEqual":413,"./baseSlice":426,"./isKey":464,"./isStrictComparable":468,"./toObject":479,"./toPath":480}],420:[function(require,module,exports){
 var arrayEach = require('./arrayEach'),
     baseMergeDeep = require('./baseMergeDeep'),
     isArray = require('../lang/isArray'),
@@ -71209,7 +77328,7 @@ function baseMerge(object, source, customizer, stackA, stackB) {
 
 module.exports = baseMerge;
 
-},{"../lang/isArray":405,"../lang/isObject":409,"../lang/isTypedArray":412,"../object/keys":415,"./arrayEach":309,"./baseMergeDeep":343,"./isArrayLike":383,"./isObjectLike":389}],343:[function(require,module,exports){
+},{"../lang/isArray":483,"../lang/isObject":488,"../lang/isTypedArray":491,"../object/keys":495,"./arrayEach":387,"./baseMergeDeep":421,"./isArrayLike":461,"./isObjectLike":467}],421:[function(require,module,exports){
 var arrayCopy = require('./arrayCopy'),
     isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
@@ -71278,7 +77397,7 @@ function baseMergeDeep(object, source, key, mergeFunc, customizer, stackA, stack
 
 module.exports = baseMergeDeep;
 
-},{"../lang/isArguments":404,"../lang/isArray":405,"../lang/isPlainObject":410,"../lang/isTypedArray":412,"../lang/toPlainObject":413,"./arrayCopy":308,"./isArrayLike":383}],344:[function(require,module,exports){
+},{"../lang/isArguments":482,"../lang/isArray":483,"../lang/isPlainObject":489,"../lang/isTypedArray":491,"../lang/toPlainObject":492,"./arrayCopy":386,"./isArrayLike":461}],422:[function(require,module,exports){
 /**
  * The base implementation of `_.property` without support for deep paths.
  *
@@ -71294,7 +77413,7 @@ function baseProperty(key) {
 
 module.exports = baseProperty;
 
-},{}],345:[function(require,module,exports){
+},{}],423:[function(require,module,exports){
 var baseGet = require('./baseGet'),
     toPath = require('./toPath');
 
@@ -71315,7 +77434,7 @@ function basePropertyDeep(path) {
 
 module.exports = basePropertyDeep;
 
-},{"./baseGet":333,"./toPath":402}],346:[function(require,module,exports){
+},{"./baseGet":411,"./toPath":480}],424:[function(require,module,exports){
 /**
  * The base implementation of `_.reduce` and `_.reduceRight` without support
  * for callback shorthands and `this` binding, which iterates over `collection`
@@ -71341,7 +77460,7 @@ function baseReduce(collection, iteratee, accumulator, initFromCollection, eachF
 
 module.exports = baseReduce;
 
-},{}],347:[function(require,module,exports){
+},{}],425:[function(require,module,exports){
 var identity = require('../utility/identity'),
     metaMap = require('./metaMap');
 
@@ -71360,7 +77479,7 @@ var baseSetData = !metaMap ? identity : function(func, data) {
 
 module.exports = baseSetData;
 
-},{"../utility/identity":423,"./metaMap":392}],348:[function(require,module,exports){
+},{"../utility/identity":503,"./metaMap":470}],426:[function(require,module,exports){
 /**
  * The base implementation of `_.slice` without an iteratee call guard.
  *
@@ -71394,7 +77513,7 @@ function baseSlice(array, start, end) {
 
 module.exports = baseSlice;
 
-},{}],349:[function(require,module,exports){
+},{}],427:[function(require,module,exports){
 var baseEach = require('./baseEach');
 
 /**
@@ -71419,7 +77538,7 @@ function baseSome(collection, predicate) {
 
 module.exports = baseSome;
 
-},{"./baseEach":324}],350:[function(require,module,exports){
+},{"./baseEach":402}],428:[function(require,module,exports){
 /**
  * The base implementation of `_.sortBy` which uses `comparer` to define
  * the sort order of `array` and replaces criteria objects with their
@@ -71442,7 +77561,7 @@ function baseSortBy(array, comparer) {
 
 module.exports = baseSortBy;
 
-},{}],351:[function(require,module,exports){
+},{}],429:[function(require,module,exports){
 /**
  * Converts `value` to a string if it's not one. An empty string is returned
  * for `null` or `undefined` values.
@@ -71457,7 +77576,7 @@ function baseToString(value) {
 
 module.exports = baseToString;
 
-},{}],352:[function(require,module,exports){
+},{}],430:[function(require,module,exports){
 var baseIndexOf = require('./baseIndexOf'),
     cacheIndexOf = require('./cacheIndexOf'),
     createCache = require('./createCache');
@@ -71519,7 +77638,7 @@ function baseUniq(array, iteratee) {
 
 module.exports = baseUniq;
 
-},{"./baseIndexOf":334,"./cacheIndexOf":355,"./createCache":365}],353:[function(require,module,exports){
+},{"./baseIndexOf":412,"./cacheIndexOf":433,"./createCache":443}],431:[function(require,module,exports){
 /**
  * The base implementation of `_.values` and `_.valuesIn` which creates an
  * array of `object` property values corresponding to the property names
@@ -71543,7 +77662,7 @@ function baseValues(object, props) {
 
 module.exports = baseValues;
 
-},{}],354:[function(require,module,exports){
+},{}],432:[function(require,module,exports){
 var identity = require('../utility/identity');
 
 /**
@@ -71584,7 +77703,7 @@ function bindCallback(func, thisArg, argCount) {
 
 module.exports = bindCallback;
 
-},{"../utility/identity":423}],355:[function(require,module,exports){
+},{"../utility/identity":503}],433:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -71605,7 +77724,7 @@ function cacheIndexOf(cache, value) {
 
 module.exports = cacheIndexOf;
 
-},{"../lang/isObject":409}],356:[function(require,module,exports){
+},{"../lang/isObject":488}],434:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -71627,7 +77746,7 @@ function cachePush(value) {
 
 module.exports = cachePush;
 
-},{"../lang/isObject":409}],357:[function(require,module,exports){
+},{"../lang/isObject":488}],435:[function(require,module,exports){
 var baseCompareAscending = require('./baseCompareAscending');
 
 /**
@@ -71645,7 +77764,7 @@ function compareAscending(object, other) {
 
 module.exports = compareAscending;
 
-},{"./baseCompareAscending":319}],358:[function(require,module,exports){
+},{"./baseCompareAscending":397}],436:[function(require,module,exports){
 /* Native method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
 
@@ -71681,7 +77800,7 @@ function composeArgs(args, partials, holders) {
 
 module.exports = composeArgs;
 
-},{}],359:[function(require,module,exports){
+},{}],437:[function(require,module,exports){
 /* Native method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
 
@@ -71719,7 +77838,7 @@ function composeArgsRight(args, partials, holders) {
 
 module.exports = composeArgsRight;
 
-},{}],360:[function(require,module,exports){
+},{}],438:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseEach = require('./baseEach'),
     isArray = require('../lang/isArray');
@@ -71756,7 +77875,7 @@ function createAggregator(setter, initializer) {
 
 module.exports = createAggregator;
 
-},{"../lang/isArray":405,"./baseCallback":318,"./baseEach":324}],361:[function(require,module,exports){
+},{"../lang/isArray":483,"./baseCallback":396,"./baseEach":402}],439:[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isIterateeCall = require('./isIterateeCall'),
     restParam = require('../function/restParam');
@@ -71799,7 +77918,7 @@ function createAssigner(assigner) {
 
 module.exports = createAssigner;
 
-},{"../function/restParam":303,"./bindCallback":354,"./isIterateeCall":385}],362:[function(require,module,exports){
+},{"../function/restParam":381,"./bindCallback":432,"./isIterateeCall":463}],440:[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength'),
     toObject = require('./toObject');
@@ -71832,7 +77951,7 @@ function createBaseEach(eachFunc, fromRight) {
 
 module.exports = createBaseEach;
 
-},{"./getLength":379,"./isLength":388,"./toObject":401}],363:[function(require,module,exports){
+},{"./getLength":457,"./isLength":466,"./toObject":479}],441:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -71861,7 +77980,7 @@ function createBaseFor(fromRight) {
 
 module.exports = createBaseFor;
 
-},{"./toObject":401}],364:[function(require,module,exports){
+},{"./toObject":479}],442:[function(require,module,exports){
 (function (global){
 var createCtorWrapper = require('./createCtorWrapper');
 
@@ -71887,7 +78006,7 @@ function createBindWrapper(func, thisArg) {
 module.exports = createBindWrapper;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./createCtorWrapper":366}],365:[function(require,module,exports){
+},{"./createCtorWrapper":444}],443:[function(require,module,exports){
 (function (global){
 var SetCache = require('./SetCache'),
     getNative = require('./getNative');
@@ -71912,7 +78031,7 @@ function createCache(values) {
 module.exports = createCache;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./SetCache":307,"./getNative":381}],366:[function(require,module,exports){
+},{"./SetCache":385,"./getNative":459}],444:[function(require,module,exports){
 var baseCreate = require('./baseCreate'),
     isObject = require('../lang/isObject');
 
@@ -71951,7 +78070,7 @@ function createCtorWrapper(Ctor) {
 
 module.exports = createCtorWrapper;
 
-},{"../lang/isObject":409,"./baseCreate":321}],367:[function(require,module,exports){
+},{"../lang/isObject":488,"./baseCreate":399}],445:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseFind = require('./baseFind'),
     baseFindIndex = require('./baseFindIndex'),
@@ -71978,7 +78097,7 @@ function createFind(eachFunc, fromRight) {
 
 module.exports = createFind;
 
-},{"../lang/isArray":405,"./baseCallback":318,"./baseFind":327,"./baseFindIndex":328}],368:[function(require,module,exports){
+},{"../lang/isArray":483,"./baseCallback":396,"./baseFind":405,"./baseFindIndex":406}],446:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseFindIndex = require('./baseFindIndex');
 
@@ -72001,7 +78120,7 @@ function createFindIndex(fromRight) {
 
 module.exports = createFindIndex;
 
-},{"./baseCallback":318,"./baseFindIndex":328}],369:[function(require,module,exports){
+},{"./baseCallback":396,"./baseFindIndex":406}],447:[function(require,module,exports){
 var bindCallback = require('./bindCallback'),
     isArray = require('../lang/isArray');
 
@@ -72023,7 +78142,7 @@ function createForEach(arrayFunc, eachFunc) {
 
 module.exports = createForEach;
 
-},{"../lang/isArray":405,"./bindCallback":354}],370:[function(require,module,exports){
+},{"../lang/isArray":483,"./bindCallback":432}],448:[function(require,module,exports){
 (function (global){
 var arrayCopy = require('./arrayCopy'),
     composeArgs = require('./composeArgs'),
@@ -72138,7 +78257,7 @@ function createHybridWrapper(func, bitmask, thisArg, partials, holders, partials
 module.exports = createHybridWrapper;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./arrayCopy":308,"./composeArgs":358,"./composeArgsRight":359,"./createCtorWrapper":366,"./isLaziable":387,"./reorder":396,"./replaceHolders":397,"./setData":398}],371:[function(require,module,exports){
+},{"./arrayCopy":386,"./composeArgs":436,"./composeArgsRight":437,"./createCtorWrapper":444,"./isLaziable":465,"./reorder":474,"./replaceHolders":475,"./setData":476}],449:[function(require,module,exports){
 (function (global){
 var createCtorWrapper = require('./createCtorWrapper');
 
@@ -72185,7 +78304,7 @@ function createPartialWrapper(func, bitmask, thisArg, partials) {
 module.exports = createPartialWrapper;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./createCtorWrapper":366}],372:[function(require,module,exports){
+},{"./createCtorWrapper":444}],450:[function(require,module,exports){
 var baseCallback = require('./baseCallback'),
     baseReduce = require('./baseReduce'),
     isArray = require('../lang/isArray');
@@ -72209,7 +78328,7 @@ function createReduce(arrayFunc, eachFunc) {
 
 module.exports = createReduce;
 
-},{"../lang/isArray":405,"./baseCallback":318,"./baseReduce":346}],373:[function(require,module,exports){
+},{"../lang/isArray":483,"./baseCallback":396,"./baseReduce":424}],451:[function(require,module,exports){
 var baseSetData = require('./baseSetData'),
     createBindWrapper = require('./createBindWrapper'),
     createHybridWrapper = require('./createHybridWrapper'),
@@ -72297,7 +78416,7 @@ function createWrapper(func, bitmask, thisArg, partials, holders, argPos, ary, a
 
 module.exports = createWrapper;
 
-},{"./baseSetData":347,"./createBindWrapper":364,"./createHybridWrapper":370,"./createPartialWrapper":371,"./getData":377,"./mergeData":391,"./setData":398}],374:[function(require,module,exports){
+},{"./baseSetData":425,"./createBindWrapper":442,"./createHybridWrapper":448,"./createPartialWrapper":449,"./getData":455,"./mergeData":469,"./setData":476}],452:[function(require,module,exports){
 var arraySome = require('./arraySome');
 
 /**
@@ -72350,7 +78469,7 @@ function equalArrays(array, other, equalFunc, customizer, isLoose, stackA, stack
 
 module.exports = equalArrays;
 
-},{"./arraySome":315}],375:[function(require,module,exports){
+},{"./arraySome":393}],453:[function(require,module,exports){
 /** `Object#toString` result references. */
 var boolTag = '[object Boolean]',
     dateTag = '[object Date]',
@@ -72400,7 +78519,7 @@ function equalByTag(object, other, tag) {
 
 module.exports = equalByTag;
 
-},{}],376:[function(require,module,exports){
+},{}],454:[function(require,module,exports){
 var keys = require('../object/keys');
 
 /** Used for native method references. */
@@ -72469,7 +78588,7 @@ function equalObjects(object, other, equalFunc, customizer, isLoose, stackA, sta
 
 module.exports = equalObjects;
 
-},{"../object/keys":415}],377:[function(require,module,exports){
+},{"../object/keys":495}],455:[function(require,module,exports){
 var metaMap = require('./metaMap'),
     noop = require('../utility/noop');
 
@@ -72486,7 +78605,7 @@ var getData = !metaMap ? noop : function(func) {
 
 module.exports = getData;
 
-},{"../utility/noop":424,"./metaMap":392}],378:[function(require,module,exports){
+},{"../utility/noop":504,"./metaMap":470}],456:[function(require,module,exports){
 var realNames = require('./realNames');
 
 /**
@@ -72513,7 +78632,7 @@ function getFuncName(func) {
 
 module.exports = getFuncName;
 
-},{"./realNames":395}],379:[function(require,module,exports){
+},{"./realNames":473}],457:[function(require,module,exports){
 var baseProperty = require('./baseProperty');
 
 /**
@@ -72530,7 +78649,7 @@ var getLength = baseProperty('length');
 
 module.exports = getLength;
 
-},{"./baseProperty":344}],380:[function(require,module,exports){
+},{"./baseProperty":422}],458:[function(require,module,exports){
 var isStrictComparable = require('./isStrictComparable'),
     pairs = require('../object/pairs');
 
@@ -72553,7 +78672,7 @@ function getMatchData(object) {
 
 module.exports = getMatchData;
 
-},{"../object/pairs":419,"./isStrictComparable":390}],381:[function(require,module,exports){
+},{"../object/pairs":499,"./isStrictComparable":468}],459:[function(require,module,exports){
 var isNative = require('../lang/isNative');
 
 /**
@@ -72571,7 +78690,7 @@ function getNative(object, key) {
 
 module.exports = getNative;
 
-},{"../lang/isNative":407}],382:[function(require,module,exports){
+},{"../lang/isNative":486}],460:[function(require,module,exports){
 /**
  * Gets the index at which the first occurrence of `NaN` is found in `array`.
  *
@@ -72596,7 +78715,7 @@ function indexOfNaN(array, fromIndex, fromRight) {
 
 module.exports = indexOfNaN;
 
-},{}],383:[function(require,module,exports){
+},{}],461:[function(require,module,exports){
 var getLength = require('./getLength'),
     isLength = require('./isLength');
 
@@ -72613,7 +78732,7 @@ function isArrayLike(value) {
 
 module.exports = isArrayLike;
 
-},{"./getLength":379,"./isLength":388}],384:[function(require,module,exports){
+},{"./getLength":457,"./isLength":466}],462:[function(require,module,exports){
 /** Used to detect unsigned integer values. */
 var reIsUint = /^\d+$/;
 
@@ -72639,7 +78758,7 @@ function isIndex(value, length) {
 
 module.exports = isIndex;
 
-},{}],385:[function(require,module,exports){
+},{}],463:[function(require,module,exports){
 var isArrayLike = require('./isArrayLike'),
     isIndex = require('./isIndex'),
     isObject = require('../lang/isObject');
@@ -72669,7 +78788,7 @@ function isIterateeCall(value, index, object) {
 
 module.exports = isIterateeCall;
 
-},{"../lang/isObject":409,"./isArrayLike":383,"./isIndex":384}],386:[function(require,module,exports){
+},{"../lang/isObject":488,"./isArrayLike":461,"./isIndex":462}],464:[function(require,module,exports){
 var isArray = require('../lang/isArray'),
     toObject = require('./toObject');
 
@@ -72699,7 +78818,7 @@ function isKey(value, object) {
 
 module.exports = isKey;
 
-},{"../lang/isArray":405,"./toObject":401}],387:[function(require,module,exports){
+},{"../lang/isArray":483,"./toObject":479}],465:[function(require,module,exports){
 var LazyWrapper = require('./LazyWrapper'),
     getData = require('./getData'),
     getFuncName = require('./getFuncName'),
@@ -72728,7 +78847,7 @@ function isLaziable(func) {
 
 module.exports = isLaziable;
 
-},{"../chain/lodash":286,"./LazyWrapper":305,"./getData":377,"./getFuncName":378}],388:[function(require,module,exports){
+},{"../chain/lodash":363,"./LazyWrapper":383,"./getData":455,"./getFuncName":456}],466:[function(require,module,exports){
 /**
  * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
  * of an array-like value.
@@ -72750,7 +78869,7 @@ function isLength(value) {
 
 module.exports = isLength;
 
-},{}],389:[function(require,module,exports){
+},{}],467:[function(require,module,exports){
 /**
  * Checks if `value` is object-like.
  *
@@ -72764,7 +78883,7 @@ function isObjectLike(value) {
 
 module.exports = isObjectLike;
 
-},{}],390:[function(require,module,exports){
+},{}],468:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -72781,7 +78900,7 @@ function isStrictComparable(value) {
 
 module.exports = isStrictComparable;
 
-},{"../lang/isObject":409}],391:[function(require,module,exports){
+},{"../lang/isObject":488}],469:[function(require,module,exports){
 var arrayCopy = require('./arrayCopy'),
     composeArgs = require('./composeArgs'),
     composeArgsRight = require('./composeArgsRight'),
@@ -72872,7 +78991,7 @@ function mergeData(data, source) {
 
 module.exports = mergeData;
 
-},{"./arrayCopy":308,"./composeArgs":358,"./composeArgsRight":359,"./replaceHolders":397}],392:[function(require,module,exports){
+},{"./arrayCopy":386,"./composeArgs":436,"./composeArgsRight":437,"./replaceHolders":475}],470:[function(require,module,exports){
 (function (global){
 var getNative = require('./getNative');
 
@@ -72885,7 +79004,7 @@ var metaMap = WeakMap && new WeakMap;
 module.exports = metaMap;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./getNative":381}],393:[function(require,module,exports){
+},{"./getNative":459}],471:[function(require,module,exports){
 var toObject = require('./toObject');
 
 /**
@@ -72915,7 +79034,7 @@ function pickByArray(object, props) {
 
 module.exports = pickByArray;
 
-},{"./toObject":401}],394:[function(require,module,exports){
+},{"./toObject":479}],472:[function(require,module,exports){
 var baseForIn = require('./baseForIn');
 
 /**
@@ -72939,13 +79058,13 @@ function pickByCallback(object, predicate) {
 
 module.exports = pickByCallback;
 
-},{"./baseForIn":331}],395:[function(require,module,exports){
+},{"./baseForIn":409}],473:[function(require,module,exports){
 /** Used to lookup unminified function names. */
 var realNames = {};
 
 module.exports = realNames;
 
-},{}],396:[function(require,module,exports){
+},{}],474:[function(require,module,exports){
 var arrayCopy = require('./arrayCopy'),
     isIndex = require('./isIndex');
 
@@ -72976,7 +79095,7 @@ function reorder(array, indexes) {
 
 module.exports = reorder;
 
-},{"./arrayCopy":308,"./isIndex":384}],397:[function(require,module,exports){
+},{"./arrayCopy":386,"./isIndex":462}],475:[function(require,module,exports){
 /** Used as the internal argument placeholder. */
 var PLACEHOLDER = '__lodash_placeholder__';
 
@@ -73006,7 +79125,7 @@ function replaceHolders(array, placeholder) {
 
 module.exports = replaceHolders;
 
-},{}],398:[function(require,module,exports){
+},{}],476:[function(require,module,exports){
 var baseSetData = require('./baseSetData'),
     now = require('../date/now');
 
@@ -73049,7 +79168,7 @@ var setData = (function() {
 
 module.exports = setData;
 
-},{"../date/now":299,"./baseSetData":347}],399:[function(require,module,exports){
+},{"../date/now":377,"./baseSetData":425}],477:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('./isIndex'),
@@ -73092,7 +79211,7 @@ function shimKeys(object) {
 
 module.exports = shimKeys;
 
-},{"../lang/isArguments":404,"../lang/isArray":405,"../object/keysIn":416,"./isIndex":384,"./isLength":388}],400:[function(require,module,exports){
+},{"../lang/isArguments":482,"../lang/isArray":483,"../object/keysIn":496,"./isIndex":462,"./isLength":466}],478:[function(require,module,exports){
 /**
  * An implementation of `_.uniq` optimized for sorted arrays without support
  * for callback shorthands and `this` binding.
@@ -73123,7 +79242,7 @@ function sortedUniq(array, iteratee) {
 
 module.exports = sortedUniq;
 
-},{}],401:[function(require,module,exports){
+},{}],479:[function(require,module,exports){
 var isObject = require('../lang/isObject');
 
 /**
@@ -73139,7 +79258,7 @@ function toObject(value) {
 
 module.exports = toObject;
 
-},{"../lang/isObject":409}],402:[function(require,module,exports){
+},{"../lang/isObject":488}],480:[function(require,module,exports){
 var baseToString = require('./baseToString'),
     isArray = require('../lang/isArray');
 
@@ -73169,7 +79288,7 @@ function toPath(value) {
 
 module.exports = toPath;
 
-},{"../lang/isArray":405,"./baseToString":351}],403:[function(require,module,exports){
+},{"../lang/isArray":483,"./baseToString":429}],481:[function(require,module,exports){
 var LazyWrapper = require('./LazyWrapper'),
     LodashWrapper = require('./LodashWrapper'),
     arrayCopy = require('./arrayCopy');
@@ -73189,7 +79308,7 @@ function wrapperClone(wrapper) {
 
 module.exports = wrapperClone;
 
-},{"./LazyWrapper":305,"./LodashWrapper":306,"./arrayCopy":308}],404:[function(require,module,exports){
+},{"./LazyWrapper":383,"./LodashWrapper":384,"./arrayCopy":386}],482:[function(require,module,exports){
 var isArrayLike = require('../internal/isArrayLike'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -73225,7 +79344,7 @@ function isArguments(value) {
 
 module.exports = isArguments;
 
-},{"../internal/isArrayLike":383,"../internal/isObjectLike":389}],405:[function(require,module,exports){
+},{"../internal/isArrayLike":461,"../internal/isObjectLike":467}],483:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
@@ -73267,7 +79386,56 @@ var isArray = nativeIsArray || function(value) {
 
 module.exports = isArray;
 
-},{"../internal/getNative":381,"../internal/isLength":388,"../internal/isObjectLike":389}],406:[function(require,module,exports){
+},{"../internal/getNative":459,"../internal/isLength":466,"../internal/isObjectLike":467}],484:[function(require,module,exports){
+var isArguments = require('./isArguments'),
+    isArray = require('./isArray'),
+    isArrayLike = require('../internal/isArrayLike'),
+    isFunction = require('./isFunction'),
+    isObjectLike = require('../internal/isObjectLike'),
+    isString = require('./isString'),
+    keys = require('../object/keys');
+
+/**
+ * Checks if `value` is empty. A value is considered empty unless it's an
+ * `arguments` object, array, string, or jQuery-like collection with a length
+ * greater than `0` or an object with own enumerable properties.
+ *
+ * @static
+ * @memberOf _
+ * @category Lang
+ * @param {Array|Object|string} value The value to inspect.
+ * @returns {boolean} Returns `true` if `value` is empty, else `false`.
+ * @example
+ *
+ * _.isEmpty(null);
+ * // => true
+ *
+ * _.isEmpty(true);
+ * // => true
+ *
+ * _.isEmpty(1);
+ * // => true
+ *
+ * _.isEmpty([1, 2, 3]);
+ * // => false
+ *
+ * _.isEmpty({ 'a': 1 });
+ * // => false
+ */
+function isEmpty(value) {
+  if (value == null) {
+    return true;
+  }
+  if (isArrayLike(value) && (isArray(value) || isString(value) || isArguments(value) ||
+      (isObjectLike(value) && isFunction(value.splice)))) {
+    return !value.length;
+  }
+  return !keys(value).length;
+}
+
+module.exports = isEmpty;
+
+},{"../internal/isArrayLike":461,"../internal/isObjectLike":467,"../object/keys":495,"./isArguments":482,"./isArray":483,"./isFunction":485,"./isString":490}],485:[function(require,module,exports){
 var isObject = require('./isObject');
 
 /** `Object#toString` result references. */
@@ -73307,7 +79475,7 @@ function isFunction(value) {
 
 module.exports = isFunction;
 
-},{"./isObject":409}],407:[function(require,module,exports){
+},{"./isObject":488}],486:[function(require,module,exports){
 var isFunction = require('./isFunction'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -73357,7 +79525,7 @@ function isNative(value) {
 
 module.exports = isNative;
 
-},{"../internal/isObjectLike":389,"./isFunction":406}],408:[function(require,module,exports){
+},{"../internal/isObjectLike":467,"./isFunction":485}],487:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -73400,7 +79568,7 @@ function isNumber(value) {
 
 module.exports = isNumber;
 
-},{"../internal/isObjectLike":389}],409:[function(require,module,exports){
+},{"../internal/isObjectLike":467}],488:[function(require,module,exports){
 /**
  * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
  * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
@@ -73430,7 +79598,7 @@ function isObject(value) {
 
 module.exports = isObject;
 
-},{}],410:[function(require,module,exports){
+},{}],489:[function(require,module,exports){
 var baseForIn = require('../internal/baseForIn'),
     isArguments = require('./isArguments'),
     isObjectLike = require('../internal/isObjectLike');
@@ -73503,7 +79671,7 @@ function isPlainObject(value) {
 
 module.exports = isPlainObject;
 
-},{"../internal/baseForIn":331,"../internal/isObjectLike":389,"./isArguments":404}],411:[function(require,module,exports){
+},{"../internal/baseForIn":409,"../internal/isObjectLike":467,"./isArguments":482}],490:[function(require,module,exports){
 var isObjectLike = require('../internal/isObjectLike');
 
 /** `Object#toString` result references. */
@@ -73540,7 +79708,7 @@ function isString(value) {
 
 module.exports = isString;
 
-},{"../internal/isObjectLike":389}],412:[function(require,module,exports){
+},{"../internal/isObjectLike":467}],491:[function(require,module,exports){
 var isLength = require('../internal/isLength'),
     isObjectLike = require('../internal/isObjectLike');
 
@@ -73616,7 +79784,7 @@ function isTypedArray(value) {
 
 module.exports = isTypedArray;
 
-},{"../internal/isLength":388,"../internal/isObjectLike":389}],413:[function(require,module,exports){
+},{"../internal/isLength":466,"../internal/isObjectLike":467}],492:[function(require,module,exports){
 var baseCopy = require('../internal/baseCopy'),
     keysIn = require('../object/keysIn');
 
@@ -73649,7 +79817,7 @@ function toPlainObject(value) {
 
 module.exports = toPlainObject;
 
-},{"../internal/baseCopy":320,"../object/keysIn":416}],414:[function(require,module,exports){
+},{"../internal/baseCopy":398,"../object/keysIn":496}],493:[function(require,module,exports){
 var assignWith = require('../internal/assignWith'),
     baseAssign = require('../internal/baseAssign'),
     createAssigner = require('../internal/createAssigner');
@@ -73694,7 +79862,42 @@ var assign = createAssigner(function(object, source, customizer) {
 
 module.exports = assign;
 
-},{"../internal/assignWith":316,"../internal/baseAssign":317,"../internal/createAssigner":361}],415:[function(require,module,exports){
+},{"../internal/assignWith":394,"../internal/baseAssign":395,"../internal/createAssigner":439}],494:[function(require,module,exports){
+var baseGet = require('../internal/baseGet'),
+    toPath = require('../internal/toPath');
+
+/**
+ * Gets the property value at `path` of `object`. If the resolved value is
+ * `undefined` the `defaultValue` is used in its place.
+ *
+ * @static
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @param {*} [defaultValue] The value returned if the resolved value is `undefined`.
+ * @returns {*} Returns the resolved value.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.get(object, 'a[0].b.c');
+ * // => 3
+ *
+ * _.get(object, ['a', '0', 'b', 'c']);
+ * // => 3
+ *
+ * _.get(object, 'a.b.c', 'default');
+ * // => 'default'
+ */
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : baseGet(object, toPath(path), (path + ''));
+  return result === undefined ? defaultValue : result;
+}
+
+module.exports = get;
+
+},{"../internal/baseGet":411,"../internal/toPath":480}],495:[function(require,module,exports){
 var getNative = require('../internal/getNative'),
     isArrayLike = require('../internal/isArrayLike'),
     isObject = require('../lang/isObject'),
@@ -73741,7 +79944,7 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 
 module.exports = keys;
 
-},{"../internal/getNative":381,"../internal/isArrayLike":383,"../internal/shimKeys":399,"../lang/isObject":409}],416:[function(require,module,exports){
+},{"../internal/getNative":459,"../internal/isArrayLike":461,"../internal/shimKeys":477,"../lang/isObject":488}],496:[function(require,module,exports){
 var isArguments = require('../lang/isArguments'),
     isArray = require('../lang/isArray'),
     isIndex = require('../internal/isIndex'),
@@ -73807,7 +80010,7 @@ function keysIn(object) {
 
 module.exports = keysIn;
 
-},{"../internal/isIndex":384,"../internal/isLength":388,"../lang/isArguments":404,"../lang/isArray":405,"../lang/isObject":409}],417:[function(require,module,exports){
+},{"../internal/isIndex":462,"../internal/isLength":466,"../lang/isArguments":482,"../lang/isArray":483,"../lang/isObject":488}],497:[function(require,module,exports){
 var baseMerge = require('../internal/baseMerge'),
     createAssigner = require('../internal/createAssigner');
 
@@ -73863,7 +80066,7 @@ var merge = createAssigner(baseMerge);
 
 module.exports = merge;
 
-},{"../internal/baseMerge":342,"../internal/createAssigner":361}],418:[function(require,module,exports){
+},{"../internal/baseMerge":420,"../internal/createAssigner":439}],498:[function(require,module,exports){
 var arrayMap = require('../internal/arrayMap'),
     baseDifference = require('../internal/baseDifference'),
     baseFlatten = require('../internal/baseFlatten'),
@@ -73912,7 +80115,7 @@ var omit = restParam(function(object, props) {
 
 module.exports = omit;
 
-},{"../function/restParam":303,"../internal/arrayMap":312,"../internal/baseDifference":323,"../internal/baseFlatten":329,"../internal/bindCallback":354,"../internal/pickByArray":393,"../internal/pickByCallback":394,"./keysIn":416}],419:[function(require,module,exports){
+},{"../function/restParam":381,"../internal/arrayMap":390,"../internal/baseDifference":401,"../internal/baseFlatten":407,"../internal/bindCallback":432,"../internal/pickByArray":471,"../internal/pickByCallback":472,"./keysIn":496}],499:[function(require,module,exports){
 var keys = require('./keys'),
     toObject = require('../internal/toObject');
 
@@ -73947,7 +80150,7 @@ function pairs(object) {
 
 module.exports = pairs;
 
-},{"../internal/toObject":401,"./keys":415}],420:[function(require,module,exports){
+},{"../internal/toObject":479,"./keys":495}],500:[function(require,module,exports){
 var baseFlatten = require('../internal/baseFlatten'),
     bindCallback = require('../internal/bindCallback'),
     pickByArray = require('../internal/pickByArray'),
@@ -73991,7 +80194,7 @@ var pick = restParam(function(object, props) {
 
 module.exports = pick;
 
-},{"../function/restParam":303,"../internal/baseFlatten":329,"../internal/bindCallback":354,"../internal/pickByArray":393,"../internal/pickByCallback":394}],421:[function(require,module,exports){
+},{"../function/restParam":381,"../internal/baseFlatten":407,"../internal/bindCallback":432,"../internal/pickByArray":471,"../internal/pickByCallback":472}],501:[function(require,module,exports){
 var arrayEach = require('../internal/arrayEach'),
     baseCallback = require('../internal/baseCallback'),
     baseCreate = require('../internal/baseCreate'),
@@ -74054,7 +80257,7 @@ function transform(object, iteratee, accumulator, thisArg) {
 
 module.exports = transform;
 
-},{"../internal/arrayEach":309,"../internal/baseCallback":318,"../internal/baseCreate":321,"../internal/baseForOwn":332,"../lang/isArray":405,"../lang/isFunction":406,"../lang/isObject":409,"../lang/isTypedArray":412}],422:[function(require,module,exports){
+},{"../internal/arrayEach":387,"../internal/baseCallback":396,"../internal/baseCreate":399,"../internal/baseForOwn":410,"../lang/isArray":483,"../lang/isFunction":485,"../lang/isObject":488,"../lang/isTypedArray":491}],502:[function(require,module,exports){
 var baseValues = require('../internal/baseValues'),
     keys = require('./keys');
 
@@ -74089,7 +80292,7 @@ function values(object) {
 
 module.exports = values;
 
-},{"../internal/baseValues":353,"./keys":415}],423:[function(require,module,exports){
+},{"../internal/baseValues":431,"./keys":495}],503:[function(require,module,exports){
 /**
  * This method returns the first argument provided to it.
  *
@@ -74111,7 +80314,7 @@ function identity(value) {
 
 module.exports = identity;
 
-},{}],424:[function(require,module,exports){
+},{}],504:[function(require,module,exports){
 /**
  * A no-operation function that returns `undefined` regardless of the
  * arguments it receives.
@@ -74132,7 +80335,7 @@ function noop() {
 
 module.exports = noop;
 
-},{}],425:[function(require,module,exports){
+},{}],505:[function(require,module,exports){
 var baseProperty = require('../internal/baseProperty'),
     basePropertyDeep = require('../internal/basePropertyDeep'),
     isKey = require('../internal/isKey');
@@ -74165,7818 +80368,4 @@ function property(path) {
 
 module.exports = property;
 
-},{"../internal/baseProperty":344,"../internal/basePropertyDeep":345,"../internal/isKey":386}],426:[function(require,module,exports){
-module.exports = {
-    __init__: [ 'contextPadProvider','aofActionListener','aofPaletteProvider' ,'replaceMenuProvider','aofRules','appManager','propertiesPanel'],
-    contextPadProvider: [ 'type', require('./lib/aof-context-pad') ],
-    aofActionListener: [ 'type', require('./lib/aof-action-listener')],
-    aofPaletteProvider: [ 'type', require('./lib/aof-palette-provider') ],
-    replaceMenuProvider: [ 'type', require('./lib/aof-popup-menu') ],
-    aofRules: [ 'type', require('./lib/aof-rules') ],
-    appManager: [ 'type', require('./lib/app-manager') ],
-    propertiesPanel: [ 'type', require('bpmn-js-properties-panel/lib/PropertiesPanel') ],
-    propertiesProvider: [ 'type', require('bpmn-js-properties-panel/lib/provider/aof/AofPropertiesProvider') ]
-};
-},{"./lib/aof-action-listener":428,"./lib/aof-context-pad":430,"./lib/aof-palette-provider":432,"./lib/aof-popup-menu":435,"./lib/aof-rules":437,"./lib/app-manager":439,"bpmn-js-properties-panel/lib/PropertiesPanel":536,"bpmn-js-properties-panel/lib/provider/aof/AofPropertiesProvider":557}],427:[function(require,module,exports){
-'use strict';
-
-var  forEach = require('lodash/collection/forEach');
-
-function UserTaskCreationListener(eventBus,canvas,elementRegistry,overlays) {
-
-
-// you may hook into any of the following events
-    var events = [
-        'element.changed'
-    ];
-
-    events.forEach(function (event) {
-
-        eventBus.on(event, function (e) {
-            // e.element = the model element
-            // e.gfx = the graphical element
-            if(e.element.businessObject.$type=="bpmn:UserTask"){
-                if(!e.element.businessObject['$attrs']['aof:realizedBy']){
-                    canvas.addMarker(e.element.id, 'no-app-assigned');
-                    canvas.removeMarker(e.element.id, 'color-appensembleapp');
-                }
-                else{
-                    canvas.removeMarker(e.element.id, 'no-app-assigned');
-                    canvas.addMarker(e.element.id, 'color-appensembleapp');
-                }
-            }
-            else if(e.element.businessObject.$type=="bpmn:Participant"){
-                if(e.element.businessObject['isAppEnsemble']){
-                    canvas.addMarker(e.element.id, 'color-appensemble');
-                }
-                else{
-                    canvas.removeMarker(e.element.id, 'color-appensemble');
-                }
-            }
-        });
-    });
-
-    eventBus.on('import.success',function(e){
-        // Mark AppEnsembleApps grey
-        forEach(elementRegistry.filter(
-                function (element, gfx) {
-                    return (element.type == "bpmn:UserTask" && element.businessObject.isAppEnsembleApp == true )//&& element.businessObject.$attrs['aof:realizedBy'] && element.businessObject.$attrs['aof:realizedBy'] != "")
-                }),
-            function (element) {
-                canvas.addMarker(element.id, 'color-appensembleapp');
-            }
-        );
-
-        // Mark AppEnsembles
-        forEach(elementRegistry.filter(
-                function (element, gfx) {
-                    return (element.type == "bpmn:Participant" && (element.businessObject.isAppEnsemble && element.businessObject.isAppEnsemble == "true") || (element.businessObject.isAppEnsemble == true))
-                }),
-            function (element) {
-                canvas.addMarker(element.id, 'color-appensemble');
-            }
-        );
-
-
-    });
-
-    eventBus.on('element.changed', function(event) {
-        var shape = elementRegistry.get(event.element.id);
-        if(event.element.businessObject.$type=="bpmn:UserTask") {
-            if (!!event.element.businessObject['$attrs']['aof:realizedBy']) {
-                var html=buildTooptip('This is a UserTask realized by an App')
-            }
-            else{
-                var html=buildTooptip('This is a UserTask without an App. Please assign an App!')
-            }
-            overlays.add(event.element,'aofTooltip', {
-                id:'overlay-'+shape.id,
-                position: {
-                    top: shape.height+15,
-                    right: 20
-                },
-                html: html
-            });
-        }
-        else if(event.element.businessObject.$type=="bpmn:Participant"){
-            if(event.element.businessObject['isAppEnsemble']){
-                overlays.add(event.element,'aofTooltip', {
-                    id:'overlay-'+shape.id,
-                    position: {
-                        top: shape.height+15,
-                        right: 20
-                    },
-                    html: buildTooptip('This is an Participant marked as AppEnsemble!')
-                });
-            }
-        }
-
-    });
-
-    eventBus.on('commandStack.element.updateProperties.preExecute', function(event) {
-        if(event.context.element.type=="bpmn:Participant"){
-            var name=event.context.element.businessObject.name;
-            eventBus.once('commandStack.element.updateProperties.postExecute', function(event) {
-                if(event.context.element.type=="bpmn:Participant") {
-                    if(event.context.element.businessObject.name!=name){
-                        $('#js-save-appensemble').attr({
-                            'reload': event.context.element.businessObject.name.replace(new RegExp(" ", "g"),'-')
-                        });
-                    }
-                }
-
-            });
-        }
-    });
-
-    eventBus.on('element.out',removeOverlay);
-
-    function removeOverlay (event) {
-        var shape = elementRegistry.get(event.element.id);
-        if(event.element.businessObject.$type=="bpmn:UserTask" || (event.element.businessObject.$type=="bpmn:Participant" && event.element.businessObject['isAppEnsemble'])) {
-            overlays.remove({type:'aofTooltip'});//element:shape.id});
-        }
-    }
-
-
-    function buildTooptip(text){
-         return '<span class="tooltip" style="display: block; min-width: 150px;">'+text+'<span class="nub"></span></span>';
-    }
-
-    function markAsAppEnsemble(element){
-        canvas.addMarker(element.id, 'color-appensemble');
-    }
-}
-
-
-
-UserTaskCreationListener.$inject = [ 'eventBus','canvas','elementRegistry','overlays'];
-
-module.exports = UserTaskCreationListener;
-
-},{"lodash/collection/forEach":461}],428:[function(require,module,exports){
-module.exports = require('./AofActionListener');
-},{"./AofActionListener":427}],429:[function(require,module,exports){
-'use strict';
-
-
-var assign = require('lodash/object/assign'),
-    forEach = require('lodash/collection/forEach'),
-    isArray = require('lodash/lang/isArray'),
-    is = require('../util/ModelUtil').is,
-    isAny = require('../util/ModelingUtil').isAny,
-    getChildLanes = require('../util/LaneUtil').getChildLanes,
-    isEventSubProcess = require('../util/DiUtil').isEventSubProcess;
-
-
-/**
- * A provider for BPMN 2.0 elements context pad
- */
-function CustomContextPadProvider(contextPad, modeling, elementFactory,
-                            connect, create, popupMenu,
-                            canvas, rules) {
-
-    contextPad.registerProvider(this);
-
-    this._contextPad = contextPad;
-
-    this._modeling = modeling;
-
-    this._elementFactory = elementFactory;
-    this._connect = connect;
-    this._create = create;
-    this._popupMenu = popupMenu;
-    this._canvas  = canvas;
-    this._rules = rules;
-}
-
-CustomContextPadProvider.$inject = [
-    'contextPad',
-    'modeling',
-    'elementFactory',
-    'connect',
-    'create',
-    'popupMenu',
-    'canvas',
-    'rules'
-];
-
-module.exports = CustomContextPadProvider;
-
-
-CustomContextPadProvider.prototype.getContextPadEntries = function(element) {
-
-    var contextPad = this._contextPad,
-        modeling = this._modeling,
-
-        elementFactory = this._elementFactory,
-        connect = this._connect,
-        create = this._create,
-        popupMenu = this._popupMenu,
-        canvas = this._canvas,
-        rules = this._rules;
-
-    var actions = {};
-
-    if (element.type === 'label') {
-        return actions;
-    }
-
-    var businessObject = element.businessObject;
-
-    function startConnect(event, element, autoActivate) {
-        connect.start(event, element, autoActivate);
-    }
-
-    function removeElement(e) {
-        modeling.removeElements([ element ]);
-    }
-
-    function getReplaceMenuPosition(element) {
-
-        var Y_OFFSET = 5;
-
-        var diagramContainer = canvas.getContainer(),
-            pad = contextPad.getPad(element).html;
-
-        var diagramRect = diagramContainer.getBoundingClientRect(),
-            padRect = pad.getBoundingClientRect();
-
-        var top = padRect.top - diagramRect.top;
-        var left = padRect.left - diagramRect.left;
-
-        var pos = {
-            x: left,
-            y: top + padRect.height + Y_OFFSET
-        };
-
-        return pos;
-    }
-
-
-    /**
-     * Create an append action
-     *
-     * @param {String} type
-     * @param {String} className
-     * @param {String} [title]
-     * @param {Object} [options]
-     *
-     * @return {Object} descriptor
-     */
-    function appendAction(type, className, title, options) {
-
-        if (typeof title !== 'string') {
-            options = title;
-            title = 'Append ' + type.replace(/^bpmn\:/, '');
-        }
-
-        function appendListener(event, element) {
-
-            var shape = elementFactory.createShape(assign({ type: type }, options));
-            create.start(event, shape, element);
-        }
-
-        return {
-            group: 'model',
-            className: className,
-            title: title,
-            action: {
-                dragstart: appendListener,
-                click: appendListener
-            }
-        };
-    }
-
-    function splitLaneHandler(count) {
-
-        return function(event, element) {
-            // actual split
-            modeling.splitLane(element, count);
-
-            // refresh context pad after split to
-            // get rid of split icons
-            contextPad.open(element, true);
-        };
-    }
-
-    if (isAny(businessObject, [ 'bpmn:Lane', 'bpmn:Participant' ])) {
-
-        var childLanes = getChildLanes(element);
-
-        assign(actions, {
-            'lane-insert-above': {
-                group: 'lane-insert-above',
-                className: 'bpmn-icon-lane-insert-above',
-                title: 'Add Lane above',
-                action: {
-                    click: function(event, element) {
-                        modeling.addLane(element, 'top');
-                    }
-                }
-            }
-        });
-
-        if (childLanes.length < 2) {
-
-            if (element.height >= 120) {
-                assign(actions, {
-                    'lane-divide-two': {
-                        group: 'lane-divide',
-                        className: 'bpmn-icon-lane-divide-two',
-                        title: 'Divide into two Lanes',
-                        action: {
-                            click: splitLaneHandler(2)
-                        }
-                    }
-                });
-            }
-
-            if (element.height >= 180) {
-                assign(actions, {
-                    'lane-divide-three': {
-                        group: 'lane-divide',
-                        className: 'bpmn-icon-lane-divide-three',
-                        title: 'Divide into three Lanes',
-                        action: {
-                            click: splitLaneHandler(3)
-                        }
-                    }
-                });
-            }
-        }
-
-        assign(actions, {
-            'lane-insert-below': {
-                group: 'lane-insert-below',
-                className: 'bpmn-icon-lane-insert-below',
-                title: 'Add Lane below',
-                action: {
-                    click: function(event, element) {
-                        modeling.addLane(element, 'bottom');
-                    }
-                }
-            }
-        });
-
-    }
-    if(is(businessObject,'bpmn:Participant')){
-        if(businessObject.isAppEnsemble && businessObject.isAppEnsemble==true) {
-            assign(actions, {
-                'partnerRole': {
-                    group: 'edit',
-                    className: 'bpmn-icon-appensemble-remove',
-                    title: 'Unmark App-Ensemble',
-                    action: {
-                        click: function (event, element) {
-                            var participant = element.businessObject, inputtext;
-                            var result = window.confirm('Do you really like remove the App-Ensemble property? There might be problems!');
-                            if (result) {
-                                modeling.updateProperties(element, {'aof:isAppEnsemble': false});
-                                canvas.removeMarker(element.id, 'color-appensemble');
-
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        else{
-            assign(actions, {
-                'partnerRole': {
-                    group: 'edit',
-                    className: 'bpmn-icon-appensemble',
-                    title: 'Mark as App-Ensemble',
-                    action: {
-                        click: function (event, element) {
-                            var participant = element.businessObject, inputtext;
-                            var result = window.confirm('Do you really like to mark the Participant as App-Ensemble?');
-                            if (result) {
-                                modeling.updateProperties(element, {'aof:isAppEnsemble': true});
-                                canvas.addMarker(element.id, 'color-appensemble');
-
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    if (is(businessObject, 'bpmn:FlowNode')) {
-
-        if (is(businessObject, 'bpmn:EventBasedGateway')) {
-
-            assign(actions, {
-                'append.receive-task': appendAction('bpmn:ReceiveTask', 'bpmn-icon-receive-task'),
-                'append.message-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
-                    'bpmn-icon-intermediate-event-catch-message',
-                    { eventDefinitionType: 'bpmn:MessageEventDefinition'}),
-                'append.timer-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
-                    'bpmn-icon-intermediate-event-catch-timer',
-                    { eventDefinitionType: 'bpmn:TimerEventDefinition'}),
-                'append.condtion-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
-                    'bpmn-icon-intermediate-event-catch-condition',
-                    { eventDefinitionType: 'bpmn:ConditionalEventDefinition'}),
-                'append.signal-intermediate-event': appendAction('bpmn:IntermediateCatchEvent',
-                    'bpmn-icon-intermediate-event-catch-signal',
-                    { eventDefinitionType: 'bpmn:SignalEventDefinition'})
-            });
-        } else
-
-        if (isEventType(businessObject, 'bpmn:BoundaryEvent', 'bpmn:CompensateEventDefinition')) {
-
-            assign(actions, {
-                'append.compensation-activity':
-                    appendAction('bpmn:Task', 'bpmn-icon-task', 'Append compensation activity', {
-                        isForCompensation: true
-                    })
-            });
-        } else
-
-        if (!is(businessObject, 'bpmn:EndEvent') &&
-            !businessObject.isForCompensation &&
-            !isEventType(businessObject, 'bpmn:IntermediateThrowEvent', 'bpmn:LinkEventDefinition') &&
-            !isEventSubProcess(businessObject)) {
-
-            assign(actions, {
-                'append.end-event': appendAction('bpmn:EndEvent', 'bpmn-icon-end-event-none'),
-                'append.gateway': appendAction('bpmn:ExclusiveGateway', 'bpmn-icon-gateway-xor'),
-                'append.append-task': appendAction('bpmn:Task', 'bpmn-icon-task'),
-                'append.intermediate-event': appendAction('bpmn:IntermediateThrowEvent',
-                    'bpmn-icon-intermediate-event-none')
-            });
-        }
-        if (is(businessObject, 'bpmn:UserTask')) {
-            if(businessObject.isAppEnsembleApp && businessObject.isAppEnsembleApp==true){
-                assign(actions, {
-                    'removeapp':{
-                        group: 'edit',
-                        className: 'bpmn-icon-app-remove',
-                        title: 'Remove App-Uri',
-                        action: {
-                            click: function(event,element){
-                                modeling.updateProperties(element,{'aof:isAppEnsembleApp':false});
-                                modeling.updateProperties(element,{'aof:realizedBy':""});
-                            }
-                        }
-                    }
-                });
-            }
-            else {
-                assign(actions, {
-                    'setapp': {
-                        group: 'edit',
-                        className: 'bpmn-icon-app',
-                        title: 'Set App-Uri',
-                        action: {
-                            click: function (event, element) {
-                                modeling.updateProperties(element, {'aof:isAppEnsembleApp': true});
-                            }
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    var replaceMenu;
-
-    if (popupMenu._providers['bpmn-replace']) {
-        replaceMenu = popupMenu.create('bpmn-replace', element);
-    }
-
-    if (replaceMenu && !replaceMenu.isEmpty()) {
-
-        // Replace menu entry
-        assign(actions, {
-            'replace': {
-                group: 'edit',
-                className: 'bpmn-icon-screw-wrench',
-                title: 'Change type',
-                action: {
-                    click: function(event, element) {
-                        replaceMenu.open(assign(getReplaceMenuPosition(element), {
-                            cursor: { x: event.x, y: event.y }
-                        }), element);
-                    }
-                }
-            }
-        });
-    }
-
-    if (isAny(businessObject, [ 'bpmn:FlowNode', 'bpmn:InteractionNode' ]) ) {
-
-        assign(actions, {
-            'append.text-annotation': appendAction('bpmn:TextAnnotation', 'bpmn-icon-text-annotation'),
-
-            'connect': {
-                group: 'connect',
-                className: 'bpmn-icon-connection-multi',
-                title: 'Connect using ' +
-                (businessObject.isForCompensation ? '' : 'Sequence/MessageFlow or ') +
-                'Association',
-                action: {
-                    click: startConnect,
-                    dragstart: startConnect
-                }
-            }
-        });
-    }
-
-    if (isAny(businessObject, [ 'bpmn:DataObjectReference', 'bpmn:DataStoreReference' ])) {
-        assign(actions, {
-            'connect': {
-                group: 'connect',
-                className: 'bpmn-icon-connection-multi',
-                title: 'Connect using DataInputAssociation',
-                action: {
-                    click: startConnect,
-                    dragstart: startConnect
-                }
-            }
-        });
-    }
-
-    // delete element entry, only show if allowed by rules
-    var deleteAllowed = rules.allowed('elements.delete', { elements: [ element ]});
-
-    if (isArray(deleteAllowed)) {
-        // was the element returned as a deletion candidate?
-        deleteAllowed = deleteAllowed[0] === element;
-    }
-
-    if (deleteAllowed) {
-        assign(actions, {
-            'delete': {
-                group: 'edit',
-                className: 'bpmn-icon-trash',
-                title: 'Remove',
-                action: {
-                    click: removeElement,
-                    dragstart: removeElement
-                }
-            }
-        });
-    }
-
-    return actions;
-};
-
-function isEventType(eventBo, type, definition) {
-
-    var isType = eventBo.$instanceOf(type);
-    var isDefinition = false;
-
-    var definitions = eventBo.eventDefinitions || [];
-    forEach(definitions, function(def) {
-        if (def.$type === definition) {
-            isDefinition = true;
-        }
-    });
-
-    return isType && isDefinition;
-}
-
-
-},{"../util/DiUtil":440,"../util/LaneUtil":441,"../util/ModelUtil":442,"../util/ModelingUtil":443,"lodash/collection/forEach":461,"lodash/lang/isArray":518,"lodash/object/assign":524}],430:[function(require,module,exports){
-module.exports =  require('./CustomContextPadProvider');
-},{"./CustomContextPadProvider":429}],431:[function(require,module,exports){
-'use strict';
-
-var assign = require('lodash/object/assign');
-
-/**
- * A palette provider for BPMN 2.0 elements.
- */
-function AOFPaletteProvider(palette, create, elementFactory,modeling,canvas,eventBus) {
-
-  this._palette = palette;
-  this._create = create;
-  this._elementFactory = elementFactory;
-  this._modeling=modeling;
-  this._canvas=canvas;
-  this._eventBus=eventBus;
-
-  palette.registerProvider(this);
-}
-
-module.exports = AOFPaletteProvider;
-
-AOFPaletteProvider.$inject = [
-  'palette',
-  'create',
-  'elementFactory',
-    'modeling',
-    'canvas',
-    'eventBus'
-];
-
-
-AOFPaletteProvider.prototype.getPaletteEntries = function(element) {
-
-  var actions  = {},
-      create = this._create,
-      elementFactory = this._elementFactory,
-      modeling=this._modeling,
-      canvas=this._canvas,
-      eventBus=this._eventBus;
-
-
-
-  function createAppUserTask(event, group, className, title, options) {
-
-      var shape = elementFactory.createShape(assign({ type: 'bpmn:UserTask' }, options));
-
-      create.start(event, shape);
-      eventBus.once('create.end',function(){
-        modeling.updateProperties(shape, {'aof:isAppEnsembleApp': true});
-        modeling.updateProperties(shape,{'aof:realizedBy':""});
-      });
-
-  }
-
-
-  function createAppEnsemble(event, collapsed) {
-    var shape=elementFactory.createParticipantShape(collapsed);
-    create.start(event, shape);
-    eventBus.once('create.end',function(){
-      modeling.updateProperties(shape, {'aof:isAppEnsemble': true});
-    });
-  }
-
-  assign(actions, {
-    'aof-separator': {
-      group: 'aof',
-      separator: true
-    },
-    'create.usertask': {
-      group: 'aof',
-      className: 'bpmn-icon-app',
-      title: 'Create App-UserTask',
-      action: {
-        dragstart: createAppUserTask,
-        click: createAppUserTask
-      }
-    },
-    'create.appensemble': {
-      group: 'aof',
-      className: 'bpmn-icon-appensemble',
-      title: 'Create AppEnsemble (Participant)',
-      action: {
-        dragstart: createAppEnsemble,
-        click: createAppEnsemble
-      }
-    }
-  });
-
-  return actions;
-};
-
-},{"lodash/object/assign":524}],432:[function(require,module,exports){
-module.exports = require('./AofPaletteProvider');
-},{"./AofPaletteProvider":431}],433:[function(require,module,exports){
-'use strict';
-
-var is = require('../util/ModelUtil').is,
-    isEventSubProcess = require('../util/DiUtil').isEventSubProcess,
-    getBusinessObject = require('../util/ModelUtil').getBusinessObject,
-    isExpanded = require('../util/DiUtil').isExpanded,
-    isDifferentType = require('../util/TypeUtil').isDifferentType;
-
-var forEach = require('lodash/collection/forEach'),
-    filter = require('lodash/collection/filter');
-
-var replaceOptions = require ('./ReplaceOptions');
-
-
-/**
- * This module is an element agnostic replace menu provider for the popup menu.
- */
-function ReplaceMenuProvider(popupMenu, modeling, moddle, bpmnReplace, rules,elementRegistry) {
-
-  this._popupMenu = popupMenu;
-  this._modeling = modeling;
-  this._moddle = moddle;
-  this._bpmnReplace = bpmnReplace;
-  this._rules = rules;
-  this._elementRegistry=elementRegistry;
-
-  this.register();
-}
-
-ReplaceMenuProvider.$inject = [ 'popupMenu', 'modeling', 'moddle', 'bpmnReplace', 'rules','elementRegistry' ];
-
-
-/**
- * Register replace menu provider in the popup menu
- */
-ReplaceMenuProvider.prototype.register = function() {
-  this._popupMenu.registerProvider('bpmn-replace', this);
-};
-
-
-/**
- * Get all entries from replaceOptions for the given element and apply filters
- * on them. Get for example only elements, which are different from the current one.
- *
- * @param {djs.model.Base} element
- *
- * @return {Array<Object>} a list of menu entry items
- */
-ReplaceMenuProvider.prototype.getEntries = function(element) {
-
-  var businessObject = element.businessObject;
-
-  var rules = this._rules;
-
-  var entries;
-
-  if (!rules.allowed('shape.replace', { element: element })) {
-    return [];
-  }
-
-  var differentType = isDifferentType(element);
-
-  // start events outside event sub processes
-  if (is(businessObject, 'bpmn:StartEvent') && !isEventSubProcess(businessObject.$parent)) {
-
-    entries = filter(replaceOptions.START_EVENT, differentType);
-
-    return this._createEntries(element, entries);
-  }
-
-  // start events inside event sub processes
-  if (is(businessObject, 'bpmn:StartEvent') && isEventSubProcess(businessObject.$parent)) {
-
-    entries = filter(replaceOptions.EVENT_SUB_PROCESS_START_EVENT, function(entry) {
-
-      var target = entry.target;
-
-      var isInterrupting = target.isInterrupting !== false;
-
-      var isInterruptingEqual = getBusinessObject(element).isInterrupting === isInterrupting;
-
-      // filters elements which types and event definition are equal but have have different interrupting types
-      return differentType(entry) || !differentType(entry) && !isInterruptingEqual;
-
-    });
-
-    return this._createEntries(element, entries);
-  }
-
-  // end events
-  if (is(businessObject, 'bpmn:EndEvent')) {
-
-    entries = filter(replaceOptions.END_EVENT, function(entry) {
-      var target = entry.target;
-
-      // hide cancel end events outside transactions
-      if (target.eventDefinition == 'bpmn:CancelEventDefinition' && !is(businessObject.$parent, 'bpmn:Transaction')) {
-        return false;
-      }
-      return differentType(entry);
-    });
-
-    return this._createEntries(element, entries);
-  }
-
-  // boundary events
-  if (is(businessObject, 'bpmn:BoundaryEvent')) {
-
-    entries = filter(replaceOptions.BOUNDARY_EVENT, function(entry) {
-
-      var target = entry.target;
-
-      if (target.eventDefinition == 'bpmn:CancelEventDefinition' &&
-         !is(businessObject.attachedToRef, 'bpmn:Transaction')) {
-        return false;
-      }
-      var cancelActivity = target.cancelActivity !== false;
-
-      var isCancelActivityEqual = businessObject.cancelActivity == cancelActivity;
-
-      return differentType(entry) || !differentType(entry) && !isCancelActivityEqual;
-    });
-
-    return this._createEntries(element, entries);
-  }
-
-  // intermediate events
-  if (is(businessObject, 'bpmn:IntermediateCatchEvent') ||
-      is(businessObject, 'bpmn:IntermediateThrowEvent')) {
-
-    entries = filter(replaceOptions.INTERMEDIATE_EVENT, differentType);
-
-    return this._createEntries(element, entries);
-  }
-
-  // gateways
-  if (is(businessObject, 'bpmn:Gateway')) {
-
-    entries = filter(replaceOptions.GATEWAY, differentType);
-
-    return this._createEntries(element, entries);
-  }
-
-  // transactions
-  if (is(businessObject, 'bpmn:Transaction')) {
-
-    entries = filter(replaceOptions.TRANSACTION, differentType);
-
-    return this._createEntries(element, entries);
-  }
-
-  // expanded event sub processes
-  if (isEventSubProcess(businessObject) && isExpanded(businessObject)) {
-
-    entries = filter(replaceOptions.EVENT_SUB_PROCESS, differentType);
-
-    return this._createEntries(element, entries);
-  }
-
-  // expanded sub processes
-  if (is(businessObject, 'bpmn:SubProcess') && isExpanded(businessObject)) {
-
-    entries = filter(replaceOptions.SUBPROCESS_EXPANDED, differentType);
-
-    return this._createEntries(element, entries);
-  }
-
-  // collapsed ad hoc sub processes
-  if (is(businessObject, 'bpmn:AdHocSubProcess') && !isExpanded(businessObject)) {
-
-    entries = filter(replaceOptions.TASK, function(entry) {
-
-      var target = entry.target;
-
-      var isTargetSubProcess = target.type === 'bpmn:SubProcess';
-
-      return isDifferentType(element, target) && !isTargetSubProcess;
-    });
-
-    return this._createEntries(element, entries);
-  }
-
-  // sequence flows
-  if (is(businessObject, 'bpmn:SequenceFlow')) {
-    return this._createSequenceFlowEntries(element, replaceOptions.SEQUENCE_FLOW);
-  }
-
-  // flow nodes
-  if (is(businessObject, 'bpmn:FlowNode')) {
-    entries = filter(replaceOptions.TASK, differentType);
-
-    if (businessObject.isForCompensation) {
-
-      // can only replace to compensation activities
-      entries = filter(entries, function(entry) {
-        return !/CallActivity/.test(entry.target.type);
-      });
-    }
-
-    /* EDIT get the parent shape (for detecting if it is an AppEnsemble */
-    var inElement=false;
-    var containingElement;
-    this._elementRegistry.filter(function(element,gfx){
-      forEach(element.children,function(child){
-        if(child.id==businessObject.id){inElement=true;}
-      });
-      if(inElement){containingElement=element;inElement=false;}
-    });
-
-    if(containingElement.businessObject.isAppEnsemble) {
-      entries=filter(entries,function(entry){
-        return (entry.target.type=="bpmn:ManualTask" || entry.target.type=="bpmn:UserTask");
-      })
-    }
-    else{
-      entries=filter(entries,function(entry){
-        return (entry.target.type!="bpmn:UserTask");
-      });
-    }
-
-    /* EDIT END */
-
-    return this._createEntries(element, entries);
-  }
-
-  return [];
-};
-
-/**
- * Get a list of header items for the given element. This includes buttons
- * for multi instance markers and for the ad hoc marker.
- *
- * @param {djs.model.Base} element
- *
- * @return {Array<Object>} a list of menu entry items
- */
-ReplaceMenuProvider.prototype.getHeaderEntries = function(element) {
-
-  var headerEntries = [];
-
-  if (is(element, 'bpmn:Activity') && !isEventSubProcess(element)) {
-    headerEntries = headerEntries.concat(this._getLoopEntries(element));
-  }
-
-  if (is(element, 'bpmn:SubProcess') &&
-      !is(element, 'bpmn:Transaction') &&
-      !isEventSubProcess(element)) {
-    headerEntries.push(this._getAdHocEntry(element));
-  }
-
-  return headerEntries;
-};
-
-
-/**
- * Creates an array of menu entry objects for a given element and filters the replaceOptions
- * according to a filter function.
- *
- * @param  {djs.model.Base} element
- * @param  {Object} replaceOptions
- *
- * @return {Array<Object>} a list of menu items
- */
-ReplaceMenuProvider.prototype._createEntries = function(element, replaceOptions) {
-  var menuEntries = [];
-
-  var self = this;
-
-  forEach(replaceOptions, function(definition) {
-    var entry = self._createMenuEntry(definition, element);
-
-    menuEntries.push(entry);
-  });
-
-  return menuEntries;
-};
-
-
-/**
- * Creates an array of menu entry objects for a given sequence flow.
- *
- * @param  {djs.model.Base} element
- * @param  {Object} replaceOptions
-
- * @return {Array<Object>} a list of menu items
- */
-ReplaceMenuProvider.prototype._createSequenceFlowEntries = function (element, replaceOptions) {
-
-  var businessObject = getBusinessObject(element);
-
-  var menuEntries = [];
-
-  var modeling = this._modeling,
-      moddle = this._moddle;
-
-  var self = this;
-
-  forEach(replaceOptions, function(entry) {
-
-    switch (entry.actionName) {
-      case 'replace-with-default-flow':
-        if (businessObject.sourceRef.default !== businessObject &&
-            (is(businessObject.sourceRef, 'bpmn:ExclusiveGateway') ||
-             is(businessObject.sourceRef, 'bpmn:InclusiveGateway') ||
-             is(businessObject.sourceRef, 'bpmn:Activity'))) {
-
-          menuEntries.push(self._createMenuEntry(entry, element, function() {
-            modeling.updateProperties(element.source, { default: businessObject });
-          }));
-        }
-        break;
-      case 'replace-with-conditional-flow':
-        if (!businessObject.conditionExpression && is(businessObject.sourceRef, 'bpmn:Activity')) {
-
-          menuEntries.push(self._createMenuEntry(entry, element, function() {
-            var conditionExpression = moddle.create('bpmn:FormalExpression', { body: '' });
-
-            modeling.updateProperties(element, { conditionExpression: conditionExpression });
-          }));
-        }
-        break;
-      default:
-        // default flows
-        if (is(businessObject.sourceRef, 'bpmn:Activity') && businessObject.conditionExpression) {
-          return menuEntries.push(self._createMenuEntry(entry, element, function() {
-            modeling.updateProperties(element, { conditionExpression: undefined });
-          }));
-        }
-        // conditional flows
-        if ((is(businessObject.sourceRef, 'bpmn:ExclusiveGateway') ||
-           is(businessObject.sourceRef, 'bpmn:InclusiveGateway') ||
-           is(businessObject.sourceRef, 'bpmn:Activity')) &&
-           businessObject.sourceRef.default === businessObject) {
-
-          return menuEntries.push(self._createMenuEntry(entry, element, function() {
-            modeling.updateProperties(element.source, { default: undefined });
-          }));
-        }
-    }
-  });
-
-  return menuEntries;
-};
-
-
-/**
- * Creates and returns a single menu entry item.
- *
- * @param  {Object} definition a single replace options definition object
- * @param  {djs.model.Base} element
- * @param  {Function} [action] an action callback function which gets called when
- *                             the menu entry is being triggered.
- *
- * @return {Object} menu entry item
- */
-ReplaceMenuProvider.prototype._createMenuEntry = function(definition, element, action) {
-
-  var replaceElement = this._bpmnReplace.replaceElement;
-
-  var replaceAction = function() {
-    return replaceElement(element, definition.target);
-  };
-
-  action = action || replaceAction;
-
-  var menuEntry = {
-    label: definition.label,
-    className: definition.className,
-    id: definition.actionName,
-    action: action
-  };
-
-  return menuEntry;
-};
-
-/**
- * Get a list of menu items containing buttons for multi instance markers
- *
- * @param  {djs.model.Base} element
- *
- * @return {Array<Object>} a list of menu items
- */
-ReplaceMenuProvider.prototype._getLoopEntries = function(element) {
-
-  var self = this;
-
-  function toggleLoopEntry(event, entry) {
-    var loopCharacteristics;
-
-    if (entry.active) {
-      loopCharacteristics = undefined;
-    } else {
-      loopCharacteristics = self._moddle.create(entry.options.loopCharacteristics);
-
-      if (entry.options.isSequential) {
-        loopCharacteristics.isSequential = entry.options.isSequential;
-      }
-    }
-    self._modeling.updateProperties(element, { loopCharacteristics: loopCharacteristics });
-  }
-
-  var businessObject = getBusinessObject(element),
-      loopCharacteristics = businessObject.loopCharacteristics;
-
-  var isSequential,
-      isLoop,
-      isParallel;
-
-  if (loopCharacteristics) {
-    isSequential = loopCharacteristics.isSequential;
-    isLoop = loopCharacteristics.isSequential === undefined;
-    isParallel = loopCharacteristics.isSequential !== undefined && !loopCharacteristics.isSequential;
-  }
-
-
-  var loopEntries = [
-    {
-      id: 'toggle-parallel-mi',
-      className: 'bpmn-icon-parallel-mi-marker',
-      title: 'Parallel Multi Instance',
-      active: isParallel,
-      action: toggleLoopEntry,
-      options: {
-        loopCharacteristics: 'bpmn:MultiInstanceLoopCharacteristics',
-        isSequential: false
-      }
-    },
-    {
-      id: 'toggle-sequential-mi',
-      className: 'bpmn-icon-sequential-mi-marker',
-      title: 'Sequential Multi Instance',
-      active: isSequential,
-      action: toggleLoopEntry,
-      options: {
-        loopCharacteristics: 'bpmn:MultiInstanceLoopCharacteristics',
-        isSequential: true
-      }
-    },
-    {
-      id: 'toggle-loop',
-      className: 'bpmn-icon-loop-marker',
-      title: 'Loop',
-      active: isLoop,
-      action: toggleLoopEntry,
-      options: {
-        loopCharacteristics: 'bpmn:StandardLoopCharacteristics'
-      }
-    }
-  ];
-  return loopEntries;
-};
-
-
-/**
- * Get the menu items containing a button for the ad hoc marker
- *
- * @param  {djs.model.Base} element
- *
- * @return {Object} a menu item
- */
-ReplaceMenuProvider.prototype._getAdHocEntry = function(element) {
-  var businessObject = getBusinessObject(element);
-
-  var isAdHoc = is(businessObject, 'bpmn:AdHocSubProcess');
-
-  var replaceElement = this._bpmnReplace.replaceElement;
-
-  var adHocEntry = {
-    id: 'toggle-adhoc',
-    className: 'bpmn-icon-ad-hoc-marker',
-    title: 'Ad-hoc',
-    active: isAdHoc,
-    action: function(event, entry) {
-      if (isAdHoc) {
-        return replaceElement(element, { type: 'bpmn:SubProcess' });
-      } else {
-        return replaceElement(element, { type: 'bpmn:AdHocSubProcess' });
-      }
-    }
-  };
-
-  return adHocEntry;
-};
-
-module.exports = ReplaceMenuProvider;
-},{"../util/DiUtil":440,"../util/ModelUtil":442,"../util/TypeUtil":444,"./ReplaceOptions":434,"lodash/collection/filter":459,"lodash/collection/forEach":461}],434:[function(require,module,exports){
-'use strict';
-
-module.exports.START_EVENT = [
-  {
-    label: 'Start Event',
-    actionName: 'replace-with-none-start',
-    className: 'bpmn-icon-start-event-none',
-    target: {
-      type: 'bpmn:StartEvent'
-    }
-  },
-  {
-    label: 'Intermediate Throw Event',
-    actionName: 'replace-with-none-intermediate-throwing',
-    className: 'bpmn-icon-intermediate-event-none',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent'
-    }
-  },
-  {
-    label: 'End Event',
-    actionName: 'replace-with-none-end',
-    className: 'bpmn-icon-end-event-none',
-    target: {
-      type: 'bpmn:EndEvent'
-    }
-  },
-  {
-    label: 'Message Start Event',
-    actionName: 'replace-with-message-start',
-    className: 'bpmn-icon-start-event-message',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Start Event',
-    actionName: 'replace-with-timer-start',
-    className: 'bpmn-icon-start-event-timer',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Start Event',
-    actionName: 'replace-with-conditional-start',
-    className: 'bpmn-icon-start-event-condition',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Start Event',
-    actionName: 'replace-with-signal-start',
-    className: 'bpmn-icon-start-event-signal',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  }
-];
-
-module.exports.INTERMEDIATE_EVENT = [
-  {
-    label: 'Start Event',
-    actionName: 'replace-with-none-start',
-    className: 'bpmn-icon-start-event-none',
-    target: {
-      type: 'bpmn:StartEvent'
-    }
-  },
-  {
-    label: 'Intermediate Throw Event',
-    actionName: 'replace-with-none-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-none',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent'
-    }
-  },
-  {
-    label: 'End Event',
-    actionName: 'replace-with-none-end',
-    className: 'bpmn-icon-end-event-none',
-    target: {
-      type: 'bpmn:EndEvent'
-    }
-  },
-  {
-    label: 'Message Intermediate Catch Event',
-    actionName: 'replace-with-message-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-message',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Message Intermediate Throw Event',
-    actionName: 'replace-with-message-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-message',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Intermediate Catch Event',
-    actionName: 'replace-with-timer-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-timer',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation Intermediate Throw Event',
-    actionName: 'replace-with-escalation-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-escalation',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Intermediate Catch Event',
-    actionName: 'replace-with-conditional-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-condition',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Link Intermediate Catch Event',
-    actionName: 'replace-with-link-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-link',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:LinkEventDefinition'
-    }
-  },
-  {
-    label: 'Link Intermediate Throw Event',
-    actionName: 'replace-with-link-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-link',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:LinkEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation Intermediate Throw Event',
-    actionName: 'replace-with-compensation-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-compensation',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Intermediate Catch Event',
-    actionName: 'replace-with-signal-intermediate-catch',
-    className: 'bpmn-icon-intermediate-event-catch-signal',
-    target: {
-      type: 'bpmn:IntermediateCatchEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Intermediate Throw Event',
-    actionName: 'replace-with-signal-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-throw-signal',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  }
-];
-
-module.exports.END_EVENT = [
-  {
-    label: 'Start Event',
-    actionName: 'replace-with-none-start',
-    className: 'bpmn-icon-start-event-none',
-    target: {
-      type: 'bpmn:StartEvent'
-    }
-  },
-  {
-    label: 'Intermediate Throw Event',
-    actionName: 'replace-with-none-intermediate-throw',
-    className: 'bpmn-icon-intermediate-event-none',
-    target: {
-      type: 'bpmn:IntermediateThrowEvent'
-    }
-  },
-  {
-    label: 'End Event',
-    actionName: 'replace-with-none-end',
-    className: 'bpmn-icon-end-event-none',
-    target: {
-      type: 'bpmn:EndEvent'
-    }
-  },
-  {
-    label: 'Message End Event',
-    actionName: 'replace-with-message-end',
-    className: 'bpmn-icon-end-event-message',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation End Event',
-    actionName: 'replace-with-escalation-end',
-    className: 'bpmn-icon-end-event-escalation',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Error End Event',
-    actionName: 'replace-with-error-end',
-    className: 'bpmn-icon-end-event-error',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:ErrorEventDefinition'
-    }
-  },
-  {
-    label: 'Cancel End Event',
-    actionName: 'replace-with-cancel-end',
-    className: 'bpmn-icon-end-event-cancel',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:CancelEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation End Event',
-    actionName: 'replace-with-compensation-end',
-    className: 'bpmn-icon-end-event-compensation',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Signal End Event',
-    actionName: 'replace-with-signal-end',
-    className: 'bpmn-icon-end-event-signal',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Terminate End Event',
-    actionName: 'replace-with-terminate-end',
-    className: 'bpmn-icon-end-event-terminate',
-    target: {
-      type: 'bpmn:EndEvent',
-      eventDefinitionType: 'bpmn:TerminateEventDefinition'
-    }
-  }
-];
-
-module.exports.GATEWAY = [
-  {
-    label: 'Exclusive Gateway',
-    actionName: 'replace-with-exclusive-gateway',
-    className: 'bpmn-icon-gateway-xor',
-    target: {
-      type: 'bpmn:ExclusiveGateway'
-    }
-  },
-  {
-    label: 'Parallel Gateway',
-    actionName: 'replace-with-parallel-gateway',
-    className: 'bpmn-icon-gateway-parallel',
-    target: {
-      type: 'bpmn:ParallelGateway'
-    }
-  },
-  {
-    label: 'Inclusive Gateway',
-    actionName: 'replace-with-inclusive-gateway',
-    className: 'bpmn-icon-gateway-or',
-    target: {
-      type: 'bpmn:InclusiveGateway'
-    }
-  },
-  {
-    label: 'Complex Gateway',
-    actionName: 'replace-with-complex-gateway',
-    className: 'bpmn-icon-gateway-complex',
-    target: {
-      type: 'bpmn:ComplexGateway'
-    }
-  },
-  {
-    label: 'Event based Gateway',
-    actionName: 'replace-with-event-based-gateway',
-    className: 'bpmn-icon-gateway-eventbased',
-    target: {
-      type: 'bpmn:EventBasedGateway',
-      instantiate: false,
-      eventGatewayType: 'Exclusive'
-    }
-  }
-  // Gateways deactivated until https://github.com/bpmn-io/bpmn-js/issues/194
-  // {
-  //   label: 'Event based instantiating Gateway',
-  //   actionName: 'replace-with-exclusive-event-based-gateway',
-  //   className: 'bpmn-icon-exclusive-event-based',
-  //   target: {
-  //     type: 'bpmn:EventBasedGateway'
-  //   },
-  //   options: {
-  //     businessObject: { instantiate: true, eventGatewayType: 'Exclusive' }
-  //   }
-  // },
-  // {
-  //   label: 'Parallel Event based instantiating Gateway',
-  //   actionName: 'replace-with-parallel-event-based-instantiate-gateway',
-  //   className: 'bpmn-icon-parallel-event-based-instantiate-gateway',
-  //   target: {
-  //     type: 'bpmn:EventBasedGateway'
-  //   },
-  //   options: {
-  //     businessObject: { instantiate: true, eventGatewayType: 'Parallel' }
-  //   }
-  // }
-];
-
-module.exports.SUBPROCESS_EXPANDED = [
-  {
-    label: 'Transaction',
-    actionName: 'replace-with-transaction',
-    className: 'bpmn-icon-transaction',
-    target: {
-      type: 'bpmn:Transaction',
-      isExpanded: true
-    }
-  },
-  {
-    label: 'Event Sub Process',
-    actionName: 'replace-with-event-subprocess',
-    className: 'bpmn-icon-event-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      triggeredByEvent: true,
-      isExpanded: true
-    }
-  }
-];
-
-module.exports.TRANSACTION = [
-  {
-    label: 'Sub Process',
-    actionName: 'replace-with-subprocess',
-    className: 'bpmn-icon-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      isExpanded: true
-    }
-  },
-  {
-    label: 'Event Sub Process',
-    actionName: 'replace-with-event-subprocess',
-    className: 'bpmn-icon-event-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      triggeredByEvent: true,
-      isExpanded: true
-    }
-  }
-];
-
-module.exports.EVENT_SUB_PROCESS = [
-  {
-    label: 'Sub Process',
-    actionName: 'replace-with-subprocess',
-    className: 'bpmn-icon-subprocess-expanded',
-    target: {
-      type: 'bpmn:SubProcess',
-      isExpanded: true
-    }
-  },
-  {
-    label: 'Transaction',
-    actionName: 'replace-with-transaction',
-    className: 'bpmn-icon-transaction',
-    target: {
-      type: 'bpmn:Transaction',
-      isExpanded: true
-    }
-  },
-];
-
-module.exports.TASK = [
-  {
-    label: 'Task',
-    actionName: 'replace-with-task',
-    className: 'bpmn-icon-task',
-    target: {
-      type: 'bpmn:Task'
-    }
-  },
-  {
-    label: 'Send Task',
-    actionName: 'replace-with-send-task',
-    className: 'bpmn-icon-send',
-    target: {
-      type: 'bpmn:SendTask'
-    }
-  },
-  {
-    label: 'Receive Task',
-    actionName: 'replace-with-receive-task',
-    className: 'bpmn-icon-receive',
-    target: {
-      type: 'bpmn:ReceiveTask'
-    }
-  },
-  {
-    label: 'User Task',
-    actionName: 'replace-with-user-task',
-    className: 'bpmn-icon-user',
-    target: {
-      type: 'bpmn:UserTask'
-    }
-  },
-  {
-    label: 'Manual Task',
-    actionName: 'replace-with-manual-task',
-    className: 'bpmn-icon-manual',
-    target: {
-      type: 'bpmn:ManualTask'
-    }
-  },
-  {
-    label: 'Business Rule Task',
-    actionName: 'replace-with-rule-task',
-    className: 'bpmn-icon-business-rule',
-    target: {
-      type: 'bpmn:BusinessRuleTask'
-    }
-  },
-  {
-    label: 'Service Task',
-    actionName: 'replace-with-service-task',
-    className: 'bpmn-icon-service',
-    target: {
-      type: 'bpmn:ServiceTask'
-    }
-  },
-  {
-    label: 'Script Task',
-    actionName: 'replace-with-script-task',
-    className: 'bpmn-icon-script',
-    target: {
-      type: 'bpmn:ScriptTask'
-    }
-  },
-  {
-    label: 'Call Activity',
-    actionName: 'replace-with-call-activity',
-    className: 'bpmn-icon-call-activity',
-    target: {
-      type: 'bpmn:CallActivity'
-    }
-  },
-  {
-    label: 'Sub Process (collapsed)',
-    actionName: 'replace-with-collapsed-subprocess',
-    className: 'bpmn-icon-subprocess-collapsed',
-    target: {
-      type: 'bpmn:SubProcess',
-      isExpanded: false
-    }
-  }
-];
-
-module.exports.BOUNDARY_EVENT = [
-  {
-    label: 'Message Boundary Event',
-    actionName: 'replace-with-message-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-message',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Boundary Event',
-    actionName: 'replace-with-timer-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-timer',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation Boundary Event',
-    actionName: 'replace-with-escalation-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-escalation',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Boundary Event',
-    actionName: 'replace-with-conditional-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-condition',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Error Boundary Event',
-    actionName: 'replace-with-error-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-error',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:ErrorEventDefinition'
-    }
-  },
-  {
-    label: 'Cancel Boundary Event',
-    actionName: 'replace-with-cancel-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-cancel',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:CancelEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Boundary Event',
-    actionName: 'replace-with-signal-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-signal',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation Boundary Event',
-    actionName: 'replace-with-compensation-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-compensation',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Message Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-message-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-message',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Timer Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-timer-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-timer',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Escalation Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-escalation-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-escalation',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Conditional Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-conditional-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-condition',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition',
-      cancelActivity: false
-    }
-  },
-  {
-    label: 'Signal Boundary Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-signal-boundary',
-    className: 'bpmn-icon-intermediate-event-catch-non-interrupting-signal',
-    target: {
-      type: 'bpmn:BoundaryEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition',
-      cancelActivity: false
-    }
-  },
-];
-
-module.exports.EVENT_SUB_PROCESS_START_EVENT = [
-  {
-    label: 'Message Start Event',
-    actionName: 'replace-with-message-start',
-    className: 'bpmn-icon-start-event-message',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition'
-    }
-  },
-  {
-    label: 'Timer Start Event',
-    actionName: 'replace-with-timer-start',
-    className: 'bpmn-icon-start-event-timer',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition'
-    }
-  },
-  {
-    label: 'Conditional Start Event',
-    actionName: 'replace-with-conditional-start',
-    className: 'bpmn-icon-start-event-condition',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition'
-    }
-  },
-  {
-    label: 'Signal Start Event',
-    actionName: 'replace-with-signal-start',
-    className: 'bpmn-icon-start-event-signal',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition'
-    }
-  },
-  {
-    label: 'Error Start Event',
-    actionName: 'replace-with-error-start',
-    className: 'bpmn-icon-start-event-error',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ErrorEventDefinition'
-    }
-  },
-  {
-    label: 'Escalation Start Event',
-    actionName: 'replace-with-escalation-start',
-    className: 'bpmn-icon-start-event-escalation',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition'
-    }
-  },
-  {
-    label: 'Compensation Start Event',
-    actionName: 'replace-with-compensation-start',
-    className: 'bpmn-icon-start-event-compensation',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:CompensateEventDefinition'
-    }
-  },
-  {
-    label: 'Message Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-message-start',
-    className: 'bpmn-icon-start-event-non-interrupting-message',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:MessageEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Timer Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-timer-start',
-    className: 'bpmn-icon-start-event-non-interrupting-timer',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:TimerEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Conditional Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-conditional-start',
-    className: 'bpmn-icon-start-event-non-interrupting-condition',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:ConditionalEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Signal Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-signal-start',
-    className: 'bpmn-icon-start-event-non-interrupting-signal',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:SignalEventDefinition',
-      isInterrupting: false
-    }
-  },
-  {
-    label: 'Escalation Start Event (non-interrupting)',
-    actionName: 'replace-with-non-interrupting-escalation-start',
-    className: 'bpmn-icon-start-event-non-interrupting-escalation',
-    target: {
-      type: 'bpmn:StartEvent',
-      eventDefinitionType: 'bpmn:EscalationEventDefinition',
-      isInterrupting: false
-    }
-  },
-];
-
-module.exports.SEQUENCE_FLOW = [
-  {
-    label: 'Sequence Flow',
-    actionName: 'replace-with-sequence-flow',
-    className: 'bpmn-icon-connection'
-  },
-  {
-    label: 'Default Flow',
-    actionName: 'replace-with-default-flow',
-    className: 'bpmn-icon-default-flow'
-  },
-  {
-    label: 'Conditional Flow',
-    actionName: 'replace-with-conditional-flow',
-    className: 'bpmn-icon-conditional-flow'
-  }
-];
-
-},{}],435:[function(require,module,exports){
-module.exports =require('./CustomReplaceMenuProvider');
-},{"./CustomReplaceMenuProvider":433}],436:[function(require,module,exports){
-'use strict';
-
-var inherits = require('inherits');
-var is = require('./../util/ModelUtil').is;
-
-var RuleProvider = require('diagram-js/lib/features/rules/RuleProvider');
-
-
-/**
- * A custom rule provider that decides what elements can be
- * dropped where based on a `vendor:allowDrop` BPMN extension.
- *
- * See {@link BpmnRules} for the default implementation
- * of BPMN 2.0 modeling rules provided by bpmn-js.
- *
- * @param {EventBus} eventBus
- */
-function AofRules(eventBus) {
-    RuleProvider.call(this, eventBus);
-}
-
-inherits(AofRules, RuleProvider);
-
-AofRules.$inject = [ 'eventBus' ];
-
-module.exports = AofRules;
-
-
-AofRules.prototype.init = function() {
-
-
-    this.addRule('elements.move',2000, function(context) {
-
-        var target = context.target;
-        if(!!target){   // !!=cast in boolean
-            var shape = context.shapes[0];
-            var shapeBo = shape.businessObject,
-                targetBo = target.businessObject;
-            if(is(shapeBo, 'bpmn:Task')){
-                var targetIsAppEnsemble = targetBo.get('isAppEnsemble');
-                if(shape.type=="bpmn:UserTask" && !!targetIsAppEnsemble) return true;   // UserTask can only be dropped in AppEnsembles
-                else if(shape.type=="bpmn:UserTask" && !targetIsAppEnsemble) return false;  //not anywhere else
-                else if(shape.type!="bpmn:ManualTask" && shape.type!="bpmn:Task" && !!targetIsAppEnsemble) return false; //only manual, user and normal tasks can be dropped in AppEnsembles
-            }
-        }
-    });
-};
-},{"./../util/ModelUtil":442,"diagram-js/lib/features/rules/RuleProvider":448,"inherits":455}],437:[function(require,module,exports){
-module.exports = require('./aofRules');
-},{"./aofRules":436}],438:[function(require,module,exports){
-'use strict';
-
-var find = require('lodash/collection/find'),
-    any = require('lodash/collection/any'),
-    forEach = require('lodash/collection/forEach'),
-    jquery = require('jquery'),
-    inherits = require('inherits'),
-    md5 = require('md5');
-
-
-/**
- * BPMN specific modeling rule
- */
-function AppManager(config) {
-
-    this._apps=[];
-    this.request_uri=config.request_uri;
-    this.info_uri_pattern=config.info_uri_pattern;
-    this.init();
-
-}
-
-AppManager.$inject = [ 'config.appManager' ];
-
-module.exports = AppManager;
-
-AppManager.prototype.init = function() {
-    var apps=this._apps;
-
-    var request = jquery.ajax(this.request_uri, {
-        success: function (data, status, jqXHR) {
-            data=JSON.parse(data);
-            if (data.results) {
-                for(var i=0;i<data.results.bindings.length;i++){
-                    var pushdata={name: data.results.bindings[i].label.value, value: data.results.bindings[i].uri.value};
-                     apps.push(pushdata);
-                }
-                apps.sort(function(a,b){
-                    if(a.name< b.name)return -1;
-                    else return 1;
-
-                });
-            }
-        },
-        method: "GET",
-        async: true,
-        dataType: 'json',
-        timeout: 1000,
-        data: '',
-        error: function (jqXHR, status, error) {
-            alert(status);
-        }
-    });
-
-};
-
-AppManager.prototype.list=function(){
-    return this._apps;
-}
-AppManager.prototype.getInfoUri=function(appUri){
-    var uri = this._apps.filter(function (app) { return app.value == appUri});
-    if(uri.length>0)  {
-        uri=md5(uri[0].value);
-        return this.info_uri_pattern.replace('#URI#',uri);
-    }
-    return "";
-
-}
-
-},{"inherits":455,"jquery":456,"lodash/collection/any":458,"lodash/collection/find":460,"lodash/collection/forEach":461,"md5":530}],439:[function(require,module,exports){
-module.exports =require('./AppManager');
-},{"./AppManager":438}],440:[function(require,module,exports){
-'use strict';
-
-var is = require('./ModelUtil').is,
-    getBusinessObject = require('./ModelUtil').getBusinessObject;
-
-module.exports.isExpanded = function(element) {
-
-  if (is(element, 'bpmn:CallActivity')) {
-    return false;
-  }
-
-  if (is(element, 'bpmn:SubProcess')) {
-    return !!getBusinessObject(element).di.isExpanded;
-  }
-
-  if (is(element, 'bpmn:Participant')) {
-    return !!getBusinessObject(element).processRef;
-  }
-
-  return true;
-};
-
-module.exports.isInterrupting = function(element) {
-  return element && getBusinessObject(element).isInterrupting !== false;
-};
-
-module.exports.isEventSubProcess = function(element) {
-  return element && !!getBusinessObject(element).triggeredByEvent;
-};
-
-},{"./ModelUtil":442}],441:[function(require,module,exports){
-'use strict';
-
-var is = require('./ModelUtil').is;
-
-var getParent = require('./ModelingUtil').getParent;
-
-var asTRBL = require('diagram-js/lib/layout/LayoutUtil').asTRBL,
-    substractTRBL = require('diagram-js/lib/features/resize/ResizeUtil').substractTRBL,
-    resizeTRBL = require('diagram-js/lib/features/resize/ResizeUtil').resizeTRBL;
-
-var abs = Math.abs;
-
-
-function getTRBLResize(oldBounds, newBounds) {
-  return substractTRBL(asTRBL(newBounds), asTRBL(oldBounds));
-}
-
-
-var LANE_PARENTS = [
-  'bpmn:Participant',
-  'bpmn:Process',
-  'bpmn:SubProcess'
-];
-
-var LANE_INDENTATION = 30;
-
-module.exports.LANE_INDENTATION = LANE_INDENTATION;
-
-
-/**
- * Collect all lane shapes in the given paren
- *
- * @param  {djs.model.Shape} shape
- * @param  {Array<djs.model.Base>} [collectedShapes]
- *
- * @return {Array<djs.model.Base>}
- */
-function collectLanes(shape, collectedShapes) {
-
-  collectedShapes = collectedShapes || [];
-
-  shape.children.filter(function(s) {
-    if (is(s, 'bpmn:Lane')) {
-      collectLanes(s, collectedShapes);
-
-      collectedShapes.push(s);
-    }
-  });
-
-  return collectedShapes;
-}
-
-module.exports.collectLanes = collectLanes;
-
-/**
- * Return the lane children of the given element.
- *
- * @param {djs.model.Shape} shape
- *
- * @return {Array<djs.model.Shape>}
- */
-function getChildLanes(shape) {
-  return shape.children.filter(function(c) {
-    return is(c, 'bpmn:Lane');
-  });
-}
-
-module.exports.getChildLanes = getChildLanes;
-
-/**
- * Return the root element containing the given lane shape
- *
- * @param {djs.model.Shape} shape
- *
- * @return {djs.model.Shape}
- */
-function getLanesRoot(shape) {
-  return getParent(shape, LANE_PARENTS) || shape;
-}
-
-module.exports.getLanesRoot = getLanesRoot;
-
-
-/**
- * Compute the required resize operations for lanes
- * adjacent to the given shape, assuming it will be
- * resized to the given new bounds.
- *
- * @param {djs.model.Shape} shape
- * @param {Bounds} newBounds
- *
- * @return {Array<Object>}
- */
-function computeLanesResize(shape, newBounds) {
-
-  var rootElement = getLanesRoot(shape);
-
-  var initialShapes = is(rootElement, 'bpmn:Process') ? [] : [ rootElement ];
-
-  var allLanes = collectLanes(rootElement, initialShapes),
-      shapeTrbl = asTRBL(shape),
-      shapeNewTrbl = asTRBL(newBounds),
-      trblResize = getTRBLResize(shape, newBounds),
-      resizeNeeded = [];
-
-  allLanes.forEach(function(other) {
-
-    if (other === shape) {
-      return;
-    }
-
-    var topResize = 0,
-        rightResize = trblResize.right,
-        bottomResize = 0,
-        leftResize = trblResize.left;
-
-    var otherTrbl = asTRBL(other);
-
-    if (trblResize.top) {
-      if (abs(otherTrbl.bottom - shapeTrbl.top) < 10) {
-        bottomResize = shapeNewTrbl.top - otherTrbl.bottom;
-      }
-
-      if (abs(otherTrbl.top - shapeTrbl.top) < 5) {
-        topResize = shapeNewTrbl.top - otherTrbl.top;
-      }
-    }
-
-    if (trblResize.bottom) {
-      if (abs(otherTrbl.top - shapeTrbl.bottom) < 10) {
-        topResize = shapeNewTrbl.bottom - otherTrbl.top;
-      }
-
-      if (abs(otherTrbl.bottom - shapeTrbl.bottom) < 5) {
-        bottomResize = shapeNewTrbl.bottom - otherTrbl.bottom;
-      }
-    }
-
-    if (topResize || rightResize || bottomResize || leftResize) {
-
-      resizeNeeded.push({
-        shape: other,
-        newBounds: resizeTRBL(other, {
-          top: topResize,
-          right: rightResize,
-          bottom: bottomResize,
-          left: leftResize
-        })
-      });
-    }
-
-  });
-
-  return resizeNeeded;
-}
-
-module.exports.computeLanesResize = computeLanesResize;
-
-},{"./ModelUtil":442,"./ModelingUtil":443,"diagram-js/lib/features/resize/ResizeUtil":447,"diagram-js/lib/layout/LayoutUtil":449}],442:[function(require,module,exports){
-'use strict';
-
-/**
- * Is an element of the given BPMN type?
- *
- * @param  {djs.model.Base|ModdleElement} element
- * @param  {String} type
- *
- * @return {Boolean}
- */
-function is(element, type) {
-  var bo = getBusinessObject(element);
-
-  return bo && (typeof bo.$instanceOf === 'function') && bo.$instanceOf(type);
-}
-
-module.exports.is = is;
-
-
-/**
- * Return the business object for a given element.
- *
- * @param  {djs.model.Base|ModdleElement} element
- *
- * @return {ModdleElement}
- */
-function getBusinessObject(element) {
-  return (element && element.businessObject) || element;
-}
-
-module.exports.getBusinessObject = getBusinessObject;
-
-},{}],443:[function(require,module,exports){
-'use strict';
-
-var any = require('lodash/collection/any');
-
-var is = require('./ModelUtil').is;
-
-
-function getParents(element) {
-
-  var parents = [];
-
-  while (element) {
-    element = element.parent;
-
-    if (element) {
-      parents.push(element);
-    }
-  }
-
-  return parents;
-}
-
-module.exports.getParents = getParents;
-
-
-/**
- * Return true if element has any of the given types.
- *
- * @param {djs.model.Base} element
- * @param {Array<String>} types
- *
- * @return {Boolean}
- */
-function isAny(element, types) {
-  return any(types, function(t) {
-    return is(element, t);
-  });
-}
-
-module.exports.isAny = isAny;
-
-
-/**
- * Return the parent of the element with any of the given types.
- *
- * @param {djs.model.Base} element
- * @param {String|Array<String>} anyType
- *
- * @return {djs.model.Base}
- */
-function getParent(element, anyType) {
-
-  if (typeof anyType === 'string') {
-    anyType = [ anyType ];
-  }
-
-  while ((element = element.parent)) {
-    if (isAny(element, anyType)) {
-      return element;
-    }
-  }
-
-  return null;
-}
-
-module.exports.getParent = getParent;
-},{"./ModelUtil":442,"lodash/collection/any":458}],444:[function(require,module,exports){
-'use strict';
-
-var getBusinessObject = require('./ModelUtil').getBusinessObject;
-
-/**
- * Returns true, if an element is from a different type
- * than a target definition. Takes into account the type,
- * event definition type and triggeredByEvent property.
- *
- * @param {djs.model.Base} element
- *
- * @return {Boolean}
- */
-function isDifferentType(element) {
-
-  return function(entry) {
-    var target = entry.target;
-
-    var businessObject = getBusinessObject(element),
-        eventDefinition = businessObject.eventDefinitions && businessObject.eventDefinitions[0];
-
-    var isEventDefinitionEqual = (eventDefinition && eventDefinition.$type) === target.eventDefinitionType,
-        isTypeEqual = businessObject.$type === target.type,
-        isTriggeredByEventEqual = businessObject.triggeredByEvent == target.triggeredByEvent;
-
-    return !isTypeEqual || !isEventDefinitionEqual || !isTriggeredByEventEqual;
-  };
-}
-
-module.exports.isDifferentType = isDifferentType;
-},{"./ModelUtil":442}],445:[function(require,module,exports){
-module.exports =  {aof: require('./resources/aof')};
-},{"./resources/aof":534}],446:[function(require,module,exports){
-arguments[4][116][0].apply(exports,arguments)
-},{"dup":116,"lodash/collection/forEach":461,"lodash/lang/isArray":518,"lodash/lang/isFunction":519,"lodash/lang/isNumber":521}],447:[function(require,module,exports){
-arguments[4][198][0].apply(exports,arguments)
-},{"../../layout/LayoutUtil":449,"../../util/Elements":450,"dup":198,"lodash/collection/filter":459}],448:[function(require,module,exports){
-arguments[4][201][0].apply(exports,arguments)
-},{"../../command/CommandInterceptor":446,"dup":201,"inherits":455}],449:[function(require,module,exports){
-arguments[4][224][0].apply(exports,arguments)
-},{"../../vendor/snapsvg":454,"../util/Geometry":451,"dup":224,"lodash/collection/sortBy":464,"lodash/lang/isObject":522}],450:[function(require,module,exports){
-arguments[4][237][0].apply(exports,arguments)
-},{"dup":237,"lodash/collection/forEach":461,"lodash/collection/groupBy":462,"lodash/lang/isArray":518,"lodash/lang/isNumber":521}],451:[function(require,module,exports){
-arguments[4][239][0].apply(exports,arguments)
-},{"dup":239}],452:[function(require,module,exports){
-arguments[4][253][0].apply(exports,arguments)
-},{"dup":253}],453:[function(require,module,exports){
-arguments[4][276][0].apply(exports,arguments)
-},{"dup":276,"eve":452}],454:[function(require,module,exports){
-arguments[4][277][0].apply(exports,arguments)
-},{"dup":277,"snapsvg":453}],455:[function(require,module,exports){
-arguments[4][278][0].apply(exports,arguments)
-},{"dup":278}],456:[function(require,module,exports){
-arguments[4][279][0].apply(exports,arguments)
-},{"dup":279}],457:[function(require,module,exports){
-arguments[4][282][0].apply(exports,arguments)
-},{"dup":282}],458:[function(require,module,exports){
-arguments[4][287][0].apply(exports,arguments)
-},{"./some":463,"dup":287}],459:[function(require,module,exports){
-arguments[4][289][0].apply(exports,arguments)
-},{"../internal/arrayFilter":467,"../internal/baseCallback":471,"../internal/baseFilter":475,"../lang/isArray":518,"dup":289}],460:[function(require,module,exports){
-arguments[4][290][0].apply(exports,arguments)
-},{"../internal/baseEach":474,"../internal/createFind":499,"dup":290}],461:[function(require,module,exports){
-arguments[4][291][0].apply(exports,arguments)
-},{"../internal/arrayEach":466,"../internal/baseEach":474,"../internal/createForEach":500,"dup":291}],462:[function(require,module,exports){
-arguments[4][292][0].apply(exports,arguments)
-},{"../internal/createAggregator":495,"dup":292}],463:[function(require,module,exports){
-arguments[4][297][0].apply(exports,arguments)
-},{"../internal/arraySome":468,"../internal/baseCallback":471,"../internal/baseSome":490,"../internal/isIterateeCall":509,"../lang/isArray":518,"dup":297}],464:[function(require,module,exports){
-arguments[4][298][0].apply(exports,arguments)
-},{"../internal/baseCallback":471,"../internal/baseMap":484,"../internal/baseSortBy":491,"../internal/compareAscending":494,"../internal/isIterateeCall":509,"dup":298}],465:[function(require,module,exports){
-arguments[4][303][0].apply(exports,arguments)
-},{"dup":303}],466:[function(require,module,exports){
-arguments[4][309][0].apply(exports,arguments)
-},{"dup":309}],467:[function(require,module,exports){
-arguments[4][311][0].apply(exports,arguments)
-},{"dup":311}],468:[function(require,module,exports){
-arguments[4][315][0].apply(exports,arguments)
-},{"dup":315}],469:[function(require,module,exports){
-arguments[4][316][0].apply(exports,arguments)
-},{"../object/keys":525,"dup":316}],470:[function(require,module,exports){
-arguments[4][317][0].apply(exports,arguments)
-},{"../object/keys":525,"./baseCopy":473,"dup":317}],471:[function(require,module,exports){
-arguments[4][318][0].apply(exports,arguments)
-},{"../utility/identity":528,"../utility/property":529,"./baseMatches":485,"./baseMatchesProperty":486,"./bindCallback":493,"dup":318}],472:[function(require,module,exports){
-arguments[4][319][0].apply(exports,arguments)
-},{"dup":319}],473:[function(require,module,exports){
-arguments[4][320][0].apply(exports,arguments)
-},{"dup":320}],474:[function(require,module,exports){
-arguments[4][324][0].apply(exports,arguments)
-},{"./baseForOwn":479,"./createBaseEach":497,"dup":324}],475:[function(require,module,exports){
-arguments[4][326][0].apply(exports,arguments)
-},{"./baseEach":474,"dup":326}],476:[function(require,module,exports){
-arguments[4][327][0].apply(exports,arguments)
-},{"dup":327}],477:[function(require,module,exports){
-arguments[4][328][0].apply(exports,arguments)
-},{"dup":328}],478:[function(require,module,exports){
-arguments[4][330][0].apply(exports,arguments)
-},{"./createBaseFor":498,"dup":330}],479:[function(require,module,exports){
-arguments[4][332][0].apply(exports,arguments)
-},{"../object/keys":525,"./baseFor":478,"dup":332}],480:[function(require,module,exports){
-arguments[4][333][0].apply(exports,arguments)
-},{"./toObject":515,"dup":333}],481:[function(require,module,exports){
-arguments[4][335][0].apply(exports,arguments)
-},{"../lang/isObject":522,"./baseIsEqualDeep":482,"./isObjectLike":512,"dup":335}],482:[function(require,module,exports){
-arguments[4][336][0].apply(exports,arguments)
-},{"../lang/isArray":518,"../lang/isTypedArray":523,"./equalArrays":501,"./equalByTag":502,"./equalObjects":503,"dup":336}],483:[function(require,module,exports){
-arguments[4][337][0].apply(exports,arguments)
-},{"./baseIsEqual":481,"./toObject":515,"dup":337}],484:[function(require,module,exports){
-arguments[4][339][0].apply(exports,arguments)
-},{"./baseEach":474,"./isArrayLike":507,"dup":339}],485:[function(require,module,exports){
-arguments[4][340][0].apply(exports,arguments)
-},{"./baseIsMatch":483,"./getMatchData":505,"./toObject":515,"dup":340}],486:[function(require,module,exports){
-arguments[4][341][0].apply(exports,arguments)
-},{"../array/last":457,"../lang/isArray":518,"./baseGet":480,"./baseIsEqual":481,"./baseSlice":489,"./isKey":510,"./isStrictComparable":513,"./toObject":515,"./toPath":516,"dup":341}],487:[function(require,module,exports){
-arguments[4][344][0].apply(exports,arguments)
-},{"dup":344}],488:[function(require,module,exports){
-arguments[4][345][0].apply(exports,arguments)
-},{"./baseGet":480,"./toPath":516,"dup":345}],489:[function(require,module,exports){
-arguments[4][348][0].apply(exports,arguments)
-},{"dup":348}],490:[function(require,module,exports){
-arguments[4][349][0].apply(exports,arguments)
-},{"./baseEach":474,"dup":349}],491:[function(require,module,exports){
-arguments[4][350][0].apply(exports,arguments)
-},{"dup":350}],492:[function(require,module,exports){
-arguments[4][351][0].apply(exports,arguments)
-},{"dup":351}],493:[function(require,module,exports){
-arguments[4][354][0].apply(exports,arguments)
-},{"../utility/identity":528,"dup":354}],494:[function(require,module,exports){
-arguments[4][357][0].apply(exports,arguments)
-},{"./baseCompareAscending":472,"dup":357}],495:[function(require,module,exports){
-arguments[4][360][0].apply(exports,arguments)
-},{"../lang/isArray":518,"./baseCallback":471,"./baseEach":474,"dup":360}],496:[function(require,module,exports){
-arguments[4][361][0].apply(exports,arguments)
-},{"../function/restParam":465,"./bindCallback":493,"./isIterateeCall":509,"dup":361}],497:[function(require,module,exports){
-arguments[4][362][0].apply(exports,arguments)
-},{"./getLength":504,"./isLength":511,"./toObject":515,"dup":362}],498:[function(require,module,exports){
-arguments[4][363][0].apply(exports,arguments)
-},{"./toObject":515,"dup":363}],499:[function(require,module,exports){
-arguments[4][367][0].apply(exports,arguments)
-},{"../lang/isArray":518,"./baseCallback":471,"./baseFind":476,"./baseFindIndex":477,"dup":367}],500:[function(require,module,exports){
-arguments[4][369][0].apply(exports,arguments)
-},{"../lang/isArray":518,"./bindCallback":493,"dup":369}],501:[function(require,module,exports){
-arguments[4][374][0].apply(exports,arguments)
-},{"./arraySome":468,"dup":374}],502:[function(require,module,exports){
-arguments[4][375][0].apply(exports,arguments)
-},{"dup":375}],503:[function(require,module,exports){
-arguments[4][376][0].apply(exports,arguments)
-},{"../object/keys":525,"dup":376}],504:[function(require,module,exports){
-arguments[4][379][0].apply(exports,arguments)
-},{"./baseProperty":487,"dup":379}],505:[function(require,module,exports){
-arguments[4][380][0].apply(exports,arguments)
-},{"../object/pairs":527,"./isStrictComparable":513,"dup":380}],506:[function(require,module,exports){
-arguments[4][381][0].apply(exports,arguments)
-},{"../lang/isNative":520,"dup":381}],507:[function(require,module,exports){
-arguments[4][383][0].apply(exports,arguments)
-},{"./getLength":504,"./isLength":511,"dup":383}],508:[function(require,module,exports){
-arguments[4][384][0].apply(exports,arguments)
-},{"dup":384}],509:[function(require,module,exports){
-arguments[4][385][0].apply(exports,arguments)
-},{"../lang/isObject":522,"./isArrayLike":507,"./isIndex":508,"dup":385}],510:[function(require,module,exports){
-arguments[4][386][0].apply(exports,arguments)
-},{"../lang/isArray":518,"./toObject":515,"dup":386}],511:[function(require,module,exports){
-arguments[4][388][0].apply(exports,arguments)
-},{"dup":388}],512:[function(require,module,exports){
-arguments[4][389][0].apply(exports,arguments)
-},{"dup":389}],513:[function(require,module,exports){
-arguments[4][390][0].apply(exports,arguments)
-},{"../lang/isObject":522,"dup":390}],514:[function(require,module,exports){
-arguments[4][399][0].apply(exports,arguments)
-},{"../lang/isArguments":517,"../lang/isArray":518,"../object/keysIn":526,"./isIndex":508,"./isLength":511,"dup":399}],515:[function(require,module,exports){
-arguments[4][401][0].apply(exports,arguments)
-},{"../lang/isObject":522,"dup":401}],516:[function(require,module,exports){
-arguments[4][402][0].apply(exports,arguments)
-},{"../lang/isArray":518,"./baseToString":492,"dup":402}],517:[function(require,module,exports){
-arguments[4][404][0].apply(exports,arguments)
-},{"../internal/isArrayLike":507,"../internal/isObjectLike":512,"dup":404}],518:[function(require,module,exports){
-arguments[4][405][0].apply(exports,arguments)
-},{"../internal/getNative":506,"../internal/isLength":511,"../internal/isObjectLike":512,"dup":405}],519:[function(require,module,exports){
-arguments[4][406][0].apply(exports,arguments)
-},{"./isObject":522,"dup":406}],520:[function(require,module,exports){
-arguments[4][407][0].apply(exports,arguments)
-},{"../internal/isObjectLike":512,"./isFunction":519,"dup":407}],521:[function(require,module,exports){
-arguments[4][408][0].apply(exports,arguments)
-},{"../internal/isObjectLike":512,"dup":408}],522:[function(require,module,exports){
-arguments[4][409][0].apply(exports,arguments)
-},{"dup":409}],523:[function(require,module,exports){
-arguments[4][412][0].apply(exports,arguments)
-},{"../internal/isLength":511,"../internal/isObjectLike":512,"dup":412}],524:[function(require,module,exports){
-arguments[4][414][0].apply(exports,arguments)
-},{"../internal/assignWith":469,"../internal/baseAssign":470,"../internal/createAssigner":496,"dup":414}],525:[function(require,module,exports){
-arguments[4][415][0].apply(exports,arguments)
-},{"../internal/getNative":506,"../internal/isArrayLike":507,"../internal/shimKeys":514,"../lang/isObject":522,"dup":415}],526:[function(require,module,exports){
-arguments[4][416][0].apply(exports,arguments)
-},{"../internal/isIndex":508,"../internal/isLength":511,"../lang/isArguments":517,"../lang/isArray":518,"../lang/isObject":522,"dup":416}],527:[function(require,module,exports){
-arguments[4][419][0].apply(exports,arguments)
-},{"../internal/toObject":515,"./keys":525,"dup":419}],528:[function(require,module,exports){
-arguments[4][423][0].apply(exports,arguments)
-},{"dup":423}],529:[function(require,module,exports){
-arguments[4][425][0].apply(exports,arguments)
-},{"../internal/baseProperty":487,"../internal/basePropertyDeep":488,"../internal/isKey":510,"dup":425}],530:[function(require,module,exports){
-(function(){
-  var crypt = require('crypt'),
-      utf8 = require('charenc').utf8,
-      isBuffer = require('is-buffer'),
-      bin = require('charenc').bin,
-
-  // The core
-  md5 = function (message, options) {
-    // Convert to byte array
-    if (message.constructor == String)
-      if (options && options.encoding === 'binary')
-        message = bin.stringToBytes(message);
-      else
-        message = utf8.stringToBytes(message);
-    else if (isBuffer(message))
-      message = Array.prototype.slice.call(message, 0);
-    else if (!Array.isArray(message))
-      message = message.toString();
-    // else, assume byte array already
-
-    var m = crypt.bytesToWords(message),
-        l = message.length * 8,
-        a =  1732584193,
-        b = -271733879,
-        c = -1732584194,
-        d =  271733878;
-
-    // Swap endian
-    for (var i = 0; i < m.length; i++) {
-      m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
-             ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
-    }
-
-    // Padding
-    m[l >>> 5] |= 0x80 << (l % 32);
-    m[(((l + 64) >>> 9) << 4) + 14] = l;
-
-    // Method shortcuts
-    var FF = md5._ff,
-        GG = md5._gg,
-        HH = md5._hh,
-        II = md5._ii;
-
-    for (var i = 0; i < m.length; i += 16) {
-
-      var aa = a,
-          bb = b,
-          cc = c,
-          dd = d;
-
-      a = FF(a, b, c, d, m[i+ 0],  7, -680876936);
-      d = FF(d, a, b, c, m[i+ 1], 12, -389564586);
-      c = FF(c, d, a, b, m[i+ 2], 17,  606105819);
-      b = FF(b, c, d, a, m[i+ 3], 22, -1044525330);
-      a = FF(a, b, c, d, m[i+ 4],  7, -176418897);
-      d = FF(d, a, b, c, m[i+ 5], 12,  1200080426);
-      c = FF(c, d, a, b, m[i+ 6], 17, -1473231341);
-      b = FF(b, c, d, a, m[i+ 7], 22, -45705983);
-      a = FF(a, b, c, d, m[i+ 8],  7,  1770035416);
-      d = FF(d, a, b, c, m[i+ 9], 12, -1958414417);
-      c = FF(c, d, a, b, m[i+10], 17, -42063);
-      b = FF(b, c, d, a, m[i+11], 22, -1990404162);
-      a = FF(a, b, c, d, m[i+12],  7,  1804603682);
-      d = FF(d, a, b, c, m[i+13], 12, -40341101);
-      c = FF(c, d, a, b, m[i+14], 17, -1502002290);
-      b = FF(b, c, d, a, m[i+15], 22,  1236535329);
-
-      a = GG(a, b, c, d, m[i+ 1],  5, -165796510);
-      d = GG(d, a, b, c, m[i+ 6],  9, -1069501632);
-      c = GG(c, d, a, b, m[i+11], 14,  643717713);
-      b = GG(b, c, d, a, m[i+ 0], 20, -373897302);
-      a = GG(a, b, c, d, m[i+ 5],  5, -701558691);
-      d = GG(d, a, b, c, m[i+10],  9,  38016083);
-      c = GG(c, d, a, b, m[i+15], 14, -660478335);
-      b = GG(b, c, d, a, m[i+ 4], 20, -405537848);
-      a = GG(a, b, c, d, m[i+ 9],  5,  568446438);
-      d = GG(d, a, b, c, m[i+14],  9, -1019803690);
-      c = GG(c, d, a, b, m[i+ 3], 14, -187363961);
-      b = GG(b, c, d, a, m[i+ 8], 20,  1163531501);
-      a = GG(a, b, c, d, m[i+13],  5, -1444681467);
-      d = GG(d, a, b, c, m[i+ 2],  9, -51403784);
-      c = GG(c, d, a, b, m[i+ 7], 14,  1735328473);
-      b = GG(b, c, d, a, m[i+12], 20, -1926607734);
-
-      a = HH(a, b, c, d, m[i+ 5],  4, -378558);
-      d = HH(d, a, b, c, m[i+ 8], 11, -2022574463);
-      c = HH(c, d, a, b, m[i+11], 16,  1839030562);
-      b = HH(b, c, d, a, m[i+14], 23, -35309556);
-      a = HH(a, b, c, d, m[i+ 1],  4, -1530992060);
-      d = HH(d, a, b, c, m[i+ 4], 11,  1272893353);
-      c = HH(c, d, a, b, m[i+ 7], 16, -155497632);
-      b = HH(b, c, d, a, m[i+10], 23, -1094730640);
-      a = HH(a, b, c, d, m[i+13],  4,  681279174);
-      d = HH(d, a, b, c, m[i+ 0], 11, -358537222);
-      c = HH(c, d, a, b, m[i+ 3], 16, -722521979);
-      b = HH(b, c, d, a, m[i+ 6], 23,  76029189);
-      a = HH(a, b, c, d, m[i+ 9],  4, -640364487);
-      d = HH(d, a, b, c, m[i+12], 11, -421815835);
-      c = HH(c, d, a, b, m[i+15], 16,  530742520);
-      b = HH(b, c, d, a, m[i+ 2], 23, -995338651);
-
-      a = II(a, b, c, d, m[i+ 0],  6, -198630844);
-      d = II(d, a, b, c, m[i+ 7], 10,  1126891415);
-      c = II(c, d, a, b, m[i+14], 15, -1416354905);
-      b = II(b, c, d, a, m[i+ 5], 21, -57434055);
-      a = II(a, b, c, d, m[i+12],  6,  1700485571);
-      d = II(d, a, b, c, m[i+ 3], 10, -1894986606);
-      c = II(c, d, a, b, m[i+10], 15, -1051523);
-      b = II(b, c, d, a, m[i+ 1], 21, -2054922799);
-      a = II(a, b, c, d, m[i+ 8],  6,  1873313359);
-      d = II(d, a, b, c, m[i+15], 10, -30611744);
-      c = II(c, d, a, b, m[i+ 6], 15, -1560198380);
-      b = II(b, c, d, a, m[i+13], 21,  1309151649);
-      a = II(a, b, c, d, m[i+ 4],  6, -145523070);
-      d = II(d, a, b, c, m[i+11], 10, -1120210379);
-      c = II(c, d, a, b, m[i+ 2], 15,  718787259);
-      b = II(b, c, d, a, m[i+ 9], 21, -343485551);
-
-      a = (a + aa) >>> 0;
-      b = (b + bb) >>> 0;
-      c = (c + cc) >>> 0;
-      d = (d + dd) >>> 0;
-    }
-
-    return crypt.endian([a, b, c, d]);
-  };
-
-  // Auxiliary functions
-  md5._ff  = function (a, b, c, d, x, s, t) {
-    var n = a + (b & c | ~b & d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._gg  = function (a, b, c, d, x, s, t) {
-    var n = a + (b & d | c & ~d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._hh  = function (a, b, c, d, x, s, t) {
-    var n = a + (b ^ c ^ d) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-  md5._ii  = function (a, b, c, d, x, s, t) {
-    var n = a + (c ^ (b | ~d)) + (x >>> 0) + t;
-    return ((n << s) | (n >>> (32 - s))) + b;
-  };
-
-  // Package private blocksize
-  md5._blocksize = 16;
-  md5._digestsize = 16;
-
-  module.exports = function (message, options) {
-    if(typeof message == 'undefined')
-      return;
-
-    var digestbytes = crypt.wordsToBytes(md5(message, options));
-    return options && options.asBytes ? digestbytes :
-        options && options.asString ? bin.bytesToString(digestbytes) :
-        crypt.bytesToHex(digestbytes);
-  };
-
-})();
-
-},{"charenc":531,"crypt":532,"is-buffer":533}],531:[function(require,module,exports){
-var charenc = {
-  // UTF-8 encoding
-  utf8: {
-    // Convert a string to a byte array
-    stringToBytes: function(str) {
-      return charenc.bin.stringToBytes(unescape(encodeURIComponent(str)));
-    },
-
-    // Convert a byte array to a string
-    bytesToString: function(bytes) {
-      return decodeURIComponent(escape(charenc.bin.bytesToString(bytes)));
-    }
-  },
-
-  // Binary encoding
-  bin: {
-    // Convert a string to a byte array
-    stringToBytes: function(str) {
-      for (var bytes = [], i = 0; i < str.length; i++)
-        bytes.push(str.charCodeAt(i) & 0xFF);
-      return bytes;
-    },
-
-    // Convert a byte array to a string
-    bytesToString: function(bytes) {
-      for (var str = [], i = 0; i < bytes.length; i++)
-        str.push(String.fromCharCode(bytes[i]));
-      return str.join('');
-    }
-  }
-};
-
-module.exports = charenc;
-
-},{}],532:[function(require,module,exports){
-(function() {
-  var base64map
-      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
-
-  crypt = {
-    // Bit-wise rotation left
-    rotl: function(n, b) {
-      return (n << b) | (n >>> (32 - b));
-    },
-
-    // Bit-wise rotation right
-    rotr: function(n, b) {
-      return (n << (32 - b)) | (n >>> b);
-    },
-
-    // Swap big-endian to little-endian and vice versa
-    endian: function(n) {
-      // If number given, swap endian
-      if (n.constructor == Number) {
-        return crypt.rotl(n, 8) & 0x00FF00FF | crypt.rotl(n, 24) & 0xFF00FF00;
-      }
-
-      // Else, assume array and swap all items
-      for (var i = 0; i < n.length; i++)
-        n[i] = crypt.endian(n[i]);
-      return n;
-    },
-
-    // Generate an array of any length of random bytes
-    randomBytes: function(n) {
-      for (var bytes = []; n > 0; n--)
-        bytes.push(Math.floor(Math.random() * 256));
-      return bytes;
-    },
-
-    // Convert a byte array to big-endian 32-bit words
-    bytesToWords: function(bytes) {
-      for (var words = [], i = 0, b = 0; i < bytes.length; i++, b += 8)
-        words[b >>> 5] |= bytes[i] << (24 - b % 32);
-      return words;
-    },
-
-    // Convert big-endian 32-bit words to a byte array
-    wordsToBytes: function(words) {
-      for (var bytes = [], b = 0; b < words.length * 32; b += 8)
-        bytes.push((words[b >>> 5] >>> (24 - b % 32)) & 0xFF);
-      return bytes;
-    },
-
-    // Convert a byte array to a hex string
-    bytesToHex: function(bytes) {
-      for (var hex = [], i = 0; i < bytes.length; i++) {
-        hex.push((bytes[i] >>> 4).toString(16));
-        hex.push((bytes[i] & 0xF).toString(16));
-      }
-      return hex.join('');
-    },
-
-    // Convert a hex string to a byte array
-    hexToBytes: function(hex) {
-      for (var bytes = [], c = 0; c < hex.length; c += 2)
-        bytes.push(parseInt(hex.substr(c, 2), 16));
-      return bytes;
-    },
-
-    // Convert a byte array to a base-64 string
-    bytesToBase64: function(bytes) {
-      for (var base64 = [], i = 0; i < bytes.length; i += 3) {
-        var triplet = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
-        for (var j = 0; j < 4; j++)
-          if (i * 8 + j * 6 <= bytes.length * 8)
-            base64.push(base64map.charAt((triplet >>> 6 * (3 - j)) & 0x3F));
-          else
-            base64.push('=');
-      }
-      return base64.join('');
-    },
-
-    // Convert a base-64 string to a byte array
-    base64ToBytes: function(base64) {
-      // Remove non-base-64 characters
-      base64 = base64.replace(/[^A-Z0-9+\/]/ig, '');
-
-      for (var bytes = [], i = 0, imod4 = 0; i < base64.length;
-          imod4 = ++i % 4) {
-        if (imod4 == 0) continue;
-        bytes.push(((base64map.indexOf(base64.charAt(i - 1))
-            & (Math.pow(2, -2 * imod4 + 8) - 1)) << (imod4 * 2))
-            | (base64map.indexOf(base64.charAt(i)) >>> (6 - imod4 * 2)));
-      }
-      return bytes;
-    }
-  };
-
-  module.exports = crypt;
-})();
-
-},{}],533:[function(require,module,exports){
-/**
- * Determine if an object is Buffer
- *
- * Author:   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * License:  MIT
- *
- * `npm install is-buffer`
- */
-
-module.exports = function (obj) {
-  return !!(obj != null &&
-    (obj._isBuffer || // For Safari 5-7 (missing Object.prototype.constructor)
-      (obj.constructor &&
-      typeof obj.constructor.isBuffer === 'function' &&
-      obj.constructor.isBuffer(obj))
-    ))
-}
-
-},{}],534:[function(require,module,exports){
-module.exports={
-  "name": "AOF",
-  "uri": "http://eatld.et.tu-dresden.de/aof/",
-  "prefix": "aof",
-  "xml": {
-    "tagAlias": "lowerCase"
-  },
-  "associations": [],
-  "types": [
-    {
-      "name": "AppCustomization",
-      "extends": [ "bpmn:UserTask" ],
-      "properties": [
-        {
-          "name": "realizedBy",
-          "isAttr": true,
-          "type": "String"
-        }
-      ]
-    },
-    {
-      "name": "AppCustomization",
-      "extends": [ "bpmn:UserTask" ],
-      "properties": [
-        {
-          "name": "isAppEnsembleApp",
-          "isAttr": true,
-          "type": "Boolean"
-        }
-      ]
-    },
-    {
-      "name": "AppensembleCustomization",
-      "extends": [ "bpmn:Participant" ],
-      "properties": [
-        {
-          "name": "isAppEnsemble",
-          "isAttr": true,
-          "type": "Boolean"
-        }
-      ]
-    }
-  ],
-  "emumerations": [ ]
-}
-},{}],535:[function(require,module,exports){
-'use strict';
-
-var DEFAULT_PRIORITY = 1000;
-
-
-/**
- * A component that decides upon the visibility / editable
- * state of properties in the properties panel.
- *
- * Implementors must subclass this component and override
- * {@link PropertiesActivator#isEntryVisible} and
- * {@link PropertiesActivator#isPropertyEditable} to provide
- * custom behavior.
- *
- * @class
- * @constructor
- *
- * @param {EventBus} eventBus
- * @param {Number} [priority] at which priority to hook into the activation
- */
-function PropertiesActivator(eventBus, priority) {
-  var self = this;
-
-  priority = priority || DEFAULT_PRIORITY;
-
-  eventBus.on('propertiesPanel.isEntryVisible', priority, function(e) {
-    return self.isEntryVisible(e.entry, e.element);
-  });
-
-  eventBus.on('propertiesPanel.isPropertyEditable', priority, function(e) {
-    return self.isPropertyEditable(e.entry, e.propertyName, e.element);
-  });
-}
-
-PropertiesActivator.$inject = [ 'eventBus' ];
-
-module.exports = PropertiesActivator;
-
-
-/**
- * Should the given entry be visible for the specified element.
- *
- * @method  PropertiesActivator#isEntryVisible
- *
- * @param {EntryDescriptor} entry
- * @param {ModdleElement} element
- *
- * @returns {Boolean}
- */
-PropertiesActivator.prototype.isEntryVisible = function(entry, element) {
-  return true;
-};
-
-/**
- * Should the given property be editable for the specified element
- *
- * @method  PropertiesActivator#isPropertyEditable
- *
- * @param {EntryDescriptor} entry
- * @param {String} propertyName
- * @param {ModdleElement} element
- *
- * @returns {Boolean}
- */
-PropertiesActivator.prototype.isPropertyEditable = function(entry, propertyName, element) {
-  return true;
-};
-},{}],536:[function(require,module,exports){
-'use strict';
-
-var domify = require('min-dom/lib/domify'),
-    domQuery = require('min-dom/lib/query'),
-    domRemove = require('min-dom/lib/remove'),
-    domClasses = require('min-dom/lib/classes'),
-    domClosest = require('min-dom/lib/closest'),
-    domAttr = require('min-dom/lib/attr'),
-    domDelegate = require('min-dom/lib/delegate'),
-    domMatches = require('min-dom/lib/matches');
-
-var forEach = require('lodash/collection/forEach'),
-    filter = require('lodash/collection/filter'),
-    get = require('lodash/object/get'),
-    keys = require('lodash/object/keys'),
-    isEmpty = require('lodash/lang/isEmpty'),
-    isArray = require('lodash/lang/isArray'),
-    xor = require('lodash/array/xor'),
-    debounce = require('lodash/function/debounce'),
-    filter = require('lodash/collection/filter');
-
-var updateSelection = require('selection-update');
-
-var scrollTabs = require('scroll-tabs');
-
-var HIDE_CLASS = 'pp-hidden';
-var DEBOUNCE_DELAY = 300;
-
-
-function isToggle(node) {
-  return node.type === 'checkbox' || node.type === 'radio';
-}
-
-function isSelect(node) {
-  return node.type === 'select-one';
-}
-
-function getPropertyPlaceholders(node) {
-  var selector = 'input[name], textarea[name], [data-value]';
-  var placeholders = domQuery.all(selector, node);
-  if ((!placeholders || !placeholders.length) && domMatches(node, selector)) {
-    placeholders = [ node ];
-  }
-  return placeholders;
-}
-
-/**
- * Return all active form controls.
- * This excludes the invisible controls unless all is true
- *
- * @param {Element} node
- * @param {Boolean} [all=false]
- */
-function getFormControls(node, all) {
-  var controls = domQuery.all('input[name], textarea[name], select[name]', node);
-
-  if (!controls || !controls.length) {
-    controls = domMatches(node, 'option') ? [ node ] : controls;
-  }
-
-  if (!all) {
-    controls = filter(controls, function(node) {
-      return !domClosest(node, '.' + HIDE_CLASS);
-    });
-  }
-
-  return controls;
-}
-
-function getFormControlValuesInScope(entryNode) {
-  var values = {};
-
-  var controlNodes = getFormControls(entryNode);
-
-  forEach(controlNodes, function(controlNode) {
-    var value = controlNode.value;
-
-    var name = domAttr(controlNode, 'name') || domAttr(controlNode, 'data-name');
-
-    // take toggle state into account for radio / checkboxes
-    if (isToggle(controlNode)) {
-      if (controlNode.checked) {
-        if (!domAttr(controlNode, 'value')) {
-          value = true;
-        } else {
-          value = controlNode.value;
-        }
-      } else {
-        value = null;
-      }
-    }
-
-    if (value !== null) {
-      // return the actual value
-      // handle serialization in entry provider
-      // (ie. if empty string should be serialized or not)
-      values[name] = value;
-    }
-  });
-
-  return values;
-
-}
-
-/**
- * Extract input values from entry node
- *
- * @param  {DOMElement} entryNode
- * @returns {Object}
- */
-function getFormControlValues(entryNode) {
-
-  var values;
-
-  var listContainer = domQuery('[data-list-entry-container]', entryNode);
-  if(!!listContainer) {
-    values = [];
-    var listNodes = listContainer.children || [];
-    forEach(listNodes, function(listNode) {
-      values.push(getFormControlValuesInScope(listNode));
-    });
-  }
-  else {
-    values = getFormControlValuesInScope(entryNode);
-  }
-
-  return values;
-}
-
-var keys = Object.keys;
-
-/**
- * Return true if the given form extracted value equals
- * to an old cached version.
- *
- * @param {Object} value
- * @param {Object} oldValue
- * @return {Boolean}
- */
-function valueEqual(value, oldValue) {
-
-  if (value && !oldValue) {
-    return false;
-  }
-
-  var allKeys = keys(value).concat(keys(oldValue));
-
-  return allKeys.every(function(key) {
-    return value[key] === oldValue[key];
-  });
-}
-
-/**
- * Return true if the given form extracted value(s)
- * equal an old cached version.
- *
- * @param {Array<Object>|Object} values
- * @param {Array<Object>|Object} oldValues
- * @return {Boolean}
- */
-function valuesEqual(values, oldValues) {
-
-  if (isArray(values)) {
-
-    if (values.length !== oldValues.length) {
-      return false;
-    }
-
-    return values.every(function(v, idx) {
-      return valueEqual(v, oldValues[idx]);
-    });
-  }
-
-  return valueEqual(values, oldValues);
-}
-
-/**
- * Return a mapping of { id: entry } for all entries in the given groups in the given tabs.
- *
- * @param {Object} tabs
- * @return {Object}
- */
-function extractEntries(tabs) {
-  return indexBy(flattenDeep(map(flattenDeep(map(tabs, 'groups')), 'entries')), 'id');
-}
-
-/**
- * Return a mapping of { id: group } for all groups in the given tabs.
- *
- * @param {Object} tabs
- * @return {Object}
- */
-function extractGroups(tabs) {
-  return indexBy(flattenDeep(map(tabs, 'groups')), 'id');
-}
-
-/**
- * Get the expandable textarea.
- *
- * @param {DOMElement} node
- *
- * @return {DOMElement} expandable textarea
- */
-function getExpandableTextArea(node) {
-  return domQuery('textarea[data-expandable]', node);
-}
-
-/**
- * Expands the given textarea according to the line breaks
- * in the value.
- *
- * The minimum rows are determined from the attribute [data-min-rows].
- * The maximum rows are determined from the attribute [data-max-rows].
- *
- * If the number of line breaks is greater than the maximum rows value,
- * then the attribute [rows] of the textarea is set to [data-max-rows]. If
- * the attribute [data-max-rows] is not present, then the attribute [rows]
- * of the textarea is set to the number of line breaks or [data-min-rows].
- *
- * If the number of line breaks is less than the minimum rows value,
- * then the attribute [rows] of the textarea is set to [data-min-rows].
- * If the attribute [data-min-rows] is not present, then the attribute [rows]
- * of the textarea is set to the numer of line breaks or [data-max-rows].
- *
- * @param {DOMElement} textarea
- */
-function expandTextArea(textarea) {
-  if (textarea) {
-    var value = textarea.value || '';
-    var lines = value.split(/\r?\n/g);
-
-    var minRows = domAttr(textarea, 'data-min-rows');
-    var maxRows = domAttr(textarea, 'data-max-rows');
-
-    var rows = lines.length || 1;
-
-    if (minRows) {
-      rows = Math.max(parseInt(minRows, 10), rows);
-    }
-
-    if (maxRows) {
-      rows = Math.min(parseInt(maxRows, 10), rows);
-    }
-
-    textarea.rows = rows;
-  }
-}
-
-/**
- * A properties panel implementation.
- *
- * To use it provide a `propertiesProvider` component that knows
- * about which properties to display.
- *
- * Properties edit state / visibility can be intercepted
- * via a custom {@link PropertiesActivator}.
- *
- * @class
- * @constructor
- *
- * @param {Object} config
- * @param {EventBus} eventBus
- * @param {Modeling} modeling
- * @param {PropertiesProvider} propertiesProvider
- * @param {Canvas} canvas
- * @param commandStack
- */
-function PropertiesPanel(config, eventBus, modeling, propertiesProvider, commandStack, canvas) {
-
-  this._eventBus = eventBus;
-  this._modeling = modeling;
-  this._commandStack = commandStack;
-  this._canvas = canvas;
-  this._propertiesProvider = propertiesProvider;
-  this._config=config;
-
-  this._init(config);
-}
-
-PropertiesPanel.$inject = [
-  'config.propertiesPanel',
-  'eventBus',
-  'modeling',
-  'propertiesProvider',
-  'commandStack',
-  'canvas' ];
-
-module.exports = PropertiesPanel;
-
-
-PropertiesPanel.prototype._init = function(config) {
-
-  var eventBus = this._eventBus;
-
-  var self = this;
-
-  eventBus.on('diagram.init', function() {
-    self.registerCmdHandlers();
-  });
-
-  /**
-   * Select the root element once it is added to the canvas
-   */
-  eventBus.on('root.added', function(e) {
-    self.update(e.element);
-  });
-
-  eventBus.on('selection.changed', function(e) {
-    var newElement = e.newSelection[0];
-
-    self.update(newElement);
-  });
-
-  // add / update tab-bar scrolling
-  eventBus.on([
-    'propertiesPanel.changed',
-    'propertiesPanel.resized'
-  ], function(event) {
-
-    var tabBarNode = domQuery('.djs-properties-tab-bar', self._container);
-
-    if (!tabBarNode) {
-      return;
-    }
-
-    var scroller = scrollTabs.get(tabBarNode);
-
-    if (!scroller) {
-
-      // we did not initialize yet, do that
-      // now and make sure we select the active
-      // tab on scroll update
-      scroller = scrollTabs(tabBarNode, {
-        selectors: {
-          tabsContainer: '.djs-properties-tabs-links',
-          tab: '.djs-properties-tabs-links li',
-          ignore: '.pp-hidden',
-          active: '.pp-active'
-        }
-      });
-
-
-      scroller.on('scroll', function(newActiveNode, oldActiveNode, direction) {
-
-        var linkNode = domQuery('[data-tab-target]', newActiveNode);
-
-        var tabId = domAttr(linkNode, 'data-tab-target');
-
-        self.activateTab(tabId);
-      });
-    }
-
-    // react on tab changes and or tabContainer resize
-    // and make sure the active tab is shown completely
-    scroller.update();
-  });
-
-  eventBus.on('elements.changed', function(e) {
-
-    var current = self._current;
-    var element = current && current.element;
-
-    if (element) {
-      if (e.elements.indexOf(element) !== -1) {
-        self.update(element);
-      }
-    }
-  });
-
-  eventBus.on('diagram.destroy', function() {
-    self.detach();
-  });
-
-  this._container = domify('<div class="djs-properties-panel"></div>');
-
-  this._bindListeners(this._container);
-
-  if (config && config.parent) {
-    this.attachTo(config.parent);
-  }
-};
-
-PropertiesPanel.prototype.registerCmdHandlers = function() {
-  var self = this;
-  forEach(self.getCmdHandlers(), function(handler, id) {
-    self._commandStack.registerHandler(id, handler);
-  });
-};
-
-PropertiesPanel.prototype.getCmdHandlers = function() {
-  return {
-    'properties-panel.update-businessobject': require('./cmd/UpdateBusinessObjectHandler'),
-    'properties-panel.create-and-reference': require('./cmd/CreateAndReferenceHandler'),
-    'properties-panel.create-businessobject-list': require('./cmd/CreateBusinessObjectListHandler'),
-    'properties-panel.update-businessobject-list': require('./cmd/UpdateBusinessObjectListHandler'),
-    'properties-panel.multi-command-executor': require('./cmd/MultiCommandHandler')
-  };
-};
-
-PropertiesPanel.prototype.attachTo = function(parentNode) {
-
-  if (!parentNode) {
-    throw new Error('parentNode required');
-  }
-
-  // ensure we detach from the
-  // previous, old parent
-  this.detach();
-
-  // unwrap jQuery if provided
-  if (parentNode.get) {
-    parentNode = parentNode.get(0);
-  }
-
-  if (typeof parentNode === 'string') {
-    parentNode = domQuery(parentNode);
-  }
-
-  var container = this._container;
-
-  parentNode.appendChild(container);
-
-  this._emit('attach');
-};
-
-PropertiesPanel.prototype.detach = function() {
-
-  var container = this._container,
-      parentNode = container.parentNode;
-
-  if (!parentNode) {
-    return;
-  }
-
-  this._emit('detach');
-
-  parentNode.removeChild(container);
-};
-
-
-/**
- * Select the given tab within the properties panel.
- *
- * @param {Object|String} tab
- */
-PropertiesPanel.prototype.activateTab = function(tab) {
-
-  var tabId = typeof tab === 'string' ? tab : tab.id;
-
-  var current = this._current;
-
-  var panelNode = current.panel;
-
-  var allTabNodes = domQuery.all('.djs-properties-tab', panelNode),
-      allTabLinkNodes = domQuery.all('.djs-properties-tab-link', panelNode);
-
-  forEach(allTabNodes, function(tabNode) {
-    var currentTabId = domAttr(tabNode, 'data-tab');
-
-    domClasses(tabNode).toggle('pp-active', tabId === currentTabId);
-  });
-
-  forEach(allTabLinkNodes, function(tabLinkNode) {
-    var tabLink = domQuery('[data-tab-target]', tabLinkNode),
-        currentTabId = domAttr(tabLink, 'data-tab-target');
-
-    domClasses(tabLinkNode).toggle('pp-active', tabId === currentTabId);
-  });
-};
-
-/**
- * Update the DOM representation of the properties panel
- */
-PropertiesPanel.prototype.update = function(element) {
-  var current = this._current;
-
-  // no actual selection change
-  var needsCreate = true;
-
-  if (typeof element === 'undefined') {
-
-    // use RootElement of BPMN diagram to generate properties panel if no element is selected
-    element = this._canvas.getRootElement();
-  }
-
-  var newTabs = this._propertiesProvider.getTabs(element);
-
-  if (current && current.element === element) {
-    // see if we can reuse the existing panel
-
-    needsCreate = this._entriesChanged(current, newTabs);
-    //needsCreate = false;
-  }
-
-  if (needsCreate) {
-
-    if (current) {
-      // remove old panel
-      domRemove(current.panel);
-    }
-
-    this._current = this._create(element, newTabs);
-
-    // activate first tab
-    this.activateTab(this._current.tabs[0]);
-  }
-
-  if (this._current) {
-    // make sure correct tab contents are visible
-    this._updateActivation(this._current);
-
-  }
-
-  this._emit('changed');
-};
-
-
-/**
- * Returns true if one of two groups has different entries than the other.
- *
- * @param  {Object} current
- * @param  {Object} newTabs
- * @return {Booelan}
- */
-PropertiesPanel.prototype._entriesChanged = function(current, newTabs) {
-
-  var oldEntryIds = keys(current.entries),
-      newEntryIds = keys(extractEntries(newTabs));
-
-  return !isEmpty(xor(oldEntryIds, newEntryIds));
-};
-
-PropertiesPanel.prototype._emit = function(event) {
-  this._eventBus.fire('propertiesPanel.' + event, { panel: this, current: this._current });
-};
-
-PropertiesPanel.prototype._bindListeners = function(container) {
-
-  var self = this;
-
-  // handles a change for a given event
-  var handleChange = function handleChange(event) {
-
-    // see if we handle a change inside a [data-entry] element.
-    // if not, drop out
-    var node = domClosest(event.delegateTarget, '[data-entry]'),
-        entryId, entry;
-
-    // change from outside a [data-entry] element, simply ignore
-    if (!node) {
-      return;
-    }
-
-    entryId = domAttr(node, 'data-entry');
-    entry = self.getEntry(entryId);
-
-    var values = getFormControlValues(node);
-
-    if (event.type === 'change') {
-
-      // - if the "data-on-change" attribute is present and a value is changed,
-      //   then the associated action is performed.
-      // - if the associated action returns "true" then an update to the business
-      //   object is done
-      // - if it does not return "true", then only the DOM content is updated
-      var onChangeAction = event.delegateTarget.getAttribute('data-on-change');
-
-      if (onChangeAction) {
-        var isEntryDirty = self.executeAction(entry, node, onChangeAction, event);
-
-        if (!isEntryDirty) {
-          return self.update(self._current.element);
-        }
-      }
-    }
-    self.applyChanges(entry, values, node);
-    self.updateState(entry, node);
-  };
-
-  domDelegate.bind(container, 'textarea[data-expandable]', 'input', function(event) {
-    expandTextArea(event.delegateTarget);
-  });
-
-  // debounce update only elements that are target of key events,
-  // i.e. INPUT and TEXTAREA. SELECTs will trigger an immediate update anyway.
-  domDelegate.bind(container, 'input, textarea', 'input', debounce(handleChange, DEBOUNCE_DELAY));
-  domDelegate.bind(container, 'input, textarea, select', 'change', handleChange);
-
-  domDelegate.bind(container, '[data-action]', 'click', function onClick(event) {
-
-    // triggers on all inputs
-    var inputNode = event.delegateTarget;
-    var entryNode = domClosest(inputNode, '[data-entry]');
-
-    var actionId = domAttr(inputNode, 'data-action'),
-        entryId = domAttr(entryNode, 'data-entry');
-
-    var entry = self.getEntry(entryId);
-
-    var isEntryDirty = self.executeAction(entry, entryNode, actionId, event);
-
-    if (!!isEntryDirty) {
-      var values = getFormControlValues(entryNode);
-
-      self.applyChanges(entry, values, entryNode);
-    }
-
-    self.updateState(entry, entryNode);
-  });
-
-  function handleInput(event, element) {
-    // triggers on all inputs
-    var inputNode = event.delegateTarget;
-
-    var entryNode = domClosest(inputNode, '[data-entry]');
-
-    // only work on data entries
-    if (!entryNode) {
-      return;
-    }
-
-    var eventHandlerId = domAttr(inputNode, 'data-blur'),
-        entryId = domAttr(entryNode, 'data-entry');
-
-    var entry = self.getEntry(entryId);
-
-    var isEntryDirty = self.executeAction(entry, entryNode, eventHandlerId, event);
-
-    if (isEntryDirty) {
-      var values = getFormControlValues(entryNode);
-
-      self.applyChanges(entry, values, entryNode);
-    }
-
-    self.updateState(entry, entryNode);
-  }
-
-  domDelegate.bind(container, '[data-blur]', 'blur', handleInput, true);
-
-  // make tab links interactive
-  domDelegate.bind(container, '.djs-properties-tabs-links [data-tab-target]', 'click', function(event) {
-    event.preventDefault();
-
-    var delegateTarget = event.delegateTarget;
-
-    var tabId = domAttr(delegateTarget, 'data-tab-target');
-
-    // activate tab on link click
-    self.activateTab(tabId);
-  });
-
-};
-
-PropertiesPanel.prototype.updateState = function(entry, entryNode) {
-  this.updateShow(entry, entryNode);
-  this.updateDisable(entry, entryNode);
-  this.updateTextArea(entry, entryNode);
-};
-
-/**
- * Update the size of a textarea in the DOM, if it is set to be expandable.
- */
-PropertiesPanel.prototype.updateTextArea = function(entry, node) {
-  expandTextArea(getExpandableTextArea(node));
-};
-
-
-/**
- * Update the visibility of the entry node in the DOM
- */
-PropertiesPanel.prototype.updateShow = function(entry, node) {
-
-  var current = this._current;
-
-  if (!current) {
-    return;
-  }
-
-  var showNodes = domQuery.all('[data-show]', node) || [];
-
-  forEach(showNodes, function(showNode) {
-
-    var expr = domAttr(showNode, 'data-show');
-    var fn = get(entry, expr);
-    if (fn) {
-      var scope = domClosest(showNode, '[data-scope]') || node;
-      var shouldShow = fn(current.element, node, showNode, scope) || false;
-      var hasClass = domClasses(showNode).has(HIDE_CLASS);
-      if (shouldShow) {
-        if (hasClass) {
-          domClasses(showNode).remove(HIDE_CLASS);
-        }
-      } else {
-        domClasses(showNode).add(HIDE_CLASS);
-      }
-    }
-  });
-};
-
-/**
- * Evaluates a given function. If it returns true, then the
- * node is marked as "disabled".
- */
-PropertiesPanel.prototype.updateDisable = function(entry, node) {
-  var current = this._current;
-
-  if (!current) {
-    return;
-  }
-
-  var nodes = domQuery.all('[data-disable]', node) || [];
-
-  forEach(nodes, function(currentNode) {
-    var expr = domAttr(currentNode, 'data-disable');
-    var fn = get(entry, expr);
-    if (fn) {
-      var scope = domClosest(currentNode, '[data-scope]') || node;
-      var shouldDisable = fn(current.element, node, currentNode, scope) || false;
-      domAttr(currentNode, 'disabled', shouldDisable ? '' : null);
-    }
-  });
-};
-
-PropertiesPanel.prototype.executeAction = function(entry, entryNode, actionId, event) {
-  var current = this._current;
-
-  if (!current) {
-    return;
-  }
-
-  var fn = get(entry, actionId);
-  if (!!fn) {
-    var scopeNode = domClosest(event.target, '[data-scope]') || entryNode;
-    return fn.apply(entry, [ current.element, entryNode, event, scopeNode ]);
-  }
-};
-
-/**
- * Apply changes to the business object by executing a command
- */
-PropertiesPanel.prototype.applyChanges = function(entry, values, containerElement) {
-
-  var element = this._current.element;
-
-  // ensure we only update the model if we got dirty changes
-  if (valuesEqual(values, entry.oldValues)) {
-    return;
-  }
-
-  var command = entry.set(element, values, containerElement);
-
-  var commandToExecute;
-
-  if (isArray(command)) {
-    if (command.length) {
-      commandToExecute = {
-        cmd: 'properties-panel.multi-command-executor',
-        context: flattenDeep(command)
-      };
-    }
-  }
-  else {
-    commandToExecute = command;
-  }
-
-  if (commandToExecute) {
-    this._commandStack.execute(commandToExecute.cmd, commandToExecute.context || {element : element});
-  }
-  else {
-    this.update(element);
-  }
-
-  this._updateGroupVisibility();
-};
-
-
-/**
- * apply validation errors in the DOM and show or remove an error message near the entry node.
- */
-PropertiesPanel.prototype.applyValidationErrors = function(validationErrors, entryNode) {
-
-  var valid = true;
-
-  var controlNodes = getFormControls(entryNode, true);
-
-  forEach(controlNodes, function(controlNode) {
-
-    var name = domAttr(controlNode, 'name') || domAttr(controlNode, 'data-name');
-
-    var error = validationErrors && validationErrors[name];
-
-    var errorMessageNode = domQuery('.pp-error-message', controlNode.parentNode);
-
-    if (error) {
-      valid = false;
-
-      if (!errorMessageNode) {
-        errorMessageNode = domify('<div></div>');
-
-        domClasses(errorMessageNode).add('pp-error-message');
-
-        // insert errorMessageNode after controlNode
-        controlNode.parentNode.insertBefore(errorMessageNode, controlNode.nextSibling);
-      }
-
-      errorMessageNode.innerHTML = error;
-
-      domClasses(controlNode).add('invalid');
-    } else {
-      domClasses(controlNode).remove('invalid');
-
-      if (errorMessageNode) {
-        controlNode.parentNode.removeChild(errorMessageNode);
-      }
-    }
-  });
-
-  return valid;
-};
-
-
-/**
- * Check if the entry contains valid input
- */
-PropertiesPanel.prototype.validate = function(entry, values, entryNode) {
-  var self = this;
-
-  var current = this._current;
-
-  var valid = true;
-
-  entryNode = entryNode || domQuery('[data-entry=' + entry.id + ']', current.panel);
-
-  if (values instanceof Array) {
-    var listContainer = domQuery('[data-list-entry-container]', entryNode),
-        listEntryNodes = listContainer.children || [];
-
-    // create new elements
-    for(var i = 0; i < values.length; i++) {
-      var listValue = values[i];
-
-      if(entry.validateListItem) {
-
-        var validationErrors = entry.validateListItem(current.element, listValue, entryNode, i),
-            listEntryNode = listEntryNodes[i];
-
-        valid = self.applyValidationErrors(validationErrors, listEntryNode) && valid;
-      }
-    }
-  }
-  else {
-    if (entry.validate) {
-      this.validationErrors = entry.validate(current.element, values, entryNode);
-
-      valid = self.applyValidationErrors(this.validationErrors, entryNode) && valid;
-    }
-  }
-
-  return valid;
-};
-
-PropertiesPanel.prototype.getEntry = function(id) {
-  return this._current && this._current.entries[id];
-};
-
-var flattenDeep = require('lodash/array/flattenDeep'),
-    indexBy = require('lodash/collection/indexBy'),
-    map = require('lodash/collection/map');
-
-PropertiesPanel.prototype._create = function(element, tabs) {
-
-  if (!element) {
-    return null;
-  }
-
-  var containerNode = this._container;
-
-  var panelNode = this._createPanel(element, tabs);
-
-  containerNode.appendChild(panelNode);
-
-  var entries = extractEntries(tabs);
-  var groups = extractGroups(tabs);
-
-  return {
-    tabs: tabs,
-    groups: groups,
-    entries: entries,
-    element: element,
-    panel: panelNode
-  };
-};
-
-PropertiesPanel.prototype._bindTemplate = function(element, entry, values, entryNode, idx) {
-
-  var eventBus = this._eventBus;
-
-  function isPropertyEditable(entry, propertyName) {
-    return eventBus.fire('propertiesPanel.isPropertyEditable', {
-      entry: entry,
-      propertyName: propertyName,
-      element: element
-    });
-  }
-
-  var inputNodes = getPropertyPlaceholders(entryNode);
-
-  forEach(inputNodes, function(node) {
-
-    var name,
-        newValue,
-        editable;
-
-    // we deal with an input element
-    if ('value' in node) {
-      name = domAttr(node, 'name') || domAttr(node, 'data-name');
-      newValue = values[name];
-
-      editable = isPropertyEditable(entry, name);
-      if (editable && entry.editable) {
-        editable = entry.editable(element, entryNode, node, name, newValue, idx);
-      }
-
-      domAttr(node, 'readonly', editable ? null : '');
-      domAttr(node, 'disabled', editable ? null : '');
-
-      if (entry.setControlValue) {
-        entry.setControlValue(element, entryNode, node, name, newValue, idx);
-      } else if (isToggle(node)) {
-        setToggleValue(node, newValue);
-      } else if (isSelect(node)) {
-        setSelectValue(node, newValue);
-      } else {
-        setInputValue(node, newValue);
-      }
-    }
-
-    // we deal with some non-editable html element
-    else {
-      name = domAttr(node, 'data-value');
-      newValue = values[name];
-      if (entry.setControlValue) {
-        entry.setControlValue(element, entryNode, node, name, newValue, idx);
-      }
-      else {
-        setTextValue(node, newValue);
-      }
-    }
-  });
-};
-
-PropertiesPanel.prototype._updateGroupVisibility = function() {
-  var element = this._current.element;
-  var groups = this._current.groups;
-  var panelNode = this._current.panel;
-
-  forEach(groups, function(group) {
-    var groupNode = domQuery('[data-group=' + group.id + ']', panelNode);
-    var groupVisible = isGroupVisible(group, element, groupNode, group.entries && group.entries.length > 0);
-
-    domClasses(groupNode).toggle(HIDE_CLASS, !groupVisible);
-  });
-};
-
-// TODO(nikku): WTF freaking name? Change / clarify.
-PropertiesPanel.prototype._updateActivation = function(current) {
-  var self = this;
-
-  var eventBus = this._eventBus;
-
-  var element = current.element;
-
-  function isEntryVisible(entry) {
-    return eventBus.fire('propertiesPanel.isEntryVisible', {
-      entry: entry,
-      element: element
-    });
-  }
-
-  var panelNode = current.panel;
-
-  forEach(current.tabs, function(tab) {
-
-    var tabNode = domQuery('[data-tab=' + tab.id + ']', panelNode);
-    var tabLinkNode = domQuery('[data-tab-target=' + tab.id + ']', panelNode).parentNode;
-    var tabVisible = false;
-
-    var groups = tab.groups;
-
-    forEach(groups, function(group) {
-
-      var groupVisible = false;
-
-      var groupNode = domQuery('[data-group=' + group.id + ']', tabNode);
-
-      forEach(group.entries, function(entry) {
-
-        var entryNode = domQuery('[data-entry=' + entry.id + ']', groupNode);
-
-        var entryVisible = isEntryVisible(entry);
-
-        groupVisible = groupVisible || entryVisible;
-
-        domClasses(entryNode).toggle(HIDE_CLASS, !entryVisible);
-
-        var values = 'get' in entry ? entry.get(element, entryNode) : {};
-
-        if (values instanceof Array) {
-          var listEntryContainer = domQuery('[data-list-entry-container]', entryNode);
-          var existingElements = listEntryContainer.children || [];
-
-          for (var i = 0; i < values.length; i++) {
-            var listValue = values[i];
-            var listItemNode = existingElements[i];
-            if (!listItemNode) {
-              listItemNode = domify(entry.createListEntryTemplate(listValue, i, listEntryContainer));
-              listEntryContainer.appendChild(listItemNode);
-            }
-            domAttr(listItemNode, 'data-index', i);
-
-            self._bindTemplate(element, entry, listValue, listItemNode, i);
-          }
-
-          var entriesToRemove = existingElements.length - values.length;
-
-          for (var j = 0; j < entriesToRemove; j++) {
-            // remove orphaned element
-            listEntryContainer.removeChild(listEntryContainer.lastChild);
-          }
-
-        } else {
-          self._bindTemplate(element, entry, values, entryNode);
-        }
-
-        // update conditionally visible elements
-        self.updateState(entry, entryNode);
-        self.validate(entry, values, entryNode);
-
-        // remember initial state for later dirty checking
-        entry.oldValues = getFormControlValues(entryNode);
-      });
-
-      groupVisible = isGroupVisible(group, element, groupNode, groupVisible);
-
-      if (typeof group.label === 'function') {
-        var groupLabelNode = domQuery('.group-label', groupNode);
-        groupLabelNode.textContent = group.label(element, groupNode);
-      }
-
-      domClasses(groupNode).toggle(HIDE_CLASS, !groupVisible);
-
-      tabVisible = tabVisible || groupVisible;
-    });
-
-    tabVisible = tabVisible && isTabVisible(tab, element, tabVisible);
-    domClasses(tabNode).toggle(HIDE_CLASS, !tabVisible);
-    domClasses(tabLinkNode).toggle(HIDE_CLASS, !tabVisible);
-  });
-
-  // inject elements id into header
-  var headerIdNode = domQuery('[data-label-id]', panelNode);
-
-  if (headerIdNode) {
-    headerIdNode.textContent = element.id || '';
-  }
-};
-
-PropertiesPanel.prototype._createPanel = function(element, tabs) {
-  var self = this;
-
-  var panelNode = domify('<div class="djs-properties"></div>'),
-      controlNode=domQuery(self._config.control),
-      closeNode=domify('<div class="close-properties-panel">close</div>'),
-      openNode=domify('<div class="open-properties-panel">open</div>'),
-      headerNode = domify('<div class="djs-properties-header">' +
-        '<div class="label" data-label-id></div>' +
-        '<div class="search">' +
-          '<input type="search" placeholder="Search for property" />' +
-          '<button><span>Search</span></button>' +
-        '</div>' +
-      '</div>'),
-      tabBarNode = domify('<div class="djs-properties-tab-bar"></div>'),
-      tabLinksNode = domify('<ul class="djs-properties-tabs-links"></ul>'),
-      tabContainerNode = domify('<div class="djs-properties-tabs-container"></div>');
-
-  panelNode.appendChild(headerNode);
-  try {
-    while (controlNode.hasChildNodes()) {
-      controlNode.removeChild(controlNode.lastChild);
-     }
-    }
-  catch(err) {
-
-  }
-    controlNode.appendChild(closeNode);
-
-
-  closeNode.addEventListener('click', function (evt) {
-    self.detach();
-    controlNode.removeChild(closeNode);
-    controlNode.appendChild(openNode);
-  });
-  openNode.addEventListener('click', function (evt) {
-    self.attachTo(self._config.parent);
-    controlNode.removeChild(openNode);
-    controlNode.appendChild(closeNode);
-  });
-
-  forEach(tabs, function(tab, tabIndex) {
-
-    if (!tab.id) {
-      throw new Error('tab must have an id');
-    }
-
-    var tabNode = domify('<div class="djs-properties-tab" data-tab="' + tab.id + '"></div>'),
-        tabLinkNode = domify('<li class="djs-properties-tab-link">' +
-          '<a href data-tab-target="' + tab.id + '">' + tab.label + '</a>' +
-        '</li>');
-
-    var groups = tab.groups;
-
-    forEach(groups, function(group) {
-
-      if (!group.id) {
-        throw new Error('group must have an id');
-      }
-
-      var groupNode = domify('<div class="djs-properties-group" data-group="' + group.id + '">' +
-          '<span class="group-toggle"></span>' +
-          '<span class="group-label">' + group.label + '</span>' +
-        '</div>');
-
-      // TODO(nre): use event delegation to handle that...
-      groupNode.querySelector('.group-toggle').addEventListener('click', function (evt) {
-        domClasses(groupNode).toggle('group-closed');
-        evt.preventDefault();
-        evt.stopPropagation();
-      });
-      groupNode.addEventListener('click', function (evt) {
-        if (!evt.defaultPrevented && domClasses(groupNode).has('group-closed')) {
-          domClasses(groupNode).remove('group-closed');
-        }
-      });
-
-      forEach(group.entries, function(entry) {
-
-        if (!entry.id) {
-          throw new Error('entry must have an id');
-        }
-
-        var html = entry.html;
-
-        if (typeof html === 'string') {
-          html = domify(html);
-        }
-
-        // unwrap jquery
-        if (html.get) {
-          html = html.get(0);
-        }
-
-        var entryNode = domify('<div class="djs-properties-entry" data-entry="' + entry.id + '"></div>');
-
-        forEach(entry.cssClasses || [], function (cssClass) {
-          domClasses(entryNode).add(cssClass);
-        });
-
-        entryNode.appendChild(html);
-
-        groupNode.appendChild(entryNode);
-
-        // update conditionally visible elements
-        self.updateState(entry, entryNode);
-      });
-
-      tabNode.appendChild(groupNode);
-    });
-
-    tabLinksNode.appendChild(tabLinkNode);
-    tabContainerNode.appendChild(tabNode);
-  });
-
-  tabBarNode.appendChild(tabLinksNode);
-
-  panelNode.appendChild(tabBarNode);
-  panelNode.appendChild(tabContainerNode);
-
-  return panelNode;
-};
-
-
-
-function setInputValue(node, value) {
-
-  var selection;
-
-  // prevents input fields from having the value 'undefined'
-  if (value === undefined) {
-    value = '';
-  }
-
-  // update selection on undo/redo
-  if (document.activeElement === node) {
-    selection = updateSelection(getSelection(node), node.value, value);
-  }
-
-  node.value = value;
-
-  if (selection) {
-    setSelection(node, selection);
-  }
-}
-
-function setSelectValue(node, value) {
-  if (value !== undefined) {
-    node.value = value;
-  }
-}
-
-function setToggleValue(node, value) {
-  var nodeValue = node.value;
-
-  node.checked = (value === nodeValue) || (!domAttr(node, 'value') && value);
-}
-
-function setTextValue(node, value) {
-  node.textContent = value;
-}
-
-
-function getSelection(node) {
-  return {
-    start: node.selectionStart,
-    end: node.selectionEnd
-  };
-}
-
-function setSelection(node, selection) {
-  node.selectionStart = selection.start;
-  node.selectionEnd = selection.end;
-}
-
-function isGroupVisible(group, element, groupNode, defaultVisibility) {
-  if (typeof group.enabled === 'function') {
-    return group.enabled(element, groupNode);
-  } else {
-    return defaultVisibility;
-  }
-}
-
-function isTabVisible(tab, element, defaultVisibility) {
-  if (typeof tab.enabled === 'function') {
-    return tab.enabled(element);
-  } else {
-    return defaultVisibility;
-  }
-}
-
-},{"./cmd/CreateAndReferenceHandler":538,"./cmd/CreateBusinessObjectListHandler":539,"./cmd/MultiCommandHandler":540,"./cmd/UpdateBusinessObjectHandler":541,"./cmd/UpdateBusinessObjectListHandler":542,"lodash/array/flattenDeep":568,"lodash/array/xor":570,"lodash/collection/filter":571,"lodash/collection/forEach":573,"lodash/collection/indexBy":574,"lodash/collection/map":575,"lodash/function/debounce":577,"lodash/lang/isArray":639,"lodash/lang/isEmpty":640,"lodash/object/get":647,"lodash/object/keys":648,"min-dom/lib/attr":654,"min-dom/lib/classes":655,"min-dom/lib/closest":657,"min-dom/lib/delegate":658,"min-dom/lib/domify":659,"min-dom/lib/matches":660,"min-dom/lib/query":661,"min-dom/lib/remove":662,"scroll-tabs":671,"selection-update":744}],537:[function(require,module,exports){
-'use strict';
-
-var domQuery = require('min-dom/lib/query'),
-    domClear = require('min-dom/lib/clear'),
-    is = require('bpmn-js/lib/util/ModelUtil').is,
-    forEach = require('lodash/collection/forEach'),
-    domify = require('min-dom/lib/domify'),
-    Ids = require('ids');
-
-var SPACE_REGEX = /\s/;
-
-// for QName validation as per http://www.w3.org/TR/REC-xml/#NT-NameChar
-var QNAME_REGEX = /^([a-z][\w-.]*:)?[a-z_][\w-.]*$/i;
-
-// for ID validation as per BPMN Schema (QName - Namespace)
-var ID_REGEX = /^[a-z_][\w-.]*$/i;
-
-function selectedOption(selectBox) {
-  if (selectBox.selectedIndex >= 0) {
-    return selectBox.options[selectBox.selectedIndex].value;
-  }
-}
-
-module.exports.selectedOption = selectedOption;
-
-
-function selectedType(elementSyntax, inputNode) {
-  var typeSelect = domQuery(elementSyntax, inputNode);
-  return selectedOption(typeSelect);
-}
-
-module.exports.selectedType = selectedType;
-
-
-/**
- * Retrieve the root element the document this
- * business object is contained in.
- *
- * @return {ModdleElement}
- */
-function getRoot(businessObject) {
-  var parent = businessObject;
-  while (parent.$parent) {
-    parent = parent.$parent;
-  }
-  return parent;
-}
-
-module.exports.getRoot = getRoot;
-
-
-/**
- * filters all elements in the list which have a given type.
- * removes a new list
- */
-function filterElementsByType(objectList, type) {
-  var list = objectList || [];
-  var result = [];
-  forEach(list, function(obj) {
-    if (is(obj, type)) {
-      result.push(obj);
-    }
-  });
-  return result;
-}
-
-module.exports.filterElementsByType = filterElementsByType;
-
-
-function findRootElementsByType(businessObject, referencedType) {
-  var root = getRoot(businessObject);
-
-  return filterElementsByType(root.rootElements, referencedType);
-}
-
-module.exports.findRootElementsByType = findRootElementsByType;
-
-
-function removeAllChildren(domElement) {
-  while(!!domElement.firstChild) {
-    domElement.removeChild(domElement.firstChild);
-  }
-}
-
-module.exports.removeAllChildren = removeAllChildren;
-
-
-/**
- * adds an empty option to the list
- */
-function addEmptyParameter(list) {
-  return list.push({'label': '', 'value': '', 'name': ''});
-}
-
-module.exports.addEmptyParameter = addEmptyParameter;
-
-
-/**
- * returns a list with all root elements for the given parameter 'referencedType'
- */
-function refreshOptionsModel(businessObject, referencedType) {
-  var model = [];
-  var referableObjects = findRootElementsByType(businessObject, referencedType);
-  forEach(referableObjects, function(obj) {
-    model.push({
-      label: (obj.name || '')  + ' (id='+obj.id+')',
-      value: obj.id,
-      name: obj.name
-    });
-  });
-  return model;
-}
-
-module.exports.refreshOptionsModel = refreshOptionsModel;
-
-
-/**
- * fills the drop down with options
- */
-function updateOptionsDropDown(domSelector, businessObject, referencedType, entryNode) {
-  var options = refreshOptionsModel(businessObject, referencedType);
-  addEmptyParameter(options);
-  var selectBox = domQuery(domSelector, entryNode);
-  domClear(selectBox);
-
-  forEach(options, function(option){
-    var optionEntry = domify('<option value="' + option.value + '">' + option.label + '</option>');
-    selectBox.appendChild(optionEntry);
-  });
-  return options;
-}
-
-module.exports.updateOptionsDropDown = updateOptionsDropDown;
-
-
-/**
- * checks whether the id value is valid
- *
- * @param {ModdleElement} bo
- * @param {String} idValue
- *
- * @return {String} error message
- */
-function isIdValid(bo, idValue) {
-  var assigned = bo.$model.ids.assigned(idValue);
-
-  var idExists = !!assigned && assigned !== bo;
-
-  if (!idValue || idExists) {
-    return 'Element must have an unique id.';
-  }
-
-  return validateId(idValue);
-}
-
-module.exports.isIdValid = isIdValid;
-
-
-function validateId(idValue) {
-
-  if (containsSpace(idValue)) {
-    return 'Id must not contain spaces.';
-  }
-
-  if (!ID_REGEX.test(idValue)) {
-
-    if (QNAME_REGEX.test(idValue)) {
-      return 'Id must not contain prefix.';
-    }
-
-    return 'Id must be a valid QName.';
-  }
-}
-
-module.exports.validateId = validateId;
-
-
-function containsSpace(value) {
-  return SPACE_REGEX.test(value);
-}
-
-module.exports.containsSpace = containsSpace;
-
-
-/**
- * generate a semantic id with given prefix
- */
-function nextId(prefix) {
-  var ids = new Ids([32,32,1]);
-
-  return ids.nextPrefixed(prefix);
-}
-
-module.exports.nextId = nextId;
-
-
-function triggerClickEvent(element) {
-  var evt;
-  var eventType = 'click';
-
-  if (!!document.createEvent) {
-    try {
-      // Chrome, Safari, Firefox
-      evt = new MouseEvent((eventType), { view: window, bubbles: true, cancelable: true });
-    } catch (e) {
-      // IE 11, PhantomJS (wat!)
-      evt = document.createEvent('MouseEvent');
-
-      evt.initEvent((eventType), true, true);
-    }
-    return element.dispatchEvent(evt);
-  } else {
-    // Welcome IE
-    evt = document.createEventObject();
-
-    return element.fireEvent('on' + eventType, evt);
-  }
-}
-
-module.exports.triggerClickEvent = triggerClickEvent;
-
-},{"bpmn-js/lib/util/ModelUtil":563,"ids":564,"lodash/collection/forEach":573,"min-dom/lib/clear":656,"min-dom/lib/domify":659,"min-dom/lib/query":661}],538:[function(require,module,exports){
-'use strict';
-
-var elementHelper = require('../helper/ElementHelper');
-
-/**
- * A handler capable of creating a new element under a provided parent
- * and updating / creating a reference to it in one atomic action.
- *
- * @class
- * @constructor
- */
-function CreateAndReferenceElementHandler(elementRegistry, bpmnFactory) {
-  this._elementRegistry = elementRegistry;
-  this._bpmnFactory = bpmnFactory;
-}
-
-CreateAndReferenceElementHandler.$inject = [ 'elementRegistry', 'bpmnFactory' ];
-
-module.exports = CreateAndReferenceElementHandler;
-
-function ensureNotNull(prop, name) {
-  if(!prop) {
-    throw new Error(name + ' required');
-  }
-  return prop;
-}
-
-////// api /////////////////////////////////////////////
-
-/**
- * Creates a new element under a provided parent and updates / creates a reference to it in
- * one atomic action.
- *
- * @method  CreateAndReferenceElementHandler#execute
- *
- * @param {Object} context
- * @param {djs.model.Base} context.element which is the context for the reference
- * @param {moddle.referencingObject} context.referencingObject the object which creates the reference
- * @param {String} context.referenceProperty the property of the referencingObject which makes the reference
- * @param {moddle.newObject} context.newObject the new object to add
- * @param {moddle.newObjectContainer} context.newObjectContainer the container for the new object
- *
- * @returns {Array<djs.mode.Base>} the updated element
- */
-CreateAndReferenceElementHandler.prototype.execute = function(context) {
-
-  var referencingObject = ensureNotNull(context.referencingObject, 'referencingObject'),
-      referenceProperty = ensureNotNull(context.referenceProperty, 'referenceProperty'),
-      newObject = ensureNotNull(context.newObject, 'newObject'),
-      newObjectContainer = ensureNotNull(context.newObjectContainer, 'newObjectContainer'),
-      newObjectParent = ensureNotNull(context.newObjectParent, 'newObjectParent'),
-      changed = [ context.element ]; // this will not change any diagram-js elements
-
-  // create new object
-  var referencedObject = elementHelper
-                          .createElement(newObject.type, newObject.properties, newObjectParent, this._bpmnFactory);
-  context.referencedObject = referencedObject;
-
-  // add to containing list
-  newObjectContainer.push(referencedObject);
-
-  // adjust reference attribute
-  context.previousReference = referencingObject[referenceProperty];
-  referencingObject[referenceProperty] = referencedObject;
-
-  context.changed = changed;
-
-  // indicate changed on objects affected by the update
-  return changed;
-};
-
-/**
- * Reverts the update
- *
- * @method  CreateAndReferenceElementHandler#revert
- *
- * @param {Object} context
- *
- * @returns {djs.mode.Base} the updated element
- */
-CreateAndReferenceElementHandler.prototype.revert = function(context) {
-
-  var referencingObject = context.referencingObject,
-      referenceProperty = context.referenceProperty,
-      previousReference = context.previousReference,
-      referencedObject = context.referencedObject,
-      newObjectContainer = context.newObjectContainer;
-
-  // reset reference
-  referencingObject.set(referenceProperty, previousReference);
-
-  // remove new element
-  newObjectContainer.splice(newObjectContainer.indexOf(referencedObject), 1);
-
-  return context.changed;
-};
-
-},{"../helper/ElementHelper":554}],539:[function(require,module,exports){
-'use strict';
-
-var forEach = require('lodash/collection/forEach');
-
-var elementHelper = require('../helper/ElementHelper');
-
-/**
- * A handler that implements a BPMN 2.0 property update
- * for business objects which are not represented in the
- * diagram.
- *
- * This is useful in the context of the properties panel in
- * order to update child elements of elements visible in
- * the diagram.
- *
- * Example: perform an update of a specific event definition
- * of an intermediate event.
- *
- * @class
- * @constructor
- */
-function CreateBusinessObjectListHandler(elementRegistry, bpmnFactory) {
-  this._elementRegistry = elementRegistry;
-  this._bpmnFactory = bpmnFactory;
-}
-
-CreateBusinessObjectListHandler.$inject = [ 'elementRegistry', 'bpmnFactory' ];
-
-module.exports = CreateBusinessObjectListHandler;
-
-function ensureNotNull(prop, name) {
-  if(!prop) {
-    throw new Error(name + ' required');
-  }
-  return prop;
-
-}
-function ensureList(prop, name) {
-  if(!prop || Object.prototype.toString.call(prop) !== '[object Array]' ) {
-    throw new Error(name + ' needs to be a list');
-  }
-  return prop;
-}
-
-////// api /////////////////////////////////////////////
-
-/**
- * Creates a new element under a provided parent and updates / creates a reference to it in
- * one atomic action.
- *
- * @method  CreateBusinessObjectListHandler#execute
- *
- * @param {Object} context
- * @param {djs.model.Base} context.element which is the context for the reference
- * @param {moddle.referencingObject} context.referencingObject the object which creates the reference
- * @param {String} context.referenceProperty the property of the referencingObject which makes the reference
- * @param {moddle.newObject} context.newObject the new object to add
- * @param {moddle.newObjectContainer} context.newObjectContainer the container for the new object
- *
- * @return {Array<djs.mode.Base>} the updated element
- */
-CreateBusinessObjectListHandler.prototype.execute = function(context) {
-
-  var currentObject = ensureNotNull(context.currentObject, 'currentObject'),
-      propertyName = ensureNotNull(context.propertyName, 'propertyName'),
-      newObjects = ensureList(context.newObjects, 'newObjects'),
-      changed = [ context.element ]; // this will not change any diagram-js elements
-
-
-  var childObjects = [];
-  var self = this;
-
-  // create new array of business objects
-  forEach(newObjects, function(obj) {
-    var element = elementHelper.createElement(obj.type, obj.properties, currentObject, self._bpmnFactory);
-
-    childObjects.push(element);
-  });
-  context.childObject = childObjects;
-
-  // adjust array reference in the parent business object
-  context.previousChilds = currentObject[propertyName];
-  currentObject[propertyName] = childObjects;
-
-  context.changed = changed;
-
-  // indicate changed on objects affected by the update
-  return changed;
-};
-
-/**
- * Reverts the update
- *
- * @method  CreateBusinessObjectListHandler#revert
- *
- * @param {Object} context
- *
- * @return {djs.mode.Base} the updated element
- */
-CreateBusinessObjectListHandler.prototype.revert = function(context) {
-
-  var currentObject = context.currentObject,
-      propertyName = context.propertyName,
-      previousChilds = context.previousChilds;
-
-  // remove new element
-  currentObject.set(propertyName, previousChilds);
-
-  return context.changed;
-};
-
-},{"../helper/ElementHelper":554,"lodash/collection/forEach":573}],540:[function(require,module,exports){
-'use strict';
-
-var forEach = require('lodash/collection/forEach');
-
-/**
- * A handler that combines and executes multiple commands.
- *
- * All updates are bundled on the command stack and executed in one step.
- * This also makes it possible to revert the changes in one step.
- *
- * Example use case: remove the camunda:formKey attribute and in addition
- * add all form fields needed for the camunda:formData property.
- *
- * @class
- * @constructor
- */
-function MultiCommandHandler(commandStack) {
-  this._commandStack = commandStack;
-}
-
-MultiCommandHandler.$inject = [ 'commandStack' ];
-
-module.exports = MultiCommandHandler;
-
-MultiCommandHandler.prototype.preExecute = function(context) {
-
-  var commandStack = this._commandStack;
-
-  forEach(context, function(command) {
-    commandStack.execute(command.cmd, command.context);
-  });
-};
-},{"lodash/collection/forEach":573}],541:[function(require,module,exports){
-'use strict';
-
-var reduce = require('lodash/object/transform'),
-    is = require('bpmn-js/lib/util/ModelUtil').is,
-    keys = require('lodash/object/keys'),
-    forEach = require('lodash/collection/forEach');
-
-/**
- * A handler that implements a BPMN 2.0 property update
- * for business objects which are not represented in the
- * diagram.
- *
- * This is useful in the context of the properties panel in
- * order to update child elements of elements visible in
- * the diagram.
- *
- * Example: perform an update of a specific event definition
- * of an intermediate event.
- *
- * @class
- * @constructor
- */
-function UpdateBusinessObjectHandler(elementRegistry) {
-  this._elementRegistry = elementRegistry;
-}
-
-UpdateBusinessObjectHandler.$inject = [ 'elementRegistry' ];
-
-module.exports = UpdateBusinessObjectHandler;
-
-/**
- * returns the root element
- */
-function getRoot(businessObject) {
-  var parent = businessObject;
-  while(parent.$parent) {
-    parent = parent.$parent;
-  }
-  return parent;
-}
-
-function getProperties(businessObject, propertyNames) {
-  return reduce(propertyNames, function(result, key) {
-    result[key] = businessObject.get(key);
-    return result;
-  }, {});
-}
-
-
-function setProperties(businessObject, properties) {
-  forEach(properties, function(value, key) {
-    businessObject.set(key, value);
-  });
-}
-
-
-////// api /////////////////////////////////////////////
-
-/**
- * Updates a business object with a list of new properties
- *
- * @method  UpdateBusinessObjectHandler#execute
- *
- * @param {Object} context
- * @param {djs.model.Base} context.element the element which has a child business object updated
- * @param {moddle.businessObject} context.businessObject the businessObject to update
- * @param {Object} context.properties a list of properties to set on the businessObject
- *
- * @return {Array<djs.mode.Base>} the updated element
- */
-UpdateBusinessObjectHandler.prototype.execute = function(context) {
-
-  var element = context.element,
-      businessObject = context.businessObject,
-      rootElements = getRoot(businessObject).rootElements,
-      referenceType = context.referenceType,
-      referenceProperty = context.referenceProperty,
-      changed = [ element ]; // this will not change any diagram-js elements
-
-  if (!element) {
-    throw new Error('element required');
-  }
-
-  if(!businessObject) {
-    throw new Error('businessObject required');
-  }
-
-  var properties = context.properties,
-      oldProperties = context.oldProperties || getProperties(businessObject, keys(properties));
-
-  // check if there the update needs an external element for reference
-  if(typeof referenceType !== 'undefined' && typeof referenceProperty !== 'undefined') {
-    forEach(rootElements, function(rootElement) {
-      if(is(rootElement, referenceType)) {
-        if(rootElement.id === properties[referenceProperty]) {
-          properties[referenceProperty] = rootElement;
-        }
-      }
-    });
-  }
-
-  // update properties
-  setProperties(businessObject, properties);
-
-  // store old values
-  context.oldProperties = oldProperties;
-  context.changed = changed;
-
-  // indicate changed on objects affected by the update
-  return changed;
-};
-
-/**
- * Reverts the update
- *
- * @method  UpdateBusinessObjectHandler#revert
- *
- * @param {Object} context
- *
- * @return {djs.mode.Base} the updated element
- */
-UpdateBusinessObjectHandler.prototype.revert = function(context) {
-
-  var oldProperties = context.oldProperties,
-      businessObject = context.businessObject;
-
-  // update properties
-  setProperties(businessObject, oldProperties);
-
-  return context.changed;
-};
-
-},{"bpmn-js/lib/util/ModelUtil":563,"lodash/collection/forEach":573,"lodash/object/keys":648,"lodash/object/transform":651}],542:[function(require,module,exports){
-'use strict';
-
-var forEach = require('lodash/collection/forEach');
-
-/**
- * A handler that implements a BPMN 2.0 property update
- * for business object lists which are not represented in the
- * diagram.
- *
- * This is useful in the context of the properties panel in
- * order to update child elements of elements visible in
- * the diagram.
- *
- * Example: perform an update of a specific event definition
- * of an intermediate event.
- *
- * @class
- * @constructor
- */
-function UpdateBusinessObjectListHandler(elementRegistry, bpmnFactory) {
-  this._elementRegistry = elementRegistry;
-  this._bpmnFactory = bpmnFactory;
-}
-
-UpdateBusinessObjectListHandler.$inject = [ 'elementRegistry', 'bpmnFactory' ];
-
-module.exports = UpdateBusinessObjectListHandler;
-
-function ensureNotNull(prop, name) {
-  if (!prop) {
-    throw new Error(name + 'required');
-  }
-  return prop;
-}
-
-////// api /////////////////////////////////////////////
-
-/**
- * Updates a element under a provided parent.
- */
-UpdateBusinessObjectListHandler.prototype.execute = function(context) {
-
-  var currentObject = ensureNotNull(context.currentObject, 'currentObject'),
-      propertyName = ensureNotNull(context.propertyName, 'propertyName'),
-      updatedObjectList = context.updatedObjectList,
-      objectsToRemove = context.objectsToRemove || [],
-      objectsToAdd = context.objectsToAdd || [],
-      changed = [ context.element], // this will not change any diagram-js elements
-      referencePropertyName;
-
-  if (context.referencePropertyName) {
-    referencePropertyName = context.referencePropertyName;
-  }
-
-  var objectList = currentObject[propertyName];
-  // adjust array reference in the parent business object
-  context.previousList = currentObject[propertyName];
-
-  if (updatedObjectList) {
-    currentObject[propertyName] = updatedObjectList;
-  }
-  else {
-    var listCopy = [];
-    // remove all objects which should be removed
-    forEach(objectList, function(object) {
-      if (objectsToRemove.indexOf(object) == -1) {
-        listCopy.push(object);
-      }
-    });
-    // add all objects which should be added
-    listCopy = listCopy.concat(objectsToAdd);
-
-    // set property to new list
-    if (listCopy.length > 0 || !referencePropertyName) {
-
-      // as long as there are elements in the list update the list
-      currentObject[propertyName] = listCopy;
-    } else if (referencePropertyName) {
-
-      // remove the list when it is empty
-      var parentObject = currentObject.$parent;
-      parentObject.set(referencePropertyName, undefined);
-    }
-  }
-
-  context.changed = changed;
-
-  // indicate changed on objects affected by the update
-  return changed;
-};
-
-/**
- * Reverts the update
- *
- * @method  CreateBusinessObjectListHandler#revert
- *
- * @param {Object} context
- *
- * @return {djs.mode.Base} the updated element
- */
-UpdateBusinessObjectListHandler.prototype.revert = function(context) {
-
-  var currentObject = context.currentObject,
-      propertyName = context.propertyName,
-      previousList = context.previousList,
-      parentObject = currentObject.$parent;
-
-  if (context.referencePropertyName) {
-    parentObject.set(context.referencePropertyName, currentObject);
-  }
-
-  // remove new element
-  currentObject.set(propertyName, previousList);
-
-  return context.changed;
-};
-
-},{"lodash/collection/forEach":573}],543:[function(require,module,exports){
-'use strict';
-
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
-    cmdHelper = require('../helper/CmdHelper');
-
-var checkbox = function(options, defaultParameters) {
-  var resource = defaultParameters,
-    label = options.label || resource.id,
-    canBeDisabled = !!options.disabled && typeof options.disabled === 'function';
-
-
-  resource.html =
-    '<input id="camunda-' + resource.id + '" ' +
-         'type="checkbox" ' +
-         'name="' + options.modelProperty + '" ' +
-         (canBeDisabled ? 'data-show="isDisabled"' : '') +
-         ' />' +
-    '<label for="camunda-' + resource.id + '" ' +
-         (canBeDisabled ? 'data-show="isDisabled"' : '') +
-         '>' + label + '</label>';
-
-  resource.get = function(element) {
-    var bo = getBusinessObject(element),
-      res = {};
-
-    res[options.modelProperty] = bo.get(options.modelProperty);
-
-    return res;
-  };
-  resource.set = function(element, values) {
-    var res = {};
-
-    res[options.modelProperty] = !!values[options.modelProperty];
-
-    return cmdHelper.updateProperties(element, res);
-  };
-
-  if(typeof options.set === 'function') {
-    resource.set = options.set;
-  }
-
-  if(typeof options.get === 'function') {
-    resource.get = options.get;
-  }
-
-  if(canBeDisabled) {
-    resource.isDisabled = function() {
-      return !options.disabled.apply(resource, arguments);
-    };
-  }
-
-  resource.cssClasses = ['pp-checkbox'];
-
-  return resource;
-};
-
-module.exports = checkbox;
-
-},{"../helper/CmdHelper":553,"bpmn-js/lib/util/ModelUtil":563}],544:[function(require,module,exports){
-'use strict';
-
-var assign = require('lodash/object/assign'),
-    find = require('lodash/collection/find');
-
-var domQuery = require('min-dom/lib/query');
-
-var selectEntryFactory = require('./SelectEntryFactory');
-
-
-/**
- * The combo box is a special implementation of the select entry and adds the option 'custom' to the
- * select box. If 'custom' is selected, an additional text input field is shown which allows to define
- * a custom value.
- *
- * @param  {Object} options
- * @param  {string} options.id
- * @param  {string} options.label
- * @param  {Array<Object>} options.selectOptions list of name/value pairs
- * @param  {string} options.modelProperty
- * @param  {function} options.get
- * @param  {function} options.set
- * @param  {function} options.disabled
- * @param  {string} [options.customValue] custom select option value (default: 'custom')
- * @param  {string} [options.customName] custom select option name visible in the select box (default: 'custom')
- *
- * @return {Object}
- */
-var comboBox = function(options) {
-
-  var selectOptions = options.selectOptions,
-      modelProperty = options.modelProperty,
-      customValue = options.customValue || 'custom',
-      customName = options.customName || 'custom ' + modelProperty;
-
-  // check if a value is not a built in value
-  var isCustomValue = function(value) {
-    if (typeof value[modelProperty] === 'undefined') {
-      return false;
-    }
-
-    var isCustom = !find(selectOptions, function(option) {
-      return value[modelProperty] === option.value;
-    });
-
-    return isCustom;
-  };
-
-  var comboOptions = assign({}, options);
-
-  // true if the selected value in the select box is customValue
-  comboOptions.showCustomInput = function(element, node) {
-    var selectBox = domQuery('[data-entry="'+ options.id +'"] select', node.parentNode);
-
-    if (selectBox) {
-      return selectBox.value === customValue;
-    }
-
-    return false;
-  };
-
-  comboOptions.get = function(element, node) {
-    var value = options.get(element, node);
-
-    var modifiedValues = {};
-
-    if (!isCustomValue(value)) {
-      modifiedValues[modelProperty] = value[modelProperty] || '';
-      
-      return modifiedValues;
-    }
-
-    modifiedValues[modelProperty] = customValue;
-    modifiedValues['custom-'+modelProperty] = value[modelProperty];
-
-    return modifiedValues;
-  };
-
-  comboOptions.set = function(element, values, node) {
-    var modifiedValues = {};
-
-    // if the custom select option has been selected
-    // take the value from the text input field
-    if (values[modelProperty] === customValue) {
-      modifiedValues[modelProperty] = values['custom-' + modelProperty] || '';
-    }
-    else if (options.emptyParameter && values[modelProperty] === '') {
-      modifiedValues[modelProperty] = undefined;
-    }
-    else {
-      modifiedValues[modelProperty] = values[modelProperty];
-    }
-    return options.set(element, modifiedValues, node);
-  };
-
-  comboOptions.selectOptions.push({ name: customName, value: customValue });
-
-  var comboBoxEntry = assign({}, selectEntryFactory(comboOptions, comboOptions));
-
-  comboBoxEntry.html += '<div class="pp-field-wrapper pp-combo-input" ' +
-    'data-show="showCustomInput"' +
-    '>' +
-    '<input id="camunda-' + options.id + '-input" type="text" name="custom-' + modelProperty+'" ' +
-      ' />' +
-  '</div>';
-
-  return comboBoxEntry;
-};
-
-module.exports = comboBox;
-
-},{"./SelectEntryFactory":548,"lodash/collection/find":572,"lodash/object/assign":646,"min-dom/lib/query":661}],545:[function(require,module,exports){
-'use strict';
-
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject;
-
-// input entities
-var textInputField = require('./TextInputEntryFactory'),
-    checkboxField = require('./CheckboxEntryFactory'),
-    selectBoxField = require('./SelectEntryFactory'),
-    comboBoxField = require('./ComboEntryFactory'),
-    textAreaField = require('./TextAreaEntryFactory'),
-    validationAwareTextInputField = require('./ValidationAwareTextInput'),
-    tableField = require('./TableEntryFactory'),
-    labelEntry = require('./LabelFactory'),
-    link = require('./LinkEntryFactory');
-
-var cmdHelper = require('../helper/CmdHelper');
-
-// helpers ////////////////////////////////////////
-
-function ensureNotNull(prop) {
-  if(!prop) {
-    throw new Error(prop + ' must be set.');
-  }
-
-  return prop;
-}
-
-/**
- * sets the default parameters which are needed to create an entry
- *
- * @param options
- * @returns {{id: *, description: (*|string), get: (*|Function), set: (*|Function),
- *            validate: (*|Function), html: string}}
- */
-var setDefaultParameters = function ( options ) {
-
-  // default method to fetch the current value of the input field
-  var defaultGet = function (element) {
-    var bo = getBusinessObject(element),
-      res = {},
-      prop = ensureNotNull(options.modelProperty);
-    res[prop] = bo.get(prop);
-
-    return res;
-  };
-
-// default method to set a new value to the input field
-  var defaultSet = function (element, values) {
-    var res = {},
-        prop = ensureNotNull(options.modelProperty);
-    if (values[prop] !== '') {
-      res[prop] = values[prop];
-    } else {
-      res[prop] = undefined;
-    }
-
-    return cmdHelper.updateProperties(element, res);
-  };
-
-// default validation method
-  var defaultValidate = function () {
-    return {};
-  };
-
-  return {
-    id : options.id,
-    description : ( options.description || '' ),
-    get : ( options.get || defaultGet ),
-    set : ( options.set || defaultSet ),
-    validate : ( options.validate || defaultValidate ),
-    html: ''
-  };
-};
-
-function EntryFactory() {
-
-}
-
-/**
- * Generates an text input entry object for a property panel.
- * options are:
- * - id: id of the entry - String
- *
- * - description: description of the property - String
- *
- * - label: label for the input field - String
- *
- * - set: setter method - Function
- *
- * - get: getter method - Function
- *
- * - validate: validation mehtod - Function
- *
- * - modelProperty: name of the model property - String
- *
- * - buttonAction: Object which contains the following properties: - Object
- * ---- name: name of the [data-action] callback - String
- * ---- method: callback function for [data-action] - Function
- *
- * - buttonShow: Object which contains the following properties: - Object
- * ---- name: name of the [data-show] callback - String
- * ---- method: callback function for [data-show] - Function
- *
- * @param options
- * @returns the propertyPanel entry resource object
- */
-EntryFactory.textField = function(options) {
-  return textInputField(options, setDefaultParameters(options));
-};
-
-EntryFactory.validationAwareTextField = function(options) {
-  return validationAwareTextInputField(options, setDefaultParameters(options));
-};
-
-/**
- * Generates a checkbox input entry object for a property panel.
- * options are:
- * - id: id of the entry - String
- *
- * - description: description of the property - String
- *
- * - label: label for the input field - String
- *
- * - set: setter method - Function
- *
- * - get: getter method - Function
- *
- * - validate: validation mehtod - Function
- *
- * - modelProperty: name of the model property - String
- *
- * @param options
- * @returns the propertyPanel entry resource object
- */
-EntryFactory.checkbox = function(options) {
-  return checkboxField(options, setDefaultParameters(options));
-};
-
-EntryFactory.textArea = function(options) {
-  return textAreaField(options, setDefaultParameters(options));
-};
-
-EntryFactory.selectBox = function(options) {
-  return selectBoxField(options, setDefaultParameters(options));
-};
-
-EntryFactory.comboBox = function(options) {
-  return comboBoxField(options);
-};
-
-EntryFactory.table = function(options) {
-  return tableField(options);
-};
-
-EntryFactory.label = function(options) {
-  return labelEntry(options);
-};
-
-EntryFactory.link = function(options) {
-  return link(options);
-};
-
-module.exports = EntryFactory;
-
-},{"../helper/CmdHelper":553,"./CheckboxEntryFactory":543,"./ComboEntryFactory":544,"./LabelFactory":546,"./LinkEntryFactory":547,"./SelectEntryFactory":548,"./TableEntryFactory":549,"./TextAreaEntryFactory":550,"./TextInputEntryFactory":551,"./ValidationAwareTextInput":552,"bpmn-js/lib/util/ModelUtil":563}],546:[function(require,module,exports){
-'use strict';
-
-/**
- * The label factory provides a label entry. For the label text
- * it expects either a string provided by the options.labelText
- * parameter or it could be generated programmatically using a
- * function passed as the options.get parameter.
- *
- * @param  {Object} options
- * @param  {string} options.id
- * @param  {string} [options.labelText]
- * @param  {Function} [options.get]
- * @param  {Function} [options.showLabel]
- * @param  {Boolean} [options.divider] adds a divider at the top of the label if true; default: false
- */
-var label = function(options) {
-  return {
-    id: options.id,
-    html: '<label data-value="label" ' +
-            'data-show="showLabel" ' +
-            'class="entry-label' + (options.divider ? ' divider' : '') + '">' +
-          '</label>',
-    get: function(element, node) {
-      if (typeof options.get === 'function') {
-        return options.get(element, node);
-      }
-      return { label: options.labelText };
-    },
-    showLabel: function(element, node) {
-      if (typeof options.showLabel === 'function') {
-        return options.showLabel(element, node);
-      }
-      return true;
-    }
-  };
-};
-
-module.exports = label;
-
-},{}],547:[function(require,module,exports){
-'use strict';
-
-var utils = require('../Utils');
-
-var link = function(options, defaultParameters) {
-
-
-  var id                  = options.id,
-      label               = options.label || id,
-      hideLink            = options.hideLink,
-      canBeHidden         = typeof hideLink === 'function',
-      getClickableElement = options.getClickableElement;
-
-  var resource = { id: id };
-
-  resource.html =
-    '<a data-action="linkSelected" ' +
-    (canBeHidden ? 'data-show="hideLink" ' : '') +
-    'class="pp-entry-link' + (options.cssClasses ? ' ' + options.cssClasses : '') +
-    '">' + label + '</a>';
-
-  resource.linkSelected = function(element, node, event, scopeNode) {
-    if (typeof getClickableElement === 'function') {
-
-      var link = getClickableElement.apply(resource, [ element, node, event, scopeNode ]);
-      link && utils.triggerClickEvent(link);
-    }
-
-    return false;
-  };
-
-  if (canBeHidden) {
-    resource.hideLink = function() {
-      return !hideLink.apply(resource, arguments);
-    };
-  }
-
-  return resource;
-};
-
-module.exports = link;
-
-},{"../Utils":537}],548:[function(require,module,exports){
-'use strict';
-
-var forEach = require('lodash/collection/forEach');
-
-var isList = function(list) {
-  return !(!list || Object.prototype.toString.call(list) !== '[object Array]');
-};
-
-var addEmptyParameter = function(list) {
-  return list.concat([ { name: '', value: '' } ]);
-};
-
-/**
- * @param  {Object} options
- * @param  {string} options.id
- * @param  {string} [options.label]
- * @param  {Array<Object>} options.selectOptions
- * @param  {string} options.modelProperty
- * @param  {boolean} options.emptyParameter
- * @param  {function} options.disabled
- * @param  {Object} defaultParameters
- *
- * @return {Object}
- */
-var selectbox = function(options, defaultParameters) {
-  var resource = defaultParameters,
-      label = options.label || resource.id,
-      selectOptions = options.selectOptions,
-      modelProperty = options.modelProperty,
-      emptyParameter = options.emptyParameter,
-      canBeDisabled = !!options.disabled && typeof options.disabled === 'function';
-
-  if (isList(selectOptions)) {
-    if (emptyParameter) {
-      selectOptions = addEmptyParameter(selectOptions);
-    }
-  } else {
-    selectOptions = [ { name: '', value: '' } ];
-  }
-
-  resource.html =
-    '<label for="camunda-' + resource.id + '"' +
-    (canBeDisabled ? 'data-show="isDisabled" ' : '') + '>' + label + '</label>' +
-    '<select id="camunda-' + resource.id + '-select" name="' + modelProperty + '"' +
-    (canBeDisabled ? 'data-show="isDisabled" ' : '') + ' data-value>';
-
-  forEach(selectOptions, function(option){
-    resource.html += '<option value="' + option.value + '">' + (option.name || '') + '</option>';
-  });
-
-  resource.html += '</select>';
-
-  if(canBeDisabled) {
-    resource.isDisabled = function() {
-      return !options.disabled.apply(resource, arguments);
-    };
-  }
-
-  resource.cssClasses = ['dropdown'];
-
-  return resource;
-};
-
-module.exports = selectbox;
-
-},{"lodash/collection/forEach":573}],549:[function(require,module,exports){
-'use strict';
-
-var cmdHelper = require('../helper/CmdHelper');
-
-var domQuery = require('min-dom/lib/query'),
-    domAttr = require('min-dom/lib/attr'),
-    domClosest = require('min-dom/lib/closest');
-
-var filter = require('lodash/collection/filter'),
-    forEach = require('lodash/collection/forEach'),
-    keys = require('lodash/object/keys');
-
-var domify = require('min-dom/lib/domify');
-
-var TABLE_ROW_DIV_SNIPPET = '<div class="pp-field-wrapper pp-table-row">';
-var DELETE_ROW_BUTTON_SNIPPET = '<button class="clear" data-action="deleteElement">' +
-                                  '<span>X</span>' +
-                                '</button>';
-
-function createInputRowTemplate(properties, canRemove) {
-  var template = TABLE_ROW_DIV_SNIPPET;
-  template += createInputTemplate(properties, canRemove);
-  template += canRemove ? DELETE_ROW_BUTTON_SNIPPET : '';
-  template += '</div>';
-
-  return template;
-}
-
-function createInputTemplate(properties, canRemove) {
-  var columns = properties.length;
-  var template = '';
-  forEach(properties, function(prop) {
-    template += '<input class="pp-table-row-columns-' + columns + ' ' +
-                               (canRemove ? 'pp-table-row-removable' : '') + '" ' +
-                       'id="camunda-table-row-cell-input-value" ' +
-                       'type="text" ' +
-                       'name="' + prop + '" />';
-  });
-  return template;
-}
-
-function createLabelRowTemplate(labels) {
-  var template = TABLE_ROW_DIV_SNIPPET;
-  template += createLabelTemplate(labels);
-  template += '</div>';
-
-return template;
-}
-
-function createLabelTemplate(labels) {
-  var columns = labels.length;
-  var template = '';
-  forEach(labels, function(label) {
-    template += '<label class="pp-table-row-columns-' + columns + '">' + label + '</label>';
-  });
-  return template;
-}
-
-function pick(elements, properties) {
-  return (elements || []).map(function(elem) {
-    var newElement = {};
-    forEach(properties, function(prop) {
-      newElement[prop] = elem[prop] || '';
-    });
-    return newElement;
-  });
-}
-
-function diff(element, node, values, oldValues, editable) {
-  return filter(values, function(value, idx) {
-    return !valueEqual(element, node, value, oldValues[idx], editable, idx);
-  });
-}
-
-function valueEqual(element, node, value, oldValue, editable, idx) {
-  if (value && !oldValue) {
-    return false;
-  }
-  var allKeys = keys(value).concat(keys(oldValue));
-
-  return allKeys.every(function(key) {
-    var n = value[key] || undefined;
-    var o = oldValue[key] || undefined;
-    return !editable(element, node, key, idx) || n === o;
-  });
-}
-
-function getEntryNode(node) {
-  return domClosest(node, '[data-entry]', true);
-}
-
-function getContainer(node) {
-  return domQuery('div[data-list-entry-container]', node);
-}
-
-/**
- * @param  {Object} options
- * @param  {string} options.id
- * @param  {Array<string>} options.modelProperties
- * @param  {Array<string>} options.labels
- * @param  {Function} options.getElements - this callback function must return a list of business object items
- * @param  {Function} options.removeElement
- * @param  {Function} options.addElement
- * @param  {Function} options.updateElement
- * @param  {Function} options.editable
- * @param  {Function} options.setControlValue
- * @param  {Function} options.show
- *
- * @return {Object}
- */
-module.exports = function(options) {
-
-  var id              = options.id,
-      modelProperties = options.modelProperties,
-      labels          = options.labels;
-
-  var labelRow = createLabelRowTemplate(labels);
-
-  var getElements   = options.getElements;
-
-  var removeElement = options.removeElement,
-      canRemove     = typeof removeElement === 'function';
-
-  var addElement = options.addElement,
-      canAdd     = typeof addElement === 'function',
-      addLabel   = options.addLabel || 'Add Value';
-
-  var updateElement = options.updateElement,
-      canUpdate     = typeof updateElement === 'function';
-
-  var editable        = options.editable || function() { return true; },
-      setControlValue = options.setControlValue;
-
-  var show       = options.show,
-      canBeShown = typeof show === 'function';
-
-  var elements = function(element, node) {
-    return pick(getElements(element, node), modelProperties);
-  };
-
-  var factory = {
-    id: id,
-    html: ( canAdd ?
-          '<div class="pp-table-add-row" ' + (canBeShown ? 'data-show="show"' : '') + '>' +
-            '<label>' + addLabel + '</label>' +
-            '<button class="add" data-action="addElement"><span>+</span></button>' +
-          '</div>' : '') +
-          '<div class="pp-table" data-show="showTable">' +
-            '<div class="pp-field-wrapper pp-table-row">' +
-               labelRow +
-            '</div>' +
-            '<div data-list-entry-container>' +
-            '</div>' +
-          '</div>',
-
-    get: function(element, node) {
-      var boElements = elements(element, node, this.__invalidValues);
-
-      var invalidValues = this.__invalidValues;
-
-      delete this.__invalidValues;
-
-      forEach(invalidValues, function(value, idx) {
-        var element = boElements[idx];
-
-        forEach(modelProperties, function(prop) {
-          element[prop] = value[prop];
-        });
-      });
-
-      return boElements;
-    },
-
-    set: function(element, values, node) {
-      var action = this.__action || {};
-      delete this.__action;
-
-      if (action.id === 'delete-element') {
-        return removeElement(element, node, action.idx);
-      }
-      else if (action.id === 'add-element') {
-        return addElement(element, node);
-      }
-      else if (canUpdate) {
-        var commands = [],
-            valuesToValidate = values;
-
-        if (typeof options.validate !== 'function') {
-          valuesToValidate = diff(element, node, values, elements(element, node), editable);
-        }
-
-        var self = this;
-
-        forEach(valuesToValidate, function(value) {
-          var validationError,
-              idx = values.indexOf(value);
-
-          if (typeof options.validate === 'function') {
-            validationError = options.validate(element, value, node, idx);
-          }
-
-          if (!validationError) {
-            var cmd = updateElement(element, value, node, idx);
-
-            if(cmd) {
-              commands.push(cmd);
-            }
-          } else {
-            // cache invalid value in an object by index as key
-            self.__invalidValues = self.__invalidValues || {};
-            self.__invalidValues[idx] = value;
-
-            // execute a command, which does not do anything
-            commands.push(cmdHelper.updateProperties(element, {}));
-          }
-        });
-
-        return commands;
-      }
-    },
-    createListEntryTemplate: function(value, index, selectBox) {
-      return createInputRowTemplate(modelProperties, canRemove);
-    },
-
-    addElement: function(element, node, event, scopeNode) {
-      var template = domify(createInputRowTemplate(modelProperties, canRemove));
-
-      var container = getContainer(node);
-      container.appendChild(template);
-
-      this.__action = {
-        id: 'add-element'
-      };
-
-      return true;
-    },
-
-    deleteElement: function(element, node, event, scopeNode) {
-      var container = getContainer(node);
-      var rowToDelete = event.delegateTarget.parentNode;
-      var idx = parseInt(domAttr(rowToDelete, 'data-index'), 10);
-
-      container.removeChild(rowToDelete);
-
-      this.__action = {
-        id: 'delete-element',
-        idx: idx
-      };
-
-      return true;
-    },
-
-    editable: function(element, rowNode, input, prop, value, idx) {
-      var entryNode = domClosest(rowNode, '[data-entry]');
-      return editable(element, entryNode, prop, idx);
-    },
-
-    show: function(element, entryNode, node, scopeNode) {
-      entryNode = getEntryNode(entryNode);
-      return show(element, entryNode, node, scopeNode);
-    },
-
-    showTable: function(element, entryNode, node, scopeNode) {
-      entryNode = getEntryNode(entryNode);
-      var elems = elements(element, entryNode);
-      return elems && elems.length && (!canBeShown || show(element, entryNode, node, scopeNode));
-    },
-
-    validateListItem: function(element, value, node, idx) {
-      if (typeof options.validate === 'function') {
-        return options.validate(element, value, node, idx);
-      }
-    }
-
-  };
-
-  if (setControlValue) {
-    factory.setControlValue = function(element, rowNode, input, prop, value, idx) {
-      var entryNode = getEntryNode(rowNode);
-      setControlValue(element, entryNode, input, prop, value, idx);
-    };
-  }
-
-  return factory;
-
-};
-},{"../helper/CmdHelper":553,"lodash/collection/filter":571,"lodash/collection/forEach":573,"lodash/object/keys":648,"min-dom/lib/attr":654,"min-dom/lib/closest":657,"min-dom/lib/domify":659,"min-dom/lib/query":661}],550:[function(require,module,exports){
-'use strict';
-
-var textArea = function(options, defaultParameters) {
-
-  var resource = defaultParameters,
-    label = options.label || resource.id,
-    canBeShown = !!options.show && typeof options.show === 'function',
-    expandable = options.expandable,
-    minRows = options.minRows,
-    maxRows = options.maxRows;
-
-  resource.html =
-    '<label for="camunda-' + resource.id + '" ' +
-    (canBeShown ? 'data-show="isShown"' : '') +
-    '>' + label + '</label>' +
-    '<div class="pp-field-wrapper" ' +
-    (canBeShown ? 'data-show="isShown"' : '') +
-    '>' +
-      '<textarea id="camunda-' + resource.id + '" ' +
-                'name="' + options.modelProperty + '" ' +
-                (expandable ? 'data-expandable ' : '') +
-                (minRows ? 'data-min-rows="' + minRows + '" ' : '') +
-                (maxRows ? 'data-max-rows="' + maxRows + '" ' : '') +
-      '>' +
-      '</textarea>' +
-    '</div>';
-
-  if(canBeShown) {
-    resource.isShown = function() {
-      return options.show.apply(resource, arguments);
-    };
-  }
-
-  resource.cssClasses = ['pp-textarea'];
-
-  return resource;
-};
-
-module.exports = textArea;
-
-},{}],551:[function(require,module,exports){
-'use strict';
-
-var domQuery = require('min-dom/lib/query');
-
-var textField = function(options, defaultParameters) {
-
-  // Default action for the button next to the input-field
-  var defaultButtonAction = function (element, inputNode) {
-    var input = domQuery('input[name='+options.modelProperty+']', inputNode);
-    input.value = '';
-
-    return true;
-  };
-
-  // default method to determine if the button should be visible
-  var defaultButtonShow = function (element, inputNode) {
-    var input = domQuery('input[name='+options.modelProperty+']', inputNode);
-
-    return input.value !== '';
-  };
-
-  var resource = defaultParameters,
-    label = options.label || resource.id,
-    dataValueLabel = options.dataValueLabel,
-    buttonLabel = ( options.buttonLabel || 'X' ),
-    actionName = ( typeof options.buttonAction != 'undefined' ) ? options.buttonAction.name : 'clear',
-    actionMethod = ( typeof options.buttonAction != 'undefined' ) ? options.buttonAction.method : defaultButtonAction,
-    showName = ( typeof options.buttonShow != 'undefined' ) ? options.buttonShow.name : 'canClear',
-    showMethod = ( typeof options.buttonShow != 'undefined' ) ? options.buttonShow.method : defaultButtonShow,
-    canBeDisabled = !!options.disabled && typeof options.disabled === 'function';
-
-  resource.html =
-    '<label for="camunda-' + resource.id + '" ' +
-      (canBeDisabled ? 'data-show="isDisabled" ' : '') +
-      (dataValueLabel ? 'data-value="' + dataValueLabel + '"' : '') + '>'+ label +'</label>' +
-    '<div class="pp-field-wrapper" ' +
-      (canBeDisabled ? 'data-show="isDisabled"' : '') +
-      '>' +
-      '<input id="camunda-' + resource.id + '" type="text" name="' + options.modelProperty+'" ' +
-        ' />' +
-      '<button class="' + actionName + '" data-action="' + actionName + '" data-show="' + showName + '" ' +
-        (canBeDisabled ? 'data-disabled="isDisabled"' : '') + '>' +
-        '<span>' + buttonLabel + '</span>' +
-      '</button>' +
-    '</div>';
-
-  resource[actionName] = actionMethod;
-  resource[showName] = showMethod;
-
-  if(canBeDisabled) {
-    resource.isDisabled = function() {
-      return !options.disabled.apply(resource, arguments);
-    };
-  }
-
-  resource.cssClasses = ['pp-textfield'];
-
-  return resource;
-};
-
-module.exports = textField;
-
-},{"min-dom/lib/query":661}],552:[function(require,module,exports){
-'use strict';
-
-var textField = require('./TextInputEntryFactory');
-
-/**
- * This function is a wrapper around TextInputEntryFactory.
- * It adds functionality to cache an invalid value entered in the
- * text input, instead of setting it on the business object.
- */
-var validationAwareTextField = function(options, defaultParameters) {
-
-  var modelProperty = options.modelProperty;
-
-  defaultParameters.get = function(element, node) {
-    var value = this.__lastInvalidValue;
-
-    delete this.__lastInvalidValue;
-
-    var properties = {};
-
-    properties[modelProperty] = value !== undefined ? value : options.getProperty(element, node);
-
-    return properties;
-  };
-
-  defaultParameters.set = function(element, values, node) {
-    var validationErrors = validate.apply(this, [ element, values, node ]),
-        propertyValue = values[modelProperty];
-
-    // make sure we do not update the id
-    if (validationErrors && validationErrors[modelProperty]) {
-      this.__lastInvalidValue = propertyValue;
-
-      return options.setProperty(element, {}, node);
-    } else {
-      var properties = {};
-
-      properties[modelProperty] = propertyValue;
-
-      return options.setProperty(element, properties, node);
-    }
-  };
-
-  var validate = defaultParameters.validate = function(element, values, node) {
-    var value = values[modelProperty] || this.__lastInvalidValue;
-
-    var property = {};
-    property[modelProperty] = value;
-
-    return options.validate(element, property, node);
-  };
-
-  return textField(options, defaultParameters);
-};
-
-module.exports = validationAwareTextField;
-},{"./TextInputEntryFactory":551}],553:[function(require,module,exports){
-'use strict';
-
-var CmdHelper = {};
-module.exports = CmdHelper;
-
-CmdHelper.updateProperties = function(element, properties) {
-  return {
-    cmd: 'element.updateProperties',
-    context: { element: element, properties: properties }
-  };
-};
-
-CmdHelper.updateBusinessObject = function(element, businessObject, newProperties) {
-  return {
-    cmd: 'properties-panel.update-businessobject',
-    context: {
-      element: element,
-      businessObject: businessObject,
-      properties: newProperties
-    }
-  };
-};
-
-CmdHelper.addElementsTolist = function(element, businessObject, listPropertyName, objectsToAdd) {
-  return {
-    cmd: 'properties-panel.update-businessobject-list',
-    context: {
-      element: element,
-      currentObject: businessObject,
-      propertyName: listPropertyName,
-      objectsToAdd: objectsToAdd
-    }
-  };
-};
-
-CmdHelper.removeElementsFromList = function
-  (element, businessObject, listPropertyName, referencePropertyName, objectsToRemove) {
-
-  return {
-    cmd: 'properties-panel.update-businessobject-list',
-    context: {
-      element: element,
-      currentObject: businessObject,
-      propertyName: listPropertyName,
-      referencePropertyName: referencePropertyName,
-      objectsToRemove: objectsToRemove
-    }
-  };
-};
-
-
-CmdHelper.addAndRemoveElementsFromList = function
-  (element, businessObject, listPropertyName, referencePropertyName, objectsToAdd, objectsToRemove) {
-
-  return {
-    cmd: 'properties-panel.update-businessobject-list',
-    context: {
-      element: element,
-      currentObject: businessObject,
-      propertyName: listPropertyName,
-      referencePropertyName: referencePropertyName,
-      objectsToAdd: objectsToAdd,
-      objectsToRemove: objectsToRemove
-    }
-  };
-};
-
-
-CmdHelper.setList = function(element, businessObject, listPropertyName, updatedObjectList) {
-  return {
-    cmd: 'properties-panel.update-businessobject-list',
-    context: {
-      element: element,
-      currentObject: businessObject,
-      propertyName: listPropertyName,
-      updatedObjectList: updatedObjectList
-    }
-  };
-};
-
-},{}],554:[function(require,module,exports){
-'use strict';
-
-var ElementHelper = {};
-module.exports = ElementHelper;
-
-/**
- * Creates a new element and set the parent to it
- *
- * @method ElementHelper#createElement
- *
- * @param {String} elementType of the new element
- * @param {Object} properties of the new element in key-value pairs
- * @param {moddle.object} parent of the new element
- * @param {BpmnFactory} factory which creates the new element
- *
- * @returns {djs.model.Base} element which is created
- */
-ElementHelper.createElement = function(elementType, properties, parent, factory) {
-  var element = factory.create(elementType, properties);
-  element.$parent = parent;
-
-  return element;
-};
-
-},{}],555:[function(require,module,exports){
-'use strict';
-
-var cmdHelper = require('./CmdHelper'),
-    elementHelper = require('./ElementHelper');
-
-var is = require('bpmn-js/lib/util/ModelUtil').is;
-
-var ExtensionElementsHelper = {};
-
-var getExtensionElements = function(bo) {
-  return bo.get('extensionElements');
-};
-
-ExtensionElementsHelper.getExtensionElements = function(bo, type) {
-  var extensionElements = getExtensionElements(bo);
-  if (typeof extensionElements !== 'undefined') {
-    var extensionValues = extensionElements.get('values');
-    if (typeof extensionValues !== 'undefined') {
-      var elements = extensionValues.filter(function(value) {
-        return is(value, type);
-      });
-      if (elements.length) {
-        return elements;
-      }
-    }
-  }
-};
-
-ExtensionElementsHelper.addEntry = function(bo, element, entry, bpmnFactory) {
-  var extensionElements = bo.get('extensionElements');
-
-  // if there is no extensionElements list, create one
-  if( !extensionElements ) {
-    // TODO: Ask Daniel which operation costs more
-    extensionElements = elementHelper.createElement('bpmn:ExtensionElements', { values: [entry] }, bo, bpmnFactory);
-    return { extensionElements : extensionElements };
-  } else {
-    // add new failedJobRetryExtensionElement to existing extensionElements list
-    return cmdHelper.addElementsTolist(element, extensionElements, 'values', [entry]);
-  }
-};
-
-ExtensionElementsHelper.removeEntry = function(bo, element, entry) {
-  var extensionElements = bo.get('extensionElements');
-
-  if( !extensionElements ) {
-    // return an empty command when there is no extensionElements list
-    return {};
-  }
-
-  return cmdHelper.removeElementsFromList(element, extensionElements, 'values', 'extensionElements', [entry]);
-};
-
-module.exports = ExtensionElementsHelper;
-},{"./CmdHelper":553,"./ElementHelper":554,"bpmn-js/lib/util/ModelUtil":563}],556:[function(require,module,exports){
-'use strict';
-
-var getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
-    getExtensionElements = require('./ExtensionElementsHelper').getExtensionElements;
-
-var FormHelper = {};
-
-module.exports = FormHelper;
-
-
-/**
- * Return the form type of an element: Checks if the 'camunda:FormData'
- * exists in the extensions elements and returns 'form-data' when true.
- * If it does not exist, 'form-key' is returned.
- *
- * @param  {djs.model.Base} element
- *
- * @return {string} a form type (either 'form-key' or 'form-value')
- */
-FormHelper.getFormType = function(element) {
-  var bo = getBusinessObject(element),
-      formData = getExtensionElements(bo, 'camunda:FormData'),
-      formType = 'form-key';
-
-  if (formData) {
-    formType = 'form-data';
-  }
-  return formType;
-};
-
-
-/**
- * Return all form fields existing in the business object, and
- * an empty array if none exist.
- *
- * @param  {djs.model.Base} element
- *
- * @return {Array} a list of form field objects
- */
-FormHelper.getFormFields = function(element) {
-  var bo = getBusinessObject(element),
-      formData = getExtensionElements(bo, 'camunda:FormData');
-
-  if (typeof formData !== 'undefined') {
-    return formData[0].fields;
-  } else {
-    return [];
-  }
-};
-
-
-/**
- * Get a form field from the business object at given index
- *
- * @param {djs.model.Base} element
- * @param {number} idx
- *
- * @return {ModdleElement} the form field
- */
-FormHelper.getFormField = function(element, idx) {
-
-  var formFields = this.getFormFields(element);
-
-  return formFields[idx];
-};
-
-
-/**
- * Get all constraints for a specific form field from the business object
- *
- * @param  {ModdleElement} formField
- *
- * @return {Array<ModdleElement>} a list of constraint objects
- */
-FormHelper.getConstraints = function(formField) {
-  if(formField && formField.validation && formField.validation.constraints) {
-    return formField.validation.constraints;
-  }
-  return [];
-};
-
-
-/**
- * Get all camunda:value objects for a specific form field from the business object
- *
- * @param  {ModdleElement} formField
- *
- * @return {Array<ModdleElement>} a list of camunda:value objects
- */
-FormHelper.getEnumValues = function(formField) {
-  if(formField && formField.values) {
-    return formField.values;
-  }
-  return [];
-};
-
-
-},{"./ExtensionElementsHelper":555,"bpmn-js/lib/util/ModelUtil":563}],557:[function(require,module,exports){
-'use strict';
-
-
-var inherits = require('inherits');
-
-var PropertiesActivator = require('../../PropertiesActivator');
-
-var documentationProps = require('./parts/DocumentationProps'),
-    realizedByProps = require('./parts/RealizedByProps'),
-    nameProps = require('./parts/NameProps'),
-    typeProps= require('./parts/TypeProps'),
-    jquery = require('jquery');
-
-
-function createGeneralTabGroups(element, bpmnFactory, elementRegistry, eventBus, appManager) {
-
-  var nameGroup={
-    id: 'general',
-    label: 'General',
-    entries: []
-  };
-  nameProps(nameGroup, element);
-
-  var aofGroup={
-    id: 'aof',
-    label: 'AOF - Settings',
-    entries: []
-  };
-  realizedByProps(aofGroup, element, eventBus, appManager);
-
-  var documentationGroup = {
-    id: 'documentation',
-    label: 'Documentation',
-    entries: []
-  };
-
-  documentationProps(documentationGroup, element, bpmnFactory, appManager);
-
-  return[
-    nameGroup,
-    aofGroup,
-    documentationGroup
-  ];
-
-}
-
-
-function Provider(eventBus, bpmnFactory, elementRegistry, appManager) {
-
-  PropertiesActivator.call(this, eventBus);
-
-  this.getTabs = function(element) {
-
-    var generalTab = {
-      id: 'general',
-      label: 'General',
-      groups: createGeneralTabGroups(element, bpmnFactory, elementRegistry,eventBus, appManager)
-    };
-
-    return [
-      generalTab
-    ];
-  };
-}
-
-
-
-inherits(Provider, PropertiesActivator);
-
-Provider.$inject = ['eventBus','bpmnFactory','elementRegistry','appManager' ];
-
-module.exports = Provider;
-
-},{"../../PropertiesActivator":535,"./parts/DocumentationProps":559,"./parts/NameProps":560,"./parts/RealizedByProps":561,"./parts/TypeProps":562,"inherits":566,"jquery":567}],558:[function(require,module,exports){
-// see https://regex.wtf/url-matching-regex-javascript/
-var URLHelper = {};
-module.exports = URLHelper;
-
-URLHelper.validate=function (str) {
-    var patterns = {
-        protocol: '^(http(s)?:\/\/)?(www\.|(?!www))[a-z\d]',
-        domain: '[a-z0-9-_\.]+',
-        tld: '(\.[a-z]{2,4})(\:[0-9]+)?',
-        params: '(\/[-a-z0-9:%_\+.~#?&//=]*)?$'
-    }; // /([www])?\.?((\w+)\.+)([a-zA-Z]{2,})/gi
-    var pattern = new RegExp(patterns.protocol + patterns.domain + patterns.tld + patterns.params, 'gi');
-    return pattern.test(str)
-}
-
-},{}],559:[function(require,module,exports){
-'use strict';
-
-var entryFactory = require('../../../factory/EntryFactory'),
-  getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
-  cmdHelper = require('../../../helper/CmdHelper');
-
-
-module.exports = function(group, element, bpmnFactory) {
-
-  // Documentation
-  var entry = entryFactory.textArea({
-    id: 'documentation',
-    description: '',
-    label: 'Documentation',
-    modelProperty: 'documentation'
-  });
-
-  entry.set = function(element, values) {
-    var businessObject = getBusinessObject(element),
-        newObjectList = [];
-
-    if (typeof values.documentation !== 'undefined' && values.documentation !== '') {
-      newObjectList.push(bpmnFactory.create('bpmn:Documentation', {
-        text: values.documentation
-      }));
-    }
-
-    return cmdHelper.setList(element, businessObject, 'documentation', newObjectList);
-  };
-
-  entry.get = function(element) {
-    var businessObject = getBusinessObject(element),
-        documentations = businessObject.get('documentation'),
-        text = (documentations.length > 0) ? documentations[0].text : '';
-
-    return { documentation: text };
-  };
-
-  group.entries.push(entry);
-};
-},{"../../../factory/EntryFactory":545,"../../../helper/CmdHelper":553,"bpmn-js/lib/util/ModelUtil":563}],560:[function(require,module,exports){
-'use strict';
-
-var entryFactory = require('../../../factory/EntryFactory'),
-    is = require('bpmn-js/lib/util/ModelUtil').is;
-
-
-module.exports = function(group, element) {
-  if (is(element, 'bpmn:Task') || is(element, 'bpmn:Participant')){
-    // Id
-    group.entries.push(entryFactory.textField({
-      id: 'name',
-      description: 'Name of this UserTask',
-      label: 'Name',
-      modelProperty: 'name'
-    }));
-  }
-};
-},{"../../../factory/EntryFactory":545,"bpmn-js/lib/util/ModelUtil":563}],561:[function(require,module,exports){
-'use strict';
-
-var entryFactory = require('../../../factory/EntryFactory'),
-    getBusinessObject = require('bpmn-js/lib/util/ModelUtil').getBusinessObject,
-    cmdHelper = require('../../../helper/CmdHelper'),
-    is = require('bpmn-js/lib/util/ModelUtil').is,
-    jquery = require('jquery'),
-    formHelper = require('../../../helper/FormHelper');
-
-var domQuery   = require('min-dom/lib/query'),
-    domClosest = require('min-dom/lib/closest'),
-    domClasses = require('min-dom/lib/classes'),
-    URLHelper=require('../helper/URLHelper');
-
-//var SPACE_REGEX = /\s/;
-
-// for QName validation as per http://www.w3.org/TR/REC-xml/#NT-NameChar
-//var QNAME_REGEX = /^[a-z][\w0-9-]*(:[a-z][\w0-9-]*)?$/i;
-
-/**
- * Return the currently selected form field querying the form field select box
- * from the DOM.
- *
- * @param  {djs.model.Base} element
- * @param  {DOMElement} node - DOM element of any form field text input
- *
- * @return {ModdleElement} the currently selected form field
- */
-
-
-
-function RealizedByProps(group, element, eventBus,appManager) {
-
-    function getSelectedFormField(element, node) {
-        var selected = comboEntry.getSelected(element, node.parentNode);
-
-        if (selected.idx === -1) {
-            return;
-        }
-
-        return formHelper.getFormField(element, selected.idx);
-    }
-
-    function getSelected(node, id) {
-        var selectBox = getSelectBox(node, id);
-        return {
-            value: (selectBox || {}).value,
-            idx: (selectBox || {}).selectedIndex
-        };
-    }
-
-
-    var businessObject = getBusinessObject(element)
-    if (is(element, 'bpmn:UserTask') && businessObject.isAppEnsembleApp == true ) {
-
-            var request_data = appManager.list()
-
-        var comboEntry = entryFactory.comboBox({
-            id: 'realizedBy',
-            description: 'App which realized this UserTask',
-            label: 'Realized by following App',
-            modelProperty: 'aof:realizedBy',
-            selectOptions: request_data,
-            customName:'Custom URL',
-            customValue:'',
-            get: function(element, node) {
-                var bo = getBusinessObject(element),
-                res = {};
-
-                res[comboEntry.modelProperty] = bo.get(comboEntry.modelProperty);
-
-                var link = domQuery('a[id="realizedByLink"');
-                link.href=appManager.getInfoUri(res[comboEntry.modelProperty]);
-
-                return res;
-            },
-            set: function(element, values, node) {
-                var res = {};
-
-                res[comboEntry.modelProperty] = values[comboEntry.modelProperty];
-
-                return cmdHelper.updateProperties(element, res);
-            },
-            validate: function(element, values) {
-                var validationResult = {};
-
-                if(!!values['custom-'+this.modelProperty] && !URLHelper.validate(values['custom-'+this.modelProperty])) {
-                    validationResult[this.modelProperty] = "URL is not valid!";
-                }
-                return validationResult;
-            }
-        });
-
-
-        group.entries.push(comboEntry);
-
-
-        var entry = entryFactory.link({
-            id: 'realizedByLink',
-            label: 'URL',
-            hideLink: function(element, node) {
-                var link = domQuery('a', node);
-                link.textContent = 'App-Info';
-                link.id="realizedByLink";
-                link.target="_blank";
-                domClasses(link).remove('pp-error-message');
-                if(link.href=="custom" || link.href=="" || link.href==link.baseURI) return true;
-                else return false;
-            }
-        });
-
-        group.entries.push(entry);
-
-
-// TODO: Make custom element possible
-    }
-};
-
-module.exports = RealizedByProps;
-},{"../../../factory/EntryFactory":545,"../../../helper/CmdHelper":553,"../../../helper/FormHelper":556,"../helper/URLHelper":558,"bpmn-js/lib/util/ModelUtil":563,"jquery":567,"min-dom/lib/classes":655,"min-dom/lib/closest":657,"min-dom/lib/query":661}],562:[function(require,module,exports){
-'use strict';
-
-var entryFactory = require('../../../factory/EntryFactory'),
-    is = require('bpmn-js/lib/util/ModelUtil').is;
-
-
-module.exports = function(group, element) {
-  if (is(element, 'bpmn:Task')){
-    // Id
-    var executableEntry=entryFactory.checkbox({
-      id: 'isAppEnsembleApp',
-      description: 'Defines if Task is a App-Ensemble app.',
-      label: 'Is App-Ensemble app?',
-      modelProperty: 'aof:isAppEnsembleApp'
-    });
-
-    executableEntry.set = function (element, values) {
-      var businessObject = getBusinessObject(element);
-
-      businessObject.set(property, values[property]);
-      businessObject.set('bpmn:UserTask', 'bpmn:UserTask');
-      return participantHelper.modifyProcessBusinessObject(element, 'isExecutable', values);
-    };
-
-    group.entries.push(executableEntry);
-  }
-};
-},{"../../../factory/EntryFactory":545,"bpmn-js/lib/util/ModelUtil":563}],563:[function(require,module,exports){
-arguments[4][71][0].apply(exports,arguments)
-},{"dup":71}],564:[function(require,module,exports){
-arguments[4][98][0].apply(exports,arguments)
-},{"dup":98,"hat":565}],565:[function(require,module,exports){
-arguments[4][99][0].apply(exports,arguments)
-},{"dup":99}],566:[function(require,module,exports){
-arguments[4][278][0].apply(exports,arguments)
-},{"dup":278}],567:[function(require,module,exports){
-arguments[4][279][0].apply(exports,arguments)
-},{"dup":279}],568:[function(require,module,exports){
-var baseFlatten = require('../internal/baseFlatten');
-
-/**
- * Recursively flattens a nested array.
- *
- * @static
- * @memberOf _
- * @category Array
- * @param {Array} array The array to recursively flatten.
- * @returns {Array} Returns the new flattened array.
- * @example
- *
- * _.flattenDeep([1, [2, 3, [4]]]);
- * // => [1, 2, 3, 4]
- */
-function flattenDeep(array) {
-  var length = array ? array.length : 0;
-  return length ? baseFlatten(array, true) : [];
-}
-
-module.exports = flattenDeep;
-
-},{"../internal/baseFlatten":595}],569:[function(require,module,exports){
-arguments[4][282][0].apply(exports,arguments)
-},{"dup":282}],570:[function(require,module,exports){
-var arrayPush = require('../internal/arrayPush'),
-    baseDifference = require('../internal/baseDifference'),
-    baseUniq = require('../internal/baseUniq'),
-    isArrayLike = require('../internal/isArrayLike');
-
-/**
- * Creates an array of unique values that is the [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference)
- * of the provided arrays.
- *
- * @static
- * @memberOf _
- * @category Array
- * @param {...Array} [arrays] The arrays to inspect.
- * @returns {Array} Returns the new array of values.
- * @example
- *
- * _.xor([1, 2], [4, 2]);
- * // => [1, 4]
- */
-function xor() {
-  var index = -1,
-      length = arguments.length;
-
-  while (++index < length) {
-    var array = arguments[index];
-    if (isArrayLike(array)) {
-      var result = result
-        ? arrayPush(baseDifference(result, array), baseDifference(array, result))
-        : array;
-    }
-  }
-  return result ? baseUniq(result) : [];
-}
-
-module.exports = xor;
-
-},{"../internal/arrayPush":583,"../internal/baseDifference":590,"../internal/baseUniq":610,"../internal/isArrayLike":628}],571:[function(require,module,exports){
-arguments[4][289][0].apply(exports,arguments)
-},{"../internal/arrayFilter":581,"../internal/baseCallback":587,"../internal/baseFilter":592,"../lang/isArray":639,"dup":289}],572:[function(require,module,exports){
-arguments[4][290][0].apply(exports,arguments)
-},{"../internal/baseEach":591,"../internal/createFind":619,"dup":290}],573:[function(require,module,exports){
-arguments[4][291][0].apply(exports,arguments)
-},{"../internal/arrayEach":580,"../internal/baseEach":591,"../internal/createForEach":620,"dup":291}],574:[function(require,module,exports){
-var createAggregator = require('../internal/createAggregator');
-
-/**
- * Creates an object composed of keys generated from the results of running
- * each element of `collection` through `iteratee`. The corresponding value
- * of each key is the last element responsible for generating the key. The
- * iteratee function is bound to `thisArg` and invoked with three arguments:
- * (value, index|key, collection).
- *
- * If a property name is provided for `iteratee` the created `_.property`
- * style callback returns the property value of the given element.
- *
- * If a value is also provided for `thisArg` the created `_.matchesProperty`
- * style callback returns `true` for elements that have a matching property
- * value, else `false`.
- *
- * If an object is provided for `iteratee` the created `_.matches` style
- * callback returns `true` for elements that have the properties of the given
- * object, else `false`.
- *
- * @static
- * @memberOf _
- * @category Collection
- * @param {Array|Object|string} collection The collection to iterate over.
- * @param {Function|Object|string} [iteratee=_.identity] The function invoked
- *  per iteration.
- * @param {*} [thisArg] The `this` binding of `iteratee`.
- * @returns {Object} Returns the composed aggregate object.
- * @example
- *
- * var keyData = [
- *   { 'dir': 'left', 'code': 97 },
- *   { 'dir': 'right', 'code': 100 }
- * ];
- *
- * _.indexBy(keyData, 'dir');
- * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
- *
- * _.indexBy(keyData, function(object) {
- *   return String.fromCharCode(object.code);
- * });
- * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
- *
- * _.indexBy(keyData, function(object) {
- *   return this.fromCharCode(object.code);
- * }, String);
- * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
- */
-var indexBy = createAggregator(function(result, value, key) {
-  result[key] = value;
-});
-
-module.exports = indexBy;
-
-},{"../internal/createAggregator":614}],575:[function(require,module,exports){
-arguments[4][294][0].apply(exports,arguments)
-},{"../internal/arrayMap":582,"../internal/baseCallback":587,"../internal/baseMap":603,"../lang/isArray":639,"dup":294}],576:[function(require,module,exports){
-arguments[4][299][0].apply(exports,arguments)
-},{"../internal/getNative":626,"dup":299}],577:[function(require,module,exports){
-arguments[4][301][0].apply(exports,arguments)
-},{"../date/now":576,"../lang/isObject":643,"dup":301}],578:[function(require,module,exports){
-arguments[4][303][0].apply(exports,arguments)
-},{"dup":303}],579:[function(require,module,exports){
-arguments[4][307][0].apply(exports,arguments)
-},{"./cachePush":613,"./getNative":626,"dup":307}],580:[function(require,module,exports){
-arguments[4][309][0].apply(exports,arguments)
-},{"dup":309}],581:[function(require,module,exports){
-arguments[4][311][0].apply(exports,arguments)
-},{"dup":311}],582:[function(require,module,exports){
-arguments[4][312][0].apply(exports,arguments)
-},{"dup":312}],583:[function(require,module,exports){
-arguments[4][313][0].apply(exports,arguments)
-},{"dup":313}],584:[function(require,module,exports){
-arguments[4][315][0].apply(exports,arguments)
-},{"dup":315}],585:[function(require,module,exports){
-arguments[4][316][0].apply(exports,arguments)
-},{"../object/keys":648,"dup":316}],586:[function(require,module,exports){
-arguments[4][317][0].apply(exports,arguments)
-},{"../object/keys":648,"./baseCopy":588,"dup":317}],587:[function(require,module,exports){
-arguments[4][318][0].apply(exports,arguments)
-},{"../utility/identity":652,"../utility/property":653,"./baseMatches":604,"./baseMatchesProperty":605,"./bindCallback":611,"dup":318}],588:[function(require,module,exports){
-arguments[4][320][0].apply(exports,arguments)
-},{"dup":320}],589:[function(require,module,exports){
-arguments[4][321][0].apply(exports,arguments)
-},{"../lang/isObject":643,"dup":321}],590:[function(require,module,exports){
-arguments[4][323][0].apply(exports,arguments)
-},{"./baseIndexOf":599,"./cacheIndexOf":612,"./createCache":618,"dup":323}],591:[function(require,module,exports){
-arguments[4][324][0].apply(exports,arguments)
-},{"./baseForOwn":597,"./createBaseEach":616,"dup":324}],592:[function(require,module,exports){
-arguments[4][326][0].apply(exports,arguments)
-},{"./baseEach":591,"dup":326}],593:[function(require,module,exports){
-arguments[4][327][0].apply(exports,arguments)
-},{"dup":327}],594:[function(require,module,exports){
-arguments[4][328][0].apply(exports,arguments)
-},{"dup":328}],595:[function(require,module,exports){
-arguments[4][329][0].apply(exports,arguments)
-},{"../lang/isArguments":638,"../lang/isArray":639,"./arrayPush":583,"./isArrayLike":628,"./isObjectLike":633,"dup":329}],596:[function(require,module,exports){
-arguments[4][330][0].apply(exports,arguments)
-},{"./createBaseFor":617,"dup":330}],597:[function(require,module,exports){
-arguments[4][332][0].apply(exports,arguments)
-},{"../object/keys":648,"./baseFor":596,"dup":332}],598:[function(require,module,exports){
-arguments[4][333][0].apply(exports,arguments)
-},{"./toObject":636,"dup":333}],599:[function(require,module,exports){
-arguments[4][334][0].apply(exports,arguments)
-},{"./indexOfNaN":627,"dup":334}],600:[function(require,module,exports){
-arguments[4][335][0].apply(exports,arguments)
-},{"../lang/isObject":643,"./baseIsEqualDeep":601,"./isObjectLike":633,"dup":335}],601:[function(require,module,exports){
-arguments[4][336][0].apply(exports,arguments)
-},{"../lang/isArray":639,"../lang/isTypedArray":645,"./equalArrays":621,"./equalByTag":622,"./equalObjects":623,"dup":336}],602:[function(require,module,exports){
-arguments[4][337][0].apply(exports,arguments)
-},{"./baseIsEqual":600,"./toObject":636,"dup":337}],603:[function(require,module,exports){
-arguments[4][339][0].apply(exports,arguments)
-},{"./baseEach":591,"./isArrayLike":628,"dup":339}],604:[function(require,module,exports){
-arguments[4][340][0].apply(exports,arguments)
-},{"./baseIsMatch":602,"./getMatchData":625,"./toObject":636,"dup":340}],605:[function(require,module,exports){
-arguments[4][341][0].apply(exports,arguments)
-},{"../array/last":569,"../lang/isArray":639,"./baseGet":598,"./baseIsEqual":600,"./baseSlice":608,"./isKey":631,"./isStrictComparable":634,"./toObject":636,"./toPath":637,"dup":341}],606:[function(require,module,exports){
-arguments[4][344][0].apply(exports,arguments)
-},{"dup":344}],607:[function(require,module,exports){
-arguments[4][345][0].apply(exports,arguments)
-},{"./baseGet":598,"./toPath":637,"dup":345}],608:[function(require,module,exports){
-arguments[4][348][0].apply(exports,arguments)
-},{"dup":348}],609:[function(require,module,exports){
-arguments[4][351][0].apply(exports,arguments)
-},{"dup":351}],610:[function(require,module,exports){
-arguments[4][352][0].apply(exports,arguments)
-},{"./baseIndexOf":599,"./cacheIndexOf":612,"./createCache":618,"dup":352}],611:[function(require,module,exports){
-arguments[4][354][0].apply(exports,arguments)
-},{"../utility/identity":652,"dup":354}],612:[function(require,module,exports){
-arguments[4][355][0].apply(exports,arguments)
-},{"../lang/isObject":643,"dup":355}],613:[function(require,module,exports){
-arguments[4][356][0].apply(exports,arguments)
-},{"../lang/isObject":643,"dup":356}],614:[function(require,module,exports){
-arguments[4][360][0].apply(exports,arguments)
-},{"../lang/isArray":639,"./baseCallback":587,"./baseEach":591,"dup":360}],615:[function(require,module,exports){
-arguments[4][361][0].apply(exports,arguments)
-},{"../function/restParam":578,"./bindCallback":611,"./isIterateeCall":630,"dup":361}],616:[function(require,module,exports){
-arguments[4][362][0].apply(exports,arguments)
-},{"./getLength":624,"./isLength":632,"./toObject":636,"dup":362}],617:[function(require,module,exports){
-arguments[4][363][0].apply(exports,arguments)
-},{"./toObject":636,"dup":363}],618:[function(require,module,exports){
-arguments[4][365][0].apply(exports,arguments)
-},{"./SetCache":579,"./getNative":626,"dup":365}],619:[function(require,module,exports){
-arguments[4][367][0].apply(exports,arguments)
-},{"../lang/isArray":639,"./baseCallback":587,"./baseFind":593,"./baseFindIndex":594,"dup":367}],620:[function(require,module,exports){
-arguments[4][369][0].apply(exports,arguments)
-},{"../lang/isArray":639,"./bindCallback":611,"dup":369}],621:[function(require,module,exports){
-arguments[4][374][0].apply(exports,arguments)
-},{"./arraySome":584,"dup":374}],622:[function(require,module,exports){
-arguments[4][375][0].apply(exports,arguments)
-},{"dup":375}],623:[function(require,module,exports){
-arguments[4][376][0].apply(exports,arguments)
-},{"../object/keys":648,"dup":376}],624:[function(require,module,exports){
-arguments[4][379][0].apply(exports,arguments)
-},{"./baseProperty":606,"dup":379}],625:[function(require,module,exports){
-arguments[4][380][0].apply(exports,arguments)
-},{"../object/pairs":650,"./isStrictComparable":634,"dup":380}],626:[function(require,module,exports){
-arguments[4][381][0].apply(exports,arguments)
-},{"../lang/isNative":642,"dup":381}],627:[function(require,module,exports){
-arguments[4][382][0].apply(exports,arguments)
-},{"dup":382}],628:[function(require,module,exports){
-arguments[4][383][0].apply(exports,arguments)
-},{"./getLength":624,"./isLength":632,"dup":383}],629:[function(require,module,exports){
-arguments[4][384][0].apply(exports,arguments)
-},{"dup":384}],630:[function(require,module,exports){
-arguments[4][385][0].apply(exports,arguments)
-},{"../lang/isObject":643,"./isArrayLike":628,"./isIndex":629,"dup":385}],631:[function(require,module,exports){
-arguments[4][386][0].apply(exports,arguments)
-},{"../lang/isArray":639,"./toObject":636,"dup":386}],632:[function(require,module,exports){
-arguments[4][388][0].apply(exports,arguments)
-},{"dup":388}],633:[function(require,module,exports){
-arguments[4][389][0].apply(exports,arguments)
-},{"dup":389}],634:[function(require,module,exports){
-arguments[4][390][0].apply(exports,arguments)
-},{"../lang/isObject":643,"dup":390}],635:[function(require,module,exports){
-arguments[4][399][0].apply(exports,arguments)
-},{"../lang/isArguments":638,"../lang/isArray":639,"../object/keysIn":649,"./isIndex":629,"./isLength":632,"dup":399}],636:[function(require,module,exports){
-arguments[4][401][0].apply(exports,arguments)
-},{"../lang/isObject":643,"dup":401}],637:[function(require,module,exports){
-arguments[4][402][0].apply(exports,arguments)
-},{"../lang/isArray":639,"./baseToString":609,"dup":402}],638:[function(require,module,exports){
-arguments[4][404][0].apply(exports,arguments)
-},{"../internal/isArrayLike":628,"../internal/isObjectLike":633,"dup":404}],639:[function(require,module,exports){
-arguments[4][405][0].apply(exports,arguments)
-},{"../internal/getNative":626,"../internal/isLength":632,"../internal/isObjectLike":633,"dup":405}],640:[function(require,module,exports){
-var isArguments = require('./isArguments'),
-    isArray = require('./isArray'),
-    isArrayLike = require('../internal/isArrayLike'),
-    isFunction = require('./isFunction'),
-    isObjectLike = require('../internal/isObjectLike'),
-    isString = require('./isString'),
-    keys = require('../object/keys');
-
-/**
- * Checks if `value` is empty. A value is considered empty unless it's an
- * `arguments` object, array, string, or jQuery-like collection with a length
- * greater than `0` or an object with own enumerable properties.
- *
- * @static
- * @memberOf _
- * @category Lang
- * @param {Array|Object|string} value The value to inspect.
- * @returns {boolean} Returns `true` if `value` is empty, else `false`.
- * @example
- *
- * _.isEmpty(null);
- * // => true
- *
- * _.isEmpty(true);
- * // => true
- *
- * _.isEmpty(1);
- * // => true
- *
- * _.isEmpty([1, 2, 3]);
- * // => false
- *
- * _.isEmpty({ 'a': 1 });
- * // => false
- */
-function isEmpty(value) {
-  if (value == null) {
-    return true;
-  }
-  if (isArrayLike(value) && (isArray(value) || isString(value) || isArguments(value) ||
-      (isObjectLike(value) && isFunction(value.splice)))) {
-    return !value.length;
-  }
-  return !keys(value).length;
-}
-
-module.exports = isEmpty;
-
-},{"../internal/isArrayLike":628,"../internal/isObjectLike":633,"../object/keys":648,"./isArguments":638,"./isArray":639,"./isFunction":641,"./isString":644}],641:[function(require,module,exports){
-arguments[4][406][0].apply(exports,arguments)
-},{"./isObject":643,"dup":406}],642:[function(require,module,exports){
-arguments[4][407][0].apply(exports,arguments)
-},{"../internal/isObjectLike":633,"./isFunction":641,"dup":407}],643:[function(require,module,exports){
-arguments[4][409][0].apply(exports,arguments)
-},{"dup":409}],644:[function(require,module,exports){
-arguments[4][411][0].apply(exports,arguments)
-},{"../internal/isObjectLike":633,"dup":411}],645:[function(require,module,exports){
-arguments[4][412][0].apply(exports,arguments)
-},{"../internal/isLength":632,"../internal/isObjectLike":633,"dup":412}],646:[function(require,module,exports){
-arguments[4][414][0].apply(exports,arguments)
-},{"../internal/assignWith":585,"../internal/baseAssign":586,"../internal/createAssigner":615,"dup":414}],647:[function(require,module,exports){
-var baseGet = require('../internal/baseGet'),
-    toPath = require('../internal/toPath');
-
-/**
- * Gets the property value at `path` of `object`. If the resolved value is
- * `undefined` the `defaultValue` is used in its place.
- *
- * @static
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @param {*} [defaultValue] The value returned if the resolved value is `undefined`.
- * @returns {*} Returns the resolved value.
- * @example
- *
- * var object = { 'a': [{ 'b': { 'c': 3 } }] };
- *
- * _.get(object, 'a[0].b.c');
- * // => 3
- *
- * _.get(object, ['a', '0', 'b', 'c']);
- * // => 3
- *
- * _.get(object, 'a.b.c', 'default');
- * // => 'default'
- */
-function get(object, path, defaultValue) {
-  var result = object == null ? undefined : baseGet(object, toPath(path), (path + ''));
-  return result === undefined ? defaultValue : result;
-}
-
-module.exports = get;
-
-},{"../internal/baseGet":598,"../internal/toPath":637}],648:[function(require,module,exports){
-arguments[4][415][0].apply(exports,arguments)
-},{"../internal/getNative":626,"../internal/isArrayLike":628,"../internal/shimKeys":635,"../lang/isObject":643,"dup":415}],649:[function(require,module,exports){
-arguments[4][416][0].apply(exports,arguments)
-},{"../internal/isIndex":629,"../internal/isLength":632,"../lang/isArguments":638,"../lang/isArray":639,"../lang/isObject":643,"dup":416}],650:[function(require,module,exports){
-arguments[4][419][0].apply(exports,arguments)
-},{"../internal/toObject":636,"./keys":648,"dup":419}],651:[function(require,module,exports){
-arguments[4][421][0].apply(exports,arguments)
-},{"../internal/arrayEach":580,"../internal/baseCallback":587,"../internal/baseCreate":589,"../internal/baseForOwn":597,"../lang/isArray":639,"../lang/isFunction":641,"../lang/isObject":643,"../lang/isTypedArray":645,"dup":421}],652:[function(require,module,exports){
-arguments[4][423][0].apply(exports,arguments)
-},{"dup":423}],653:[function(require,module,exports){
-arguments[4][425][0].apply(exports,arguments)
-},{"../internal/baseProperty":606,"../internal/basePropertyDeep":607,"../internal/isKey":631,"dup":425}],654:[function(require,module,exports){
-arguments[4][255][0].apply(exports,arguments)
-},{"dup":255}],655:[function(require,module,exports){
-arguments[4][256][0].apply(exports,arguments)
-},{"component-classes":663,"dup":256}],656:[function(require,module,exports){
-arguments[4][257][0].apply(exports,arguments)
-},{"dup":257}],657:[function(require,module,exports){
-arguments[4][258][0].apply(exports,arguments)
-},{"component-closest":665,"dup":258}],658:[function(require,module,exports){
-arguments[4][100][0].apply(exports,arguments)
-},{"component-delegate":666,"dup":100}],659:[function(require,module,exports){
-arguments[4][101][0].apply(exports,arguments)
-},{"domify":670,"dup":101}],660:[function(require,module,exports){
-arguments[4][262][0].apply(exports,arguments)
-},{"component-matches-selector":668,"dup":262}],661:[function(require,module,exports){
-arguments[4][103][0].apply(exports,arguments)
-},{"component-query":669,"dup":103}],662:[function(require,module,exports){
-arguments[4][104][0].apply(exports,arguments)
-},{"dup":104}],663:[function(require,module,exports){
-arguments[4][265][0].apply(exports,arguments)
-},{"component-indexof":664,"dup":265,"indexof":664}],664:[function(require,module,exports){
-arguments[4][266][0].apply(exports,arguments)
-},{"dup":266}],665:[function(require,module,exports){
-arguments[4][105][0].apply(exports,arguments)
-},{"dup":105,"matches-selector":668}],666:[function(require,module,exports){
-arguments[4][106][0].apply(exports,arguments)
-},{"closest":665,"component-closest":665,"component-event":667,"dup":106,"event":667}],667:[function(require,module,exports){
-arguments[4][107][0].apply(exports,arguments)
-},{"dup":107}],668:[function(require,module,exports){
-arguments[4][108][0].apply(exports,arguments)
-},{"component-query":669,"dup":108,"query":669}],669:[function(require,module,exports){
-arguments[4][109][0].apply(exports,arguments)
-},{"dup":109}],670:[function(require,module,exports){
-arguments[4][110][0].apply(exports,arguments)
-},{"dup":110}],671:[function(require,module,exports){
-'use strict';
-
-var domify = require('min-dom/lib/domify'),
-    domClasses = require('min-dom/lib/classes'),
-    domMatches = require('min-dom/lib/matches'),
-    domDelegate = require('min-dom/lib/delegate'),
-    domQuery = require('min-dom/lib/query'),
-    domEvent = require('min-dom/lib/event'),
-    domAttr = require('min-dom/lib/attr');
-
-var filter = require('lodash/collection/filter'),
-    assign = require('lodash/object/assign');
-
-var inherits = require('inherits');
-
-var EventEmitter = require('./node_modules/events/events.js');
-
-var DEFAULT_OPTIONS = {
-  scrollSymbolLeft: '‹',
-  scrollSymbolRight: '›'
-};
-
-
-/**
- * This component adds the functionality to scroll over a list of tabs.
- *
- * It adds scroll buttons on the left and right side of the tabs container
- * if not all tabs are visible. It also adds a mouse wheel listener on the
- * container.
- *
- * If either a button is clicked or the mouse wheel is used over the tabs,
- * a 'scroll' event is being fired. This event contains the node elements
- * of the new and old active tab, and the direction in which the tab has
- * changed relative to the old active tab.
- *
- * @example:
- * (1) provide a tabs-container:
- *
- * var $el = (
- *   <div>
- *     <!-- button added by scrollTabs -->
- *     <span class="scroll-tabs-button scroll-tabs-left"></span>
- *     <ul class="my-tabs-container">
- *       <li class="my-tab i-am-active"></li>
- *       <li class="my-tab"></li>
- *       <li class="my-tab ignore-me"></li>
- *     </ul>
- *     <!-- button added by scrollTabs -->
- *     <span class="scroll-tabs-button scroll-tabs-right"></span>
- *   </div>
- * );
- *
- *
- * (2) initialize scrollTabs:
- *
- *  var scroller = scrollTabs(tabBarNode, {
- *    selectors: {
- *      tabsContainer: '.my-tabs-container',
- *      tab: '.my-tab',
- *      ignore: '.ignore-me',
- *      active: '.i-am-active'
- *    }
- *  });
- *
- *
- * (3) listen to the scroll event:
- *
- * scroller.on('scroll', function(newActiveNode, oldActiveNode, direction) {
- *   // direction is any of (-1: left, 1: right)
- *   // activate the new active tab
- * });
- *
- *
- * (4) update the scroller if tabs change and or the tab container resizes:
- *
- * scroller.update();
- *
- *
- * @param  {DOMElement} el
- * @param  {Object} options
- * @param  {Object} options.selectors
- * @param  {String} options.selectors.tabsContainer the container all tabs are contained in
- * @param  {String} options.selectors.tab a single tab inside the tab container
- * @param  {String} options.selectors.ignore tabs that should be ignored during scroll left/right
- * @param  {String} options.selectors.active selector for the current active tab
- * @param  {String} [options.scrollSymbolLeft]
- * @param  {String} [options.scrollSymbolRight]
- */
-function ScrollTabs($el, options) {
-
-  // we are an event emitter
-  EventEmitter.call(this);
-
-  this.options = options = assign({}, DEFAULT_OPTIONS, options);
-  this.container = $el;
-
-  this._createScrollButtons($el, options);
-
-  this._bindEvents($el);
-}
-
-inherits(ScrollTabs, EventEmitter);
-
-
-/**
- * Create a clickable scroll button
- *
- * @param {Object} options
- * @param {String} options.className
- * @param {String} options.label
- * @param {Number} options.direction
- *
- * @return {DOMElement} The created scroll button node
- */
-ScrollTabs.prototype._createButton = function(parentNode, options) {
-
-  var className = options.className,
-      direction = options.direction;
-
-
-  var button = domQuery('.' + className, parentNode);
-
-  if (!button) {
-    button = domify('<span class="scroll-tabs-button ' + className + '">' +
-                                options.label +
-                              '</span>');
-
-    parentNode.insertBefore(button, parentNode.childNodes[0]);
-  }
-
-  domAttr(button, 'data-direction', direction);
-
-  return button;
-};
-
-/**
- * Create both scroll buttons
- *
- * @param  {DOMElement} parentNode
- * @param  {Object} options
- * @param  {String} options.scrollSymbolLeft
- * @param  {String} options.scrollSymbolRight
- */
-ScrollTabs.prototype._createScrollButtons = function(parentNode, options) {
-
-  // Create a button that scrolls to the tab left to the currently active tab
-  this._createButton(parentNode, {
-    className: 'scroll-tabs-left',
-    label: options.scrollSymbolLeft,
-    direction: -1
-  });
-
-  // Create a button that scrolls to the tab right to the currently active tab
-  this._createButton(parentNode, {
-    className: 'scroll-tabs-right',
-    label: options.scrollSymbolRight,
-    direction: 1
-  });
-};
-
-/**
- * Get the current active tab
- *
- * @return {DOMElement}
- */
-ScrollTabs.prototype.getActiveTabNode = function() {
-  return domQuery(this.options.selectors.active, this.container);
-};
-
-
-/**
- * Get the container all tabs are contained in
- *
- * @return {DOMElement}
- */
-ScrollTabs.prototype.getTabsContainerNode = function () {
-  return domQuery(this.options.selectors.tabsContainer, this.container);
-};
-
-
-/**
- * Get all tabs (visible and invisible ones)
- *
- * @return {Array<DOMElement>}
- */
-ScrollTabs.prototype.getAllTabNodes = function () {
-  return domQuery.all(this.options.selectors.tab, this.container);
-};
-
-
-/**
- * Gets all tabs that don't have the ignore class set
- *
- * @return {Array<DOMElement>}
- */
-ScrollTabs.prototype.getVisibleTabs = function() {
-  var allTabs = this.getAllTabNodes();
-
-  var ignore = this.options.selectors.ignore;
-
-  return filter(allTabs, function(tabNode) {
-    return !domMatches(tabNode, ignore);
-  });
-};
-
-
-/**
- * Get a tab relative to a reference tab.
- *
- * @param  {DOMElement} referenceTabNode
- * @param  {Number} n gets the nth tab next or previous to the reference tab
- *
- * @return {DOMElement}
- *
- * @example:
- * Visible tabs: [ A | B | C | D | E ]
- * Assume tab 'C' is the reference tab:
- * If direction === -1, it returns tab 'B',
- * if direction ===  2, it returns tab 'E'
- */
-ScrollTabs.prototype.getAdjacentTab = function(referenceTabNode, n) {
-  var visibleTabs = this.getVisibleTabs();
-
-  var index = visibleTabs.indexOf(referenceTabNode);
-
-  return visibleTabs[index + n];
-};
-
-ScrollTabs.prototype._bindEvents = function(node) {
-  this._bindWheelEvent(node);
-  this._bindTabClickEvents(node);
-  this._bindScrollButtonEvents(node);
-};
-
-/**
- *  Bind a click listener to a DOM node.
- *  Make sure a tab link is entirely visible after onClick.
- *
- * @param {DOMElement} node
- */
-ScrollTabs.prototype._bindTabClickEvents = function(node) {
-  var selector = this.options.selectors.tab;
-
-  var self = this;
-
-  domDelegate.bind(node, selector, 'click', function onClick(event) {
-    self.scrollToTabNode(event.delegateTarget);
-  });
-};
-
-
-/**
- * Bind the wheel event listener to a DOM node
- *
- * @param {DOMElement} node
- */
-ScrollTabs.prototype._bindWheelEvent = function(node) {
-  var self = this;
-
-  domEvent.bind(node, 'wheel', function(e) {
-
-    // scroll direction (-1: left, 1: right)
-    var direction = Math.sign(e.deltaY);
-
-    var oldActiveTab = self.getActiveTabNode();
-
-    var newActiveTab = self.getAdjacentTab(oldActiveTab, direction);
-
-    if (newActiveTab) {
-      self.scrollToTabNode(newActiveTab);
-      self.emit('scroll', newActiveTab, oldActiveTab, direction);
-    }
-
-    e.preventDefault();
-  });
-};
-
-/**
- * Bind scroll button events to a DOM node
- *
- * @param  {DOMElement} node
- */
-ScrollTabs.prototype._bindScrollButtonEvents = function(node) {
-
-  var self = this;
-
-  domDelegate.bind(node, '.scroll-tabs-button', 'click', function(event) {
-
-    var target = event.delegateTarget;
-
-    // data-direction is either -1 or 1
-    var direction = parseInt(domAttr(target, 'data-direction'), 10);
-
-    var oldActiveTabNode = self.getActiveTabNode();
-
-    var newActiveTabNode = self.getAdjacentTab(oldActiveTabNode, direction);
-
-    if (newActiveTabNode) {
-      self.scrollToTabNode(newActiveTabNode);
-      self.emit('scroll', newActiveTabNode, oldActiveTabNode, direction);
-    }
-
-    event.preventDefault();
-  });
-};
-
-
-/**
-* Scroll to a tab if it is not entirely visible
-*
-* @param  {DOMElement} tabNode tab node to scroll to
-*/
-ScrollTabs.prototype.scrollToTabNode = function(tabNode) {
-  if (!tabNode) {
-    return;
-  }
-
-  var tabsContainerNode = tabNode.parentNode;
-
-  var tabWidth = tabNode.offsetWidth,
-      tabOffsetLeft = tabNode.offsetLeft,
-      tabOffsetRight = tabOffsetLeft + tabWidth,
-      containerWidth = tabsContainerNode.offsetWidth,
-      containerScrollLeft = tabsContainerNode.scrollLeft;
-
-  if (containerScrollLeft > tabOffsetLeft) {
-    // scroll to the left, if the tab is overflowing on the left side
-    tabsContainerNode.scrollLeft = 0;
-  } else if (tabOffsetRight > containerWidth) {
-    // scroll to the right, if the tab is overflowing on the right side
-    tabsContainerNode.scrollLeft = tabOffsetRight - containerWidth;
-  }
-};
-
-
-/**
- * React on tab changes from outside (resize/show/hide/add/remove),
- * update scroll button visibility.
- */
-ScrollTabs.prototype.update = function() {
-
-  var tabsContainerNode = this.getTabsContainerNode();
-
-  // check if tabs fit in container
-  var overflow = tabsContainerNode.scrollWidth > tabsContainerNode.offsetWidth;
-
-  // TODO(nikku): distinguish overflow left / overflow right?
-  var overflowClass = 'scroll-tabs-overflow';
-
-  domClasses(this.container).toggle(overflowClass, overflow);
-
-  if (overflow) {
-    // make sure the current active tab is always visible
-    this.scrollToTabNode(this.getActiveTabNode());
-  }
-};
-
-
-////// module exports /////////////////////////////////////////
-
-/**
- * Create a scrollTabs instance on the given element.
- *
- * @param {DOMElement} $el
- * @param {Object} options
- *
- * @return {ScrollTabs}
- */
-function create($el, options) {
-
-  var scrollTabs = get($el);
-
-  if (!scrollTabs) {
-    scrollTabs = new ScrollTabs($el, options);
-
-    $el.__scrollTabs = scrollTabs;
-  }
-
-  return scrollTabs;
-}
-
-/**
- * Factory function to get or create a new scroll tabs instance.
- */
-module.exports = create;
-
-
-/**
- * Return the scrollTabs instance that has been previously
- * initialized on the element.
- *
- * @param {DOMElement} $el
- * @return {ScrollTabs}
- */
-function get($el) {
-  return $el.__scrollTabs;
-}
-
-/**
- * Getter to retrieve an already initialized scroll tabs instance.
- */
-module.exports.get = get;
-},{"./node_modules/events/events.js":672,"inherits":673,"lodash/collection/filter":675,"lodash/object/assign":723,"min-dom/lib/attr":729,"min-dom/lib/classes":730,"min-dom/lib/delegate":731,"min-dom/lib/domify":732,"min-dom/lib/event":733,"min-dom/lib/matches":734,"min-dom/lib/query":735}],672:[function(require,module,exports){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-function EventEmitter() {
-  this._events = this._events || {};
-  this._maxListeners = this._maxListeners || undefined;
-}
-module.exports = EventEmitter;
-
-// Backwards-compat with node 0.10.x
-EventEmitter.EventEmitter = EventEmitter;
-
-EventEmitter.prototype._events = undefined;
-EventEmitter.prototype._maxListeners = undefined;
-
-// By default EventEmitters will print a warning if more than 10 listeners are
-// added to it. This is a useful default which helps finding memory leaks.
-EventEmitter.defaultMaxListeners = 10;
-
-// Obviously not all Emitters should be limited to 10. This function allows
-// that to be increased. Set to zero for unlimited.
-EventEmitter.prototype.setMaxListeners = function(n) {
-  if (!isNumber(n) || n < 0 || isNaN(n))
-    throw TypeError('n must be a positive number');
-  this._maxListeners = n;
-  return this;
-};
-
-EventEmitter.prototype.emit = function(type) {
-  var er, handler, len, args, i, listeners;
-
-  if (!this._events)
-    this._events = {};
-
-  // If there is no 'error' event listener then throw.
-  if (type === 'error') {
-    if (!this._events.error ||
-        (isObject(this._events.error) && !this._events.error.length)) {
-      er = arguments[1];
-      if (er instanceof Error) {
-        throw er; // Unhandled 'error' event
-      }
-      throw TypeError('Uncaught, unspecified "error" event.');
-    }
-  }
-
-  handler = this._events[type];
-
-  if (isUndefined(handler))
-    return false;
-
-  if (isFunction(handler)) {
-    switch (arguments.length) {
-      // fast cases
-      case 1:
-        handler.call(this);
-        break;
-      case 2:
-        handler.call(this, arguments[1]);
-        break;
-      case 3:
-        handler.call(this, arguments[1], arguments[2]);
-        break;
-      // slower
-      default:
-        args = Array.prototype.slice.call(arguments, 1);
-        handler.apply(this, args);
-    }
-  } else if (isObject(handler)) {
-    args = Array.prototype.slice.call(arguments, 1);
-    listeners = handler.slice();
-    len = listeners.length;
-    for (i = 0; i < len; i++)
-      listeners[i].apply(this, args);
-  }
-
-  return true;
-};
-
-EventEmitter.prototype.addListener = function(type, listener) {
-  var m;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events)
-    this._events = {};
-
-  // To avoid recursion in the case that type === "newListener"! Before
-  // adding it to the listeners, first emit "newListener".
-  if (this._events.newListener)
-    this.emit('newListener', type,
-              isFunction(listener.listener) ?
-              listener.listener : listener);
-
-  if (!this._events[type])
-    // Optimize the case of one listener. Don't need the extra array object.
-    this._events[type] = listener;
-  else if (isObject(this._events[type]))
-    // If we've already got an array, just append.
-    this._events[type].push(listener);
-  else
-    // Adding the second element, need to change to array.
-    this._events[type] = [this._events[type], listener];
-
-  // Check for listener leak
-  if (isObject(this._events[type]) && !this._events[type].warned) {
-    if (!isUndefined(this._maxListeners)) {
-      m = this._maxListeners;
-    } else {
-      m = EventEmitter.defaultMaxListeners;
-    }
-
-    if (m && m > 0 && this._events[type].length > m) {
-      this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length);
-      if (typeof console.trace === 'function') {
-        // not supported in IE 10
-        console.trace();
-      }
-    }
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-EventEmitter.prototype.once = function(type, listener) {
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  var fired = false;
-
-  function g() {
-    this.removeListener(type, g);
-
-    if (!fired) {
-      fired = true;
-      listener.apply(this, arguments);
-    }
-  }
-
-  g.listener = listener;
-  this.on(type, g);
-
-  return this;
-};
-
-// emits a 'removeListener' event iff the listener was removed
-EventEmitter.prototype.removeListener = function(type, listener) {
-  var list, position, length, i;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events || !this._events[type])
-    return this;
-
-  list = this._events[type];
-  length = list.length;
-  position = -1;
-
-  if (list === listener ||
-      (isFunction(list.listener) && list.listener === listener)) {
-    delete this._events[type];
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-
-  } else if (isObject(list)) {
-    for (i = length; i-- > 0;) {
-      if (list[i] === listener ||
-          (list[i].listener && list[i].listener === listener)) {
-        position = i;
-        break;
-      }
-    }
-
-    if (position < 0)
-      return this;
-
-    if (list.length === 1) {
-      list.length = 0;
-      delete this._events[type];
-    } else {
-      list.splice(position, 1);
-    }
-
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.removeAllListeners = function(type) {
-  var key, listeners;
-
-  if (!this._events)
-    return this;
-
-  // not listening for removeListener, no need to emit
-  if (!this._events.removeListener) {
-    if (arguments.length === 0)
-      this._events = {};
-    else if (this._events[type])
-      delete this._events[type];
-    return this;
-  }
-
-  // emit removeListener for all listeners on all events
-  if (arguments.length === 0) {
-    for (key in this._events) {
-      if (key === 'removeListener') continue;
-      this.removeAllListeners(key);
-    }
-    this.removeAllListeners('removeListener');
-    this._events = {};
-    return this;
-  }
-
-  listeners = this._events[type];
-
-  if (isFunction(listeners)) {
-    this.removeListener(type, listeners);
-  } else if (listeners) {
-    // LIFO order
-    while (listeners.length)
-      this.removeListener(type, listeners[listeners.length - 1]);
-  }
-  delete this._events[type];
-
-  return this;
-};
-
-EventEmitter.prototype.listeners = function(type) {
-  var ret;
-  if (!this._events || !this._events[type])
-    ret = [];
-  else if (isFunction(this._events[type]))
-    ret = [this._events[type]];
-  else
-    ret = this._events[type].slice();
-  return ret;
-};
-
-EventEmitter.prototype.listenerCount = function(type) {
-  if (this._events) {
-    var evlistener = this._events[type];
-
-    if (isFunction(evlistener))
-      return 1;
-    else if (evlistener)
-      return evlistener.length;
-  }
-  return 0;
-};
-
-EventEmitter.listenerCount = function(emitter, type) {
-  return emitter.listenerCount(type);
-};
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-
-},{}],673:[function(require,module,exports){
-arguments[4][278][0].apply(exports,arguments)
-},{"dup":278}],674:[function(require,module,exports){
-arguments[4][282][0].apply(exports,arguments)
-},{"dup":282}],675:[function(require,module,exports){
-arguments[4][289][0].apply(exports,arguments)
-},{"../internal/arrayFilter":677,"../internal/baseCallback":681,"../internal/baseFilter":684,"../lang/isArray":718,"dup":289}],676:[function(require,module,exports){
-arguments[4][303][0].apply(exports,arguments)
-},{"dup":303}],677:[function(require,module,exports){
-arguments[4][311][0].apply(exports,arguments)
-},{"dup":311}],678:[function(require,module,exports){
-arguments[4][315][0].apply(exports,arguments)
-},{"dup":315}],679:[function(require,module,exports){
-arguments[4][316][0].apply(exports,arguments)
-},{"../object/keys":724,"dup":316}],680:[function(require,module,exports){
-arguments[4][317][0].apply(exports,arguments)
-},{"../object/keys":724,"./baseCopy":682,"dup":317}],681:[function(require,module,exports){
-arguments[4][318][0].apply(exports,arguments)
-},{"../utility/identity":727,"../utility/property":728,"./baseMatches":691,"./baseMatchesProperty":692,"./bindCallback":697,"dup":318}],682:[function(require,module,exports){
-arguments[4][320][0].apply(exports,arguments)
-},{"dup":320}],683:[function(require,module,exports){
-arguments[4][324][0].apply(exports,arguments)
-},{"./baseForOwn":686,"./createBaseEach":699,"dup":324}],684:[function(require,module,exports){
-arguments[4][326][0].apply(exports,arguments)
-},{"./baseEach":683,"dup":326}],685:[function(require,module,exports){
-arguments[4][330][0].apply(exports,arguments)
-},{"./createBaseFor":700,"dup":330}],686:[function(require,module,exports){
-arguments[4][332][0].apply(exports,arguments)
-},{"../object/keys":724,"./baseFor":685,"dup":332}],687:[function(require,module,exports){
-arguments[4][333][0].apply(exports,arguments)
-},{"./toObject":715,"dup":333}],688:[function(require,module,exports){
-arguments[4][335][0].apply(exports,arguments)
-},{"../lang/isObject":721,"./baseIsEqualDeep":689,"./isObjectLike":712,"dup":335}],689:[function(require,module,exports){
-arguments[4][336][0].apply(exports,arguments)
-},{"../lang/isArray":718,"../lang/isTypedArray":722,"./equalArrays":701,"./equalByTag":702,"./equalObjects":703,"dup":336}],690:[function(require,module,exports){
-arguments[4][337][0].apply(exports,arguments)
-},{"./baseIsEqual":688,"./toObject":715,"dup":337}],691:[function(require,module,exports){
-arguments[4][340][0].apply(exports,arguments)
-},{"./baseIsMatch":690,"./getMatchData":705,"./toObject":715,"dup":340}],692:[function(require,module,exports){
-arguments[4][341][0].apply(exports,arguments)
-},{"../array/last":674,"../lang/isArray":718,"./baseGet":687,"./baseIsEqual":688,"./baseSlice":695,"./isKey":710,"./isStrictComparable":713,"./toObject":715,"./toPath":716,"dup":341}],693:[function(require,module,exports){
-arguments[4][344][0].apply(exports,arguments)
-},{"dup":344}],694:[function(require,module,exports){
-arguments[4][345][0].apply(exports,arguments)
-},{"./baseGet":687,"./toPath":716,"dup":345}],695:[function(require,module,exports){
-arguments[4][348][0].apply(exports,arguments)
-},{"dup":348}],696:[function(require,module,exports){
-arguments[4][351][0].apply(exports,arguments)
-},{"dup":351}],697:[function(require,module,exports){
-arguments[4][354][0].apply(exports,arguments)
-},{"../utility/identity":727,"dup":354}],698:[function(require,module,exports){
-arguments[4][361][0].apply(exports,arguments)
-},{"../function/restParam":676,"./bindCallback":697,"./isIterateeCall":709,"dup":361}],699:[function(require,module,exports){
-arguments[4][362][0].apply(exports,arguments)
-},{"./getLength":704,"./isLength":711,"./toObject":715,"dup":362}],700:[function(require,module,exports){
-arguments[4][363][0].apply(exports,arguments)
-},{"./toObject":715,"dup":363}],701:[function(require,module,exports){
-arguments[4][374][0].apply(exports,arguments)
-},{"./arraySome":678,"dup":374}],702:[function(require,module,exports){
-arguments[4][375][0].apply(exports,arguments)
-},{"dup":375}],703:[function(require,module,exports){
-arguments[4][376][0].apply(exports,arguments)
-},{"../object/keys":724,"dup":376}],704:[function(require,module,exports){
-arguments[4][379][0].apply(exports,arguments)
-},{"./baseProperty":693,"dup":379}],705:[function(require,module,exports){
-arguments[4][380][0].apply(exports,arguments)
-},{"../object/pairs":726,"./isStrictComparable":713,"dup":380}],706:[function(require,module,exports){
-arguments[4][381][0].apply(exports,arguments)
-},{"../lang/isNative":720,"dup":381}],707:[function(require,module,exports){
-arguments[4][383][0].apply(exports,arguments)
-},{"./getLength":704,"./isLength":711,"dup":383}],708:[function(require,module,exports){
-arguments[4][384][0].apply(exports,arguments)
-},{"dup":384}],709:[function(require,module,exports){
-arguments[4][385][0].apply(exports,arguments)
-},{"../lang/isObject":721,"./isArrayLike":707,"./isIndex":708,"dup":385}],710:[function(require,module,exports){
-arguments[4][386][0].apply(exports,arguments)
-},{"../lang/isArray":718,"./toObject":715,"dup":386}],711:[function(require,module,exports){
-arguments[4][388][0].apply(exports,arguments)
-},{"dup":388}],712:[function(require,module,exports){
-arguments[4][389][0].apply(exports,arguments)
-},{"dup":389}],713:[function(require,module,exports){
-arguments[4][390][0].apply(exports,arguments)
-},{"../lang/isObject":721,"dup":390}],714:[function(require,module,exports){
-arguments[4][399][0].apply(exports,arguments)
-},{"../lang/isArguments":717,"../lang/isArray":718,"../object/keysIn":725,"./isIndex":708,"./isLength":711,"dup":399}],715:[function(require,module,exports){
-arguments[4][401][0].apply(exports,arguments)
-},{"../lang/isObject":721,"dup":401}],716:[function(require,module,exports){
-arguments[4][402][0].apply(exports,arguments)
-},{"../lang/isArray":718,"./baseToString":696,"dup":402}],717:[function(require,module,exports){
-arguments[4][404][0].apply(exports,arguments)
-},{"../internal/isArrayLike":707,"../internal/isObjectLike":712,"dup":404}],718:[function(require,module,exports){
-arguments[4][405][0].apply(exports,arguments)
-},{"../internal/getNative":706,"../internal/isLength":711,"../internal/isObjectLike":712,"dup":405}],719:[function(require,module,exports){
-arguments[4][406][0].apply(exports,arguments)
-},{"./isObject":721,"dup":406}],720:[function(require,module,exports){
-arguments[4][407][0].apply(exports,arguments)
-},{"../internal/isObjectLike":712,"./isFunction":719,"dup":407}],721:[function(require,module,exports){
-arguments[4][409][0].apply(exports,arguments)
-},{"dup":409}],722:[function(require,module,exports){
-arguments[4][412][0].apply(exports,arguments)
-},{"../internal/isLength":711,"../internal/isObjectLike":712,"dup":412}],723:[function(require,module,exports){
-arguments[4][414][0].apply(exports,arguments)
-},{"../internal/assignWith":679,"../internal/baseAssign":680,"../internal/createAssigner":698,"dup":414}],724:[function(require,module,exports){
-arguments[4][415][0].apply(exports,arguments)
-},{"../internal/getNative":706,"../internal/isArrayLike":707,"../internal/shimKeys":714,"../lang/isObject":721,"dup":415}],725:[function(require,module,exports){
-arguments[4][416][0].apply(exports,arguments)
-},{"../internal/isIndex":708,"../internal/isLength":711,"../lang/isArguments":717,"../lang/isArray":718,"../lang/isObject":721,"dup":416}],726:[function(require,module,exports){
-arguments[4][419][0].apply(exports,arguments)
-},{"../internal/toObject":715,"./keys":724,"dup":419}],727:[function(require,module,exports){
-arguments[4][423][0].apply(exports,arguments)
-},{"dup":423}],728:[function(require,module,exports){
-arguments[4][425][0].apply(exports,arguments)
-},{"../internal/baseProperty":693,"../internal/basePropertyDeep":694,"../internal/isKey":710,"dup":425}],729:[function(require,module,exports){
-arguments[4][255][0].apply(exports,arguments)
-},{"dup":255}],730:[function(require,module,exports){
-arguments[4][256][0].apply(exports,arguments)
-},{"component-classes":736,"dup":256}],731:[function(require,module,exports){
-arguments[4][100][0].apply(exports,arguments)
-},{"component-delegate":739,"dup":100}],732:[function(require,module,exports){
-arguments[4][101][0].apply(exports,arguments)
-},{"domify":743,"dup":101}],733:[function(require,module,exports){
-arguments[4][102][0].apply(exports,arguments)
-},{"component-event":740,"dup":102}],734:[function(require,module,exports){
-arguments[4][262][0].apply(exports,arguments)
-},{"component-matches-selector":741,"dup":262}],735:[function(require,module,exports){
-arguments[4][103][0].apply(exports,arguments)
-},{"component-query":742,"dup":103}],736:[function(require,module,exports){
-arguments[4][265][0].apply(exports,arguments)
-},{"component-indexof":737,"dup":265,"indexof":737}],737:[function(require,module,exports){
-arguments[4][266][0].apply(exports,arguments)
-},{"dup":266}],738:[function(require,module,exports){
-arguments[4][105][0].apply(exports,arguments)
-},{"dup":105,"matches-selector":741}],739:[function(require,module,exports){
-arguments[4][106][0].apply(exports,arguments)
-},{"closest":738,"component-closest":738,"component-event":740,"dup":106,"event":740}],740:[function(require,module,exports){
-arguments[4][107][0].apply(exports,arguments)
-},{"dup":107}],741:[function(require,module,exports){
-arguments[4][108][0].apply(exports,arguments)
-},{"component-query":742,"dup":108,"query":742}],742:[function(require,module,exports){
-arguments[4][109][0].apply(exports,arguments)
-},{"dup":109}],743:[function(require,module,exports){
-arguments[4][110][0].apply(exports,arguments)
-},{"dup":110}],744:[function(require,module,exports){
-'use strict';
-
-/**
- * Calculate the selection update for the given
- * current and new input values.
- *
- * @param {Object} currentSelection as {start, end}
- * @param {String} currentValue
- * @param {String} newValue
- *
- * @return {Object} newSelection as {start, end}
- */
-function calculateUpdate(currentSelection, currentValue, newValue) {
-
-  var currentCursor = currentSelection.start,
-      newCursor = currentCursor,
-      diff = newValue.length - currentValue.length,
-      idx;
-
-  var lengthDelta = newValue.length - currentValue.length;
-
-  var currentTail = currentValue.substring(currentCursor);
-
-  // check if we can remove common ending from the equation
-  // to be able to properly detect a selection change for
-  // the following scenarios:
-  //
-  //  * (AAATTT|TF) => (AAAT|TF)
-  //  * (AAAT|TF) =>  (AAATTT|TF)
-  //
-  if (newValue.lastIndexOf(currentTail) === newValue.length - currentTail.length) {
-    currentValue = currentValue.substring(0, currentValue.length - currentTail.length);
-    newValue = newValue.substring(0, newValue.length - currentTail.length);
-  }
-
-  // diff
-  var diff = createDiff(currentValue, newValue);
-
-  if (diff) {
-    if (diff.type === 'remove') {
-      newCursor = diff.newStart;
-    } else {
-      newCursor = diff.newEnd;
-    }
-  }
-
-  return range(newCursor);
-}
-
-module.exports = calculateUpdate;
-
-
-function createDiff(currentValue, newValue) {
-
-  var insert;
-
-  var l_str, l_char, l_idx = 0,
-      s_str, s_char, s_idx = 0;
-
-  if (newValue.length > currentValue.length) {
-    l_str = newValue;
-    s_str = currentValue;
-  } else {
-    l_str = currentValue;
-    s_str = newValue;
-  }
-
-  // assume there will be only one insert / remove and
-  // detect that _first_ edit operation only
-  while (l_idx < l_str.length) {
-
-    l_char = l_str.charAt(l_idx);
-    s_char = s_str.charAt(s_idx);
-
-    // chars no not equal
-    if (l_char !== s_char) {
-
-      if (!insert) {
-        insert = {
-          l_start: l_idx,
-          s_start: s_idx
-        };
-      }
-
-      l_idx++;
-    }
-
-    // chars equal (again?)
-    else {
-
-      if (insert && !insert.complete) {
-        insert.l_end = l_idx;
-        insert.s_end = s_idx;
-        insert.complete = true;
-      }
-
-      s_idx++;
-      l_idx++;
-    }
-  }
-
-  if (insert && !insert.complete) {
-    insert.complete = true;
-    insert.s_end = s_str.length;
-    insert.l_end = l_str.length;
-  }
-
-  // no diff
-  if (!insert) {
-    return;
-  }
-
-  if (newValue.length > currentValue.length) {
-    return {
-      newStart: insert.l_start,
-      newEnd: insert.l_end,
-      type: 'add'
-    };
-  } else {
-    return {
-      newStart: insert.s_start,
-      newEnd: insert.s_end,
-      type: newValue.length < currentValue.length ? 'remove' : 'replace'
-    };
-  }
-}
-
-/**
- * Utility method for creating a new selection range {start, end} object.
- *
- * @param {Number} start
- * @param {Number} [end]
- *
- * @return {Object} selection range as {start, end}
- */
-function range(start, end) {
-  return {
-    start: start,
-    end: end === undefined ? start : end
-  };
-}
-
-module.exports.range = range;
-
-
-function splitStr(str, position) {
-  return {
-    before: str.substring(0, position),
-    after: str.substring(position)
-  };
-}
-},{}]},{},[1]);
+},{"../internal/baseProperty":422,"../internal/basePropertyDeep":423,"../internal/isKey":464}]},{},[1]);
