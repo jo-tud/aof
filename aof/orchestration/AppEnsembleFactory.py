@@ -266,18 +266,24 @@ class GraphFactory():
             self.g.add((node,RDF.type, URIRef(BPMN2+gateway.localName)))
             children=gateway.getElementsByTagName('*')
             for child in children:
-                self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
+                try:
+                    self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
+                except:
+                    pass
 
     def _addSequenceFlowInstances(self):
         regex=re.compile("^(.*sequenceFlow.*)$")
         sfs=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
 
         for sf in sfs:
-            node=URIRef('ae:'+sf._attrs['id'].nodeValue)
-            self.g.add((node,BPMN2.id, Literal(sf._attrs['id'].nodeValue) ))
-            self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
-            self.g.add((node,BPMN2.sourceRef, URIRef('ae:'+sf._attrs['sourceRef'].nodeValue) ))
-            self.g.add((node,BPMN2.targetRef, URIRef('ae:'+sf._attrs['targetRef'].nodeValue) ))
+            try:
+                node=URIRef('ae:'+sf._attrs['id'].nodeValue)
+                self.g.add((node,BPMN2.id, Literal(sf._attrs['id'].nodeValue) ))
+                self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
+                self.g.add((node,BPMN2.sourceRef, URIRef('ae:'+sf._attrs['sourceRef'].nodeValue) ))
+                self.g.add((node,BPMN2.targetRef, URIRef('ae:'+sf._attrs['targetRef'].nodeValue) ))
+            except:
+                pass
 
     def _addEventInstances(self):
         regex=re.compile("^(.*(E|e)vent.*)$")
@@ -289,7 +295,10 @@ class GraphFactory():
             self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
             children=sf.getElementsByTagName('*')
             for child in children:
-                self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
+                try:
+                    self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
+                except:
+                    pass
 
     def create(self):
 
