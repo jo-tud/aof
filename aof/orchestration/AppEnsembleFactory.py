@@ -261,10 +261,13 @@ class GraphFactory():
         gateways=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
 
         for gateway in gateways:
-            node=URIRef('ae:'+gateway._attrs['id'].nodeValue)
-            self.g.add((node,BPMN2.id, Literal(gateway._attrs['id'].nodeValue) ))
-            self.g.add((node,RDF.type, URIRef(BPMN2+gateway.localName)))
-            children=gateway.getElementsByTagName('*')
+            try:
+                node=URIRef('ae:'+gateway._attrs['id'].nodeValue)
+                self.g.add((node,BPMN2.id, Literal(gateway._attrs['id'].nodeValue) ))
+                self.g.add((node,RDF.type, URIRef(BPMN2+gateway.localName)))
+                children=gateway.getElementsByTagName('*')
+            except:
+                pass
             for child in children:
                 try:
                     self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
@@ -290,10 +293,13 @@ class GraphFactory():
         sfs=[el for el in self.elements for m in [regex.search(el.nodeName)] if m]
 
         for sf in sfs:
-            node=URIRef('ae:'+sf._attrs['id'].nodeValue)
-            self.g.add((node,BPMN2.id, Literal(sf._attrs['id'].nodeValue) ))
-            self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
-            children=sf.getElementsByTagName('*')
+            try:
+                node=URIRef('ae:'+sf._attrs['id'].nodeValue)
+                self.g.add((node,BPMN2.id, Literal(sf._attrs['id'].nodeValue) ))
+                self.g.add((node,RDF.type, URIRef(BPMN2+sf.localName)))
+                children=sf.getElementsByTagName('*')
+            except:
+                pass
             for child in children:
                 try:
                     self.g.add((node,URIRef(BPMN2+child.localName), URIRef("ae:"+child.firstChild.nodeValue) ))
