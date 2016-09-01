@@ -1116,13 +1116,11 @@ ReplaceMenuProvider.prototype.getEntries = function(element) {
         return (entry.target.type=="bpmn:ManualTask" || entry.target.type=="bpmn:UserTask");
       })
     }
-    /* Don't exclude UserTasks from normal business processes*/
-    /*else{
+    else{
       entries=filter(entries,function(entry){
-        return (entry.target.type!="bpmn:UserTask");
+        return (entry.target.type!="bpmn:NonExistingTask");
       });
-    }*/
-
+    }
     /* EDIT END */
 
     return this._createEntries(element, entries);
