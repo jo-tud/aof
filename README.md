@@ -2,7 +2,7 @@
 
 To install do the following:
 
-    git checkout https://github.com/plt-tud/aof.git
+    git checkout https://github.com/jo-tud/aof.git
 
 If you want to use a virtualenv activate it now.
 
